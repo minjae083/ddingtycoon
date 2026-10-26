@@ -1,6 +1,6 @@
 'use strict';
 
-const STORE_KEY = 'dding-simulator-v9-clean-ui';
+const STORE_KEY = 'dding-simulator-v14-defaults';
 let materialsMode = 'unit';
 const STAMINA_BUDGET = 1000;
 const $ = id => document.getElementById(id);
@@ -78,9 +78,9 @@ const BASE_RECIPES = {
   '토마토 베이스': { output: 1, inputs: { '토마토': 8 } },
   '마늘 베이스': { output: 1, inputs: { '마늘': 8 } },
 
-  '코룸 주괴': { output: 1, inputs: { '코룸': 16, '강화 횃불': 2 } },
-  '리프톤 주괴': { output: 1, inputs: { '리프톤': 16, '강화 횃불': 4 } },
-  '세렌트 주괴': { output: 1, inputs: { '세렌트': 16, '강화 횃불': 8 } },
+  '코룸 주괴': { output: 1, inputs: { '코룸': 12, '강화 횃불': 2 } },
+  '리프톤 주괴': { output: 1, inputs: { '리프톤': 12, '강화 횃불': 4 } },
+  '세렌트 주괴': { output: 1, inputs: { '세렌트': 12, '강화 횃불': 8 } },
   '조약돌 뭉치': { output: 1, inputs: { '조약돌': 64 } },
   '심층암 조약돌 뭉치': { output: 1, inputs: { '심층암 조약돌': 64 } },
   '어빌리티 스톤': { output: 1, inputs: { '코룸 주괴': 1, '리프톤 주괴': 1, '세렌트 주괴': 1 } },
@@ -127,15 +127,15 @@ const GOLDEN_COOKING = {
 
 const USER_SHOP = {
   '코룸': { rank: '광물', price: 0 },
-  '코룸 주괴': { rank: '가공 광물', price: 8900 },
+  '코룸 주괴': { rank: '가공 광물', price: 8000 },
   '리프톤': { rank: '광물', price: 0 },
   '리프톤 주괴': { rank: '가공 광물', price: 8900 },
   '세렌트': { rank: '광물', price: 0 },
-  '세렌트 주괴': { rank: '가공 광물', price: 8000 },
-  '어빌리티 스톤': { rank: '강화석', price: 25000 },
-  '하급 라이프스톤': { rank: '강화석', price: 14499 },
-  '중급 라이프스톤': { rank: '강화석', price: 44900 },
-  '상급 라이프스톤': { rank: '강화석', price: 83000 },
+  '세렌트 주괴': { rank: '가공 광물', price: 7465 },
+  '어빌리티 스톤': { rank: '강화석', price: 25400 },
+  '하급 라이프스톤': { rank: '강화석', price: 14800 },
+  '중급 라이프스톤': { rank: '강화석', price: 42000 },
+  '상급 라이프스톤': { rank: '강화석', price: 81900 },
 };
 
 const SALE_ITEMS = {};
@@ -243,6 +243,8 @@ function collectBaseMaterials(name, qty = 1, stack = []){
   if (qty === 0) return {};
   if (PURCHASE_PRICES[name] !== undefined) return { [name]: qty };
   if (name === '금 가루') return { '금 가루': qty };
+  // 재료 화면에는 원광이 아닌 주괴 단위로 표시. 채굴 ST 계산은 아래 제작식(원광 12개/주괴) 사용.
+  if (stack.length > 0 && ['코룸 주괴','리프톤 주괴','세렌트 주괴'].includes(name)) return { [name]: qty };
   if (stack.includes(name)) return { [name]: qty };
   const recipe = RECIPES[name];
   if (!recipe) return { [name]: qty };
@@ -296,6 +298,13 @@ function computeRows(){
 // 재료는 실제 인벤토리에 준비할 수 있는 정수 개수로 표시한다.
 // 확률/평균 생산량에 의해 소수로 계산된 수량은 모자라지 않게 올림한다.
 // 황금 요리의 금 가루는 묶음 제작 시 필요한 총량을 기준으로 올림한다.
+let stackView = false;
+function formatMaterialQty(n) {
+  const count = Math.ceil(n - 1e-9);
+  if (!stackView || count < 64) return fmt(count);
+  const sets = Math.floor(count / 64), rest = count % 64;
+  return fmt(sets) + 'set' + (rest ? ' + ' + fmt(rest) : '');
+}
 function materialChips(materials){
   const entries = Object.entries(materials).filter(([,v]) => Number.isFinite(v) && v > 0);
   if (!entries.length) return '<span class="muted">재료 없음</span>';
@@ -307,7 +316,7 @@ function materialChips(materials){
     <div class="mat-chip" title="${esc(name)} ${fmt(whole)}개${esc(note)}">
       <span class="mat-icon">${chipIcon(name)}</span>
       <span class="mat-name">${esc(name)}</span>
-      <span class="mat-qty">${fmt(whole)}</span>
+      <span class="mat-qty">${formatMaterialQty(whole)}</span>
     </div>`;
   }).join('');
 }
@@ -410,6 +419,14 @@ function bindEvents(){
     remember(); renderResults(); renderQuick(); renderPlanner();
   });
   ['unit','thousand'].forEach(mode => $('mode-'+mode).addEventListener('click', () => { materialsMode = mode; document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.toggle('active',btn.dataset.mode === mode)); renderResults(); }));
+  $('stack-toggle').addEventListener('click', () => {
+    stackView = !stackView;
+    const btn = $('stack-toggle');
+    btn.classList.toggle('active', stackView);
+    btn.setAttribute('aria-pressed', String(stackView));
+    btn.textContent = stackView ? '64묶음 ON' : '+64 묶음 보기';
+    renderResults(); renderQuick(); renderPlanner();
+  });
   $('planner-item').addEventListener('change', renderPlanner);
   $('planner-count').addEventListener('input', renderPlanner);
   document.querySelectorAll('.side-nav a').forEach(link => link.addEventListener('click', () => { document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active')); link.classList.add('active'); }));
@@ -439,7 +456,7 @@ function renderPlanner(){
  const name=$('planner-item').value; const count=Math.max(1,Math.floor(Number($('planner-count').value)||1));
  const row=computeRows().find(r=>r.name===name);if(!row)return;
  const mats=collectBaseMaterials(name,count);
- $('planner-result').innerHTML=`<div class="planner-stats"><div><span>제작 목표</span><strong>${fmt(count)}개</strong></div><div><span>평균 필요 ST</span><strong>${fmt(row.unitStamina*count,2)} ST</strong></div><div><span>예상 순수익</span><strong>${fmt(row.unitProfit*count,2)} G</strong></div></div><h4>전체 필요한 원재료</h4><div class="materials-wrap">${materialChips(mats)}</div><p class="footer-note">평균 확률과 기존 제작식을 이용한 이론적 환산이며 실제 채집 횟수와 다를 수 있습니다.</p>`;
+ $('planner-result').innerHTML=`<div class="planner-stats"><div><span>제작 목표</span><strong>${fmt(count)}개</strong></div><div><span>평균 필요 ST</span><strong>${fmt(row.unitStamina*count,2)} ST</strong></div><div><span>예상 순수익</span><strong>${fmt(row.unitProfit*count,2)} G</strong></div></div><h4>전체 필요한 원재료</h4><div class="materials-wrap">${materialChips(mats)}</div><p class="footer-note">우라라 야하! rrrrrrrrrrrrrrrrrrrrrrrrr.</p>`;
 }
 
 document.addEventListener('DOMContentLoaded', init);

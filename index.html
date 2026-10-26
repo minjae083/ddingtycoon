@@ -118,12 +118,18 @@ html,body{width:100%;overflow-x:hidden}
 }
 @media(max-width:440px){.quick-grid{grid-template-columns:1fr}.results-table td::before{flex-basis:96px}}
 
+
+#stack-toggle{margin-left:6px;border-color:#dcb76f;color:#f3d99f;transition:background .15s,border-color .15s,transform .15s}
+#stack-toggle:hover{transform:translateY(-1px)}
+#stack-toggle.active{background:#80602b;color:#fff2cc;border-color:#e3bb6a}
+.mat-qty{white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:780px){.materials-mode{gap:7px}.mode-btn{font-size:12px;padding:8px 9px}}
 </style>
 </head>
 <body>
 <header class="header">
   <div class="header-inner">
-    <div class="brand"><div class="brand-logo">⚔</div><div>띵타이쿤 계산기</div></div>
+    <div class="brand"><div class="brand-logo">⚔</div><div>띵타이쿤 모험가 계산기</div></div>
     <div class="top-search">⌕ <input id="header-search" aria-label="전체 아이템 검색" placeholder="아이템 검색 · Enter로 이동"></div>
   </div>
 </header>
@@ -142,11 +148,11 @@ html,body{width:100%;overflow-x:hidden}
       <div class="hero-banner">
         <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
         <h1>1000 스테미나<br>효율 계산기</h1>
-        <p>요리, 황금 요리, 유저상점 아이템을 1,000 스테미나 기준으로 얼마나 효율적으로 만들고 판매할 수 있는지 한눈에 비교합니다.</p>
+        <p>요리, 황금 요리, 유저상점 아이템을 1,000 스테미나 기준으로 정리.</p>
       </div>
       <div class="hero-bottom section-head">
         <h2>아이템 효율 비교</h2>
-        <p> 1,000 ST 기준</p>
+        <p>1000ST기준.</p>
       </div>
     </section>
 
@@ -165,7 +171,7 @@ html,body{width:100%;overflow-x:hidden}
 
     <section class="card" id="table">
       <div class="card-title"><h3>⚔ 효율 순위</h3><span class="subtext" id="row-count">0개 아이템</span></div>
-      <div class="materials-mode"><span>재료 개수 표시</span><button type="button" class="mode-btn active" data-mode="unit" id="mode-unit">1개 제작 기준</button><button type="button" class="mode-btn" data-mode="thousand" id="mode-thousand">1,000 ST 기준</button></div>
+      <div class="materials-mode"><span>재료 개수 표시</span><button type="button" class="mode-btn active" data-mode="unit" id="mode-unit">1개 제작 기준</button><button type="button" class="mode-btn" data-mode="thousand" id="mode-thousand">1,000 ST 기준</button><button type="button" class="mode-btn" id="stack-toggle" aria-pressed="false" title="재료를 64개 묶음으로 보기">+64 묶음 보기</button></div>
       <div class="toolbar">
         <div>
           <label class="label" for="filter">아이템 종류</label>
@@ -196,7 +202,7 @@ html,body{width:100%;overflow-x:hidden}
           <tbody id="result-table"></tbody>
         </table>
       </div>
-      <p class="footer-note" style="margin-top:12px">난 부자가 될것이야. 으하하하하.</p>
+      <p class="footer-note" style="margin-top:12px">부자가 되겠습니다.</p>
     </section>
 
     <section class="card" id="planner">
@@ -206,7 +212,7 @@ html,body{width:100%;overflow-x:hidden}
     </section>
     <section class="card" id="settings">
       <div class="card-title"><h3>추가 설정</h3><span class="subtext">필요할 때만 펼쳐서 쓰면 됩니다</span></div>
-      <div class="settings-note">부과 설정들</div>
+      <div class="settings-note">모몽가 모몽가 모몽가 모몽가 모몽가.</div>
 
       <details>
         <summary>세이지 괭이·곡괭이 설정</summary>
