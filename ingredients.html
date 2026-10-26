@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>띵타이쿤 요리 레시피 도감 · v19</title>
+<style>
+:root{--background:#101725;--panel:#202d43;--panel2:#192638;--panel3:#24364e;--line:#425772;--gold:#f5cf83;--white:#f5f0e6;--dim:#b8c8e0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif;color:var(--white);background:radial-gradient(ellipse at 70% -5%,#263e60,#131d2d 52%,#101725)}
+a{color:inherit;text-decoration:none}button,input{font:inherit}button:focus-visible,input:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:3px solid #f2c66d;outline-offset:3px}
+.top{position:sticky;top:0;z-index:40;background:#162338ee;backdrop-filter:blur(12px);border-bottom:1px solid #9a7948;box-shadow:0 6px 25px #050b14a0}
+.top-inner{max-width:1450px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.top-logo{font-size:19px;font-weight:900;color:#fff2cf;display:flex;align-items:center;gap:10px}.top-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;border:1px solid #a9824e;background:#4a3625}
+.link{display:inline-flex;align-items:center;border:1px solid #aa8a59;border-radius:12px;padding:10px 16px;background:#35425a;color:#ffefce;font-size:14px;font-weight:800;transition:filter .15s,transform .15s}.link:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.wrap{max-width:1450px;margin:0 auto;padding:24px 18px 55px;display:grid;gap:20px}.hero,.panel{background:linear-gradient(130deg,#213249,#1b2a40);border:1px solid #4d6480;border-radius:22px;box-shadow:0 15px 38px #070d18aa}
+.hero{background:linear-gradient(125deg,#63462b,#2a3d59 73%);padding:30px 32px}.hero h1{font-size:clamp(27px,3vw,42px);margin:0 0 10px;color:#ffe4a5}.hero p{margin:0;color:#f6e5cf;line-height:1.7}.summary{display:flex;flex-wrap:wrap;gap:10px;margin-top:17px}.summary span{background:#14233a88;border:1px solid #a2855c80;padding:9px 13px;border-radius:999px;font-size:13px;font-weight:750}
+.nav-anchors{display:flex;gap:9px;flex-wrap:wrap}.nav-anchors a{border:1px solid #526c8e;background:#263851;padding:10px 14px;border-radius:11px;font-weight:750;font-size:14px}.nav-anchors a:hover{border-color:#e7b965;background:#384c67}.nav-anchors .normal{color:#baf0ae}.nav-anchors .rare{color:#abd7ff}.nav-anchors .epic{color:#ffb7af}
+.panel{padding:23px;scroll-margin-top:96px}.rank-heading{display:flex;align-items:center;gap:22px;min-height:72px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #354c69}.rank-image{flex:0 0 230px;height:65px;border:1px solid #657b93;border-radius:15px;background:#152237;display:flex;align-items:center;justify-content:center}
+.rank-image img{width:192px;max-width:92%;height:auto;max-height:58px;object-fit:contain;image-rendering:pixelated}.rank-copy h2{font-size:24px;color:var(--gold);margin:0 0 5px}.rank-copy p{margin:0;color:var(--dim);font-size:13px;line-height:1.5}
+.recipes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:stretch}.recipe-card{min-width:0;background:var(--panel2);border:1px solid #4a6380;border-radius:17px;padding:18px;display:flex;flex-direction:column;gap:17px}.recipe-top{display:flex;gap:17px;align-items:center;min-height:116px}
+.dish-frame{display:grid;place-items:center;flex:0 0 116px;width:116px;height:116px;border-radius:18px;background:#f0ddcb;border:3px solid #97744b;box-shadow:0 0 0 4px #233247;position:relative;cursor:help}.dish-frame img{width:110px;height:110px;object-fit:contain;image-rendering:pixelated;border-radius:13px}
+.recipe-top h3{font-size:clamp(18px,1.8vw,23px);line-height:1.3;margin:7px 0 4px;word-break:keep-all;color:#fff0cf}.micro{font-size:12px;color:var(--dim)}.rank-mini{display:inline-flex;align-items:center;border:1px solid #8b7a56;background:#4b422c;color:#ffdc92;font-size:11px;padding:3px 9px;border-radius:999px;font-weight:800}.rank-노멀{color:#b7e9b1;background:#2d4b3e;border-color:#47866b}.rank-레어{color:#c6e5ff;background:#2a4768;border-color:#4e8aca}.rank-에픽{color:#ffc6b8;background:#5b333b;border-color:#ae5a57}
+.ingredients-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.ing-cell{min-width:0;position:relative;display:flex;align-items:center;gap:10px;padding:9px 11px;background:var(--panel3);border:1px solid #526982;border-radius:13px;min-height:68px;cursor:help;transition:border-color .15s,background .15s}.ing-cell:hover,.ing-cell:focus-visible{background:#314967;border-color:#cca76c;z-index:5}
+.ing-icon{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border-radius:11px;background:#1a2739;border:1px solid #566d87}.ing-icon img{width:46px;height:46px;object-fit:contain;image-rendering:pixelated}.ing-emoji{font-size:30px;line-height:1}.ing-label{flex:1;min-width:0;color:#edf2fa;font-size:13px;font-weight:750;line-height:1.36;word-break:keep-all;overflow-wrap:anywhere}.ing-qty{flex:0 0 auto;padding:4px 8px;background:#132136;border-radius:999px;color:#ffdda0;border:1px solid #6d7f95;font-size:12px;font-weight:900}
+[data-tip]::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 7px);transform:translate(-50%,4px);pointer-events:none;min-width:max-content;max-width:260px;white-space:normal;background:#0c1728;color:#fff4da;padding:9px 13px;border:1px solid #d4ac69;border-radius:9px;z-index:30;font-size:13px;font-weight:750;line-height:1.35;box-shadow:0 9px 20px #060c17aa;opacity:0;visibility:hidden;transition:opacity .12s,transform .12s}
+[data-tip]:hover::after,[data-tip]:focus-visible::after{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.section-title h2{margin:0 0 6px;color:var(--gold);font-size:22px}.section-title p{margin:0 0 18px;color:var(--dim);font-size:13px}.materials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:13px}.material-card{min-height:150px;position:relative;background:#1b2a3f;border:1px solid #506785;border-radius:16px;padding:16px;display:grid;justify-items:center;align-content:center;gap:11px;text-align:center;cursor:help}.material-card:hover{border-color:#dbb16c;background:#263e56}.material-art{display:grid;place-items:center;width:86px;height:86px;background:#23354d;border:1px solid #647e9a;border-radius:15px}.material-art img{width:78px;height:78px;image-rendering:pixelated}.material-card strong{font-size:14px}.footnote{font-size:12px;color:var(--dim);text-align:center}
+@media(max-width:1120px){.recipes-grid{grid-template-columns:1fr}.ing-label{font-size:14px}}
+@media(max-width:660px){.wrap{padding:13px 10px 35px;gap:13px}.hero,.panel{padding:15px;border-radius:16px}.top-inner{padding:10px 12px}.top-logo{font-size:15px}.hero h1{font-size:27px}.rank-heading{gap:12px;flex-wrap:wrap}.rank-image{flex-basis:155px;height:51px}.rank-image img{width:144px}.rank-copy h2{font-size:19px}.recipe-top{gap:13px;min-height:90px}.dish-frame{width:88px;height:88px;flex-basis:88px;border-radius:14px}.dish-frame img{width:82px;height:82px}.ingredients-grid{grid-template-columns:1fr}.ing-cell{min-height:64px}.nav-anchors a{padding:8px 10px;font-size:12px}.materials-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.material-card{min-height:132px}}
+</style></head><body>
+<header class="top"><div class="top-inner"><div class="top-logo"><span class="top-icon">⚔</span>띵타이쿤 요리 레시피 도감</div><a class="link" href="index.html">← 효율 계산기로</a></div></header>
+<main class="wrap">
+<section class="hero"><h1>세레니티 요리 도감</h1><p>우라라 야하 야하, 우라라 야하, 야다야다 이~~야 야다야다 <b>베이스·묶음 기준</b>으로 표시돼.</p><div class="summary"><span>요리 14종</span><span>커먼 · 노멀 · 레어 · 에픽</span><span>베이스 1개 = 작물 8개</span></div></section>
+<nav class="nav-anchors" aria-label="등급별 바로가기"><a href="#grade-커먼">커먼 요리</a><a class="normal" href="#grade-노멀">노멀 요리</a><a class="rare" href="#grade-레어">레어 요리</a><a class="epic" href="#grade-에픽">에픽 요리</a><a href="#materials-0">식재료 이미지</a></nav>
+<section id="grade-커먼" class="panel recipe-section grade-커먼">
+      <div class="rank-heading"><div class="rank-image"><img src="assets/ranks/커먼.png" alt="커먼 등급 배지"></div><div class="rank-copy"><h2>커먼 등급 요리</h2><p>3개 레시피, 아이콘에 마우스를 올리면 재료 이름 확인 가능함.</p></div></div>
+      <div class="recipes-grid"><article class="recipe-card" data-dish="토마토 스파게티">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="토마토 스파게티" aria-label="토마토 스파게티"><img loading="lazy" src="assets/dishes/토마토_스파게티.png" alt="토마토 스파게티" width="112" height="112"></span>
+        <div><span class="rank-mini rank-커먼">커먼</span><h3>토마토 스파게티</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='토마토 베이스 · 1개' aria-label='토마토 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/토마토_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>토마토 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='호박 묶음 · 1개' aria-label='호박 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/호박_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>호박 묶음</span></div></div>
+    </article>
+<article class="recipe-card" data-dish="어니언 링">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="어니언 링" aria-label="어니언 링"><img loading="lazy" src="assets/dishes/어니언_링.png" alt="어니언 링" width="112" height="112"></span>
+        <div><span class="rank-mini rank-커먼">커먼</span><h3>어니언 링</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='양파 베이스 · 1개' aria-label='양파 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/양파_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>양파 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='감자 묶음 · 1개' aria-label='감자 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/감자_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>감자 묶음</span></div></div>
+    </article>
+<article class="recipe-card" data-dish="갈릭 케이크">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="갈릭 케이크" aria-label="갈릭 케이크"><img loading="lazy" src="assets/dishes/갈릭_케이크.png" alt="갈릭 케이크" width="112" height="112"></span>
+        <div><span class="rank-mini rank-커먼">커먼</span><h3>갈릭 케이크</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='마늘 베이스 · 1개' aria-label='마늘 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/마늘_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>마늘 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='당근 묶음 · 1개' aria-label='당근 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/당근_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>당근 묶음</span></div></div>
+    </article></div>
+    </section><section id="grade-노멀" class="panel recipe-section grade-노멀">
+      <div class="rank-heading"><div class="rank-image"><img src="assets/ranks/노멀.png" alt="노멀 등급 배지"></div><div class="rank-copy"><h2>노멀 등급 요리</h2><p>4개 레시피 · 아이콘에 마우스를 올리면 재료 이름을 볼 수 있어.</p></div></div>
+      <div class="recipes-grid"><article class="recipe-card" data-dish="삼겹살 토마토 찌개">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="삼겹살 토마토 찌개" aria-label="삼겹살 토마토 찌개"><img loading="lazy" src="assets/dishes/삼겹살_토마토_찌개.png" alt="삼겹살 토마토 찌개" width="112" height="112"></span>
+        <div><span class="rank-mini rank-노멀">노멀</span><h3>삼겹살 토마토 찌개</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='토마토 베이스 · 2개' aria-label='토마토 베이스 · 2개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/토마토_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>토마토 베이스</span><span class='ing-qty'>×2</span></div><div class='ing-cell' tabindex='0' data-tip='비트 묶음 · 1개' aria-label='비트 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/비트_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>비트 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='요리용 소금 · 1개' aria-label='요리용 소금 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/요리용_소금.png' alt='' width='48' height='48'></span><span class='ing-label'>요리용 소금</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 돼지고기 · 1개' aria-label='익힌 돼지고기 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🍖</span></span><span class='ing-label'>익힌 돼지고기</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 돼지 삼겹살 · 1개' aria-label='익힌 돼지 삼겹살 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🥓</span></span><span class='ing-label'>익힌 돼지 삼겹살</span></div></div>
+    </article>
+<article class="recipe-card" data-dish="삼색 아이스크림">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="삼색 아이스크림" aria-label="삼색 아이스크림"><img loading="lazy" src="assets/dishes/삼색_아이스크림.png" alt="삼색 아이스크림" width="112" height="112"></span>
+        <div><span class="rank-mini rank-노멀">노멀</span><h3>삼색 아이스크림</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='양파 베이스 · 2개' aria-label='양파 베이스 · 2개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/양파_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>양파 베이스</span><span class='ing-qty'>×2</span></div><div class='ing-cell' tabindex='0' data-tip='수박 묶음 · 1개' aria-label='수박 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/수박_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>수박 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='코코넛 · 1개' aria-label='코코넛 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🥥</span></span><span class='ing-label'>코코넛</span></div><div class='ing-cell' tabindex='0' data-tip='설탕 큐브 · 1개' aria-label='설탕 큐브 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/설탕_큐브.png' alt='' width='48' height='48'></span><span class='ing-label'>설탕 큐브</span></div><div class='ing-cell' tabindex='0' data-tip='요리용 우유 · 1개' aria-label='요리용 우유 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/요리용_우유.png' alt='' width='48' height='48'></span><span class='ing-label'>요리용 우유</span></div></div>
+    </article>
+<article class="recipe-card" data-dish="마늘 양갈비 핫도그">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="마늘 양갈비 핫도그" aria-label="마늘 양갈비 핫도그"><img loading="lazy" src="assets/dishes/마늘_양갈비_핫도그.png" alt="마늘 양갈비 핫도그" width="112" height="112"></span>
+        <div><span class="rank-mini rank-노멀">노멀</span><h3>마늘 양갈비 핫도그</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='마늘 베이스 · 1개' aria-label='마늘 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/마늘_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>마늘 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='감자 묶음 · 1개' aria-label='감자 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/감자_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>감자 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='오일 · 1개' aria-label='오일 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/오일.png' alt='' width='48' height='48'></span><span class='ing-label'>오일</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 양고기 · 1개' aria-label='익힌 양고기 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🍖</span></span><span class='ing-label'>익힌 양고기</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 양 갈비살 · 1개' aria-label='익힌 양 갈비살 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🍖</span></span><span class='ing-label'>익힌 양 갈비살</span></div></div>
+    </article>
+<article class="recipe-card" data-dish="달콤 시리얼">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="달콤 시리얼" aria-label="달콤 시리얼"><img loading="lazy" src="assets/dishes/달콤_시리얼.png" alt="달콤 시리얼" width="112" height="112"></span>
+        <div><span class="rank-mini rank-노멀">노멀</span><h3>달콤 시리얼</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='토마토 베이스 · 2개' aria-label='토마토 베이스 · 2개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/토마토_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>토마토 베이스</span><span class='ing-qty'>×2</span></div><div class='ing-cell' tabindex='0' data-tip='달콤한 열매 묶음 · 1개' aria-label='달콤한 열매 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/달콤한_열매_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>달콤한 열매 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='파인애플 · 1개' aria-label='파인애플 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🍍</span></span><span class='ing-label'>파인애플</span></div><div class='ing-cell' tabindex='0' data-tip='밀가루 반죽 · 1개' aria-label='밀가루 반죽 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/밀가루_반죽.png' alt='' width='48' height='48'></span><span class='ing-label'>밀가루 반죽</span></div><div class='ing-cell' tabindex='0' data-tip='오일 · 1개' aria-label='오일 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/오일.png' alt='' width='48' height='48'></span><span class='ing-label'>오일</span></div></div>
+    </article></div>
+    </section><section id="grade-레어" class="panel recipe-section grade-레어">
+      <div class="rank-heading"><div class="rank-image"><img src="assets/ranks/레어.png" alt="레어 등급 배지"></div><div class="rank-copy"><h2>레어 등급 요리</h2><p>4개 레시피 · 아이콘에 마우스를 올리면 재료 이름을 볼 수 있어.</p></div></div>
+      <div class="recipes-grid"><article class="recipe-card" data-dish="스윗 치킨 햄버거">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="스윗 치킨 햄버거" aria-label="스윗 치킨 햄버거"><img loading="lazy" src="assets/dishes/스윗_치킨_햄버거.png" alt="스윗 치킨 햄버거" width="112" height="112"></span>
+        <div><span class="rank-mini rank-레어">레어</span><h3>스윗 치킨 햄버거</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='토마토 베이스 · 1개' aria-label='토마토 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/토마토_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>토마토 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='양파 베이스 · 1개' aria-label='양파 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/양파_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>양파 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='비트 묶음 · 1개' aria-label='비트 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/비트_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>비트 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='달콤한 열매 묶음 · 1개' aria-label='달콤한 열매 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/달콤한_열매_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>달콤한 열매 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 닭 가슴살 · 1개' aria-label='익힌 닭 가슴살 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🍗</span></span><span class='ing-label'>익힌 닭 가슴살</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 닭 다리살 · 1개' aria-label='익힌 닭 다리살 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🍗</span></span><span class='ing-label'>익힌 닭 다리살</span></div></div>
+    </article>
+<article class="recipe-card" data-dish="토마토 파인애플 피자">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="토마토 파인애플 피자" aria-label="토마토 파인애플 피자"><img loading="lazy" src="assets/dishes/토마토_파인애플_피자.png" alt="토마토 파인애플 피자" width="112" height="112"></span>
+        <div><span class="rank-mini rank-레어">레어</span><h3>토마토 파인애플 피자</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='토마토 베이스 · 2개' aria-label='토마토 베이스 · 2개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/토마토_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>토마토 베이스</span><span class='ing-qty'>×2</span></div><div class='ing-cell' tabindex='0' data-tip='마늘 베이스 · 1개' aria-label='마늘 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/마늘_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>마늘 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='파인애플 · 1개' aria-label='파인애플 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🍍</span></span><span class='ing-label'>파인애플</span></div><div class='ing-cell' tabindex='0' data-tip='치즈 조각 · 1개' aria-label='치즈 조각 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/치즈_조각.png' alt='' width='48' height='48'></span><span class='ing-label'>치즈 조각</span></div><div class='ing-cell' tabindex='0' data-tip='스테이크 · 1개' aria-label='스테이크 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🥩</span></span><span class='ing-label'>스테이크</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 소 등심 · 1개' aria-label='익힌 소 등심 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🥩</span></span><span class='ing-label'>익힌 소 등심</span></div></div>
+    </article>
+<article class="recipe-card" data-dish="양파 수프">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="양파 수프" aria-label="양파 수프"><img loading="lazy" src="assets/dishes/양파_수프.png" alt="양파 수프" width="112" height="112"></span>
+        <div><span class="rank-mini rank-레어">레어</span><h3>양파 수프</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='양파 베이스 · 1개' aria-label='양파 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/양파_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>양파 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='마늘 베이스 · 1개' aria-label='마늘 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/마늘_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>마늘 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='감자 묶음 · 1개' aria-label='감자 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/감자_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>감자 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='코코넛 · 1개' aria-label='코코넛 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🥥</span></span><span class='ing-label'>코코넛</span></div><div class='ing-cell' tabindex='0' data-tip='버터 조각 · 1개' aria-label='버터 조각 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/버터_조각.png' alt='' width='48' height='48'></span><span class='ing-label'>버터 조각</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 돼지 앞다리살 · 1개' aria-label='익힌 돼지 앞다리살 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🍖</span></span><span class='ing-label'>익힌 돼지 앞다리살</span></div></div>
+    </article>
+<article class="recipe-card" data-dish="허브 삼겹살 찜">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="허브 삼겹살 찜" aria-label="허브 삼겹살 찜"><img loading="lazy" src="assets/dishes/허브_삼겹살_찜.png" alt="허브 삼겹살 찜" width="112" height="112"></span>
+        <div><span class="rank-mini rank-레어">레어</span><h3>허브 삼겹살 찜</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='마늘 베이스 · 2개' aria-label='마늘 베이스 · 2개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/마늘_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>마늘 베이스</span><span class='ing-qty'>×2</span></div><div class='ing-cell' tabindex='0' data-tip='양파 베이스 · 1개' aria-label='양파 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/양파_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>양파 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='호박 묶음 · 1개' aria-label='호박 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/호박_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>호박 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='감자 묶음 · 1개' aria-label='감자 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/감자_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>감자 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 돼지고기 · 1개' aria-label='익힌 돼지고기 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🍖</span></span><span class='ing-label'>익힌 돼지고기</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 돼지 삼겹살 · 1개' aria-label='익힌 돼지 삼겹살 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🥓</span></span><span class='ing-label'>익힌 돼지 삼겹살</span></div></div>
+    </article></div>
+    </section><section id="grade-에픽" class="panel recipe-section grade-에픽">
+      <div class="rank-heading"><div class="rank-image"><img src="assets/ranks/에픽.png" alt="에픽 등급 배지"></div><div class="rank-copy"><h2>에픽 등급 요리</h2><p>3개 레시피 · 아이콘에 마우스를 올리면 재료 이름을 볼 수 있어.</p></div></div>
+      <div class="recipes-grid"><article class="recipe-card" data-dish="토마토 라자냐">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="토마토 라자냐" aria-label="토마토 라자냐"><img loading="lazy" src="assets/dishes/토마토_라자냐.png" alt="토마토 라자냐" width="112" height="112"></span>
+        <div><span class="rank-mini rank-에픽">에픽</span><h3>토마토 라자냐</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='토마토 베이스 · 1개' aria-label='토마토 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/토마토_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>토마토 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='양파 베이스 · 1개' aria-label='양파 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/양파_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>양파 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='마늘 베이스 · 1개' aria-label='마늘 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/마늘_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>마늘 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='당근 묶음 · 1개' aria-label='당근 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/당근_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>당근 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='호박 묶음 · 1개' aria-label='호박 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/호박_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>호박 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='밀가루 반죽 · 1개' aria-label='밀가루 반죽 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/밀가루_반죽.png' alt='' width='48' height='48'></span><span class='ing-label'>밀가루 반죽</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 양 다리살 · 1개' aria-label='익힌 양 다리살 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🍖</span></span><span class='ing-label'>익힌 양 다리살</span></div></div>
+    </article>
+<article class="recipe-card" data-dish="딥 크림 빠네">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="딥 크림 빠네" aria-label="딥 크림 빠네"><img loading="lazy" src="assets/dishes/딥_크림_빠네.png" alt="딥 크림 빠네" width="112" height="112"></span>
+        <div><span class="rank-mini rank-에픽">에픽</span><h3>딥 크림 빠네</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='토마토 베이스 · 1개' aria-label='토마토 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/토마토_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>토마토 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='양파 베이스 · 1개' aria-label='양파 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/양파_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>양파 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='마늘 베이스 · 1개' aria-label='마늘 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/마늘_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>마늘 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='수박 묶음 · 1개' aria-label='수박 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/수박_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>수박 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='감자 묶음 · 1개' aria-label='감자 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/감자_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>감자 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='치즈 조각 · 1개' aria-label='치즈 조각 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/치즈_조각.png' alt='' width='48' height='48'></span><span class='ing-label'>치즈 조각</span></div><div class='ing-cell' tabindex='0' data-tip='요리용 우유 · 1개' aria-label='요리용 우유 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/요리용_우유.png' alt='' width='48' height='48'></span><span class='ing-label'>요리용 우유</span></div></div>
+    </article>
+<article class="recipe-card" data-dish="트리플 소갈비 꼬치">
+      <div class="recipe-top">
+        <span class="dish-frame" tabindex="0" data-tip="트리플 소갈비 꼬치" aria-label="트리플 소갈비 꼬치"><img loading="lazy" src="assets/dishes/트리플_소갈비_꼬치.png" alt="트리플 소갈비 꼬치" width="112" height="112"></span>
+        <div><span class="rank-mini rank-에픽">에픽</span><h3>트리플 소갈비 꼬치</h3><span class="micro">1개 제작 기준 재료</span></div>
+      </div>
+      <div class="ingredients-grid"><div class='ing-cell' tabindex='0' data-tip='토마토 베이스 · 1개' aria-label='토마토 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/토마토_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>토마토 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='양파 베이스 · 1개' aria-label='양파 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/양파_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>양파 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='마늘 베이스 · 1개' aria-label='마늘 베이스 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/마늘_베이스.png' alt='' width='48' height='48'></span><span class='ing-label'>마늘 베이스</span></div><div class='ing-cell' tabindex='0' data-tip='당근 묶음 · 1개' aria-label='당근 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/당근_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>당근 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='비트 묶음 · 1개' aria-label='비트 묶음 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/비트_묶음.png' alt='' width='48' height='48'></span><span class='ing-label'>비트 묶음</span></div><div class='ing-cell' tabindex='0' data-tip='설탕 큐브 · 1개' aria-label='설탕 큐브 · 1개'><span class='ing-icon'><img loading='lazy' src='assets/ingredients/설탕_큐브.png' alt='' width='48' height='48'></span><span class='ing-label'>설탕 큐브</span></div><div class='ing-cell' tabindex='0' data-tip='익힌 소 갈비살 · 1개' aria-label='익힌 소 갈비살 · 1개'><span class='ing-icon'><span class='ing-emoji' aria-hidden='true'>🥩</span></span><span class='ing-label'>익힌 소 갈비살</span></div></div>
+    </article></div>
+    </section>
+<section class="panel" id="materials"><div class="section-title"><h2>식재료 이미지 도감</h2><p>크아아아아아아앙아아아아앙아아아ㅏㅏㅏ.</p></div></section>
+<section class="panel material-panel" id="materials-0">
+      <div class="section-title"><h2>구매 식재료</h2><p>샤븐님!!!!!!.</p></div>
+      <div class="materials-grid"><article class="material-card" tabindex="0" data-tip="소금">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/소금.png" alt="소금"></span>
+      <strong>소금</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="요리용 달걀">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/요리용_달걀.png" alt="요리용 달걀"></span>
+      <strong>요리용 달걀</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="요리용 우유">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/요리용_우유.png" alt="요리용 우유"></span>
+      <strong>요리용 우유</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="오일">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/오일.png" alt="오일"></span>
+      <strong>오일</strong>
+    </article></div>
+    </section><section class="panel material-panel" id="materials-1">
+      <div class="section-title"><h2>가공 식재료</h2><p>이~~야 야다야다!.</p></div>
+      <div class="materials-grid"><article class="material-card" tabindex="0" data-tip="설탕 큐브">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/설탕_큐브.png" alt="설탕 큐브"></span>
+      <strong>설탕 큐브</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="요리용 소금">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/요리용_소금.png" alt="요리용 소금"></span>
+      <strong>요리용 소금</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="치즈 조각">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/치즈_조각.png" alt="치즈 조각"></span>
+      <strong>치즈 조각</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="밀가루 반죽">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/밀가루_반죽.png" alt="밀가루 반죽"></span>
+      <strong>밀가루 반죽</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="버터 조각">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/버터_조각.png" alt="버터 조각"></span>
+      <strong>버터 조각</strong>
+    </article></div>
+    </section><section class="panel material-panel" id="materials-2">
+      <div class="section-title"><h2>묶음 재료</h2><p>쀼릿, 쀼릿, 쀼릿, 쀼릿, 쀼릿, 쀼릿, 쀼릿, 쀼릿.</p></div>
+      <div class="materials-grid"><article class="material-card" tabindex="0" data-tip="당근 묶음">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/당근_묶음.png" alt="당근 묶음"></span>
+      <strong>당근 묶음</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="감자 묶음">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/감자_묶음.png" alt="감자 묶음"></span>
+      <strong>감자 묶음</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="비트 묶음">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/비트_묶음.png" alt="비트 묶음"></span>
+      <strong>비트 묶음</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="호박 묶음">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/호박_묶음.png" alt="호박 묶음"></span>
+      <strong>호박 묶음</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="수박 묶음">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/수박_묶음.png" alt="수박 묶음"></span>
+      <strong>수박 묶음</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="달콤한 열매 묶음">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/달콤한_열매_묶음.png" alt="달콤한 열매 묶음"></span>
+      <strong>달콤한 열매 묶음</strong>
+    </article></div>
+    </section><section class="panel material-panel" id="materials-3">
+      <div class="section-title"><h2>베이스 재료</h2><p>rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.</p></div>
+      <div class="materials-grid"><article class="material-card" tabindex="0" data-tip="토마토 베이스">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/토마토_베이스.png" alt="토마토 베이스"></span>
+      <strong>토마토 베이스</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="양파 베이스">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/양파_베이스.png" alt="양파 베이스"></span>
+      <strong>양파 베이스</strong>
+    </article>
+<article class="material-card" tabindex="0" data-tip="마늘 베이스">
+      <span class="material-art"><img loading="lazy" src="assets/ingredients/마늘_베이스.png" alt="마늘 베이스"></span>
+      <strong>마늘 베이스</strong>
+    </article></div>
+    </section>
+<div class="footnote">모몽가를 모두가 좋아해보는건 어떤가요? 제발</div>
+</main></body></html>

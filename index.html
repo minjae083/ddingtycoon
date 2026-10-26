@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>띵타이쿤 RPG 효율 계산기 v10</title>
+<title>띵타이쿤 RPG 효율 계산기 v19</title>
 <style>
 :root{--bg:#f5f6f8;--surface:#fff;--surface-2:#fafbfc;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;--line-2:#eef2f7;--brand:#2563eb;--brand-soft:#eff6ff;--green:#059669;--green-soft:#ecfdf5;--gold:#b7791f;--gold-soft:#fffbeb;--shadow:0 8px 30px rgba(15,23,42,.05)}
 *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}a{color:var(--brand)}
@@ -124,23 +124,31 @@ html,body{width:100%;overflow-x:hidden}
 #stack-toggle.active{background:#80602b;color:#fff2cc;border-color:#e3bb6a}
 .mat-qty{white-space:nowrap;font-variant-numeric:tabular-nums}
 @media(max-width:780px){.materials-mode{gap:7px}.mode-btn{font-size:12px;padding:8px 9px}}
+
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.link-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:12px;border:1px solid #d0a861;background:linear-gradient(180deg,#7c5a2a,#5f4626);color:#fff1c6;text-decoration:none;font-weight:800;box-shadow:var(--shadow);transition:transform .16s,filter .16s}
+.link-btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.link-btn.secondary{background:#24344b;border-color:#65748b;color:#dce6f5}
+@media(max-width:780px){.hero-actions{gap:8px}.link-btn{width:100%}}
+
 </style>
 </head>
 <body>
 <header class="header">
   <div class="header-inner">
-    <div class="brand"><div class="brand-logo">⚔</div><div>띵타이쿤 모험가 계산기</div></div>
+    <div class="brand"><div class="brand-logo">⚔</div><div>띵타이쿤 계산기</div></div>
     <div class="top-search">⌕ <input id="header-search" aria-label="전체 아이템 검색" placeholder="아이템 검색 · Enter로 이동"></div>
   </div>
 </header>
 <div class="layout">
   <aside class="sidebar">
-    <div class="side-title">▣ 모험가 메뉴</div>
+    <div class="side-title">메뉴</div>
     <nav class="side-nav">
-      <a href="#table" class="active">⚔ 효율 비교</a>
-      <a href="#quick">✦ 빠른 계산</a>
-      <a href="#planner">⚒ 제작 수량 계산</a>
-      <a href="#settings">⚙ 장비·판매가 설정</a>
+      <a href="#table" class="active">효율 비교</a>
+      <a href="#quick"> 빠른 계산</a>
+      <a href="#planner">제작 수량 계산</a>
+      <a href="#settings">장비·판매가 설정</a>
+      <a href="ingredients.html" target="_blank" rel="noopener">📚 요리 재료 도감</a>
     </nav>
   </aside>
   <main class="content">
@@ -148,17 +156,18 @@ html,body{width:100%;overflow-x:hidden}
       <div class="hero-banner">
         <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
         <h1>1000 스테미나<br>효율 계산기</h1>
-        <p>요리, 황금 요리, 유저상점 아이템을 1,000 스테미나 기준으로 정리.</p>
+        <p>1000ST 기준.</p>
       </div>
       <div class="hero-bottom section-head">
         <h2>아이템 효율 비교</h2>
-        <p>1000ST기준.</p>
+        <p>1000ST 기준!.</p>
+        <div class="hero-actions"><a class="link-btn" href="ingredients.html" target="_blank" rel="noopener">📚 요리 재료 도감 열기</a><a class="link-btn secondary" href="#settings">⚙ 판매가·도구 설정 바로가기</a></div>
       </div>
     </section>
 
     <section class="card quick-box" id="quick">
       <div>
-        <div class="card-title"><h3>빠른 계산</h3><span class="subtext">값을 바꾸면 바로 반영됩니다</span></div>
+        <div class="card-title"><h3>빠른 계산</h3><span class="subtext">시마지로 멋있다ㅏ</span></div>
         <label class="label" for="quick-item">아이템 선택</label>
         <select id="quick-item"></select>
       </div>
@@ -202,7 +211,7 @@ html,body{width:100%;overflow-x:hidden}
           <tbody id="result-table"></tbody>
         </table>
       </div>
-      <p class="footer-note" style="margin-top:12px">부자가 되겠습니다.</p>
+      <p class="footer-note" style="margin-top:12px">쿠센빠이의 조개해장국.</p>
     </section>
 
     <section class="card" id="planner">
@@ -212,7 +221,7 @@ html,body{width:100%;overflow-x:hidden}
     </section>
     <section class="card" id="settings">
       <div class="card-title"><h3>추가 설정</h3><span class="subtext">필요할 때만 펼쳐서 쓰면 됩니다</span></div>
-      <div class="settings-note">모몽가 모몽가 모몽가 모몽가 모몽가.</div>
+      <div class="settings-note">모몽가 모몽가 모몽가 모몽가 모몽가 모몽가.</div>
 
       <details>
         <summary>세이지 괭이·곡괭이 설정</summary>

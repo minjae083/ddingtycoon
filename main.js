@@ -1,6 +1,6 @@
 'use strict';
 
-const STORE_KEY = 'dding-simulator-v14-defaults';
+const STORE_KEY = 'dding-simulator-v16-rank-recipes';
 let materialsMode = 'unit';
 const STAMINA_BUDGET = 1000;
 const $ = id => document.getElementById(id);
@@ -95,12 +95,11 @@ const REGULAR_COOKING = {
   '갈릭 케이크': { rank: '커먼', price: 243, recipe: { '마늘 베이스': 1, '당근 묶음': 1 } },
   '삼겹살 토마토 찌개': { rank: '노멀', price: 967, recipe: { '토마토 베이스': 2, '비트 묶음': 1, '요리용 소금': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
   '삼색 아이스크림': { rank: '노멀', price: 1363, recipe: { '양파 베이스': 2, '수박 묶음': 1, '코코넛': 1, '설탕 큐브': 1, '요리용 우유': 1 } },
-  '마늘 양갈비 핫도그': { rank: '노멀', price: 575, recipe: { '마늘 베이스': 2, '감자 묶음': 1, '오일': 1, '익힌 양고기': 1, '익힌 양 갈비살': 1 } },
+  '마늘 양갈비 핫도그': { rank: '노멀', price: 575, recipe: { '마늘 베이스': 1, '감자 묶음': 1, '오일': 1, '익힌 양고기': 1, '익힌 양 갈비살': 1 } },
   '달콤 시리얼': { rank: '노멀', price: 1325, recipe: { '토마토 베이스': 2, '달콤한 열매 묶음': 1, '파인애플': 1, '밀가루 반죽': 1, '오일': 1 } },
-  '로스트 치킨 파이': { rank: '노멀', price: 1240, recipe: { '마늘 베이스': 2, '당근 묶음': 1, '버터 조각': 1, '익힌 닭고기': 1, '익힌 닭 다리살': 1 } },
   '스윗 치킨 햄버거': { rank: '레어', price: 1212, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '비트 묶음': 1, '달콤한 열매 묶음': 1, '익힌 닭 가슴살': 1, '익힌 닭 다리살': 1 } },
   '토마토 파인애플 피자': { rank: '레어', price: 786, recipe: { '토마토 베이스': 2, '마늘 베이스': 1, '파인애플': 1, '치즈 조각': 1, '스테이크': 1, '익힌 소 등심': 1 } },
-  '양파 수프': { rank: '레어', price: 1275, recipe: { '양파 베이스': 2, '마늘 베이스': 1, '감자 묶음': 1, '코코넛': 1, '버터 조각': 1, '익힌 돼지 앞다리살': 1 } },
+  '양파 수프': { rank: '레어', price: 1275, recipe: { '양파 베이스': 1, '마늘 베이스': 1, '감자 묶음': 1, '코코넛': 1, '버터 조각': 1, '익힌 돼지 앞다리살': 1 } },
   '허브 삼겹살 찜': { rank: '레어', price: 702, recipe: { '마늘 베이스': 2, '양파 베이스': 1, '호박 묶음': 1, '감자 묶음': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
   '토마토 라자냐': { rank: '에픽', price: 2567, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '당근 묶음': 1, '호박 묶음': 1, '밀가루 반죽': 1, '익힌 양 다리살': 1 } },
   '딥 크림 빠네': { rank: '에픽', price: 949, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '수박 묶음': 1, '감자 묶음': 1, '치즈 조각': 1, '요리용 우유': 1 } },
@@ -115,7 +114,6 @@ const GOLDEN_COOKING = {
   '황금 삼색 아이스크림': { rank: '에픽 황금', price: 2292, base: '삼색 아이스크림', powderPerItem: 1/13 },
   '황금 마늘 양갈비 핫도그': { rank: '에픽 황금', price: 967, base: '마늘 양갈비 핫도그', powderPerItem: 1/13 },
   '황금 달콤 시리얼': { rank: '에픽 황금', price: 2228, base: '달콤 시리얼', powderPerItem: 1/13 },
-  '황금 로스트 치킨 파이': { rank: '에픽 황금', price: 2085, base: '로스트 치킨 파이', powderPerItem: 1/13 },
   '황금 스윗 치킨 햄버거': { rank: '전설 황금', price: 2038, base: '스윗 치킨 햄버거', powderPerItem: 1/10 },
   '황금 토마토 파인애플 피자': { rank: '전설 황금', price: 1322, base: '토마토 파인애플 피자', powderPerItem: 1/10 },
   '황금 양파 수프': { rank: '전설 황금', price: 2144, base: '양파 수프', powderPerItem: 1/10 },
@@ -257,6 +255,29 @@ function collectBaseMaterials(name, qty = 1, stack = []){
   return out;
 }
 
+function sumMaterials(list){
+  const out = {};
+  for (const item of list) {
+    for (const [k,v] of Object.entries(item || {})) out[k] = (out[k] || 0) + v;
+  }
+  return out;
+}
+
+function collectRecipeDisplayMaterials(name, qty = 1){
+  if (REGULAR_COOKING[name]) {
+    const mats = {};
+    for (const [inputName, inputQty] of Object.entries(REGULAR_COOKING[name].recipe)) mats[inputName] = inputQty * qty;
+    return mats;
+  }
+  if (GOLDEN_COOKING[name]) {
+    const info = GOLDEN_COOKING[name];
+    const baseMats = collectRecipeDisplayMaterials(info.base, qty);
+    baseMats['금 가루'] = (baseMats['금 가루'] || 0) + info.powderPerItem * qty;
+    return baseMats;
+  }
+  return collectBaseMaterials(name, qty);
+}
+
 function computeRows(){
   const rows = [];
   for (const [name, meta] of Object.entries(SALE_ITEMS)) {
@@ -278,6 +299,7 @@ function computeRows(){
     const totalSales = craftable !== null ? sale * craftable : null;
     const totalCosts = craftable !== null ? (unitCost.gold + opportunity) * craftable : null;
     const baseMaterials = craftable ? collectBaseMaterials(name, craftable) : {};
+    const displayMaterials = craftable ? collectRecipeDisplayMaterials(name, craftable) : {};
     rows.push({
       name,
       category: meta.category,
@@ -290,6 +312,7 @@ function computeRows(){
       totalCosts,
       craftable,
       baseMaterials,
+      displayMaterials,
     });
   }
   return rows;
@@ -346,7 +369,7 @@ function renderResults(){
       <td class="num ${row.unitProfit >= 0 ? '' : 'minus'}">${fmt(row.unitProfit,2)} G</td>
       <td class="num emphasis" title="판매가 × 제작 가능 정수 개수 − 확인된 재료비 × 제작 개수">${Number.isFinite(row.efficiency) ? fmt(row.efficiency,2) + ' G' : '—'}<span class="cell-calc">판매 ${fmt(row.totalSales)}G − 비용 ${fmt(row.totalCosts,2)}G</span></td>
       <td class="num">${row.craftable ?? '—'}개</td>
-      <td><div class="materials-wrap">${materialChips(materialsMode === 'unit' ? collectBaseMaterials(row.name, 1) : row.baseMaterials)}</div></td>
+      <td><div class="materials-wrap">${materialChips(materialsMode === 'unit' ? collectRecipeDisplayMaterials(row.name, 1) : row.displayMaterials)}</div></td>
     </tr>`).join('') || '<tr><td colspan="6">표시할 아이템이 없습니다.</td></tr>';
 
   const best = rows.find(r => Number.isFinite(r.efficiency));
@@ -361,7 +384,7 @@ function renderQuick(){
   const row = computeRows().find(r => r.name === name);
   if (!row) return;
   $('quick-price').value = getSalePrice(name);
-  const mats = materialChips(row.baseMaterials);
+  const mats = materialChips(row.displayMaterials);
   $('quick-view').innerHTML = `
     <div class="quick-grid">
       <div class="quick-card"><small>판매가</small><strong>${fmt(row.sale)} G</strong></div>
@@ -455,8 +478,8 @@ function init(){
 function renderPlanner(){
  const name=$('planner-item').value; const count=Math.max(1,Math.floor(Number($('planner-count').value)||1));
  const row=computeRows().find(r=>r.name===name);if(!row)return;
- const mats=collectBaseMaterials(name,count);
- $('planner-result').innerHTML=`<div class="planner-stats"><div><span>제작 목표</span><strong>${fmt(count)}개</strong></div><div><span>평균 필요 ST</span><strong>${fmt(row.unitStamina*count,2)} ST</strong></div><div><span>예상 순수익</span><strong>${fmt(row.unitProfit*count,2)} G</strong></div></div><h4>전체 필요한 원재료</h4><div class="materials-wrap">${materialChips(mats)}</div><p class="footer-note">우라라 야하! rrrrrrrrrrrrrrrrrrrrrrrrr.</p>`;
+ const mats=collectRecipeDisplayMaterials(name,count);
+ $('planner-result').innerHTML=`<div class="planner-stats"><div><span>제작 목표</span><strong>${fmt(count)}개</strong></div><div><span>평균 필요 ST</span><strong>${fmt(row.unitStamina*count,2)} ST</strong></div><div><span>예상 순수익</span><strong>${fmt(row.unitProfit*count,2)} G</strong></div></div><h4>전체 필요한 원재료</h4><div class="materials-wrap">${materialChips(mats)}</div><p class="footer-note">우라라 야하~ 이 이 이 야하~.</p>`;
 }
 
 document.addEventListener('DOMContentLoaded', init);
