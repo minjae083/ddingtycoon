@@ -1,6 +1,6 @@
 'use strict';
 
-const STORE_KEY = 'dding-simulator-v16-rank-recipes';
+const STORE_KEY = 'dding-simulator-v34-upgrade-facility';
 let materialsMode = 'unit';
 const STAMINA_BUDGET = 1000;
 const $ = id => document.getElementById(id);
@@ -36,7 +36,8 @@ const ITEM_ICONS = {
   '토마토 씨앗':'🌱','양파 씨앗':'🌱','마늘 씨앗':'🌱','코룸':'🪨','리프톤':'💠','세렌트':'🔷','코룸 주괴':'🟫','리프톤 주괴':'🟪','세렌트 주괴':'🟦','조약돌':'🪨','심층암 조약돌':'⬛','구리 블록':'🟧',
   '레드스톤 블록':'🟥','청금석 블록':'🟦','철 블록':'⬜','금 블록':'🟨','다이아몬드 블록':'🟦','자수정 블록':'🟪','나무 원목':'🪵','석탄':'⚫','석탄 블록':'⬛',
   '스테이크':'🥩','익힌 돼지고기':'🍖','익힌 돼지 삼겹살':'🥓','익힌 돼지 앞다리살':'🍖','익힌 닭고기':'🍗','익힌 닭 다리살':'🍗','익힌 닭 가슴살':'🍗',
-  '익힌 양고기':'🍖','익힌 양 갈비살':'🍖','익힌 양 다리살':'🍖','익힌 소 등심':'🥩','익힌 소 갈비살':'🥩','금 가루':'✨'
+  '익힌 양고기':'🍖','익힌 양 갈비살':'🍖','익힌 양 다리살':'🍖','익힌 소 등심':'🥩','익힌 소 갈비살':'🥩','금 가루':'✨','식용 금 가루':'🧪',
+  '황금 토마토 스파게티':'✨','황금 어니언 링':'✨','황금 갈릭 케이크':'✨','황금 삼겹살 토마토 찌개':'✨','황금 삼색 아이스크림':'✨','황금 마늘 양갈비 핫도그':'✨','황금 달콤 시리얼':'✨','황금 로스트 치킨 파이':'✨','황금 스윗 치킨 햄버거':'✨','황금 토마토 파인애플 피자':'✨','황금 양파 수프':'✨','황금 허브 삼겹살 찜':'✨','황금 토마토 라자냐':'✨','황금 딥 크림 빠네':'✨','황금 트리플 소갈비 꼬치':'✨'
 };
 
 const HARVEST_CONFIG = {
@@ -78,9 +79,9 @@ const BASE_RECIPES = {
   '토마토 베이스': { output: 1, inputs: { '토마토': 8 } },
   '마늘 베이스': { output: 1, inputs: { '마늘': 8 } },
 
-  '코룸 주괴': { output: 1, inputs: { '코룸': 12, '강화 횃불': 2 } },
-  '리프톤 주괴': { output: 1, inputs: { '리프톤': 12, '강화 횃불': 4 } },
-  '세렌트 주괴': { output: 1, inputs: { '세렌트': 12, '강화 횃불': 8 } },
+  '코룸 주괴': { output: 1, inputs: { '코룸': 16, '강화 횃불': 2 } },
+  '리프톤 주괴': { output: 1, inputs: { '리프톤': 16, '강화 횃불': 2 } },
+  '세렌트 주괴': { output: 1, inputs: { '세렌트': 16, '강화 횃불': 2 } },
   '조약돌 뭉치': { output: 1, inputs: { '조약돌': 64 } },
   '심층암 조약돌 뭉치': { output: 1, inputs: { '심층암 조약돌': 64 } },
   '어빌리티 스톤': { output: 1, inputs: { '코룸 주괴': 1, '리프톤 주괴': 1, '세렌트 주괴': 1 } },
@@ -90,37 +91,39 @@ const BASE_RECIPES = {
 };
 
 const REGULAR_COOKING = {
-  '토마토 스파게티': { rank: '커먼', price: 332, recipe: { '토마토 베이스': 1, '호박 묶음': 1 } },
-  '어니언 링': { rank: '커먼', price: 531, recipe: { '양파 베이스': 1, '감자 묶음': 1 } },
-  '갈릭 케이크': { rank: '커먼', price: 243, recipe: { '마늘 베이스': 1, '당근 묶음': 1 } },
-  '삼겹살 토마토 찌개': { rank: '노멀', price: 967, recipe: { '토마토 베이스': 2, '비트 묶음': 1, '요리용 소금': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
-  '삼색 아이스크림': { rank: '노멀', price: 1363, recipe: { '양파 베이스': 2, '수박 묶음': 1, '코코넛': 1, '설탕 큐브': 1, '요리용 우유': 1 } },
-  '마늘 양갈비 핫도그': { rank: '노멀', price: 575, recipe: { '마늘 베이스': 1, '감자 묶음': 1, '오일': 1, '익힌 양고기': 1, '익힌 양 갈비살': 1 } },
-  '달콤 시리얼': { rank: '노멀', price: 1325, recipe: { '토마토 베이스': 2, '달콤한 열매 묶음': 1, '파인애플': 1, '밀가루 반죽': 1, '오일': 1 } },
-  '스윗 치킨 햄버거': { rank: '레어', price: 1212, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '비트 묶음': 1, '달콤한 열매 묶음': 1, '익힌 닭 가슴살': 1, '익힌 닭 다리살': 1 } },
-  '토마토 파인애플 피자': { rank: '레어', price: 786, recipe: { '토마토 베이스': 2, '마늘 베이스': 1, '파인애플': 1, '치즈 조각': 1, '스테이크': 1, '익힌 소 등심': 1 } },
-  '양파 수프': { rank: '레어', price: 1275, recipe: { '양파 베이스': 1, '마늘 베이스': 1, '감자 묶음': 1, '코코넛': 1, '버터 조각': 1, '익힌 돼지 앞다리살': 1 } },
-  '허브 삼겹살 찜': { rank: '레어', price: 702, recipe: { '마늘 베이스': 2, '양파 베이스': 1, '호박 묶음': 1, '감자 묶음': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
-  '토마토 라자냐': { rank: '에픽', price: 2567, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '당근 묶음': 1, '호박 묶음': 1, '밀가루 반죽': 1, '익힌 양 다리살': 1 } },
-  '딥 크림 빠네': { rank: '에픽', price: 949, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '수박 묶음': 1, '감자 묶음': 1, '치즈 조각': 1, '요리용 우유': 1 } },
-  '트리플 소갈비 꼬치': { rank: '에픽', price: 2230, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '당근 묶음': 1, '비트 묶음': 1, '설탕 큐브': 1, '익힌 소 갈비살': 1 } },
+  '토마토 스파게티': { rank: '커먼', price: 307, recipe: { '토마토 베이스': 1, '호박 묶음': 1 } },
+  '어니언 링': { rank: '커먼', price: 334, recipe: { '양파 베이스': 1, '감자 묶음': 1 } },
+  '갈릭 케이크': { rank: '커먼', price: 237, recipe: { '마늘 베이스': 1, '당근 묶음': 1 } },
+  '삼겹살 토마토 찌개': { rank: '노멀', price: 405, recipe: { '토마토 베이스': 2, '비트 묶음': 1, '요리용 소금': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
+  '삼색 아이스크림': { rank: '노멀', price: 1308, recipe: { '양파 베이스': 2, '수박 묶음': 1, '코코넛': 1, '설탕 큐브': 1, '요리용 우유': 1 } },
+  '마늘 양갈비 핫도그': { rank: '노멀', price: 781, recipe: { '마늘 베이스': 1, '감자 묶음': 1, '오일': 1, '익힌 양고기': 1, '익힌 양 갈비살': 1 } },
+  '달콤 시리얼': { rank: '노멀', price: 1052, recipe: { '토마토 베이스': 2, '달콤한 열매 묶음': 1, '파인애플': 1, '밀가루 반죽': 1, '오일': 1 } },
+  '로스트 치킨 파이': { rank: '노멀', price: 1024, recipe: { '마늘 베이스': 2, '당근 묶음': 1, '버터 조각': 1, '익힌 닭고기': 1, '익힌 닭 다리살': 1 } },
+  '스윗 치킨 햄버거': { rank: '레어', price: 1738, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '비트 묶음': 1, '달콤한 열매 묶음': 1, '익힌 닭 가슴살': 1, '익힌 닭 다리살': 1 } },
+  '토마토 파인애플 피자': { rank: '레어', price: 814, recipe: { '토마토 베이스': 2, '마늘 베이스': 1, '파인애플': 1, '치즈 조각': 1, '스테이크': 1, '익힌 소 등심': 1 } },
+  '양파 수프': { rank: '레어', price: 1908, recipe: { '양파 베이스': 1, '마늘 베이스': 1, '감자 묶음': 1, '코코넛': 1, '버터 조각': 1, '익힌 돼지 앞다리살': 1 } },
+  '허브 삼겹살 찜': { rank: '레어', price: 1313, recipe: { '마늘 베이스': 2, '양파 베이스': 1, '호박 묶음': 1, '감자 묶음': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
+  '토마토 라자냐': { rank: '에픽', price: 2720, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '당근 묶음': 1, '호박 묶음': 1, '밀가루 반죽': 1, '익힌 양 다리살': 1 } },
+  '딥 크림 빠네': { rank: '에픽', price: 942, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '수박 묶음': 1, '감자 묶음': 1, '치즈 조각': 1, '요리용 우유': 1 } },
+  '트리플 소갈비 꼬치': { rank: '에픽', price: 1764, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '당근 묶음': 1, '비트 묶음': 1, '설탕 큐브': 1, '익힌 소 갈비살': 1 } },
 };
 
 const GOLDEN_COOKING = {
-  '황금 토마토 스파게티': { rank: '레어 황금', price: 558, base: '토마토 스파게티', powderPerItem: 1/20 },
-  '황금 어니언 링': { rank: '레어 황금', price: 893, base: '어니언 링', powderPerItem: 1/20 },
-  '황금 갈릭 케이크': { rank: '레어 황금', price: 409, base: '갈릭 케이크', powderPerItem: 1/20 },
-  '황금 삼겹살 토마토 찌개': { rank: '에픽 황금', price: 1626, base: '삼겹살 토마토 찌개', powderPerItem: 1/13 },
-  '황금 삼색 아이스크림': { rank: '에픽 황금', price: 2292, base: '삼색 아이스크림', powderPerItem: 1/13 },
-  '황금 마늘 양갈비 핫도그': { rank: '에픽 황금', price: 967, base: '마늘 양갈비 핫도그', powderPerItem: 1/13 },
-  '황금 달콤 시리얼': { rank: '에픽 황금', price: 2228, base: '달콤 시리얼', powderPerItem: 1/13 },
-  '황금 스윗 치킨 햄버거': { rank: '전설 황금', price: 2038, base: '스윗 치킨 햄버거', powderPerItem: 1/10 },
-  '황금 토마토 파인애플 피자': { rank: '전설 황금', price: 1322, base: '토마토 파인애플 피자', powderPerItem: 1/10 },
-  '황금 양파 수프': { rank: '전설 황금', price: 2144, base: '양파 수프', powderPerItem: 1/10 },
-  '황금 허브 삼겹살 찜': { rank: '전설 황금', price: 1181, base: '허브 삼겹살 찜', powderPerItem: 1/10 },
-  '황금 토마토 라자냐': { rank: '신화 황금', price: 4317, base: '토마토 라자냐', powderPerItem: 1/10 },
-  '황금 딥 크림 빠네': { rank: '신화 황금', price: 1596, base: '딥 크림 빠네', powderPerItem: 1/10 },
-  '황금 트리플 소갈비 꼬치': { rank: '신화 황금', price: 3750, base: '트리플 소갈비 꼬치', powderPerItem: 1/10 },
+  '황금 토마토 스파게티': { rank: '레어 황금', price: 518, base: '토마토 스파게티', powderPerItem: 1/20 },
+  '황금 어니언 링': { rank: '레어 황금', price: 562, base: '어니언 링', powderPerItem: 1/20 },
+  '황금 갈릭 케이크': { rank: '레어 황금', price: 399, base: '갈릭 케이크', powderPerItem: 1/20 },
+  '황금 삼겹살 토마토 찌개': { rank: '에픽 황금', price: 681, base: '삼겹살 토마토 찌개', powderPerItem: 1/13 },
+  '황금 삼색 아이스크림': { rank: '에픽 황금', price: 2196, base: '삼색 아이스크림', powderPerItem: 1/13 },
+  '황금 마늘 양갈비 핫도그': { rank: '에픽 황금', price: 1280, base: '마늘 양갈비 핫도그', powderPerItem: 1/13 },
+  '황금 달콤 시리얼': { rank: '에픽 황금', price: 1789, base: '달콤 시리얼', powderPerItem: 1/13 },
+  '황금 로스트 치킨 파이': { rank: '에픽 황금', price: 1722, base: '로스트 치킨 파이', powderPerItem: 1/13 },
+  '황금 스윗 치킨 햄버거': { rank: '전설 황금', price: 2923, base: '스윗 치킨 햄버거', powderPerItem: 1/10 },
+  '황금 토마토 파인애플 피자': { rank: '전설 황금', price: 1369, base: '토마토 파인애플 피자', powderPerItem: 1/10 },
+  '황금 양파 수프': { rank: '전설 황금', price: 3209, base: '양파 수프', powderPerItem: 1/10 },
+  '황금 허브 삼겹살 찜': { rank: '전설 황금', price: 2208, base: '허브 삼겹살 찜', powderPerItem: 1/10 },
+  '황금 토마토 라자냐': { rank: 'MYTHIC 황금', price: 4574, base: '토마토 라자냐', powderPerItem: 1/10 },
+  '황금 딥 크림 빠네': { rank: 'MYTHIC 황금', price: 1584, base: '딥 크림 빠네', powderPerItem: 1/10 },
+  '황금 트리플 소갈비 꼬치': { rank: 'MYTHIC 황금', price: 2967, base: '트리플 소갈비 꼬치', powderPerItem: 1/10 },
 };
 
 const USER_SHOP = {
@@ -143,7 +146,21 @@ for (const [name, data] of Object.entries(USER_SHOP)) SALE_ITEMS[name] = { categ
 
 const RECIPES = { ...BASE_RECIPES };
 for (const [name, data] of Object.entries(REGULAR_COOKING)) RECIPES[name] = { output: 1, inputs: data.recipe };
-for (const [name, data] of Object.entries(GOLDEN_COOKING)) RECIPES[name] = { output: 1, inputs: { [data.base]: 1, '금 가루': data.powderPerItem } };
+// 황금 요리는 제작법 자체가 여러 개를 한 번에 만드는 레시피입니다.
+// 원래의 소수 금 가루 환산식 대신 실제 제작 1회의 정수 수량을 사용합니다.
+function bulkOutput(name) { return Math.round(1 / GOLDEN_COOKING[name].powderPerItem); }
+function goldMode() { return ['bulk','single','best'].includes(state.goldRecipeMode) ? state.goldRecipeMode : 'best'; }
+function goldSingleBaseQty(name) { return GOLDEN_COOKING[name].rank.startsWith('레어') ? 2 : 1; }
+function goldPowderStamina() { return Number(state.goldPowderHarvests || 0) * Number(state.stamina['세이지 괭이'] || 0); }
+function edibleGoldPowderStamina() { return goldPowderStamina() / 10; }
+function goldenCraftOutput(name, mode = getGoldenModeForItem(name)) { return mode === 'bulk' ? bulkOutput(name) : 1; }
+function getGoldenRecipe(name, mode = getGoldenModeForItem(name)) {
+  const data = GOLDEN_COOKING[name];
+  return mode === 'bulk'
+    ? { output: bulkOutput(name), inputs: { [data.base]: bulkOutput(name), '금 가루': 1 } }
+    : { output: 1, inputs: { [data.base]: goldSingleBaseQty(name), '식용 금 가루': 1 } };
+}
+function syncGoldenRecipes() { /* golden recipes are resolved dynamically in v28 */ }
 
 let state = {
   prices: {},
@@ -154,21 +171,87 @@ let state = {
   filter: '전체',
   method: 'expected',
   goldPowderHarvests: 33.33,
+  goldRecipeMode: 'best',
 };
 
 try {
   const stored = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
   state = { ...state, ...stored, prices: { ...state.prices, ...(stored.prices || {}) }, stamina: { ...state.stamina, ...(stored.stamina || {}) }, drops: { ...state.drops, ...(stored.drops || {}) }, extraPrices: { ...state.extraPrices, ...(stored.extraPrices || {}) } };
 } catch (e) {}
+syncGoldenRecipes();
 
 function remember(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch(e) {} }
+
+function resolveRecipeCostObject(recipe, qty = recipe.output, stack = []){
+  let result = { gold: 0, stamina: 0, materials: {} };
+  for (const [inputName, inputQty] of Object.entries(recipe.inputs)) {
+    result = mergeCost(result, resolveCost(inputName, (inputQty / recipe.output) * qty, stack));
+  }
+  return result;
+}
+
+function evaluateGoldenMode(name, mode){
+  const recipe = getGoldenRecipe(name, mode);
+  const outputPerCraft = recipe.output;
+  const batchCost = resolveRecipeCostObject(recipe, outputPerCraft, [name]);
+  const sale = getSalePrice(name);
+  let opportunityPerBatch = 0;
+  if (state.method === 'opportunity') {
+    for (const [matName, count] of Object.entries(batchCost.materials)) {
+      const ref = getReferencePrice(matName);
+      if (ref !== null) opportunityPerBatch += ref * count;
+    }
+  }
+  const validStamina = Number.isFinite(batchCost.stamina) && batchCost.stamina > 0;
+  const unitProfit = validStamina ? sale - (batchCost.gold + opportunityPerBatch) / outputPerCraft : NaN;
+  const batches = validStamina ? Math.floor(STAMINA_BUDGET / batchCost.stamina + 1e-9) : null;
+  const craftable = batches === null ? null : batches * outputPerCraft;
+  const totalSales = craftable === null ? null : sale * craftable;
+  const totalCosts = batches === null ? null : (batchCost.gold + opportunityPerBatch) * batches;
+  const efficiency = craftable === null ? null : totalSales - totalCosts;
+  return { recipe, outputPerCraft, batchCost, opportunityPerBatch, validStamina, unitProfit, batches, craftable, totalSales, totalCosts, efficiency, mode };
+}
+
+function getGoldenModeForItem(name){
+  const selected = goldMode();
+  if (selected === 'bulk' || selected === 'single') return selected;
+  const bulk = evaluateGoldenMode(name, 'bulk');
+  const single = evaluateGoldenMode(name, 'single');
+  if (Number.isFinite(single.efficiency) && (!Number.isFinite(bulk.efficiency) || single.efficiency > bulk.efficiency)) return 'single';
+  return 'bulk';
+}
+
+function goldenModeLabel(mode){
+  return mode === 'single' ? '개별 제작' : '대량 제작';
+}
 function getSalePrice(name){ return state.prices[name] !== undefined && state.prices[name] !== '' ? Number(state.prices[name]) : SALE_ITEMS[name].price; }
 function getReferencePrice(name){
   if (state.extraPrices[name] !== undefined && state.extraPrices[name] !== '') return Number(state.extraPrices[name]);
   if (REFERENCE_PRICES[name] !== undefined) return REFERENCE_PRICES[name];
   return null;
 }
-function chipIcon(name){ return ITEM_ICONS[name] || '📦'; }
+
+const DISH_NAMES = new Set([...Object.keys(REGULAR_COOKING), ...Object.keys(GOLDEN_COOKING)]);
+const INGREDIENT_ICON_NAMES = new Set(['당근 묶음','감자 묶음','비트 묶음','호박 묶음','수박 묶음','달콤한 열매 묶음','양파 베이스','토마토 베이스','마늘 베이스','설탕 큐브','요리용 소금','치즈 조각','밀가루 반죽','버터 조각','금 가루','식용 금 가루']);
+const ENHANCE_ICON_NAMES = new Set(['코룸 주괴','리프톤 주괴','세렌트 주괴','조약돌 뭉치','심층암 조약돌 뭉치','어빌리티 스톤','하급 라이프스톤','중급 라이프스톤','상급 라이프스톤']);
+function imagePathForName(name){
+  const file = encodeURIComponent(name.replaceAll(' ','_'));
+  if (DISH_NAMES.has(name)) return `assets/dishes/${file}.png?v=wiki2`;
+  if (INGREDIENT_ICON_NAMES.has(name)) return `assets/ingredients/${file}.png?v=wiki2`;
+  if (ENHANCE_ICON_NAMES.has(name)) return `assets/enhance/${file}.png?v=wiki2`;
+  return `assets/raw/${file}.png?v=wiki2`;
+}
+function chipIcon(name){
+  const path = imagePathForName(name);
+  const fileName = decodeURIComponent(path.split('/').pop().split('?')[0]);
+  const rawFile = fileName.replaceAll('_',' ');
+  const knownRaw = ['토마토.png','양파.png','마늘.png','파인애플.png','코코넛.png','밀.png','당근.png','감자.png','비트.png','호박.png','수박.png','달콤한 열매.png','사탕수수.png','소금.png','오일.png','요리용 달걀.png','요리용 우유.png','구리 블록.png','철 블록.png','다이아몬드 블록.png','금 블록.png','자수정 블록.png','청금석 블록.png','레드스톤 블록.png','조약돌.png','심층암 조약돌.png','코룸.png','리프톤.png','세렌트.png','강화 횃불.png','익힌 돼지고기.png','익힌 돼지 삼겹살.png','익힌 양고기.png','익힌 양 갈비살.png','익힌 닭고기.png','익힌 닭 다리살.png','익힌 닭 가슴살.png','스테이크.png','익힌 소 등심.png','익힌 돼지 앞다리살.png','익힌 양 다리살.png','익힌 소 갈비살.png'];
+  if (DISH_NAMES.has(name) || INGREDIENT_ICON_NAMES.has(name) || ENHANCE_ICON_NAMES.has(name) || knownRaw.includes(rawFile)) {
+    return `<img class="calc-icon-img" src="${path}" alt="" loading="lazy">`;
+  }
+  return ITEM_ICONS[name] || '📦';
+}
+
 
 function createSettingsTables(){
   $('stamina-table').innerHTML = Object.keys(HARVEST_CONFIG).map(name => `
@@ -179,7 +262,9 @@ function createSettingsTables(){
     </tr>`).join('');
 
   $('gold-setting-table').innerHTML = `
-    <tr><td>금 가루 1개 평균 수확 횟수</td><td><input type="number" min="0.1" step="0.01" data-kind="special" data-name="goldPowderHarvests" value="${state.goldPowderHarvests}"></td></tr>`;
+    <tr><td>황금 요리 효율 계산 방식</td><td><select data-kind="goldMode" data-name="goldRecipeMode"><option value="best" ${goldMode()==='best'?'selected':''}>자동 최적 선택 (권장)</option><option value="bulk" ${goldMode()==='bulk'?'selected':''}>금 가루 · 대량 제작</option><option value="single" ${goldMode()==='single'?'selected':''}>식용 금 가루 · 개별 제작</option></select></td></tr>
+    <tr><td>금 가루 1개 평균 수확 횟수</td><td><input type="number" min="0.1" step="0.01" data-kind="special" data-name="goldPowderHarvests" value="${state.goldPowderHarvests}"><div class="mini-note" style="display:block;margin-top:6px">식용 금 가루는 별도 입력 없이 자동 계산됩니다.</div></td></tr>
+    <tr><td>식용 금 가루 환산</td><td><b>금 가루 1개 = 식용 금 가루 10개</b><div class="mini-note" style="display:block;margin-top:6px">현재 설정 기준 식용 금 가루 1개 필요 ST: ${fmt(edibleGoldPowderStamina(),2)} ST</div></td></tr>`;
 
   const renderPriceTable = (names, bodyId) => {
     $(bodyId).innerHTML = names.map(name => `
@@ -204,7 +289,7 @@ function createSettingsTables(){
 }
 
 function mergeCost(a, b){
-  const result = { gold: (a.gold || 0) + (b.gold || 0), stamina: (a.stamina || 0) + (b.stamina || 0), materials: { ...(a.materials || {}) } };
+  const result = { gold: (a.gold ?? 0) + (b.gold ?? 0), stamina: (a.stamina ?? 0) + (b.stamina ?? 0), materials: { ...(a.materials || {}) } };
   for (const [k,v] of Object.entries(b.materials || {})) result.materials[k] = (result.materials[k] || 0) + v;
   return result;
 }
@@ -213,7 +298,13 @@ function resolveCost(name, qty = 1, stack = []){
   if (qty === 0) return { gold: 0, stamina: 0, materials: {} };
   if (name === '스테미나') return { gold: 0, stamina: qty, materials: {} };
   if (PURCHASE_PRICES[name] !== undefined) return { gold: PURCHASE_PRICES[name] * qty, stamina: 0, materials: {} };
-  if (name === '금 가루') return { gold: 0, stamina: Number(state.goldPowderHarvests || 0) * Number(state.stamina['세이지 괭이']) * qty, materials: {} };
+  if (name === '금 가루') return { gold: 0, stamina: goldPowderStamina() * qty, materials: {} };
+  if (name === '식용 금 가루') return { gold: 0, stamina: edibleGoldPowderStamina() * qty, materials: {} };
+
+  if (GOLDEN_COOKING[name]) {
+    const recipe = getGoldenRecipe(name);
+    return resolveRecipeCostObject(recipe, qty, [...stack, name]);
+  }
 
   if (state.method === 'buy') {
     const ref = getReferencePrice(name);
@@ -241,7 +332,17 @@ function collectBaseMaterials(name, qty = 1, stack = []){
   if (qty === 0) return {};
   if (PURCHASE_PRICES[name] !== undefined) return { [name]: qty };
   if (name === '금 가루') return { '금 가루': qty };
-  // 재료 화면에는 원광이 아닌 주괴 단위로 표시. 채굴 ST 계산은 아래 제작식(원광 12개/주괴) 사용.
+  if (name === '식용 금 가루') return { '식용 금 가루': qty };
+  if (GOLDEN_COOKING[name]) {
+    const recipe = getGoldenRecipe(name);
+    let out = {};
+    for (const [inputName, inputQty] of Object.entries(recipe.inputs)) {
+      const sub = collectBaseMaterials(inputName, (inputQty / recipe.output) * qty, [...stack, name]);
+      for (const [k,v] of Object.entries(sub)) out[k] = (out[k] || 0) + v;
+    }
+    return out;
+  }
+  // 재료 화면에는 원광이 아닌 주괴 단위로 표시. 채굴 ST 계산은 아래 제작식(원광 16개/주괴) 사용.
   if (stack.length > 0 && ['코룸 주괴','리프톤 주괴','세렌트 주괴'].includes(name)) return { [name]: qty };
   if (stack.includes(name)) return { [name]: qty };
   const recipe = RECIPES[name];
@@ -271,9 +372,17 @@ function collectRecipeDisplayMaterials(name, qty = 1){
   }
   if (GOLDEN_COOKING[name]) {
     const info = GOLDEN_COOKING[name];
-    const baseMats = collectRecipeDisplayMaterials(info.base, qty);
-    baseMats['금 가루'] = (baseMats['금 가루'] || 0) + info.powderPerItem * qty;
-    return baseMats;
+    const mode = getGoldenModeForItem(name);
+    if (mode === 'bulk') {
+      const batches = Math.ceil(qty / bulkOutput(name) - 1e-9);
+      return { [info.base]: batches * bulkOutput(name), '금 가루': batches };
+    }
+    return { [info.base]: qty * goldSingleBaseQty(name), '식용 금 가루': qty };
+  }
+  // 상점 강화/광물 제작품은 실제 제작대에 넣는 재료 그대로 보여준다.
+  if (USER_SHOP[name] && RECIPES[name] && RECIPES[name].inputs && !RECIPES[name].category) {
+    const { output, inputs } = RECIPES[name];
+    return Object.fromEntries(Object.entries(inputs).map(([material, amount]) => [material, amount * qty / output]));
   }
   return collectBaseMaterials(name, qty);
 }
@@ -283,36 +392,54 @@ function computeRows(){
   for (const [name, meta] of Object.entries(SALE_ITEMS)) {
     const sale = Number(getSalePrice(name));
     if (!Number.isFinite(sale)) continue;
-    const unitCost = resolveCost(name, 1);
-    let opportunity = 0;
-    if (state.method === 'opportunity') {
-      for (const [matName, count] of Object.entries(unitCost.materials)) {
-        const ref = getReferencePrice(matName);
-        if (ref !== null) opportunity += ref * count;
+
+    let outputPerCraft = 1, batchCost, unitCost, validStamina, unitProfit, batches, craftable, totalSales, totalCosts, efficiency, chosenMode = null;
+    if (GOLDEN_COOKING[name]) {
+      chosenMode = getGoldenModeForItem(name);
+      const goldenEval = evaluateGoldenMode(name, chosenMode);
+      outputPerCraft = goldenEval.outputPerCraft;
+      batchCost = goldenEval.batchCost;
+      validStamina = goldenEval.validStamina;
+      unitProfit = goldenEval.unitProfit;
+      batches = goldenEval.batches;
+      craftable = goldenEval.craftable;
+      totalSales = goldenEval.totalSales;
+      totalCosts = goldenEval.totalCosts;
+      efficiency = goldenEval.efficiency;
+      unitCost = {
+        gold: batchCost.gold / outputPerCraft,
+        stamina: batchCost.stamina / outputPerCraft,
+        materials: Object.fromEntries(Object.entries(batchCost.materials).map(([k,v]) => [k,v/outputPerCraft]))
+      };
+    } else {
+      batchCost = resolveCost(name, outputPerCraft);
+      unitCost = {
+        gold: batchCost.gold / outputPerCraft,
+        stamina: batchCost.stamina / outputPerCraft,
+        materials: Object.fromEntries(Object.entries(batchCost.materials).map(([k,v]) => [k,v/outputPerCraft]))
+      };
+      let opportunityPerBatch = 0;
+      if (state.method === 'opportunity') {
+        for (const [matName, count] of Object.entries(batchCost.materials)) {
+          const ref = getReferencePrice(matName);
+          if (ref !== null) opportunityPerBatch += ref * count;
+        }
       }
+      validStamina = Number.isFinite(batchCost.stamina) && batchCost.stamina > 0;
+      unitProfit = validStamina ? sale - (batchCost.gold + opportunityPerBatch) / outputPerCraft : NaN;
+      batches = validStamina ? Math.floor(STAMINA_BUDGET / batchCost.stamina + 1e-9) : null;
+      craftable = batches === null ? null : batches * outputPerCraft;
+      totalSales = craftable === null ? null : sale * craftable;
+      totalCosts = batches === null ? null : (batchCost.gold + opportunityPerBatch) * batches;
+      efficiency = craftable === null ? null : totalSales - totalCosts;
     }
-    const unitProfit = sale - unitCost.gold - opportunity;
-    // 실제로 판매할 수 있는 정수 개수에 대해서만 수익을 계산한다.
-    // 황금 요리의 묶음 제작 단위는 기존 계산기의 평균 ST 기준을 유지한다.
-    const craftable = unitCost.stamina > 0 ? Math.floor(STAMINA_BUDGET / unitCost.stamina + 1e-9) : null;
-    const efficiency = craftable !== null ? unitProfit * craftable : null;
-    const totalSales = craftable !== null ? sale * craftable : null;
-    const totalCosts = craftable !== null ? (unitCost.gold + opportunity) * craftable : null;
     const baseMaterials = craftable ? collectBaseMaterials(name, craftable) : {};
     const displayMaterials = craftable ? collectRecipeDisplayMaterials(name, craftable) : {};
     rows.push({
-      name,
-      category: meta.category,
-      rank: meta.rank,
-      sale,
-      unitProfit,
-      unitStamina: unitCost.stamina,
-      efficiency,
-      totalSales,
-      totalCosts,
-      craftable,
-      baseMaterials,
-      displayMaterials,
+      name, category: meta.category, rank: meta.rank, sale,
+      unitProfit, unitStamina: unitCost.stamina, efficiency, totalSales,
+      totalCosts, craftable, batches, outputPerCraft, baseMaterials, displayMaterials,
+      goldenMode: chosenMode
     });
   }
   return rows;
@@ -353,23 +480,24 @@ function filteredRows(){
 
 function renderResults(){
   const rows = filteredRows();
-  $('materials-heading').textContent = materialsMode === 'unit' ? '재료 개수 · 1개 제작' : '재료 개수 · 1,000 ST 제작';
+  $('materials-heading').textContent = materialsMode === 'unit' ? '재료 개수 · 제작 1회' : '재료 개수 · 1,000 ST 제작';
   $('result-table').innerHTML = rows.map((row, idx) => `
     <tr data-item="${esc(row.name)}">
       <td>
         <div class="item-cell">
+          <span class="item-rank-num">${idx+1}.</span>
           <div class="item-icon">${chipIcon(row.name)}</div>
-          <div>
-            <b>${idx+1}. ${esc(row.name)}</b>
-            <div class="subline"><span class="pill ${row.category === '황금 요리' ? 'gold' : row.category === '유저상점' ? 'green' : 'blue'}">${esc(row.category)}</span></div>
+          <div class="item-meta">
+            <b class="item-name">${esc(row.name)}</b>
+            <div class="subline"><span class="pill ${row.category === '황금 요리' ? 'gold' : row.category === '유저상점' ? 'green' : 'blue'}">${esc(row.category)}</span>${row.outputPerCraft > 1 ? `<span class="cell-calc">${row.category === '황금 요리' ? `자동 기준: ${goldenModeLabel(row.goldenMode)} · ` : ''}한 번에 ${row.outputPerCraft}개 제작</span>` : (row.category === '황금 요리' ? `<span class="cell-calc">자동 기준: ${goldenModeLabel(row.goldenMode)}</span>` : '')}</div>
           </div>
         </div>
       </td>
-      <td class="num">${fmt(row.sale)} G</td>
-      <td class="num ${row.unitProfit >= 0 ? '' : 'minus'}">${fmt(row.unitProfit,2)} G</td>
-      <td class="num emphasis" title="판매가 × 제작 가능 정수 개수 − 확인된 재료비 × 제작 개수">${Number.isFinite(row.efficiency) ? fmt(row.efficiency,2) + ' G' : '—'}<span class="cell-calc">판매 ${fmt(row.totalSales)}G − 비용 ${fmt(row.totalCosts,2)}G</span></td>
-      <td class="num">${row.craftable ?? '—'}개</td>
-      <td><div class="materials-wrap">${materialChips(materialsMode === 'unit' ? collectRecipeDisplayMaterials(row.name, 1) : row.displayMaterials)}</div></td>
+      <td class="num"><span class="metric-value">${fmt(row.sale)} G</span></td>
+      <td class="num ${row.unitProfit >= 0 ? '' : 'minus'}"><span class="metric-value">${fmt(row.unitProfit,2)} G</span></td>
+      <td class="num emphasis" title="판매가 × 제작 가능 정수 개수 − 확인된 재료비 × 제작 개수"><span class="metric-value">${Number.isFinite(row.efficiency) ? fmt(row.efficiency,2) + ' G' : '—'}<span class="cell-calc">판매 ${fmt(row.totalSales)}G − 비용 ${fmt(row.totalCosts,2)}G</span></span></td>
+      <td class="num"><span class="metric-value">${row.craftable ?? '—'}개</span></td>
+      <td><div class="materials-wrap">${materialChips(materialsMode === 'unit' ? collectRecipeDisplayMaterials(row.name, row.outputPerCraft) : row.displayMaterials)}</div></td>
     </tr>`).join('') || '<tr><td colspan="6">표시할 아이템이 없습니다.</td></tr>';
 
   const best = rows.find(r => Number.isFinite(r.efficiency));
@@ -389,8 +517,8 @@ function renderQuick(){
     <div class="quick-grid">
       <div class="quick-card"><small>판매가</small><strong>${fmt(row.sale)} G</strong></div>
       <div class="quick-card"><small>1개 순수익</small><strong>${fmt(row.unitProfit,2)} G</strong></div>
-      <div class="quick-card"><small>1,000 ST 실제 제작 개수 기준 순수익</small><strong>${fmt(row.efficiency,2)} G</strong><span class="cell-calc">판매 ${fmt(row.totalSales)}G − 비용 ${fmt(row.totalCosts,2)}G</span></div>
-      <div class="quick-card"><small>1,000 ST 제작 가능</small><strong>${row.craftable}개</strong></div>
+      <div class="quick-card"><small>1,000 ST 실제 제작 개수 기준 순수익</small><strong>${Number.isFinite(row.efficiency) ? fmt(row.efficiency,2) + ' G' : '획득 ST 설정 필요'}</strong><span class="cell-calc">판매 ${fmt(row.totalSales)}G − 비용 ${fmt(row.totalCosts,2)}G${row.category === '황금 요리' ? ` · ${goldenModeLabel(row.goldenMode)} 기준 · 식용 금 가루는 금 가루 ÷ 10 환산` : ''}</span></div>
+      <div class="quick-card"><small>1,000 ST 제작 가능</small><strong>${row.craftable ?? '—'}개</strong></div>
     </div>
     <div class="quick-material-box"><div class="quick-title">1,000 ST 기준 필요한 재료</div><div class="materials-wrap">${mats}</div></div>`;
 }
@@ -437,8 +565,12 @@ function bindEvents(){
     if (kind === 'prices') { state.prices[name] = Number(el.value || 0); syncAllPriceInputs(name, state.prices[name]); }
     if (kind === 'stamina') state.stamina[name] = Number(el.value || 0);
     if (kind === 'drops') state.drops[name] = Number(el.value || 0);
-    if (kind === 'special') state.goldPowderHarvests = Number(el.value || 0);
+    if (kind === 'special') {
+      if (name === 'goldPowderHarvests') state.goldPowderHarvests = Number(el.value || 0);
+    }
+    if (kind === 'goldMode') { state.goldRecipeMode = el.value; syncGoldenRecipes(); }
     if (kind === 'extraPrices') state.extraPrices[name] = el.value === '' ? '' : Number(el.value);
+    if (kind === 'stamina' || (kind === 'special' && name === 'goldPowderHarvests')) createSettingsTables();
     remember(); renderResults(); renderQuick(); renderPlanner();
   });
   ['unit','thousand'].forEach(mode => $('mode-'+mode).addEventListener('click', () => { materialsMode = mode; document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.toggle('active',btn.dataset.mode === mode)); renderResults(); }));
@@ -476,10 +608,27 @@ function init(){
 }
 
 function renderPlanner(){
- const name=$('planner-item').value; const count=Math.max(1,Math.floor(Number($('planner-count').value)||1));
- const row=computeRows().find(r=>r.name===name);if(!row)return;
- const mats=collectRecipeDisplayMaterials(name,count);
- $('planner-result').innerHTML=`<div class="planner-stats"><div><span>제작 목표</span><strong>${fmt(count)}개</strong></div><div><span>평균 필요 ST</span><strong>${fmt(row.unitStamina*count,2)} ST</strong></div><div><span>예상 순수익</span><strong>${fmt(row.unitProfit*count,2)} G</strong></div></div><h4>전체 필요한 원재료</h4><div class="materials-wrap">${materialChips(mats)}</div><p class="footer-note">우라라 야하~ 이 이 이 야하~.</p>`;
+  const name = $('planner-item').value;
+  const requested = Math.max(1,Math.floor(Number($('planner-count').value)||1));
+  const row = computeRows().find(r => r.name === name);
+  if (!row) return;
+  const perCraft = row.outputPerCraft || 1;
+  const batches = Math.ceil(requested / perCraft);
+  const produced = batches * perCraft;
+  const totalCost = resolveCost(name, produced);
+  let opportunity = 0;
+  if (state.method === 'opportunity') {
+    for (const [matName, count] of Object.entries(totalCost.materials)) {
+      const ref = getReferencePrice(matName);
+      if (ref !== null) opportunity += ref * count;
+    }
+  }
+  const expectedProfit = Number.isFinite(totalCost.stamina) ? row.sale*produced-totalCost.gold-opportunity : NaN;
+  const mats = collectRecipeDisplayMaterials(name, produced);
+  const notice = GOLDEN_COOKING[name]
+    ? `<p class="footer-note">황금 요리 계산 기준: ${goldenModeLabel(row.goldenMode)}${perCraft > 1 ? ` · ${fmt(perCraft)}개씩 제작되므로 요청 ${fmt(requested)}개에 대해 ${fmt(produced)}개분 재료를 준비해야 합니다.` : ''}</p>`
+    : '';
+  $('planner-result').innerHTML = `<div class="planner-stats"><div><span>제작 목표</span><strong>${fmt(requested)}개</strong></div><div><span>실제 완성 수량</span><strong>${fmt(produced)}개</strong></div><div><span>필요 ST</span><strong>${Number.isFinite(totalCost.stamina) ? fmt(totalCost.stamina,2)+' ST' : '식용 금 가루 ST 미설정'}</strong></div><div><span>예상 순수익</span><strong>${Number.isFinite(expectedProfit) ? fmt(expectedProfit,2)+' G' : '—'}</strong></div></div><h4>전체 필요한 제작 재료</h4><div class="materials-wrap">${materialChips(mats)}</div>${notice}<p class="footer-note">우리 모두 모몽가를 좋아해 보는건 어떨까요.</p>`;
 }
 
 document.addEventListener('DOMContentLoaded', init);
