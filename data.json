@@ -51,6 +51,18 @@
       "icon": "sprout"
     },
     {
+      "id": "soul",
+      "title": "영혼 연성소",
+      "english": "SOUL REFINERY",
+      "description": "영혼 불꽃 · 동물의 영혼 · 특수 가공품",
+      "facilityIds": [
+        "soul_processing"
+      ],
+      "banner": "assets/branding/banner_soul.png",
+      "theme": "soul",
+      "icon": "flame"
+    },
+    {
       "id": "compare",
       "title": "효율 비교",
       "english": "ITEM COMPARISON",
@@ -2125,6 +2137,344 @@
           ]
         }
       ]
+    },
+    "soul_processing": {
+      "id": "soul_processing",
+      "category": "soul",
+      "title": "영혼 가공 시설",
+      "description": "몬스터의 심장으로 영혼 불꽃을 만들고, 동물 재료로 영혼과 특수 가공품을 제작합니다.",
+      "banner": "assets/branding/banner_soul.png",
+      "groups": [
+        {
+          "id": "soul-flame",
+          "title": "영혼 불꽃",
+          "description": "몬스터의 심장 4종을 각각 1개씩 조합합니다.",
+          "number": 1,
+          "recipes": [
+            {
+              "name": "영혼 불꽃",
+              "ingredients": [
+                {
+                  "name": "좀비의 심장",
+                  "qty": 1
+                },
+                {
+                  "name": "스켈레톤의 심장",
+                  "qty": 1
+                },
+                {
+                  "name": "거미의 심장",
+                  "qty": 1
+                },
+                {
+                  "name": "크리퍼의 심장",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "id": "animal-souls",
+          "title": "동물의 영혼",
+          "description": "각 동물의 재료를 5개씩 3칸(총 15개)과 영혼 불꽃 1개로 제작합니다.",
+          "number": 2,
+          "recipes": [
+            {
+              "name": "사슴의 영혼",
+              "ingredients": [
+                {
+                  "name": "사슴의 뿔",
+                  "qty": 5
+                },
+                {
+                  "name": "사슴의 뿔",
+                  "qty": 5
+                },
+                {
+                  "name": "사슴의 뿔",
+                  "qty": 5
+                },
+                {
+                  "name": "영혼 불꽃",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+            },
+            {
+              "name": "미어캣의 영혼",
+              "ingredients": [
+                {
+                  "name": "미어캣의 꼬리",
+                  "qty": 5
+                },
+                {
+                  "name": "미어캣의 꼬리",
+                  "qty": 5
+                },
+                {
+                  "name": "미어캣의 꼬리",
+                  "qty": 5
+                },
+                {
+                  "name": "영혼 불꽃",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+            },
+            {
+              "name": "기린의 영혼",
+              "ingredients": [
+                {
+                  "name": "기린의 가죽",
+                  "qty": 5
+                },
+                {
+                  "name": "기린의 가죽",
+                  "qty": 5
+                },
+                {
+                  "name": "기린의 가죽",
+                  "qty": 5
+                },
+                {
+                  "name": "영혼 불꽃",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+            },
+            {
+              "name": "코끼리의 영혼",
+              "ingredients": [
+                {
+                  "name": "코끼리의 상아",
+                  "qty": 5
+                },
+                {
+                  "name": "코끼리의 상아",
+                  "qty": 5
+                },
+                {
+                  "name": "코끼리의 상아",
+                  "qty": 5
+                },
+                {
+                  "name": "영혼 불꽃",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+            },
+            {
+              "name": "하마의 영혼",
+              "ingredients": [
+                {
+                  "name": "하마의 송곳니",
+                  "qty": 5
+                },
+                {
+                  "name": "하마의 송곳니",
+                  "qty": 5
+                },
+                {
+                  "name": "하마의 송곳니",
+                  "qty": 5
+                },
+                {
+                  "name": "영혼 불꽃",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+            },
+            {
+              "name": "플라밍고의 영혼",
+              "ingredients": [
+                {
+                  "name": "플라밍고의 부리",
+                  "qty": 5
+                },
+                {
+                  "name": "플라밍고의 부리",
+                  "qty": 5
+                },
+                {
+                  "name": "플라밍고의 부리",
+                  "qty": 5
+                },
+                {
+                  "name": "영혼 불꽃",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+            },
+            {
+              "name": "칠면조의 영혼",
+              "ingredients": [
+                {
+                  "name": "칠면조의 깃털",
+                  "qty": 5
+                },
+                {
+                  "name": "칠면조의 깃털",
+                  "qty": 5
+                },
+                {
+                  "name": "칠면조의 깃털",
+                  "qty": 5
+                },
+                {
+                  "name": "영혼 불꽃",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+            },
+            {
+              "name": "곰의 영혼",
+              "ingredients": [
+                {
+                  "name": "곰의 발바닥",
+                  "qty": 5
+                },
+                {
+                  "name": "곰의 발바닥",
+                  "qty": 5
+                },
+                {
+                  "name": "곰의 발바닥",
+                  "qty": 5
+                },
+                {
+                  "name": "영혼 불꽃",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+            }
+          ]
+        },
+        {
+          "id": "soul-tools",
+          "title": "특수 가공품",
+          "description": "반짝 광택제와 장인 인증 도장을 제작합니다.",
+          "number": 3,
+          "recipes": [
+            {
+              "name": "반짝 광택제",
+              "ingredients": [
+                {
+                  "name": "기린의 가죽",
+                  "qty": 8
+                },
+                {
+                  "name": "코끼리의 상아",
+                  "qty": 8
+                },
+                {
+                  "name": "하마의 송곳니",
+                  "qty": 8
+                },
+                {
+                  "name": "플라밍고의 부리",
+                  "qty": 8
+                },
+                {
+                  "name": "가죽",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "장인 인증 도장",
+              "ingredients": [
+                {
+                  "name": "사슴의 뿔",
+                  "qty": 8
+                },
+                {
+                  "name": "미어캣의 꼬리",
+                  "qty": 8
+                },
+                {
+                  "name": "곰의 발바닥",
+                  "qty": 8
+                },
+                {
+                  "name": "칠면조의 깃털",
+                  "qty": 8
+                },
+                {
+                  "name": "부싯돌",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            }
+          ]
+        }
+      ]
     }
   },
   "items": {
@@ -2137,7 +2487,8 @@
     },
     "기린의 영혼": {
       "name": "기린의 영혼",
-      "image": "assets/souls/기린의_영혼.png"
+      "image": "assets/souls/기린의_영혼.png",
+      "craftable": true
     },
     "스테이크": {
       "name": "스테이크",
@@ -2421,7 +2772,8 @@
     },
     "사슴의 영혼": {
       "name": "사슴의 영혼",
-      "image": "assets/souls/사슴의_영혼.png"
+      "image": "assets/souls/사슴의_영혼.png",
+      "craftable": true
     },
     "스윗 치킨 햄버거": {
       "name": "스윗 치킨 햄버거",
@@ -2450,7 +2802,8 @@
     },
     "코끼리의 영혼": {
       "name": "코끼리의 영혼",
-      "image": "assets/souls/코끼리의_영혼.png"
+      "image": "assets/souls/코끼리의_영혼.png",
+      "craftable": true
     },
     "치즈 조각": {
       "name": "치즈 조각",
@@ -2468,7 +2821,8 @@
     },
     "미어캣의 영혼": {
       "name": "미어캣의 영혼",
-      "image": "assets/souls/미어캣의_영혼.png"
+      "image": "assets/souls/미어캣의_영혼.png",
+      "craftable": true
     },
     "익힌 양 다리살": {
       "name": "익힌 양 다리살",
@@ -2490,7 +2844,8 @@
     },
     "칠면조의 영혼": {
       "name": "칠면조의 영혼",
-      "image": "assets/souls/칠면조의_영혼.png"
+      "image": "assets/souls/칠면조의_영혼.png",
+      "craftable": true
     },
     "마늘 베이스": {
       "name": "마늘 베이스",
@@ -2520,7 +2875,8 @@
     },
     "곰의 영혼": {
       "name": "곰의 영혼",
-      "image": "assets/souls/곰의_영혼.png"
+      "image": "assets/souls/곰의_영혼.png",
+      "craftable": true
     },
     "황금 삼겹살 토마토 찌개": {
       "name": "황금 삼겹살 토마토 찌개",
@@ -2545,11 +2901,13 @@
     },
     "플라밍고의 영혼": {
       "name": "플라밍고의 영혼",
-      "image": "assets/souls/플라밍고의_영혼.png"
+      "image": "assets/souls/플라밍고의_영혼.png",
+      "craftable": true
     },
     "하마의 영혼": {
       "name": "하마의 영혼",
-      "image": "assets/souls/하마의_영혼.png"
+      "image": "assets/souls/하마의_영혼.png",
+      "craftable": true
     },
     "익힌 돼지고기": {
       "name": "익힌 돼지고기",
@@ -2722,6 +3080,77 @@
     "금 블록": {
       "name": "금 블록",
       "image": "assets/raw/금_블록.png"
+    },
+    "좀비의 심장": {
+      "name": "좀비의 심장",
+      "image": "assets/souls/좀비의_심장.png"
+    },
+    "크리퍼의 심장": {
+      "name": "크리퍼의 심장",
+      "image": "assets/souls/크리퍼의_심장.png"
+    },
+    "스켈레톤의 심장": {
+      "name": "스켈레톤의 심장",
+      "image": "assets/souls/스켈레톤의_심장.png"
+    },
+    "거미의 심장": {
+      "name": "거미의 심장",
+      "image": "assets/souls/거미의_심장.png"
+    },
+    "기린의 가죽": {
+      "name": "기린의 가죽",
+      "image": "assets/souls/기린의_가죽.png"
+    },
+    "코끼리의 상아": {
+      "name": "코끼리의 상아",
+      "image": "assets/souls/코끼리의_상아.png"
+    },
+    "하마의 송곳니": {
+      "name": "하마의 송곳니",
+      "image": "assets/souls/하마의_송곳니.png"
+    },
+    "플라밍고의 부리": {
+      "name": "플라밍고의 부리",
+      "image": "assets/souls/플라밍고의_부리.png"
+    },
+    "영혼 불꽃": {
+      "name": "영혼 불꽃",
+      "image": "assets/souls/영혼_불꽃.png",
+      "craftable": true
+    },
+    "사슴의 뿔": {
+      "name": "사슴의 뿔",
+      "image": "assets/souls/사슴의_뿔.png"
+    },
+    "미어캣의 꼬리": {
+      "name": "미어캣의 꼬리",
+      "image": "assets/souls/미어캣의_꼬리.png"
+    },
+    "곰의 발바닥": {
+      "name": "곰의 발바닥",
+      "image": "assets/souls/곰의_발바닥.png"
+    },
+    "칠면조의 깃털": {
+      "name": "칠면조의 깃털",
+      "image": "assets/souls/칠면조의_깃털.png"
+    },
+    "반짝 광택제": {
+      "name": "반짝 광택제",
+      "image": "assets/souls/반짝_광택제.png",
+      "craftable": true
+    },
+    "장인 인증 도장": {
+      "name": "장인 인증 도장",
+      "image": "assets/souls/장인_인증_도장.png",
+      "craftable": true
+    },
+    "가죽": {
+      "name": "가죽",
+      "image": "assets/souls/가죽.png"
+    },
+    "부싯돌": {
+      "name": "부싯돌",
+      "image": "assets/souls/부싯돌.png"
     }
   },
   "recipesByItem": {
@@ -5050,23 +5479,31 @@
         }
       }
     ],
-    "횃불": [
+    "영혼 불꽃": [
       {
-        "facility": null,
-        "group": null,
+        "facility": "soul_processing",
+        "group": "soul-flame",
         "recipe": {
-          "name": "횃불",
+          "name": "영혼 불꽃",
           "ingredients": [
             {
-              "name": "막대기",
+              "name": "좀비의 심장",
               "qty": 1
             },
             {
-              "name": "석탄",
+              "name": "스켈레톤의 심장",
+              "qty": 1
+            },
+            {
+              "name": "거미의 심장",
+              "qty": 1
+            },
+            {
+              "name": "크리퍼의 심장",
               "qty": 1
             }
           ],
-          "output": 4,
+          "output": 1,
           "kind": "",
           "price": null,
           "rank": null,
@@ -5075,40 +5512,299 @@
         }
       }
     ],
-    "막대기": [
+    "사슴의 영혼": [
       {
-        "facility": null,
-        "group": null,
+        "facility": "soul_processing",
+        "group": "animal-souls",
         "recipe": {
-          "name": "막대기",
+          "name": "사슴의 영혼",
           "ingredients": [
             {
-              "name": "나무 판자",
-              "qty": 2
-            }
-          ],
-          "output": 4,
-          "kind": "",
-          "price": null,
-          "rank": null,
-          "method": null,
-          "note": ""
-        }
-      }
-    ],
-    "나무 판자": [
-      {
-        "facility": null,
-        "group": null,
-        "recipe": {
-          "name": "나무 판자",
-          "ingredients": [
+              "name": "사슴의 뿔",
+              "qty": 5
+            },
             {
-              "name": "나무 원목",
+              "name": "사슴의 뿔",
+              "qty": 5
+            },
+            {
+              "name": "사슴의 뿔",
+              "qty": 5
+            },
+            {
+              "name": "영혼 불꽃",
               "qty": 1
             }
           ],
-          "output": 4,
+          "output": 1,
+          "kind": "",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+        }
+      }
+    ],
+    "미어캣의 영혼": [
+      {
+        "facility": "soul_processing",
+        "group": "animal-souls",
+        "recipe": {
+          "name": "미어캣의 영혼",
+          "ingredients": [
+            {
+              "name": "미어캣의 꼬리",
+              "qty": 5
+            },
+            {
+              "name": "미어캣의 꼬리",
+              "qty": 5
+            },
+            {
+              "name": "미어캣의 꼬리",
+              "qty": 5
+            },
+            {
+              "name": "영혼 불꽃",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+        }
+      }
+    ],
+    "기린의 영혼": [
+      {
+        "facility": "soul_processing",
+        "group": "animal-souls",
+        "recipe": {
+          "name": "기린의 영혼",
+          "ingredients": [
+            {
+              "name": "기린의 가죽",
+              "qty": 5
+            },
+            {
+              "name": "기린의 가죽",
+              "qty": 5
+            },
+            {
+              "name": "기린의 가죽",
+              "qty": 5
+            },
+            {
+              "name": "영혼 불꽃",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+        }
+      }
+    ],
+    "코끼리의 영혼": [
+      {
+        "facility": "soul_processing",
+        "group": "animal-souls",
+        "recipe": {
+          "name": "코끼리의 영혼",
+          "ingredients": [
+            {
+              "name": "코끼리의 상아",
+              "qty": 5
+            },
+            {
+              "name": "코끼리의 상아",
+              "qty": 5
+            },
+            {
+              "name": "코끼리의 상아",
+              "qty": 5
+            },
+            {
+              "name": "영혼 불꽃",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+        }
+      }
+    ],
+    "하마의 영혼": [
+      {
+        "facility": "soul_processing",
+        "group": "animal-souls",
+        "recipe": {
+          "name": "하마의 영혼",
+          "ingredients": [
+            {
+              "name": "하마의 송곳니",
+              "qty": 5
+            },
+            {
+              "name": "하마의 송곳니",
+              "qty": 5
+            },
+            {
+              "name": "하마의 송곳니",
+              "qty": 5
+            },
+            {
+              "name": "영혼 불꽃",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+        }
+      }
+    ],
+    "플라밍고의 영혼": [
+      {
+        "facility": "soul_processing",
+        "group": "animal-souls",
+        "recipe": {
+          "name": "플라밍고의 영혼",
+          "ingredients": [
+            {
+              "name": "플라밍고의 부리",
+              "qty": 5
+            },
+            {
+              "name": "플라밍고의 부리",
+              "qty": 5
+            },
+            {
+              "name": "플라밍고의 부리",
+              "qty": 5
+            },
+            {
+              "name": "영혼 불꽃",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+        }
+      }
+    ],
+    "칠면조의 영혼": [
+      {
+        "facility": "soul_processing",
+        "group": "animal-souls",
+        "recipe": {
+          "name": "칠면조의 영혼",
+          "ingredients": [
+            {
+              "name": "칠면조의 깃털",
+              "qty": 5
+            },
+            {
+              "name": "칠면조의 깃털",
+              "qty": 5
+            },
+            {
+              "name": "칠면조의 깃털",
+              "qty": 5
+            },
+            {
+              "name": "영혼 불꽃",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+        }
+      }
+    ],
+    "곰의 영혼": [
+      {
+        "facility": "soul_processing",
+        "group": "animal-souls",
+        "recipe": {
+          "name": "곰의 영혼",
+          "ingredients": [
+            {
+              "name": "곰의 발바닥",
+              "qty": 5
+            },
+            {
+              "name": "곰의 발바닥",
+              "qty": 5
+            },
+            {
+              "name": "곰의 발바닥",
+              "qty": 5
+            },
+            {
+              "name": "영혼 불꽃",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "동일 재료 5개씩 3칸 · 총 15개 + 영혼 불꽃 1개"
+        }
+      }
+    ],
+    "반짝 광택제": [
+      {
+        "facility": "soul_processing",
+        "group": "soul-tools",
+        "recipe": {
+          "name": "반짝 광택제",
+          "ingredients": [
+            {
+              "name": "기린의 가죽",
+              "qty": 8
+            },
+            {
+              "name": "코끼리의 상아",
+              "qty": 8
+            },
+            {
+              "name": "하마의 송곳니",
+              "qty": 8
+            },
+            {
+              "name": "플라밍고의 부리",
+              "qty": 8
+            },
+            {
+              "name": "가죽",
+              "qty": 1
+            }
+          ],
+          "output": 1,
           "kind": "",
           "price": null,
           "rank": null,
@@ -5117,15 +5813,31 @@
         }
       }
     ],
-    "설탕": [
+    "장인 인증 도장": [
       {
-        "facility": null,
-        "group": null,
+        "facility": "soul_processing",
+        "group": "soul-tools",
         "recipe": {
-          "name": "설탕",
+          "name": "장인 인증 도장",
           "ingredients": [
             {
-              "name": "사탕수수",
+              "name": "사슴의 뿔",
+              "qty": 8
+            },
+            {
+              "name": "미어캣의 꼬리",
+              "qty": 8
+            },
+            {
+              "name": "곰의 발바닥",
+              "qty": 8
+            },
+            {
+              "name": "칠면조의 깃털",
+              "qty": 8
+            },
+            {
+              "name": "부싯돌",
               "qty": 1
             }
           ],
@@ -5419,7 +6131,7 @@
   },
   "meta": {
     "version": "1.0",
-    "importedRecipes": 85,
+    "importedRecipes": 96,
     "goldenMethodEntries": 30
   }
 }

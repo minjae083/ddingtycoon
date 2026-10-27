@@ -51,3 +51,11 @@
 
 ## v2 changes
 Light theme, previous 1,000 ST efficiency calculator restored under WIKI efficiency menu; seven new user icons; compact square crafting tooltip.
+
+
+## 영혼 연성소 추가 (v4)
+- 홈 5번째: 영혼 연성소 / 6번째: 효율 비교 (PC에서는 같은 행 왼쪽·오른쪽)
+- 영혼 연성소 → 영혼 가공 시설 → 영혼 불꽃 1종 / 동물의 영혼 8종 / 특수 가공품 2종
+- 동물 영혼 제작: 동물 재료 5개씩 3칸(총 15개) + 영혼 불꽃 1개
+- 업로드된 아이콘 25개와 시설 간판 그림 적용
+- 이전 요리, 강화, 농작물 설명과 효율 비교 기능 유지

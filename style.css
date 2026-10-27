@@ -86,3 +86,13 @@ body{background:#faf9ff!important;color:var(--text)}
 .method-tabs{background:#f2edff!important;border-color:#e0d4f8!important}.method-btn{color:#715b9a!important}.method-btn.active,.price-table-filter button.active{background:#8a66d1!important;border-color:#8a66d1!important;color:white!important}.method-btn:hover:not(.active){background:#fff!important;color:#8057c9!important}
 .hover-tooltip{background:#fff!important;border-color:#d9c9f2!important;box-shadow:0 18px 45px rgba(84,60,132,.18)!important}.tooltip-mode,.help-dot,.breadcrumb strong,.compare-vs,.compare-price{color:#805ac8!important}.compare-result{background:#f4efff!important;border-color:#e1d6f8!important;color:#7955c0!important}.price-table th{background:#f5f0ff!important}.price-table-filter button{border-color:#e1d6f5!important;color:#745e9b!important}
 @media(max-width:800px){.sidebar{background:#faf8ff!important;border-color:#e5dbf5!important}.nav-button{background:#fff!important;border-color:#e6ddf5!important}}
+
+/* v4: 영혼 연성소 / 효율 비교를 홈 마지막 줄의 좌우 두 카드로 배치.
+   기존 연보라 단색 테마와 직접 수정한 문구는 그대로 둡니다. */
+.portal-grid>.portal-card:nth-child(5){grid-column:auto!important;min-height:197px!important}
+.portal-card:nth-child(5) .portal-text{margin-top:16px}
+.portal-card.theme-soul{--c-theme:#9c7be1}
+.portal-card.theme-soul .portal-icon{color:#8259ca;background:#f0e9ff;border-color:#decffc}
+/* 제공받은 원본 픽셀 아트를 잘림 없이 표시. */
+.item-art img{object-fit:contain!important;image-rendering:pixelated!important}
+@media(max-width:800px){.portal-grid>.portal-card:nth-child(5){grid-column:auto!important;min-height:175px!important}}

@@ -12,7 +12,8 @@
     utensils:'<path d="M4 3v8c0 2 4 2 4 0V3M6 3v18M14 3c-2 2-2 6-2 9h5V3M17 12v9"/>',
     pickaxe:'<path d="m4 21 13-13"/><path d="M12 3c5-2 9 0 10 3-5-1-8 1-10 4"/><path d="m7 9 4 4"/>',
     sprout:'<path d="M12 22v-9M12 13c-8 0-9-4-9-9 6 0 10 2 9 9zm0 4c0-7 4-10 9-10 0 6-2 10-9 10z"/>',
-    chart:'<path d="M3 20h18M6 17v-5M11 17V7M16 17V4M21 17v-8"/>',
+    chart:'<path d="M3 20h18M6 17v-5M11 17V7M16 17v-8"/>',
+    flame:'<path d="M12 22c4.5 0 7.5-3.1 7.5-7.4 0-3.8-2.1-6.2-5.2-9.6.3 4.5-2.2 5.4-2.4 6.5C10.3 8.2 9 5.2 9.4 2 5.1 6.6 4 10.7 4 14.6 4 18.9 7.3 22 12 22Z"/><path d="M12 21c-1.9 0-3.2-1.4-3.2-3.2 0-1.6 1.1-2.9 2.8-4.5.1 2 1.1 2.8 2.3 3.6 1 2.1.1 4.1-1.9 4.1Z"/>',
     arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>',
     book:'<path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1zM12 6v14"/>',
     info:'<circle cx="12" cy="12" r="9"/><path d="M12 10v6m0-9v.5"/>',
@@ -37,7 +38,7 @@
   // Items without a supplied image use an explicit text fallback; never issue broken image requests.
   function art(name,size='medium') {
     const image=imageOf(name);
-    if (image) return `<span class="item-art ${size}" aria-hidden="true"><img loading="lazy" src="${esc(image)}?v=wiki2" alt=""></span>`;
+    if (image) return `<span class="item-art ${size}" aria-hidden="true"><img loading="lazy" src="${esc(image)}?v=wiki4" alt=""></span>`;
     return `<span class="item-art placeholder ${size}" aria-hidden="true">${esc(name.slice(0,Math.min(3,name.length)))}</span>`;
   }
   function rankClass(rank='') {
@@ -88,7 +89,7 @@
   }
   function renderHome(){
     const total=Object.values(D.facilities).reduce((count,fac)=>count+fac.groups.reduce((s,g)=>s+g.recipes.length,0),0);
-    app.innerHTML=`<section class="hero"><div class="hero-text"><span class="eyebrow">SERENITY & ITEM GUIDE</span><h1>띵타이쿤 <span>WIKI</span></h1><p>하야하 푸루루 푸루루 야하 이이야하 푸루루~.</p><div class="hero-meta"><span>5개 카테고리</span><span>5개 제작 시설</span><span>${fn(total)}개 제작법</span></div></div></section>
+    app.innerHTML=`<section class="hero"><div class="hero-text"><span class="eyebrow">SERENITY · ITEM GUIDE</span><h1>띵타이쿤 <span>WIKI</span></h1><p>필요한 아이템의 재료가 궁금할 땐? 제작 시설을 선택하고, 재료에 마우스를 올려 하위 제작법까지 확인해보세요.</p><div class="hero-meta"><span>${D.categories.length}개 카테고리</span><span>${Object.keys(D.facilities).length}개 제작 시설</span><span>${fn(total)}개 제작법</span></div></div></section>
       <div class="section-title"><h2>시설 둘러보기</h2><small>원하는 제작 시설을 선택하세요</small></div>
       <div class="portal-grid">${categoryCards()}</div>
       <div class="home-strip"><div><strong>재료의 제작법도 한 번에</strong><p>재료 칸에 마우스를 올리거나 눌러보세요. 만들 때 필요한 재료를 볼 수 있어요.</p></div><a href="${facilityUrl('enhancement')}">강화 제작 시설 보기 →</a></div>`;
