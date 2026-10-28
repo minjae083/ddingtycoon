@@ -30,9 +30,10 @@
       "id": "mining",
       "title": "채광 작업장",
       "english": "MINING WORKSHOP",
-      "description": "강화 횃불 · 코룸 · 리프톤 · 세렌트",
+      "description": "강화 횃불 · 코룸 · 리프톤 · 세렌트 · 도구/무기 제작",
       "facilityIds": [
-        "mining"
+        "mining",
+        "tool_crafting"
       ],
       "banner": "assets/branding/banner_mining.png",
       "theme": "blue",
@@ -2475,6 +2476,955 @@
           ]
         }
       ]
+    },
+    "tool_crafting": {
+      "id": "tool_crafting",
+      "category": "mining",
+      "title": "도구/무기 제작시설",
+      "description": "세이지 도구, 보조 도구, 각종 모듈, 체력 포션과 커피 컵을 제작하는 시설입니다.",
+      "banner": "assets/branding/banner_mining.png",
+      "groups": [
+        {
+          "id": "sage-tools",
+          "title": "세이지 도구",
+          "description": "세이지 괭이 · 곡괭이 · 낚싯대 · 대검",
+          "number": 1,
+          "recipes": [
+            {
+              "name": "세이지 괭이",
+              "ingredients": [
+                {
+                  "name": "금 괭이",
+                  "qty": 1
+                },
+                {
+                  "name": "버섯불",
+                  "qty": 32
+                },
+                {
+                  "name": "밀",
+                  "qty": 32
+                },
+                {
+                  "name": "비트",
+                  "qty": 32
+                },
+                {
+                  "name": "당근",
+                  "qty": 32
+                },
+                {
+                  "name": "감자",
+                  "qty": 32
+                },
+                {
+                  "name": "발광 열매",
+                  "qty": 32
+                }
+              ],
+              "output": 1,
+              "kind": "세이지 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "세이지 곡괭이",
+              "ingredients": [
+                {
+                  "name": "금 곡괭이",
+                  "qty": 1
+                },
+                {
+                  "name": "조약돌 뭉치",
+                  "qty": 4
+                },
+                {
+                  "name": "심층암 조약돌 뭉치",
+                  "qty": 4
+                },
+                {
+                  "name": "자수정 블록",
+                  "qty": 32
+                },
+                {
+                  "name": "구리 주괴",
+                  "qty": 32
+                },
+                {
+                  "name": "다이아몬드",
+                  "qty": 32
+                },
+                {
+                  "name": "네더라이트 주괴",
+                  "qty": 4
+                }
+              ],
+              "output": 1,
+              "kind": "세이지 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "세이지 낚싯대",
+              "ingredients": [
+                {
+                  "name": "낚싯대",
+                  "qty": 1
+                },
+                {
+                  "name": "익힌 새우",
+                  "qty": 32
+                },
+                {
+                  "name": "익힌 도미",
+                  "qty": 32
+                },
+                {
+                  "name": "익힌 청어",
+                  "qty": 32
+                },
+                {
+                  "name": "금붕어",
+                  "qty": 32
+                },
+                {
+                  "name": "농어",
+                  "qty": 32
+                },
+                {
+                  "name": "열대어",
+                  "qty": 4
+                }
+              ],
+              "output": 1,
+              "kind": "세이지 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "세이지 대검",
+              "ingredients": [
+                {
+                  "name": "금 검",
+                  "qty": 1
+                },
+                {
+                  "name": "가죽",
+                  "qty": 32
+                },
+                {
+                  "name": "깃털",
+                  "qty": 32
+                },
+                {
+                  "name": "썩은 살점",
+                  "qty": 32
+                },
+                {
+                  "name": "뼈다귀",
+                  "qty": 32
+                },
+                {
+                  "name": "블레이즈 막대기",
+                  "qty": 16
+                },
+                {
+                  "name": "엔더 진주",
+                  "qty": 8
+                }
+              ],
+              "output": 1,
+              "kind": "세이지 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "id": "support-tools",
+          "title": "보조 도구",
+          "description": "육식 동물 덫 · 드릴 · 어선 관련 도구",
+          "number": 2,
+          "recipes": [
+            {
+              "name": "육식 동물 덫",
+              "ingredients": [
+                {
+                  "name": "에메랄드",
+                  "qty": 10
+                },
+                {
+                  "name": "철",
+                  "qty": 8
+                },
+                {
+                  "name": "거미줄",
+                  "qty": 2
+                },
+                {
+                  "name": "사과",
+                  "qty": 4
+                },
+                {
+                  "name": "부싯돌",
+                  "qty": 4
+                }
+              ],
+              "output": 2,
+              "kind": "보조 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "드릴",
+              "ingredients": [
+                {
+                  "name": "철 곡괭이",
+                  "qty": 1
+                },
+                {
+                  "name": "다이아몬드",
+                  "qty": 5
+                },
+                {
+                  "name": "에메랄드",
+                  "qty": 2
+                },
+                {
+                  "name": "응회암",
+                  "qty": 8
+                },
+                {
+                  "name": "발광 이끼",
+                  "qty": 4
+                },
+                {
+                  "name": "뾰족한 점적석",
+                  "qty": 4
+                }
+              ],
+              "output": 1,
+              "kind": "보조 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "고급 드릴",
+              "ingredients": [
+                {
+                  "name": "드릴",
+                  "qty": 1
+                },
+                {
+                  "name": "석영",
+                  "qty": 32
+                },
+                {
+                  "name": "금 주괴",
+                  "qty": 10
+                },
+                {
+                  "name": "흑암",
+                  "qty": 8
+                },
+                {
+                  "name": "현무암",
+                  "qty": 8
+                },
+                {
+                  "name": "용암 양동이",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "보조 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "나무 어선 획득권",
+              "ingredients": [
+                {
+                  "name": "참나무 보트",
+                  "qty": 1
+                },
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 20
+                },
+                {
+                  "name": "해초",
+                  "qty": 32
+                },
+                {
+                  "name": "참나무 판자",
+                  "qty": 16
+                },
+                {
+                  "name": "익힌 대구",
+                  "qty": 16
+                },
+                {
+                  "name": "익힌 연어",
+                  "qty": 16
+                },
+                {
+                  "name": "철사 덫 갈고리",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "보조 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "어선 수리 키트",
+              "ingredients": [
+                {
+                  "name": "심해의 고철",
+                  "qty": 1
+                },
+                {
+                  "name": "심연의 오로라 파편",
+                  "qty": 1
+                },
+                {
+                  "name": "영롱한 티타늄 광석",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "보조 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "제작법 1 / 3",
+              "variantImage": "assets/tools/어선_수리_키트_1.png"
+            },
+            {
+              "name": "어선 수리 키트",
+              "ingredients": [
+                {
+                  "name": "심연의 오로라 파편",
+                  "qty": 1
+                },
+                {
+                  "name": "심해의 고철",
+                  "qty": 1
+                },
+                {
+                  "name": "해구의 화석 연료",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "보조 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "제작법 2 / 3",
+              "variantImage": "assets/tools/어선_수리_키트_2.png"
+            },
+            {
+              "name": "어선 수리 키트",
+              "ingredients": [
+                {
+                  "name": "영롱한 티타늄 광석",
+                  "qty": 1
+                },
+                {
+                  "name": "해구의 화석 연료",
+                  "qty": 1
+                },
+                {
+                  "name": "해저 열수구 코어",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "보조 도구",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "제작법 3 / 3",
+              "variantImage": "assets/tools/어선_수리_키트_3.png"
+            }
+          ]
+        },
+        {
+          "id": "tool-modules",
+          "title": "모듈",
+          "description": "커피 머신 · 광채 생성기 · 각종 시설 모듈",
+          "number": 3,
+          "recipes": [
+            {
+              "name": "커피 그라인더 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "케이크",
+                  "qty": 1
+                },
+                {
+                  "name": "코코아콩",
+                  "qty": 30
+                },
+                {
+                  "name": "숫돌",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "믹서기 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "케이크",
+                  "qty": 1
+                },
+                {
+                  "name": "코코아콩",
+                  "qty": 30
+                },
+                {
+                  "name": "석재 절단기",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "우유 스티머 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "케이크",
+                  "qty": 1
+                },
+                {
+                  "name": "코코아콩",
+                  "qty": 30
+                },
+                {
+                  "name": "훈연기",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "커피 머신 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "케이크",
+                  "qty": 1
+                },
+                {
+                  "name": "코코아콩",
+                  "qty": 30
+                },
+                {
+                  "name": "제작대",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "하급 광채 생성기",
+              "ingredients": [
+                {
+                  "name": "발사기",
+                  "qty": 1
+                },
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 16
+                },
+                {
+                  "name": "에메랄드 블록",
+                  "qty": 16
+                },
+                {
+                  "name": "레드스톤 블록",
+                  "qty": 64
+                },
+                {
+                  "name": "석탄 블록",
+                  "qty": 64
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "중급 광채 생성기",
+              "ingredients": [
+                {
+                  "name": "하급 광물 생성기",
+                  "qty": 1
+                },
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 32
+                },
+                {
+                  "name": "에메랄드 블록",
+                  "qty": 32
+                },
+                {
+                  "name": "청금석 블록",
+                  "qty": 64
+                },
+                {
+                  "name": "철 블록",
+                  "qty": 64
+                },
+                {
+                  "name": "네더라이트 블록",
+                  "qty": 4
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "하급 광물 생성기는 하급 광채 생성기와 같은 아이템으로 연결"
+            },
+            {
+              "name": "상급 광채 생성기",
+              "ingredients": [
+                {
+                  "name": "중급 광물 생성기",
+                  "qty": 1
+                },
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 64
+                },
+                {
+                  "name": "에메랄드 블록",
+                  "qty": 64
+                },
+                {
+                  "name": "금 블록",
+                  "qty": 64
+                },
+                {
+                  "name": "다이아몬드 블록",
+                  "qty": 64
+                },
+                {
+                  "name": "네더라이트 블록",
+                  "qty": 8
+                },
+                {
+                  "name": "신호기",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": "중급 광물 생성기는 중급 광채 생성기와 같은 아이템으로 연결"
+            },
+            {
+              "name": "화석 제작대 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "브리즈 막대기",
+                  "qty": 5
+                },
+                {
+                  "name": "엔더의 눈",
+                  "qty": 16
+                },
+                {
+                  "name": "대장장이 작업대",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "보석 세공대 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "네더라이트 주괴",
+                  "qty": 5
+                },
+                {
+                  "name": "에메랄드",
+                  "qty": 16
+                },
+                {
+                  "name": "마법 부여대",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "테라리움 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "위더 장미",
+                  "qty": 1
+                },
+                {
+                  "name": "발광 열매",
+                  "qty": 64
+                },
+                {
+                  "name": "장식된 도자기",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "어항 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "열대어",
+                  "qty": 10
+                },
+                {
+                  "name": "앵무조개 껍데기",
+                  "qty": 1
+                },
+                {
+                  "name": "통",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "형광 광산 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "영혼 랜턴",
+                  "qty": 4
+                },
+                {
+                  "name": "우는 흑요석",
+                  "qty": 7
+                },
+                {
+                  "name": "네더라이트 곡괭이",
+                  "qty": 1
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "형광 모루 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "모루",
+                  "qty": 3
+                },
+                {
+                  "name": "레드스톤 블록",
+                  "qty": 10
+                },
+                {
+                  "name": "경험치 병",
+                  "qty": 5
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "영혼 가죽 공방 모듈",
+              "ingredients": [
+                {
+                  "name": "어빌리티 스톤",
+                  "qty": 30
+                },
+                {
+                  "name": "위더 스켈레톤 해골",
+                  "qty": 1
+                },
+                {
+                  "name": "토끼 가죽",
+                  "qty": 8
+                },
+                {
+                  "name": "베틀",
+                  "qty": 4
+                }
+              ],
+              "output": 1,
+              "kind": "모듈",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "id": "health-potions",
+          "title": "체력 포션",
+          "description": "4단계 체력 포션 제작법",
+          "number": 4,
+          "recipes": [
+            {
+              "name": "입문자의 체력 포션",
+              "ingredients": [
+                {
+                  "name": "토마토 스파게티",
+                  "qty": 1
+                },
+                {
+                  "name": "어니언 링",
+                  "qty": 1
+                },
+                {
+                  "name": "갈릭 케이크",
+                  "qty": 1
+                }
+              ],
+              "output": 4,
+              "kind": "체력 포션",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "견습자의 체력 포션",
+              "ingredients": [
+                {
+                  "name": "삼겹살 토마토 찌개",
+                  "qty": 2
+                },
+                {
+                  "name": "달콤 시리얼",
+                  "qty": 1
+                },
+                {
+                  "name": "로스트 치킨 파이",
+                  "qty": 1
+                }
+              ],
+              "output": 4,
+              "kind": "체력 포션",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "정예의 체력 포션",
+              "ingredients": [
+                {
+                  "name": "토마토 파인애플 피자",
+                  "qty": 3
+                },
+                {
+                  "name": "양파 수프",
+                  "qty": 2
+                },
+                {
+                  "name": "삼색 아이스크림",
+                  "qty": 1
+                }
+              ],
+              "output": 3,
+              "kind": "체력 포션",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "영웅의 체력 포션",
+              "ingredients": [
+                {
+                  "name": "허브 삼겹살 찜",
+                  "qty": 4
+                },
+                {
+                  "name": "딥 크림 빠네",
+                  "qty": 4
+                },
+                {
+                  "name": "스윗 치킨 햄버거",
+                  "qty": 4
+                }
+              ],
+              "output": 2,
+              "kind": "체력 포션",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "id": "coffee-cups",
+          "title": "커피 컵",
+          "description": "머그컵과 유리컵 제작법",
+          "number": 5,
+          "recipes": [
+            {
+              "name": "머그컵",
+              "ingredients": [
+                {
+                  "name": "네더 석영",
+                  "qty": 16
+                },
+                {
+                  "name": "모닥불",
+                  "qty": 1
+                }
+              ],
+              "output": 3,
+              "kind": "커피 컵",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            },
+            {
+              "name": "유리컵",
+              "ingredients": [
+                {
+                  "name": "모래",
+                  "qty": 16
+                },
+                {
+                  "name": "모닥불",
+                  "qty": 1
+                }
+              ],
+              "output": 3,
+              "kind": "커피 컵",
+              "price": null,
+              "rank": null,
+              "method": null,
+              "note": ""
+            }
+          ]
+        }
+      ]
     }
   },
   "items": {
@@ -3151,6 +4101,461 @@
     "부싯돌": {
       "name": "부싯돌",
       "image": "assets/souls/부싯돌.png"
+    },
+    "세이지 괭이": {
+      "name": "세이지 괭이",
+      "image": "assets/tools/세이지_괭이.png",
+      "craftable": true
+    },
+    "세이지 곡괭이": {
+      "name": "세이지 곡괭이",
+      "image": "assets/tools/세이지_곡괭이.png",
+      "craftable": true
+    },
+    "세이지 낚싯대": {
+      "name": "세이지 낚싯대",
+      "image": "assets/tools/세이지_낚싯대.png",
+      "craftable": true
+    },
+    "세이지 대검": {
+      "name": "세이지 대검",
+      "image": "assets/tools/세이지_대검.png",
+      "craftable": true
+    },
+    "육식 동물 덫": {
+      "name": "육식 동물 덫",
+      "image": "assets/tools/육식_동물_덫.png",
+      "craftable": true
+    },
+    "드릴": {
+      "name": "드릴",
+      "image": "assets/tools/드릴.png",
+      "craftable": true
+    },
+    "나무 어선 획득권": {
+      "name": "나무 어선 획득권",
+      "image": "assets/tools/나무_어선_획득권.png",
+      "craftable": true
+    },
+    "고급 드릴": {
+      "name": "고급 드릴",
+      "image": "assets/tools/고급_드릴.png",
+      "craftable": true
+    },
+    "커피 그라인더 모듈": {
+      "name": "커피 그라인더 모듈",
+      "image": "assets/tools/커피_그라인더_모듈.png",
+      "craftable": true
+    },
+    "믹서기 모듈": {
+      "name": "믹서기 모듈",
+      "image": "assets/tools/믹서기_모듈.png",
+      "craftable": true
+    },
+    "우유 스티머 모듈": {
+      "name": "우유 스티머 모듈",
+      "image": "assets/tools/우유_스티머_모듈.png",
+      "craftable": true
+    },
+    "커피 머신 모듈": {
+      "name": "커피 머신 모듈",
+      "image": "assets/tools/커피_머신_모듈.png",
+      "craftable": true
+    },
+    "하급 광채 생성기": {
+      "name": "하급 광채 생성기",
+      "image": "assets/tools/하급_광채_생성기.png",
+      "craftable": true
+    },
+    "중급 광채 생성기": {
+      "name": "중급 광채 생성기",
+      "image": "assets/tools/중급_광채_생성기.png",
+      "craftable": true
+    },
+    "상급 광채 생성기": {
+      "name": "상급 광채 생성기",
+      "image": "assets/tools/상급_광채_생성기.png",
+      "craftable": true
+    },
+    "화석 제작대 모듈": {
+      "name": "화석 제작대 모듈",
+      "image": "assets/tools/화석_제작대_모듈.png",
+      "craftable": true
+    },
+    "보석 세공대 모듈": {
+      "name": "보석 세공대 모듈",
+      "image": "assets/tools/보석_세공대_모듈.png",
+      "craftable": true
+    },
+    "테라리움 모듈": {
+      "name": "테라리움 모듈",
+      "image": "assets/tools/테라리움_모듈.png",
+      "craftable": true
+    },
+    "어항 모듈": {
+      "name": "어항 모듈",
+      "image": "assets/tools/어항_모듈.png",
+      "craftable": true
+    },
+    "형광 광산 모듈": {
+      "name": "형광 광산 모듈",
+      "image": "assets/tools/형광_광산_모듈.png",
+      "craftable": true
+    },
+    "형광 모루 모듈": {
+      "name": "형광 모루 모듈",
+      "image": "assets/tools/형광_모루_모듈.png",
+      "craftable": true
+    },
+    "영혼 가죽 공방 모듈": {
+      "name": "영혼 가죽 공방 모듈",
+      "image": "assets/tools/영혼_가죽_공방_모듈.png",
+      "craftable": true
+    },
+    "입문자의 체력 포션": {
+      "name": "입문자의 체력 포션",
+      "image": "assets/tools/입문자의_체력_포션.png",
+      "craftable": true
+    },
+    "견습자의 체력 포션": {
+      "name": "견습자의 체력 포션",
+      "image": "assets/tools/견습자의_체력_포션.png",
+      "craftable": true
+    },
+    "정예의 체력 포션": {
+      "name": "정예의 체력 포션",
+      "image": "assets/tools/정예의_체력_포션.png",
+      "craftable": true
+    },
+    "영웅의 체력 포션": {
+      "name": "영웅의 체력 포션",
+      "image": "assets/tools/영웅의_체력_포션.png",
+      "craftable": true
+    },
+    "머그컵": {
+      "name": "머그컵",
+      "image": "assets/tools/머그컵.png",
+      "craftable": true
+    },
+    "유리컵": {
+      "name": "유리컵",
+      "image": "assets/tools/유리컵.png",
+      "craftable": true
+    },
+    "버섯불": {
+      "name": "버섯불",
+      "image": "assets/tools/버섯불.png"
+    },
+    "발광 열매": {
+      "name": "발광 열매",
+      "image": "assets/tools/발광_열매.png"
+    },
+    "네더라이트 주괴": {
+      "name": "네더라이트 주괴",
+      "image": "assets/tools/네더라이트_주괴.png"
+    },
+    "익힌 새우": {
+      "name": "익힌 새우",
+      "image": "assets/tools/익힌_새우.png"
+    },
+    "철 곡괭이": {
+      "name": "철 곡괭이",
+      "image": "assets/tools/철_곡괭이.png"
+    },
+    "응회암": {
+      "name": "응회암",
+      "image": "assets/tools/응회암.png"
+    },
+    "발광 이끼": {
+      "name": "발광 이끼",
+      "image": "assets/tools/발광_이끼.png"
+    },
+    "뾰족한 점적석": {
+      "name": "뾰족한 점적석",
+      "image": "assets/tools/뾰족한_점적석.png"
+    },
+    "참나무 보트": {
+      "name": "참나무 보트",
+      "image": "assets/tools/참나무_보트.png"
+    },
+    "해초": {
+      "name": "해초",
+      "image": "assets/tools/해초.png"
+    },
+    "참나무 판자": {
+      "name": "참나무 판자",
+      "image": "assets/tools/참나무_판자.png"
+    },
+    "익힌 대구": {
+      "name": "익힌 대구",
+      "image": "assets/tools/익힌_대구.png"
+    },
+    "익힌 연어": {
+      "name": "익힌 연어",
+      "image": "assets/tools/익힌_연어.png"
+    },
+    "철사 덫 갈고리": {
+      "name": "철사 덫 갈고리",
+      "image": "assets/tools/철사_덫_갈고리.png"
+    },
+    "심해의 고철": {
+      "name": "심해의 고철",
+      "image": "assets/tools/심해의_고철.png"
+    },
+    "심연의 오로라 파편": {
+      "name": "심연의 오로라 파편",
+      "image": "assets/tools/심연의_오로라_파편.png"
+    },
+    "영롱한 티타늄 광석": {
+      "name": "영롱한 티타늄 광석",
+      "image": "assets/tools/영롱한_티타늄_광석.png"
+    },
+    "해구의 화석 연료": {
+      "name": "해구의 화석 연료",
+      "image": "assets/tools/해구의_화석_연료.png"
+    },
+    "해저 열수구 코어": {
+      "name": "해저 열수구 코어",
+      "image": "assets/tools/해저_열수구_코어.png"
+    },
+    "네더 석영": {
+      "name": "네더 석영",
+      "image": "assets/tools/네더_석영.png"
+    },
+    "흑암": {
+      "name": "흑암",
+      "image": "assets/tools/흑암.png"
+    },
+    "현무암": {
+      "name": "현무암",
+      "image": "assets/tools/현무암.png"
+    },
+    "용암 양동이": {
+      "name": "용암 양동이",
+      "image": "assets/tools/용암_양동이.png"
+    },
+    "케이크": {
+      "name": "케이크",
+      "image": "assets/tools/케이크.png"
+    },
+    "코코아콩": {
+      "name": "코코아콩",
+      "image": "assets/tools/코코아콩.png"
+    },
+    "숫돌": {
+      "name": "숫돌",
+      "image": "assets/tools/숫돌.png"
+    },
+    "석재 절단기": {
+      "name": "석재 절단기",
+      "image": "assets/tools/석재_절단기.png"
+    },
+    "훈연기": {
+      "name": "훈연기",
+      "image": "assets/tools/훈연기.png"
+    },
+    "제작대": {
+      "name": "제작대",
+      "image": "assets/tools/제작대.png"
+    },
+    "에메랄드 블록": {
+      "name": "에메랄드 블록",
+      "image": "assets/tools/에메랄드_블록.png"
+    },
+    "발사기": {
+      "name": "발사기",
+      "image": "assets/tools/발사기.png"
+    },
+    "네더라이트 블록": {
+      "name": "네더라이트 블록",
+      "image": "assets/tools/네더라이트_블록.png"
+    },
+    "신호기": {
+      "name": "신호기",
+      "image": "assets/tools/신호기.png"
+    },
+    "대장장이 작업대": {
+      "name": "대장장이 작업대",
+      "image": "assets/tools/대장장이_작업대.png"
+    },
+    "엔더의 눈": {
+      "name": "엔더의 눈",
+      "image": "assets/tools/엔더의_눈.png"
+    },
+    "브리즈 막대기": {
+      "name": "브리즈 막대기",
+      "image": "assets/tools/브리즈_막대기.png"
+    },
+    "마법 부여대": {
+      "name": "마법 부여대",
+      "image": "assets/tools/마법_부여대.png"
+    },
+    "위더 장미": {
+      "name": "위더 장미",
+      "image": "assets/tools/위더_장미.png"
+    },
+    "장식된 도자기": {
+      "name": "장식된 도자기",
+      "image": "assets/tools/장식된_도자기.png"
+    },
+    "열대어": {
+      "name": "열대어",
+      "image": "assets/tools/열대어.png"
+    },
+    "앵무조개 껍데기": {
+      "name": "앵무조개 껍데기",
+      "image": "assets/tools/앵무조개_껍데기.png"
+    },
+    "통": {
+      "name": "통",
+      "image": "assets/tools/통.png"
+    },
+    "영혼 랜턴": {
+      "name": "영혼 랜턴",
+      "image": "assets/tools/영혼_랜턴.png"
+    },
+    "우는 흑요석": {
+      "name": "우는 흑요석",
+      "image": "assets/tools/우는_흑요석.png"
+    },
+    "네더라이트 곡괭이": {
+      "name": "네더라이트 곡괭이",
+      "image": "assets/tools/네더라이트_곡괭이.png"
+    },
+    "모루": {
+      "name": "모루",
+      "image": "assets/tools/모루.png"
+    },
+    "경험치 병": {
+      "name": "경험치 병",
+      "image": "assets/tools/경험치_병.png"
+    },
+    "위더 스켈레톤 해골": {
+      "name": "위더 스켈레톤 해골",
+      "image": "assets/tools/위더_스켈레톤_해골.png"
+    },
+    "어선 수리 키트": {
+      "name": "어선 수리 키트",
+      "image": "assets/tools/어선_수리_키트_4.png",
+      "craftable": true
+    },
+    "석영": {
+      "name": "석영",
+      "image": "assets/tools/네더_석영.png"
+    },
+    "코코아 콩": {
+      "name": "코코아 콩",
+      "image": "assets/tools/코코아콩.png"
+    },
+    "금 괭이": {
+      "name": "금 괭이",
+      "image": "assets/tools/금_괭이.png"
+    },
+    "금 곡괭이": {
+      "name": "금 곡괭이",
+      "image": "assets/tools/금_곡괭이.png"
+    },
+    "구리 주괴": {
+      "name": "구리 주괴",
+      "image": "assets/tools/구리_주괴.png"
+    },
+    "다이아몬드": {
+      "name": "다이아몬드",
+      "image": "assets/tools/다이아몬드.png"
+    },
+    "낚싯대": {
+      "name": "낚싯대",
+      "image": "assets/tools/낚싯대.png"
+    },
+    "익힌 도미": {
+      "name": "익힌 도미",
+      "image": "assets/tools/익힌_도미.png"
+    },
+    "익힌 청어": {
+      "name": "익힌 청어",
+      "image": "assets/tools/익힌_청어.png"
+    },
+    "금붕어": {
+      "name": "금붕어",
+      "image": "assets/tools/금붕어.png"
+    },
+    "농어": {
+      "name": "농어",
+      "image": "assets/tools/농어.png"
+    },
+    "금 검": {
+      "name": "금 검",
+      "image": "assets/tools/금_검.png"
+    },
+    "깃털": {
+      "name": "깃털",
+      "image": "assets/tools/깃털.png"
+    },
+    "썩은 살점": {
+      "name": "썩은 살점",
+      "image": "assets/tools/썩은_살점.png"
+    },
+    "뼈다귀": {
+      "name": "뼈다귀",
+      "image": "assets/tools/뼈다귀.png"
+    },
+    "블레이즈 막대기": {
+      "name": "블레이즈 막대기",
+      "image": "assets/tools/블레이즈_막대기.png"
+    },
+    "엔더 진주": {
+      "name": "엔더 진주",
+      "image": "assets/tools/엔더_진주.png"
+    },
+    "에메랄드": {
+      "name": "에메랄드",
+      "image": "assets/tools/에메랄드.png"
+    },
+    "철": {
+      "name": "철",
+      "image": "assets/tools/철.png"
+    },
+    "거미줄": {
+      "name": "거미줄",
+      "image": "assets/tools/거미줄.png"
+    },
+    "사과": {
+      "name": "사과",
+      "image": "assets/tools/사과.png"
+    },
+    "금 주괴": {
+      "name": "금 주괴",
+      "image": "assets/tools/금_주괴.png"
+    },
+    "석탄 블록": {
+      "name": "석탄 블록",
+      "image": "assets/tools/석탄_블록.png"
+    },
+    "하급 광물 생성기": {
+      "name": "하급 광물 생성기",
+      "image": "assets/tools/하급_광채_생성기.png",
+      "aliasOf": "하급 광채 생성기"
+    },
+    "중급 광물 생성기": {
+      "name": "중급 광물 생성기",
+      "image": "assets/tools/중급_광채_생성기.png",
+      "aliasOf": "중급 광채 생성기"
+    },
+    "모닥불": {
+      "name": "모닥불",
+      "image": "assets/tools/모닥불.png"
+    },
+    "모래": {
+      "name": "모래",
+      "image": "assets/tools/모래.png"
+    },
+    "토끼 가죽": {
+      "name": "토끼 가죽",
+      "image": "assets/tools/토끼_가죽.png"
+    },
+    "베틀": {
+      "name": "베틀",
+      "image": "assets/tools/베틀.png"
     }
   },
   "recipesByItem": {
@@ -5849,6 +7254,1166 @@
           "note": ""
         }
       }
+    ],
+    "세이지 괭이": [
+      {
+        "facility": "tool_crafting",
+        "group": "sage-tools",
+        "recipe": {
+          "name": "세이지 괭이",
+          "ingredients": [
+            {
+              "name": "금 괭이",
+              "qty": 1
+            },
+            {
+              "name": "버섯불",
+              "qty": 32
+            },
+            {
+              "name": "밀",
+              "qty": 32
+            },
+            {
+              "name": "비트",
+              "qty": 32
+            },
+            {
+              "name": "당근",
+              "qty": 32
+            },
+            {
+              "name": "감자",
+              "qty": 32
+            },
+            {
+              "name": "발광 열매",
+              "qty": 32
+            }
+          ],
+          "output": 1,
+          "kind": "세이지 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "세이지 곡괭이": [
+      {
+        "facility": "tool_crafting",
+        "group": "sage-tools",
+        "recipe": {
+          "name": "세이지 곡괭이",
+          "ingredients": [
+            {
+              "name": "금 곡괭이",
+              "qty": 1
+            },
+            {
+              "name": "조약돌 뭉치",
+              "qty": 4
+            },
+            {
+              "name": "심층암 조약돌 뭉치",
+              "qty": 4
+            },
+            {
+              "name": "자수정 블록",
+              "qty": 32
+            },
+            {
+              "name": "구리 주괴",
+              "qty": 32
+            },
+            {
+              "name": "다이아몬드",
+              "qty": 32
+            },
+            {
+              "name": "네더라이트 주괴",
+              "qty": 4
+            }
+          ],
+          "output": 1,
+          "kind": "세이지 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "세이지 낚싯대": [
+      {
+        "facility": "tool_crafting",
+        "group": "sage-tools",
+        "recipe": {
+          "name": "세이지 낚싯대",
+          "ingredients": [
+            {
+              "name": "낚싯대",
+              "qty": 1
+            },
+            {
+              "name": "익힌 새우",
+              "qty": 32
+            },
+            {
+              "name": "익힌 도미",
+              "qty": 32
+            },
+            {
+              "name": "익힌 청어",
+              "qty": 32
+            },
+            {
+              "name": "금붕어",
+              "qty": 32
+            },
+            {
+              "name": "농어",
+              "qty": 32
+            },
+            {
+              "name": "열대어",
+              "qty": 4
+            }
+          ],
+          "output": 1,
+          "kind": "세이지 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "세이지 대검": [
+      {
+        "facility": "tool_crafting",
+        "group": "sage-tools",
+        "recipe": {
+          "name": "세이지 대검",
+          "ingredients": [
+            {
+              "name": "금 검",
+              "qty": 1
+            },
+            {
+              "name": "가죽",
+              "qty": 32
+            },
+            {
+              "name": "깃털",
+              "qty": 32
+            },
+            {
+              "name": "썩은 살점",
+              "qty": 32
+            },
+            {
+              "name": "뼈다귀",
+              "qty": 32
+            },
+            {
+              "name": "블레이즈 막대기",
+              "qty": 16
+            },
+            {
+              "name": "엔더 진주",
+              "qty": 8
+            }
+          ],
+          "output": 1,
+          "kind": "세이지 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "육식 동물 덫": [
+      {
+        "facility": "tool_crafting",
+        "group": "support-tools",
+        "recipe": {
+          "name": "육식 동물 덫",
+          "ingredients": [
+            {
+              "name": "에메랄드",
+              "qty": 10
+            },
+            {
+              "name": "철",
+              "qty": 8
+            },
+            {
+              "name": "거미줄",
+              "qty": 2
+            },
+            {
+              "name": "사과",
+              "qty": 4
+            },
+            {
+              "name": "부싯돌",
+              "qty": 4
+            }
+          ],
+          "output": 2,
+          "kind": "보조 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "드릴": [
+      {
+        "facility": "tool_crafting",
+        "group": "support-tools",
+        "recipe": {
+          "name": "드릴",
+          "ingredients": [
+            {
+              "name": "철 곡괭이",
+              "qty": 1
+            },
+            {
+              "name": "다이아몬드",
+              "qty": 5
+            },
+            {
+              "name": "에메랄드",
+              "qty": 2
+            },
+            {
+              "name": "응회암",
+              "qty": 8
+            },
+            {
+              "name": "발광 이끼",
+              "qty": 4
+            },
+            {
+              "name": "뾰족한 점적석",
+              "qty": 4
+            }
+          ],
+          "output": 1,
+          "kind": "보조 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "고급 드릴": [
+      {
+        "facility": "tool_crafting",
+        "group": "support-tools",
+        "recipe": {
+          "name": "고급 드릴",
+          "ingredients": [
+            {
+              "name": "드릴",
+              "qty": 1
+            },
+            {
+              "name": "석영",
+              "qty": 32
+            },
+            {
+              "name": "금 주괴",
+              "qty": 10
+            },
+            {
+              "name": "흑암",
+              "qty": 8
+            },
+            {
+              "name": "현무암",
+              "qty": 8
+            },
+            {
+              "name": "용암 양동이",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "보조 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "나무 어선 획득권": [
+      {
+        "facility": "tool_crafting",
+        "group": "support-tools",
+        "recipe": {
+          "name": "나무 어선 획득권",
+          "ingredients": [
+            {
+              "name": "참나무 보트",
+              "qty": 1
+            },
+            {
+              "name": "어빌리티 스톤",
+              "qty": 20
+            },
+            {
+              "name": "해초",
+              "qty": 32
+            },
+            {
+              "name": "참나무 판자",
+              "qty": 16
+            },
+            {
+              "name": "익힌 대구",
+              "qty": 16
+            },
+            {
+              "name": "익힌 연어",
+              "qty": 16
+            },
+            {
+              "name": "철사 덫 갈고리",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "보조 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "어선 수리 키트": [
+      {
+        "facility": "tool_crafting",
+        "group": "support-tools",
+        "recipe": {
+          "name": "어선 수리 키트",
+          "ingredients": [
+            {
+              "name": "심해의 고철",
+              "qty": 1
+            },
+            {
+              "name": "심연의 오로라 파편",
+              "qty": 1
+            },
+            {
+              "name": "영롱한 티타늄 광석",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "보조 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "제작법 1 / 3",
+          "variantImage": "assets/tools/어선_수리_키트_1.png"
+        }
+      },
+      {
+        "facility": "tool_crafting",
+        "group": "support-tools",
+        "recipe": {
+          "name": "어선 수리 키트",
+          "ingredients": [
+            {
+              "name": "심연의 오로라 파편",
+              "qty": 1
+            },
+            {
+              "name": "심해의 고철",
+              "qty": 1
+            },
+            {
+              "name": "해구의 화석 연료",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "보조 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "제작법 2 / 3",
+          "variantImage": "assets/tools/어선_수리_키트_2.png"
+        }
+      },
+      {
+        "facility": "tool_crafting",
+        "group": "support-tools",
+        "recipe": {
+          "name": "어선 수리 키트",
+          "ingredients": [
+            {
+              "name": "영롱한 티타늄 광석",
+              "qty": 1
+            },
+            {
+              "name": "해구의 화석 연료",
+              "qty": 1
+            },
+            {
+              "name": "해저 열수구 코어",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "보조 도구",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "제작법 3 / 3",
+          "variantImage": "assets/tools/어선_수리_키트_3.png"
+        }
+      }
+    ],
+    "커피 그라인더 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "커피 그라인더 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "케이크",
+              "qty": 1
+            },
+            {
+              "name": "코코아콩",
+              "qty": 30
+            },
+            {
+              "name": "숫돌",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "믹서기 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "믹서기 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "케이크",
+              "qty": 1
+            },
+            {
+              "name": "코코아콩",
+              "qty": 30
+            },
+            {
+              "name": "석재 절단기",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "우유 스티머 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "우유 스티머 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "케이크",
+              "qty": 1
+            },
+            {
+              "name": "코코아콩",
+              "qty": 30
+            },
+            {
+              "name": "훈연기",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "커피 머신 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "커피 머신 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "케이크",
+              "qty": 1
+            },
+            {
+              "name": "코코아콩",
+              "qty": 30
+            },
+            {
+              "name": "제작대",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "하급 광채 생성기": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "하급 광채 생성기",
+          "ingredients": [
+            {
+              "name": "발사기",
+              "qty": 1
+            },
+            {
+              "name": "어빌리티 스톤",
+              "qty": 16
+            },
+            {
+              "name": "에메랄드 블록",
+              "qty": 16
+            },
+            {
+              "name": "레드스톤 블록",
+              "qty": 64
+            },
+            {
+              "name": "석탄 블록",
+              "qty": 64
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "중급 광채 생성기": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "중급 광채 생성기",
+          "ingredients": [
+            {
+              "name": "하급 광물 생성기",
+              "qty": 1
+            },
+            {
+              "name": "어빌리티 스톤",
+              "qty": 32
+            },
+            {
+              "name": "에메랄드 블록",
+              "qty": 32
+            },
+            {
+              "name": "청금석 블록",
+              "qty": 64
+            },
+            {
+              "name": "철 블록",
+              "qty": 64
+            },
+            {
+              "name": "네더라이트 블록",
+              "qty": 4
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "하급 광물 생성기는 하급 광채 생성기와 같은 아이템으로 연결"
+        }
+      }
+    ],
+    "상급 광채 생성기": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "상급 광채 생성기",
+          "ingredients": [
+            {
+              "name": "중급 광물 생성기",
+              "qty": 1
+            },
+            {
+              "name": "어빌리티 스톤",
+              "qty": 64
+            },
+            {
+              "name": "에메랄드 블록",
+              "qty": 64
+            },
+            {
+              "name": "금 블록",
+              "qty": 64
+            },
+            {
+              "name": "다이아몬드 블록",
+              "qty": 64
+            },
+            {
+              "name": "네더라이트 블록",
+              "qty": 8
+            },
+            {
+              "name": "신호기",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "중급 광물 생성기는 중급 광채 생성기와 같은 아이템으로 연결"
+        }
+      }
+    ],
+    "화석 제작대 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "화석 제작대 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "브리즈 막대기",
+              "qty": 5
+            },
+            {
+              "name": "엔더의 눈",
+              "qty": 16
+            },
+            {
+              "name": "대장장이 작업대",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "보석 세공대 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "보석 세공대 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "네더라이트 주괴",
+              "qty": 5
+            },
+            {
+              "name": "에메랄드",
+              "qty": 16
+            },
+            {
+              "name": "마법 부여대",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "테라리움 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "테라리움 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "위더 장미",
+              "qty": 1
+            },
+            {
+              "name": "발광 열매",
+              "qty": 64
+            },
+            {
+              "name": "장식된 도자기",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "어항 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "어항 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "열대어",
+              "qty": 10
+            },
+            {
+              "name": "앵무조개 껍데기",
+              "qty": 1
+            },
+            {
+              "name": "통",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "형광 광산 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "형광 광산 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "영혼 랜턴",
+              "qty": 4
+            },
+            {
+              "name": "우는 흑요석",
+              "qty": 7
+            },
+            {
+              "name": "네더라이트 곡괭이",
+              "qty": 1
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "형광 모루 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "형광 모루 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "모루",
+              "qty": 3
+            },
+            {
+              "name": "레드스톤 블록",
+              "qty": 10
+            },
+            {
+              "name": "경험치 병",
+              "qty": 5
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "입문자의 체력 포션": [
+      {
+        "facility": "tool_crafting",
+        "group": "health-potions",
+        "recipe": {
+          "name": "입문자의 체력 포션",
+          "ingredients": [
+            {
+              "name": "토마토 스파게티",
+              "qty": 1
+            },
+            {
+              "name": "어니언 링",
+              "qty": 1
+            },
+            {
+              "name": "갈릭 케이크",
+              "qty": 1
+            }
+          ],
+          "output": 4,
+          "kind": "체력 포션",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "견습자의 체력 포션": [
+      {
+        "facility": "tool_crafting",
+        "group": "health-potions",
+        "recipe": {
+          "name": "견습자의 체력 포션",
+          "ingredients": [
+            {
+              "name": "삼겹살 토마토 찌개",
+              "qty": 2
+            },
+            {
+              "name": "달콤 시리얼",
+              "qty": 1
+            },
+            {
+              "name": "로스트 치킨 파이",
+              "qty": 1
+            }
+          ],
+          "output": 4,
+          "kind": "체력 포션",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "정예의 체력 포션": [
+      {
+        "facility": "tool_crafting",
+        "group": "health-potions",
+        "recipe": {
+          "name": "정예의 체력 포션",
+          "ingredients": [
+            {
+              "name": "토마토 파인애플 피자",
+              "qty": 3
+            },
+            {
+              "name": "양파 수프",
+              "qty": 2
+            },
+            {
+              "name": "삼색 아이스크림",
+              "qty": 1
+            }
+          ],
+          "output": 3,
+          "kind": "체력 포션",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "영웅의 체력 포션": [
+      {
+        "facility": "tool_crafting",
+        "group": "health-potions",
+        "recipe": {
+          "name": "영웅의 체력 포션",
+          "ingredients": [
+            {
+              "name": "허브 삼겹살 찜",
+              "qty": 4
+            },
+            {
+              "name": "딥 크림 빠네",
+              "qty": 4
+            },
+            {
+              "name": "스윗 치킨 햄버거",
+              "qty": 4
+            }
+          ],
+          "output": 2,
+          "kind": "체력 포션",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "머그컵": [
+      {
+        "facility": "tool_crafting",
+        "group": "coffee-cups",
+        "recipe": {
+          "name": "머그컵",
+          "ingredients": [
+            {
+              "name": "네더 석영",
+              "qty": 16
+            },
+            {
+              "name": "모닥불",
+              "qty": 1
+            }
+          ],
+          "output": 3,
+          "kind": "커피 컵",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "유리컵": [
+      {
+        "facility": "tool_crafting",
+        "group": "coffee-cups",
+        "recipe": {
+          "name": "유리컵",
+          "ingredients": [
+            {
+              "name": "모래",
+              "qty": 16
+            },
+            {
+              "name": "모닥불",
+              "qty": 1
+            }
+          ],
+          "output": 3,
+          "kind": "커피 컵",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "하급 광물 생성기": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "하급 광채 생성기",
+          "ingredients": [
+            {
+              "name": "발사기",
+              "qty": 1
+            },
+            {
+              "name": "어빌리티 스톤",
+              "qty": 16
+            },
+            {
+              "name": "에메랄드 블록",
+              "qty": 16
+            },
+            {
+              "name": "레드스톤 블록",
+              "qty": 64
+            },
+            {
+              "name": "석탄 블록",
+              "qty": 64
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
+    ],
+    "중급 광물 생성기": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "중급 광채 생성기",
+          "ingredients": [
+            {
+              "name": "하급 광물 생성기",
+              "qty": 1
+            },
+            {
+              "name": "어빌리티 스톤",
+              "qty": 32
+            },
+            {
+              "name": "에메랄드 블록",
+              "qty": 32
+            },
+            {
+              "name": "청금석 블록",
+              "qty": 64
+            },
+            {
+              "name": "철 블록",
+              "qty": 64
+            },
+            {
+              "name": "네더라이트 블록",
+              "qty": 4
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": "하급 광물 생성기는 하급 광채 생성기와 같은 아이템으로 연결"
+        }
+      }
+    ],
+    "영혼 가죽 공방 모듈": [
+      {
+        "facility": "tool_crafting",
+        "group": "tool-modules",
+        "recipe": {
+          "name": "영혼 가죽 공방 모듈",
+          "ingredients": [
+            {
+              "name": "어빌리티 스톤",
+              "qty": 30
+            },
+            {
+              "name": "위더 스켈레톤 해골",
+              "qty": 1
+            },
+            {
+              "name": "토끼 가죽",
+              "qty": 8
+            },
+            {
+              "name": "베틀",
+              "qty": 4
+            }
+          ],
+          "output": 1,
+          "kind": "모듈",
+          "price": null,
+          "rank": null,
+          "method": null,
+          "note": ""
+        }
+      }
     ]
   },
   "regular": {
@@ -6130,8 +8695,11 @@
     "officialItems": "https://wiki.ddingtycoon.kr/ko/articles/세레니티-아이템-85e4c935"
   },
   "meta": {
-    "version": "1.0",
-    "importedRecipes": 96,
-    "goldenMethodEntries": 30
+    "version": "6.0",
+    "importedRecipes": 97,
+    "goldenMethodEntries": 30,
+    "toolCraftingRecipeEntries": 31,
+    "toolCraftingUnregistered": [],
+    "toolIconUploads": 115
   }
 }

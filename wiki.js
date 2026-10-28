@@ -38,7 +38,7 @@
   // Items without a supplied image use an explicit text fallback; never issue broken image requests.
   function art(name,size='medium') {
     const image=imageOf(name);
-    if (image) return `<span class="item-art ${size}" aria-hidden="true"><img loading="lazy" src="${esc(image)}?v=wiki4" alt=""></span>`;
+    if (image) return `<span class="item-art ${size}" aria-hidden="true"><img loading="lazy" src="${esc(image)}?v=wiki6" alt=""></span>`;
     return `<span class="item-art placeholder ${size}" aria-hidden="true">${esc(name.slice(0,Math.min(3,name.length)))}</span>`;
   }
   function rankClass(rank='') {
@@ -60,14 +60,14 @@
     const price=item.price!=null?`<span class="recipe-sub">판매가 ${fn(item.price)} G · 1개 기준</span>`:item.method?`<span class="recipe-sub">${item.method==='bulk'?'금 가루 · 대량 제작':'식용 금 가루 · 개별 제작'}</span>`:`<span class="recipe-sub">${item.note||'제작 재료'}</span>`;
     return `<article class="recipe-card" data-method="${esc(item.method||'')}" data-item="${esc(item.name)}">
       <div class="recipe-top">
-        <a class="item-button" href="${itemUrl(item.name)}" aria-label="${esc(item.name)} 상세 페이지">${art(item.name,'large')}</a>
+        <a class="item-button" href="${itemUrl(item.name)}" aria-label="${esc(item.name)} 상세 페이지">${item.variantImage?`<span class="item-art large"><img loading="lazy" src="${esc(item.variantImage)}?v=wiki6" alt=""></span>`:art(item.name,'large')}</a>
         <div class="recipe-intro">
           ${item.rank?`<span class="rank-tag ${rankClass(item.rank)}">${esc(item.rank)}</span>`:item.kind?`<span class="rank-tag">${esc(item.kind)}</span>`:''}
           <h3><a class="recipe-title-link" href="${itemUrl(item.name)}">${esc(item.name)}</a></h3>
           ${price}
         </div>
         <span class="yield">완성 ×${fn(item.output||1)}</span>
-      </div><div class="ingredients-grid">${item.ingredients.map(({name,qty})=>field(name,qty)).join('')}</div>
+      </div>${item.ingredients.length?`<div class="ingredients-grid">${item.ingredients.map(({name,qty})=>field(name,qty)).join('')}</div>`:`<div class="recipe-unregistered">제작법 정보가 아직 등록되지 않았습니다. 아이콘은 제공된 이미지로 표시합니다.</div>`}
     </article>`;
   }
   function groupSection(group, facilityId){
@@ -200,7 +200,7 @@
   function hideTooltip(){tip.classList.remove('show');tip.setAttribute('aria-hidden','true');lastTipName='';}
   function tooltipContent(name,qty){
     const methods=getRecipes(name).filter(x=>x.recipe?.ingredients?.length);
-    const sample=methods.slice(0,2);
+    const sample=methods.slice(0,3);
     return `<div class="tooltip-head">${art(name,'medium')}<div><b>${esc(name)}</b><span>사용 수량 ${qty}개</span></div></div>`+
       (sample.length? sample.map((info,i)=>`<div class="tooltip-mode">${esc(info.recipe.note||info.recipe.kind|| (sample.length>1?`${i+1}번째 제작법`:'제작 재료'))} · 완성 ×${fn(info.recipe.output)}</div>${info.recipe.ingredients.slice(0,8).map(({name:n,qty:q})=>`<div class="tooltip-row">${art(n,'tiny')}<span>${esc(n)}</span><em>×${fn(q)}</em></div>`).join('')}`).join('<div style="border-top:1px solid #33465c;margin:10px 0"></div>')+`<div class="tooltip-foot">클릭하면 제작법과 사용처를 자세히 볼 수 있어요.</div>`: '<div class="tooltip-muted">등록된 하위 제작법이 없는 재료입니다.</div>');
   }
