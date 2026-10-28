@@ -12,6 +12,7 @@
     utensils:'<path d="M4 3v8c0 2 4 2 4 0V3M6 3v18M14 3c-2 2-2 6-2 9h5V3M17 12v9"/>',
     pickaxe:'<path d="m4 21 13-13"/><path d="M12 3c5-2 9 0 10 3-5-1-8 1-10 4"/><path d="m7 9 4 4"/>',
     sprout:'<path d="M12 22v-9M12 13c-8 0-9-4-9-9 6 0 10 2 9 9zm0 4c0-7 4-10 9-10 0 6-2 10-9 10z"/>',
+    upgrade:'<path d="M12 22V7m-5 5 5-5 5 5"/><path d="M4 15V4h16v11"/><path d="M7 19h10"/>',
     chart:'<path d="M3 20h18M6 17v-5M11 17V7M16 17v-8"/>',
     flame:'<path d="M12 22c4.5 0 7.5-3.1 7.5-7.4 0-3.8-2.1-6.2-5.2-9.6.3 4.5-2.2 5.4-2.4 6.5C10.3 8.2 9 5.2 9.4 2 5.1 6.6 4 10.7 4 14.6 4 18.9 7.3 22 12 22Z"/><path d="M12 21c-1.9 0-3.2-1.4-3.2-3.2 0-1.6 1.1-2.9 2.8-4.5.1 2 1.1 2.8 2.3 3.6 1 2.1.1 4.1-1.9 4.1Z"/>',
     arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>',
@@ -31,6 +32,7 @@
   const compared = Object.entries(D.regular).concat(Object.entries(D.golden)).sort((a,b)=>a[0].localeCompare(b[0],'ko'));
   const sortedItemNames = Object.keys(D.items).sort((a,b)=>a.localeCompare(b,'ko'));
   let goldenMode = 'bulk';
+  let upgradeSelectedStage = 1;
   let lastRoute = '';
   let lastTipName = '';
   let priceFilter = 'all';
@@ -148,6 +150,82 @@
       ${uses.length?`<div class="section-title" style="margin-top:35px"><h2>사용되는 곳</h2><span class="count-pill">${uses.length}개</span></div><div class="facility-grid">${uses.map(({name:n,fac:fid})=>`<a class="facility-card" style="min-height:102px;padding:17px" href="${itemUrl(n)}"><div class="facility-card-top">${art(n,'medium')}<span class="facility-arrow">↗</span></div><div><h3 style="font-size:14px">${esc(n)}</h3><p>${esc(D.facilities[fid]?.title||'제작법')}</p></div></a>`).join('')}</div>`:''}`;
     document.title=`${name} | 띵타이쿤 WIKI`;
   }
+
+  // 세이지 도구 강화 단계별 재료 / 확률 — 제공받은 1~15강 표 그대로 반영.
+  // {stage, low, mid, high, gold, ruby, chance}; 0은 원본 표의 '-'를 뜻함.
+  const UPGRADE_STAGES = [
+    {stage:1, low:1, mid:0, high:0, gold:5000, ruby:0, chance:100},
+    {stage:2, low:2, mid:0, high:0, gold:25000, ruby:0, chance:100},
+    {stage:3, low:2, mid:0, high:0, gold:50000, ruby:0, chance:80},
+    {stage:4, low:3, mid:1, high:0, gold:100000, ruby:0, chance:80},
+    {stage:5, low:3, mid:1, high:0, gold:130000, ruby:0, chance:70},
+    {stage:6, low:4, mid:2, high:1, gold:150000, ruby:0, chance:50},
+    {stage:7, low:4, mid:2, high:1, gold:170000, ruby:5, chance:40},
+    {stage:8, low:6, mid:3, high:2, gold:300000, ruby:5, chance:30},
+    {stage:9, low:6, mid:3, high:2, gold:350000, ruby:5, chance:20},
+    {stage:10, low:8, mid:4, high:3, gold:500000, ruby:10, chance:10},
+    {stage:11, low:8, mid:4, high:3, gold:700000, ruby:10, chance:5},
+    {stage:12, low:8, mid:4, high:3, gold:1000000, ruby:10, chance:3},
+    {stage:13, low:10, mid:6, high:4, gold:1300000, ruby:30, chance:2},
+    {stage:14, low:10, mid:6, high:4, gold:1500000, ruby:30, chance:1},
+    {stage:15, low:10, mid:6, high:5, gold:2000000, ruby:30, chance:1}
+  ];
+  const UPGRADE_MATERIALS = [
+    {prop:'low', label:'하급 라이프스톤'},
+    {prop:'mid', label:'중급 라이프스톤'},
+    {prop:'high', label:'상급 라이프스톤'}
+  ];
+  const upgradeValue=(n, suffix='개') => n ? `${fn(n)}${suffix}` : '—';
+  const upgradeStageButton = u => `<button type="button" data-select-upgrade="${u.stage}" class="upgrade-stage ${u.stage===upgradeSelectedStage?'selected':''}" aria-pressed="${u.stage===upgradeSelectedStage}" aria-label="${u.stage}강, 강화 확률 ${u.chance}%"><span class="upgrade-stage-level">${u.stage}<small>강</small></span><span class="upgrade-stage-prob">${u.chance}%</span></button>`;
+  function upgradeStageDetails(u){
+    return `<div class="upgrade-detail-top"><span class="eyebrow">SELECTED LEVEL / 강화 정보</span><span class="upgrade-current-pill">${u.stage}강</span></div>
+      <div class="upgrade-detail-chance"><div><span>강화 성공 확률</span><strong>${u.chance}<small>%</small></strong></div><div class="upgrade-probtrack" role="meter" aria-label="강화 성공 확률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${u.chance}"><span style="width:${u.chance}%"></span></div></div>
+      <h3 class="upgrade-materials-title">필요한 강화 재료</h3>
+      <div class="upgrade-material-list">${UPGRADE_MATERIALS.filter(mat=>u[mat.prop]>0).map(mat=>`<a href="${itemUrl(mat.label)}" class="upgrade-material-item">${art(mat.label,'small')}<span>${esc(mat.label)}</span><strong>×${fn(u[mat.prop])}</strong></a>`).join('')}</div>
+      <div class="upgrade-currency-grid"><div class="upgrade-currency"><span>필요 골드</span><strong>${fn(u.gold)} <small>G</small></strong></div><div class="upgrade-currency"><span>필요 루비</span><strong>${u.ruby?`${fn(u.ruby)}<small>개</small>`:'<small>없음</small>'}</strong></div></div>
+      <p class="upgrade-detail-note">해당 강화 단계 1회 시도에 필요한 재료입니다.</p>`;
+  }
+  function selectUpgradeStage(level){
+    const data = UPGRADE_STAGES.find(x=>x.stage===level);
+    if (!data) return;
+    upgradeSelectedStage = level;
+    document.querySelectorAll('[data-select-upgrade]').forEach(el=>{
+      const selected = Number(el.dataset.selectUpgrade)===level;
+      el.classList.toggle('selected',selected);
+      if(el.tagName==='BUTTON')el.setAttribute('aria-pressed',String(selected));
+    });
+    document.querySelectorAll('[data-upgrade-col]').forEach(el=>el.classList.toggle('selected',Number(el.dataset.upgradeCol)===level));
+    const detail = document.getElementById('upgradeStageDetail');
+    if (detail) detail.innerHTML=upgradeStageDetails(data);
+  }
+  function upgradeComparisonTable(start,end){
+    const selected=UPGRADE_STAGES.filter(row=>row.stage>=start && row.stage<=end);
+    const label = (key,title,formatter) => `<tr><th scope="row">${title}</th>${selected.map(u=>`<td data-upgrade-col="${u.stage}" class="${u.stage===upgradeSelectedStage?'selected':''}">${formatter(u[key],u)}</td>`).join('')}</tr>`;
+    return `<section class="upgrade-table-section"><div class="upgrade-table-head"><div><span class="upgrade-range-tag">${start} — ${end}</span><h2>${start}~${end}강</h2></div><span class="upgrade-table-caption">단계별 재료 · 1회 시도 기준</span></div>
+      <div class="upgrade-table-scroll"><table class="upgrade-table"><thead><tr><th scope="col">필요 조건</th>${selected.map(u=>`<th scope="col"><button type="button" data-select-upgrade="${u.stage}" class="upgrade-table-stage ${u.stage===upgradeSelectedStage?'selected':''}" aria-pressed="${u.stage===upgradeSelectedStage}">${u.stage}강</button></th>`).join('')}</tr></thead><tbody>
+      ${label('low','하급 라이프스톤',v=>upgradeValue(v))}
+      ${label('mid','중급 라이프스톤',v=>upgradeValue(v))}
+      ${label('high','상급 라이프스톤',v=>upgradeValue(v))}
+      ${label('gold','필요 골드',v=>`${fn(v)} <span class="upgrade-gold-unit">G</span>`)}
+      ${label('ruby','필요 루비',v=>v?`${fn(v)}개`:'—')}
+      ${label('chance','강화 확률',v=>`<strong class="upgrade-table-percent">${v}%</strong><span class="upgrade-table-track"><span style="width:${v}%"></span></span>`)}
+      </tbody></table></div></section>`;
+  }
+  function renderUpgrade(){
+    const current=UPGRADE_STAGES.find(x=>x.stage===upgradeSelectedStage)||UPGRADE_STAGES[0];
+    app.innerHTML=crumb([['도구 강화 확률',null]])+`
+      <div class="page-head upgrade-page-head"><span class="eyebrow">SAGE TOOL · UPGRADE GUIDE</span><h1>도구 강화 확률</h1><p>세이지 도구의 1강부터 15강까지 필요한 라이프스톤·골드·루비와 단계별 강화 성공 확률을 정리했어요. 원하는 단계를 선택하면 필요한 재료를 바로 확인할 수 있어요.</p></div>
+      <div class="upgrade-overview"><div class="upgrade-overview-stat"><span>강화 단계</span><strong>1 ~ 15<small>강</small></strong></div><div class="upgrade-overview-stat"><span>최고 성공 확률</span><strong>100<small>%</small></strong></div><div class="upgrade-overview-stat"><span>최저 성공 확률</span><strong>1<small>%</small></strong></div></div>
+      <div class="upgrade-workspace"><section class="upgrade-picker" aria-label="강화 단계 선택"><div class="upgrade-panel-head"><span class="upgrade-panel-kicker">CHOOSE LEVEL</span><h2>강화 단계 선택</h2><p>숫자를 선택하면 오른쪽에 재료와 확률이 표시됩니다.</p></div>
+      <div class="upgrade-stage-grid">${UPGRADE_STAGES.map(upgradeStageButton).join('')}</div>
+      <div class="upgrade-stage-legend"><span>단계 번호</span><span>표시된 %는 해당 단계 성공 확률</span></div></section>
+      <section class="upgrade-detail-panel" aria-label="선택한 강화 단계 재료" id="upgradeStageDetail">${upgradeStageDetails(current)}</section></div>
+      <div class="upgrade-table-intro"><div><span class="eyebrow">ALL STAGES</span><h2>전체 강화 단계 비교</h2><p>표에서 강화 단계 숫자를 눌러 위의 상세 재료도 확인할 수 있어요.</p></div></div>
+      <div class="upgrade-tables">${upgradeComparisonTable(1,5)}${upgradeComparisonTable(6,10)}${upgradeComparisonTable(11,15)}</div>
+      <div class="upgrade-disclaimer"><span aria-hidden="true">ⓘ</span><p>제공된 세이지 도구 강화표를 기준으로 정리했어요. <b>—</b>는 해당 단계에 필요하지 않은 재료를 뜻합니다. 실패 시 처리 방식이나 추가 효과는 제공된 자료에 없어 표시하지 않았어요.</p></div>`;
+    document.title='도구 강화 확률 | 띵타이쿤 WIKI';
+  }
+
   function renderCompare(){
     app.innerHTML=crumb([['효율 비교',null]])+`<div class="page-head compare-page-head"><span class="eyebrow">1000 ST · PROFIT RANKING</span><h1>아이템 효율 비교</h1><p>요리 · 황금 요리 · 라이프스톤 · 주괴까지 같은 기준으로 확인해보세요. 1,000 ST 제작 가능 수량, 예상 순수익, 재료와 판매가 설정도 변경할 수 있어요.</p></div><div class="efficiency-embed"><iframe id="efficiencyFrame" title="띵타이쿤 전체 아이템 효율 순위 및 설정" src="efficiency.html?v=2" loading="eager" scrolling="no"></iframe></div>`;
     document.title='효율 비교 | 띵타이쿤 WIKI';
@@ -182,8 +260,10 @@
     return {view,id};
   }
   function renderSidebar(route){
-    nav.innerHTML=`<a class="nav-button ${route.view==='home'?'active':''}" href="#/"><span class="nav-symbol">${iconSvg('home')}</span>위키 홈</a>`+
-      D.categories.map(c=>`<a class="nav-button ${route.id===c.id || (route.view==='facility'&&D.facilities[route.id]?.category===c.id) || (route.view==='compare'&&c.id==='compare')?'active':''}" href="${c.id==='compare'?'#/compare':catUrl(c.id)}"><span class="nav-symbol">${iconSvg(c.icon)}</span>${esc(c.title)}</a>`).join('');
+    const categoryLinks=D.categories.map(c=>`<a class="nav-button ${route.id===c.id || (route.view==='facility'&&D.facilities[route.id]?.category===c.id) || (route.view==='compare'&&c.id==='compare')?'active':''}" href="${c.id==='compare'?'#/compare':catUrl(c.id)}"><span class="nav-symbol">${iconSvg(c.icon)}</span>${esc(c.title)}</a>`);
+    const compareIndex=D.categories.findIndex(c=>c.id==='compare');
+    categoryLinks.splice(compareIndex<0?categoryLinks.length:compareIndex,0,`<a class="nav-button ${route.view==='upgrade'?'active':''}" href="#/upgrade"><span class="nav-symbol">${iconSvg('upgrade')}</span>도구 강화 확률</a>`);
+    nav.innerHTML=`<a class="nav-button ${route.view==='home'?'active':''}" href="#/"><span class="nav-symbol">${iconSvg('home')}</span>위키 홈</a>`+categoryLinks.join('');
   }
   function render(){
     hideTooltip();closeSearch();
@@ -192,6 +272,7 @@
     else if(route.view==='category')renderCategory(route.id);
     else if(route.view==='facility')renderFacility(route.id);
     else if(route.view==='item')renderItem(route.id);
+    else if(route.view==='upgrade')renderUpgrade();
     else if(route.view==='compare')renderCompare();
     else renderNotFound();
     // local navigation should start at the top; in-facility anchor scrolling handled separately
@@ -234,6 +315,8 @@
   app.addEventListener('click',e=>{
     const ing=e.target.closest('[data-ingredient]');
     if(ing){location.hash=itemUrl(ing.dataset.ingredient);return;}
+    const upgrade=e.target.closest('[data-select-upgrade]');
+    if(upgrade){selectUpgradeStage(Number(upgrade.dataset.selectUpgrade));if(upgrade.classList.contains('upgrade-table-stage'))document.getElementById('upgradeStageDetail')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
     const golden=e.target.closest('[data-set-golden]');
     if(golden){goldenMode=golden.dataset.setGolden;const scroll=window.scrollY;renderFacility('golden');window.scrollTo({top:scroll,behavior:'instant'});return;}
     const anchor=e.target.closest('[data-scroll-target]');
