@@ -12,6 +12,7 @@
     utensils:'<path d="M4 3v8c0 2 4 2 4 0V3M6 3v18M14 3c-2 2-2 6-2 9h5V3M17 12v9"/>',
     pickaxe:'<path d="m4 21 13-13"/><path d="M12 3c5-2 9 0 10 3-5-1-8 1-10 4"/><path d="m7 9 4 4"/>',
     sprout:'<path d="M12 22v-9M12 13c-8 0-9-4-9-9 6 0 10 2 9 9zm0 4c0-7 4-10 9-10 0 6-2 10-9 10z"/>',
+    skills:'<path d="M12 3l7 5v8l-7 5-7-5V8z"/><path d="M12 8v8m-4-4h8"/>',
     upgrade:'<path d="M12 22V7m-5 5 5-5 5 5"/><path d="M4 15V4h16v11"/><path d="M7 19h10"/>',
     chart:'<path d="M3 20h18M6 17v-5M11 17V7M16 17v-8"/>',
     flame:'<path d="M12 22c4.5 0 7.5-3.1 7.5-7.4 0-3.8-2.1-6.2-5.2-9.6.3 4.5-2.2 5.4-2.4 6.5C10.3 8.2 9 5.2 9.4 2 5.1 6.6 4 10.7 4 14.6 4 18.9 7.3 22 12 22Z"/><path d="M12 21c-1.9 0-3.2-1.4-3.2-3.2 0-1.6 1.1-2.9 2.8-4.5.1 2 1.1 2.8 2.3 3.6 1 2.1.1 4.1-1.9 4.1Z"/>',
@@ -259,10 +260,14 @@
     try{id=decodeURIComponent(id)}catch(e){}
     return {view,id};
   }
+  function renderSkills(){
+    document.title='전문가 스킬 | 띵타이쿤 WIKI';
+    app.innerHTML=crumb([['전문가 스킬',null]])+`<div class="page-head expert-page-head"><span class="eyebrow">SERENITY · SKILL TREE</span><h1>전문가 스킬</h1><p>채광 · 재배 · 해양 · 사냥의 스킬 트리를 확인하고, 내 레벨과 앞으로 필요한 골드 및 어빌리티 스톤을 계산해 보세요.</p></div><section class="experts-frame-shell" aria-label="분야별 전문가 스킬 트리"><iframe id="expertsFrame" title="전문가 스킬 트리와 레벨 계산기" src="experts.html?v=wiki10" loading="eager" scrolling="no"></iframe></section>`;
+  }
   function renderSidebar(route){
     const categoryLinks=D.categories.map(c=>`<a class="nav-button ${route.id===c.id || (route.view==='facility'&&D.facilities[route.id]?.category===c.id) || (route.view==='compare'&&c.id==='compare')?'active':''}" href="${c.id==='compare'?'#/compare':catUrl(c.id)}"><span class="nav-symbol">${iconSvg(c.icon)}</span>${esc(c.title)}</a>`);
     const compareIndex=D.categories.findIndex(c=>c.id==='compare');
-    categoryLinks.splice(compareIndex<0?categoryLinks.length:compareIndex,0,`<a class="nav-button ${route.view==='upgrade'?'active':''}" href="#/upgrade"><span class="nav-symbol">${iconSvg('upgrade')}</span>도구 강화 확률</a>`);
+    categoryLinks.splice(compareIndex<0?categoryLinks.length:compareIndex,0,`<a class="nav-button ${route.view==='upgrade'?'active':''}" href="#/upgrade"><span class="nav-symbol">${iconSvg('upgrade')}</span>도구 강화 확률</a>`, `<a class="nav-button ${route.view==='skills'?'active':''}" href="#/skills"><span class="nav-symbol">${iconSvg('skills')}</span>전문가 스킬</a>`);
     nav.innerHTML=`<a class="nav-button ${route.view==='home'?'active':''}" href="#/"><span class="nav-symbol">${iconSvg('home')}</span>위키 홈</a>`+categoryLinks.join('');
   }
   function render(){
@@ -273,6 +278,7 @@
     else if(route.view==='facility')renderFacility(route.id);
     else if(route.view==='item')renderItem(route.id);
     else if(route.view==='upgrade')renderUpgrade();
+    else if(route.view==='skills')renderSkills();
     else if(route.view==='compare')renderCompare();
     else renderNotFound();
     // local navigation should start at the top; in-facility anchor scrolling handled separately
@@ -301,6 +307,13 @@
     const top=above>10?above:(below+size.height<window.innerHeight-10?below:Math.max(10,window.innerHeight-size.height-10));
     tip.style.top=top+'px';
   }
+  window.addEventListener('message',(e)=>{
+    const iframe=document.getElementById('expertsFrame');
+    if(!iframe||e.source!==iframe.contentWindow||!e.data||e.data.type!=='dding-expert-size')return;
+    if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
+    const h=Number(e.data.height);
+    if(Number.isFinite(h)&&h>200&&h<150000&&Math.abs(iframe.getBoundingClientRect().height-h)>3)iframe.style.height=Math.ceil(h)+'px';
+  });
   window.addEventListener('message',(e)=>{
     const iframe=document.getElementById('efficiencyFrame');
     if(!iframe || e.source!==iframe.contentWindow || !e.data || e.data.type!=='dding-efficiency-size')return;

@@ -186,3 +186,11 @@ body{background:#faf9ff!important;color:var(--text)}
 @media(max-width:1160px){.upgrade-workspace{grid-template-columns:1fr}.upgrade-stage{min-height:60px}.upgrade-detail-panel{max-width:none}}
 @media(max-width:720px){.upgrade-overview{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.upgrade-overview-stat{padding:12px 10px;border-radius:12px}.upgrade-overview-stat strong{font-size:20px}.upgrade-overview-stat>span{font-size:10px}.upgrade-picker,.upgrade-detail-panel{padding:17px;border-radius:16px}.upgrade-table-section{padding:15px 12px;border-radius:15px}.upgrade-table-caption{display:none}.upgrade-stage-grid{gap:5px}.upgrade-stage{min-height:59px;border-radius:10px}.upgrade-stage-level{font-size:16px}.upgrade-stage-prob{font-size:10px}.upgrade-table{min-width:560px}}
 @media(prefers-reduced-motion:reduce){.upgrade-stage,.upgrade-probtrack>span,.upgrade-table-track>span{transition:none}}
+
+/* v8 · 전문가 스킬 (기존 라벤더 WIKI 색상과 여백을 이어받음) */
+.expert-page-head{margin-bottom:18px}
+.expert-page-head h1{font-size:clamp(27px,3vw,37px);color:#352b4d;letter-spacing:-1px}
+.expert-page-head p{font-size:13px;line-height:1.75;color:#766b91;max-width:840px}
+.experts-frame-shell{border:1px solid #e7dcf8;border-radius:18px;background:transparent;min-width:0;padding:13px 14px 3px;overflow:hidden;box-shadow:0 5px 20px #63518c0a}
+.experts-frame-shell iframe{display:block;border:0;background:transparent;width:100%;height:1550px;overflow:hidden;max-width:100%}
+@media(max-width:780px){.experts-frame-shell{padding:7px 8px 1px;border-radius:13px}}

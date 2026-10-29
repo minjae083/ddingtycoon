@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>전문가 스킬 | 띵타이쿤 WIKI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#fff;--tint:#faf8ff;--card:#fff;--line:#ece6fa;--ink:#2a2740;--soft:#6b6785;--faint:#a29db8;--acc:#8f6fe0;--accd:#6e4fc7;--accs:#f3eeff;--on:#fff;--ok:#3aa86f;--oks:#eaf7f0;--bb:#efe9ff;--bbd:#b9a4ef;--dot:rgba(143,111,224,.18);--t1:#fff;--t2:#f4efff;--tb:#c4b4f0;--ton1:#efe6ff;--ton2:#e0d3ff;--tonb:#8f6fe0;--nl:#3b3357;--lnk:rgba(143,111,224,.4);--bgc:#6e4fc7;--bgt:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14121d;--tint:#191726;--card:#1b1829;--line:#2f2a46;--ink:#eeeaf8;--soft:#aaa4c2;--faint:#756f90;--acc:#b399f5;--accd:#c7b3ff;--accs:#2a2342;--on:#1a1230;--ok:#5ccb92;--oks:#173226;--bb:#241d3d;--bbd:#6a56b8;--dot:rgba(255,255,255,.12);--t1:#33294f;--t2:#2a2342;--tb:#5c4d94;--ton1:#4a3a82;--ton2:#3a2d6a;--tonb:#b399f5;--nl:#e4dcff;--lnk:rgba(179,153,245,.4);--bgc:#b399f5;--bgt:#1a1230;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14121d;--tint:#191726;--card:#1b1829;--line:#2f2a46;--ink:#eeeaf8;--soft:#aaa4c2;--faint:#756f90;--acc:#b399f5;--accd:#c7b3ff;--accs:#2a2342;--on:#1a1230;--ok:#5ccb92;--oks:#173226;--bb:#241d3d;--bbd:#6a56b8;--dot:rgba(255,255,255,.12);--t1:#33294f;--t2:#2a2342;--tb:#5c4d94;--ton1:#4a3a82;--ton2:#3a2d6a;--tonb:#b399f5;--nl:#e4dcff;--lnk:rgba(179,153,245,.4);--bgc:#b399f5;--bgt:#1a1230;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 "IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:10}
+button,select{font:inherit;color:inherit;cursor:pointer}
+button:disabled{opacity:.4;cursor:default}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));background:var(--card);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:8px}
+.logo{width:34px;height:34px;border-radius:11px;background:var(--accs);display:grid;place-items:center}
+.brand small{font-size:10px;letter-spacing:.16em;color:var(--acc);font-weight:700}
+.tabs{display:flex;gap:6px;margin:0 auto;overflow-x:auto}
+.tab{border:1px solid transparent;background:none;border-radius:12px;padding:7px 14px;font-weight:600;color:var(--soft);white-space:nowrap}
+.tab:hover{background:var(--tint)}
+.tab[aria-pressed="true"]{background:var(--accs);color:var(--accd);border-color:var(--line)}
+.tab i{font-style:normal;font-size:11px;color:var(--faint);margin-left:6px;font-weight:500}
+.ic{border:1px solid var(--line);background:var(--card);border-radius:999px;width:34px;height:34px}
+.wrap{max-width:1180px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 56px max(16px,env(safe-area-inset-left,0px))}
+.eyebrow{font-size:10.5px;letter-spacing:.16em;font-weight:700;color:var(--acc);text-transform:uppercase}
+.title h1{margin:2px 0 4px;font-size:28px;letter-spacing:-.03em}
+.title p{margin:0 0 14px;font-size:13px;color:var(--soft)}
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.sc{display:flex;align-items:center;gap:10px;background:var(--tint);border:1px solid var(--line);border-radius:14px;padding:10px 12px;min-width:0}
+.sc .si{flex:none;width:34px;height:34px;border-radius:10px;background:var(--accs);display:grid;place-items:center;font-size:18px}
+.sc span{display:block;font-size:11px;color:var(--faint);line-height:1.3}
+.sc b{display:block;font-size:15px;font-variant-numeric:tabular-nums;line-height:1.3;word-break:keep-all}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:16px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}
+.tcard{padding:14px;background:var(--tint)}
+.tool{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.flt{display:flex;gap:6px;flex-wrap:wrap}
+.f{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 12px;font-size:12.5px;font-weight:600;color:var(--soft)}
+.f[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--on)}
+.mini{font-size:12px;color:var(--faint)}
+.board{overflow-x:auto;overflow-y:hidden;border-radius:14px;border:3px solid var(--bbd);background:var(--bb)}
+.tree{position:relative;margin:0 auto;background-image:radial-gradient(var(--dot) 1px,transparent 1.5px);background-size:46px 46px}
+.tree svg{position:absolute;inset:0;pointer-events:none}
+.n{position:absolute;width:84px;padding:0;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1;transition:opacity .12s}
+.nt{position:relative;width:58px;height:58px;border-radius:14px;border:2px solid var(--tb);background:linear-gradient(160deg,var(--t1),var(--t2));display:grid;place-items:center;box-shadow:0 3px 0 rgba(110,79,199,.18);transition:transform .12s,border-color .12s}
+.ni{font-size:28px;line-height:1;filter:grayscale(.6);opacity:.8}
+.n:hover .nt{transform:translateY(-2px);border-color:var(--tonb)}
+.nl{font-size:11px;line-height:1.25;color:var(--nl);text-align:center;word-break:keep-all;max-width:84px;font-weight:500}
+.bd{position:absolute;right:-6px;bottom:-7px;padding:0 5px;border-radius:5px;background:var(--bgc);border:1px solid var(--bgc);color:var(--bgt);font-size:10.5px;font-weight:700;line-height:16px;font-variant-numeric:tabular-nums}
+.n.on .nt{border-color:var(--tonb);background:linear-gradient(160deg,var(--ton1),var(--ton2))}
+.n.on .ni{filter:none;opacity:1}
+.n.on .nl{color:var(--ink);font-weight:600}
+.n.max .nt{border-color:var(--ok);box-shadow:0 0 0 2px rgba(58,168,111,.3),0 0 12px rgba(58,168,111,.45)}
+.n.max .bd{background:var(--ok);border-color:var(--ok);color:#fff}
+.n.sel .nt{box-shadow:0 0 0 3px var(--bb),0 0 0 6px var(--accd)}
+.n.dim{opacity:.22}
+.col{position:sticky;top:76px;display:flex;flex-direction:column;gap:12px;max-height:calc(100vh - 92px);overflow-y:auto}
+.det{background:var(--card);scroll-margin-top:64px}
+.top2{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.tag{font-size:11.5px;background:var(--accs);color:var(--accd);border-radius:999px;padding:1px 10px;font-weight:600}
+.tag.g{background:var(--tint);color:var(--soft);border:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:12px;margin:2px 0 10px}
+.hd .nt{flex:none;border-color:var(--tonb)}.hd .ni{filter:none}
+.hd h2{margin:0;font-size:21px;letter-spacing:-.02em;line-height:1.25}
+.desc{background:var(--tint);border:1px solid var(--line);border-radius:14px;padding:10px 14px;color:var(--soft);font-size:13.5px}
+.lab{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 4px;font-size:12px;font-weight:700;color:var(--soft)}
+.lab em{font-style:normal;color:var(--accd)}
+.segs{display:flex;gap:4px}
+.seg{flex:1;height:18px;border:0;background:none;padding:0;position:relative}
+.seg::before{content:"";position:absolute;left:0;right:0;top:6px;height:6px;border-radius:99px;background:var(--line)}
+.seg.on::before{background:var(--acc)}
+.bon{display:flex;align-items:center;justify-content:center;gap:16px;text-align:center;border:1px solid var(--line);background:var(--tint);border-radius:14px;padding:10px}
+.bon span{display:block;font-size:11px;color:var(--faint)}.bon b{font-size:15px}.bon .nx b{color:var(--accd)}.bon u{text-decoration:none;color:var(--faint)}
+.costs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.costs div{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:8px 4px;text-align:center;display:flex;flex-direction:column;gap:0;font-style:normal}
+.costs i{font-style:normal;font-size:15px;line-height:1.3}
+.costs span{font-size:10.5px;color:var(--faint)}
+.costs b{font-size:14px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.costs div:nth-child(2) b{color:var(--accd)}
+.sel2{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:3px 8px;font-weight:600;font-size:12.5px}
+.acts{display:grid;grid-template-columns:1fr 1fr 1.2fr 1fr;gap:8px;margin-top:16px}
+.b{border:1px solid var(--line);background:var(--tint);border-radius:12px;padding:10px 0;font-weight:700;color:var(--soft)}
+.b:hover:not(:disabled){border-color:var(--acc)}
+.b.p{background:var(--acc);border-color:var(--acc);color:var(--on)}
+.b.m{background:var(--accs);color:var(--accd)}
+.lvpanel{margin-top:14px;font-size:12.5px}.lvhead{margin:0 0 6px;font-size:12.5px;color:var(--faint);font-weight:700}
+.tw{overflow-x:auto;margin-top:6px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:5px 6px;border-top:1px solid var(--line);text-align:left;white-space:nowrap}
+th{color:var(--faint);font-weight:600;border-top:0}
+tr.d td{color:var(--faint)}tr.nx td{background:var(--accs);font-weight:600}
+.note{margin:10px 0 0;font-size:11px;color:var(--faint)}
+.fan{margin-top:22px;font-size:11.5px;color:var(--faint);text-align:center}
+@media (max-width:1000px){.grid{grid-template-columns:1fr}.col{position:static;max-height:none}}
+@media (max-width:760px){.tabs{order:3;width:100%;margin:0}.ic{margin-left:auto}.title h1{font-size:24px}.sum{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Embedded in 띵타이쿤 WIKI: light lavender, flat panels and original Minecraft sprites. */
+:root,:root[data-theme="dark"]{color-scheme:light;--bg:#faf9ff;--tint:#f7f3ff;--card:#fff;--line:#e4daf4;--ink:#302b45;--soft:#6b6383;--faint:#8e85a7;--acc:#8b69d8;--accd:#7654c3;--accs:#eee7ff;--on:#fff;--ok:#4eaa78;--oks:#eef9f1;--bb:#f4efff;--bbd:#d7c7f5;--dot:transparent;--t1:#fff;--t2:#fff;--tb:#d8c9f0;--ton1:#ede4ff;--ton2:#ede4ff;--tonb:#8f6fe0;--nl:#3b3357;--lnk:#cbb9ea;--bgc:#7654c3;--bgt:#fff}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:light;--bg:#faf9ff;--tint:#f7f3ff;--card:#fff;--line:#e4daf4;--ink:#302b45;--soft:#6b6383;--faint:#8e85a7;--acc:#8b69d8;--accd:#7654c3;--accs:#eee7ff;--on:#fff;--bb:#f4efff;--bbd:#d7c7f5;--t1:#fff;--t2:#fff;--tb:#d8c9f0;--ton1:#ede4ff;--ton2:#ede4ff;--tonb:#8f6fe0;--nl:#3b3357;--lnk:#cbb9ea;--bgc:#7654c3;--bgt:#fff}}
+html,body{background:transparent!important;scroll-behavior:auto}
+body::before{display:none}
+.wrap{width:100%;max-width:none;margin:0;padding:1px 2px 22px}
+.tabs{margin:0 0 16px 0;justify-content:flex-start;gap:8px;padding:4px 0 6px;overflow-x:auto}
+.tab{border:1px solid #e3d9f4;border-radius:11px;background:#fff;color:#685983;font-size:13px;padding:11px 14px;min-height:44px}
+.tab[aria-pressed=true]{background:#ece3ff;border-color:#cbb9ed;color:#6944b1}
+.title{padding:0 0 8px}
+.title h1{font-size:clamp(19px,2vw,24px);color:#3f3458;letter-spacing:-.5px}
+.title p{font-size:12px;line-height:1.7}
+.sum{gap:10px;margin:8px 0 17px}
+.sc{background:#fff;border-color:#e6dff3;border-radius:14px;min-height:72px}
+.sc b{font-size:14px;color:#49346c}
+.grid{grid-template-columns:minmax(0,1fr) minmax(280px,360px);gap:14px}
+.card{border:1px solid #e4daf4;border-radius:17px;box-shadow:0 5px 18px #66528b0b}
+.tcard{background:#fff;min-width:0;padding:13px}
+.board{border:1px solid #dbcdf4;background:#f6f2ff;border-radius:14px}
+.tree{background-image:none!important}
+.nt,.n.on .nt{background:#fff;border-color:#c5b2e7;border-radius:13px;box-shadow:0 2px 0 rgba(100,65,160,.09)}
+.n.sel .nt{box-shadow:0 0 0 2px #eee5ff,0 0 0 5px #9875e0}
+.ni{display:grid;place-items:center;font-size:27px;width:100%;height:100%;filter:none!important;opacity:1!important}
+.skill-img{display:block;width:46px;height:46px;object-fit:contain;image-rendering:pixelated;border-radius:8px}
+.hd .skill-img{width:46px;height:46px}
+.n.on .ni{filter:none!important;opacity:1!important}
+.n.dim{opacity:.28}
+.nl{max-width:87px;color:#4d3e69;font-size:11px}
+.col{top:14px;max-height:none;overflow:visible}
+.det{background:#fff}
+.f{border-radius:9px}
+.f[aria-pressed=true]{background:#805dce;color:#fff}
+.fan{font-size:11px;color:#988cab}
+@media(max-width:980px){.grid{grid-template-columns:1fr}.col{position:static}}
+@media(max-width:650px){.wrap{padding:1px 0 20px}.sum{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.sc{padding:10px 9px;min-height:66px}.sc b{font-size:12px}.tabs{gap:5px}.tab{font-size:12px;padding:9px 10px}.card{padding:11px}.tcard{padding:9px}.acts{gap:5px}.n.dim{opacity:.4}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+</style></head>
+<body>
+
+<div class="wrap">
+  <nav class="tabs" id="tabs" aria-label="전문 분야 선택"></nav>
+ <div class="title"><div class="eyebrow">EXPERT SKILL TREE</div><h1 id="tt"></h1><p>스킬을 선택해 레벨별 효과와 필요 골드·어빌리티 스톤을 확인하세요. 설정한 레벨은 이 브라우저에 저장됩니다.</p></div>
+ <div class="sum" id="sum"></div>
+ <div class="grid">
+  <section class="card tcard"><div class="tool"><div class="flt" id="flt" role="group" aria-label="필터"></div><div class="mini" id="mini"></div></div><div class="board"><div class="tree" id="tree"></div></div></section>
+  <aside class="col"><div class="card det" id="det"></div></aside>
+ </div>
+ <p class="fan">제공된 전문가 스킬 자료를 기준으로 정리했어요. 게임 내 실제 수치가 달라지면 최신 게임 정보를 확인해 주세요.</p>
+</div>
+<script>
+const D={
+mining:["채광","⛏️",`1|채광학개론|7||세레니티에서 채광 시 오르는 경험치가 1% 증가합니다.
+2|춤추는 광석|7|1|야생에서 채광 시 광석 골렘이 등장할 확률이 0.8%로 증가합니다.
+3|주괴 좀 사주괴|6|1|주괴의 판매가가 5% 증가합니다. 상점과 무역에서 계산되어 보입니다.
+4|코비 타임|7|1|세레니티에서 채광 시 코비가 등장할 확률이 1% 증가합니다.
+5|반짝임의 시작|3|2|세레니티에서 채광 시 3% 확률로 광석에 맞는 정동석을 1개 드롭합니다.
+6|반짝반짝 눈이 부셔|6|5|정동석의 판매가가 5% 증가합니다. 상점과 무역에서 계산되어 보입니다.
+7|귀하신 몸값|6|6|귀중품의 판매가가 5% 증가합니다. 상점에서 계산되어 보입니다.
+8|광물을 “드릴”게요|6|7|야생에서 특수 광석 채광 시 1% 확률로 광물 1개를 추가 드롭합니다.
+9|세공의 신|4|8|모든 요소를 100%로 세공 시 0.3% 확률로 탁월한 보석이 등장합니다.
+10|럭키 히트|10|3|세레니티에서 채광 시 1% 확률로 광석 1개를 추가 드롭합니다.
+11|불붙은 곡괭이|10|10|채광 시 1% 확률로 광석에 맞는 주괴 1개를 추가로 드롭합니다.
+12|곡괭이 나가신다!|10|10|3초 간 3x3 범위를 부술 수 있습니다. 곡괭이를 들고 쉬프트 우클릭합니다.
+13|용광로 풀가동!|5|11|채광물 가공 시설의 대기 슬롯이 5개로 증가합니다.
+14|장인의 손놀림|5|12|강화 제작 시설의 대기 슬롯이 5개로 증가합니다.
+15|아이원츄캔디!|7|13,14|세레니티에서 채광 시 광물 캔디 드롭 확률이 4%로 증가합니다.
+16|인력사무소|6|13,14|광물 캔디로 광석 골렘을 길들일 확률이 25%로 증가합니다.
+17|내가그린형광그림|9|16|형광 제련품의 판매가가 1% 증가합니다. 판매가는 상점에서 계산되어 보입니다.
+18|초고속 용광로|5|4|채광물 가공과 강화 제작 시설의 제작 시간이 10% 감소합니다. 제작 시작 시 자동 적용됩니다.
+19|쓸어담는 광질|5|4|3초 간 광석을 한 번에 캡니다. 곡괭이를 들고 쉬프트 우클릭합니다.
+20|가벼운 항해선|5|18,19|항해 포인트가 5% 높게 책정됩니다. 항해도에서 계산되어 보입니다.
+21|스피드 복귀 항로|5|20|항해선이 돌아오는 시간이 3% 감소합니다. 항해도에서 반영되어 보입니다.`],
+cultivation:["재배","🌾",`1|재배학개론|7||세레니티에서 채집 시 오르는 경험치가 1% 증가합니다.
+2|난 아직 베고파|4|1|야생에서 원목 및 자루 벌목 시 10% 확률로 해당 아이템 1개를 추가 드롭합니다.
+3|후르츠 파티|5|1|세레니티에서 과일 채집 시 1% 확률로 과일 1개를 추가 드롭합니다.
+4|불 더 올려!|5|2|농작물 가공과 요리 제작 시설의 제작 시간이 10% 감소합니다.
+5|오늘도 풍년이다!|7|2|마을에서 수확 시 1% 확률로 아일랜드 농작물 1개를 추가 드롭합니다.
+6|자연이 주는 선물|10|3|세레니티에서 채집 시 1% 확률로 씨앗 1개를 추가 드롭합니다.
+7|쓸어담는 맛|5|3|10초 간 과일을 한 번에 채집합니다. 세이지 괭이를 들고 쉬프트 우클릭합니다.
+8|플로리스트 입문|4|3|세레니티에서 채집 시 1% 확률로 향기로운 이슬을 드롭합니다.
+9|한 솥 가득|5|4|요리를 한 번에 3세트 이상 판매 시 1%의 보너스가 들어옵니다.
+10|돈 좀 벌어볼까?|10|6|요리의 판매가가 1% 증가합니다. 상점과 무역에서 계산되어 보입니다.
+11|왕 크니까 왕 좋아|4|5|마을에서 수확 시 대왕 작물이 등장할 확률이 0.5%로 증가합니다.
+12|씨앗은 덤이야|10|7|마을에서 수확 시 1% 확률로 세레니티 씨앗을 드롭합니다.
+13|향기를 다루는 사람|5|8|꽃 채집 시 향기로운 이슬 주입 횟수가 9회로 감소합니다.
+14|5성급 주방|5|9|요리 제작 시설의 대기 슬롯이 5개로 증가합니다.
+15|불붙은 괭이|10|10|채집 시 1% 확률로 작물에 맞는 베이스 1개를 추가로 드롭합니다.
+16|수확은 한방에!|2|11|마을에서 범위 5x3 경작지에 자란 세레니티 농작물을 한 번에 캡니다.
+17|가공의 신|5|12|농작물 가공 시설의 대기 슬롯이 5개로 증가합니다.
+18|아름다움의 극치|10|13|향장품의 판매가가 1% 증가합니다. 상점에서 계산되어 보입니다.
+19|씨앗 장전 완료!|2|14|마을에서 범위 5x3 경작지에 세레니티 씨앗을 한 번에 심습니다.
+20|신선함 유지 기술|3|15|농작물, 베이스 그리고 요리의 유통기한이 3일로 증가합니다.
+21|인간 트랙터|4|16|마을에서 범위 5x3 흙을 한 번에 경작합니다. 괭이를 들고 쉬프트 우클릭합니다.
+22|반짝임 유지 기술|4|21|금 가루 그리고 식용 금 가루의 유통기한이 17일로 증가합니다.
+23|몽글몽글|4|17|우유 스티머 모듈의 대기 슬롯이 4개로 증가합니다.
+24|커피값이 밥값|10|17|커피의 판매가가 1% 증가합니다. 상점에서 계산되어 보입니다.
+25|오늘 좀 한가하네?|5|23|손님에게 판매할 수 있는 커피 트레이의 슬롯이 2개로 증가합니다.
+26|프로 바리스타|3|25|빈센트에게 커피를 판매할 수 있으며, 에픽 레시피북을 획득할 수 있습니다.
+27|풍미 유지 기술|3|25|원두, 커피 가루 그리고 커피의 유통기한이 5일로 증가합니다.
+28|식은 커피 먹기지|3|26|커피 그라인더와 믹서기 미니 게임의 클릭 횟수가 40% 감소합니다.
+29|빠르고 따뜻하게|3|27|우유 스티머 모듈의 스팀 우유 제작 시간이 40% 감소합니다.`],
+ocean:["해양","🎣",`1|해양학개론|7||세레니티에서 낚시 및 수중 어획 시 오르는 경험치가 1% 증가합니다.
+2|일타쌍피|3|1|낚시 시 1% 확률로 한 번에 두 마리의 물고기를 낚습니다.
+3|심해 채집꾼|5|1|세레니티에서 수중 어획 시 어패류를 5% 확률로 추가 드롭합니다.
+4|달밤의 대어|3|2|밤에 낚시 시 5% 확률로 전설 물고기가 등장합니다.
+5|떡밥을 뿌려라!|10|2|30초 간 입질 시간이 5% 감소하고, 접근 시간이 2초로 감소합니다. 낚싯대를 들고 쉬프트 우클릭합니다.
+6|조개 좀 사조개|8|3|공예품의 판매가가 5% 증가합니다. 상점에서 계산되어 보입니다.
+7|프리미엄 한정가|8|3|연금품의 판매가가 5% 증가합니다. 상점과 무역에서 계산되어 보입니다.
+8|치솟는 생선값|5|4|물고기의 판매가가 2% 증가합니다. 판매 시 자동으로 계산됩니다.
+9|열대어를 찾아서|3|5|야생과 마을에서 낚시 시 열대어를 낚을 확률이 3%로 증가합니다.
+10|물 흐르듯 술술|5|6|해양 제작과 연금 제작 시설의 제작 시간이 10% 감소합니다.
+11|별별별!|6|7|수중 어획 시 3성 등급의 어패류가 등장할 확률이 1% 증가합니다.
+12|낚싯줄에 걸린 비밀|8|8|세레니티에서 낚시 시 열쇠 조각을 낚을 확률이 0.5% 증가합니다.
+13|폭풍의 낚시꾼|5|9|비 오는 날 낚시 시 1.0% 확률로 신화 물고기가 등장합니다.
+14|조개 무한리필|10|10|세레니티에서 수중 어획 시 조개가 등장할 확률이 1% 증가합니다.
+15|바다처럼 넓은|5|11|해양 제작 시설의 대기 슬롯이 5개로 증가합니다.
+16|오션오더 더 더!|5|12|수령할 수 있는 오션오더의 일일 제한이 12회로 증가합니다.
+17|보물 사냥꾼|8|13|물 속에 잠긴 녹슨 상자를 낚을 확률이 2.5%로 증가합니다.
+18|증류실 확장 공사|5|14|연금 제작 시설의 대기 슬롯이 5개로 증가합니다.
+19|연금은 계속된다|5|15|정밀 연금 제작 시설의 대기 슬롯이 5개로 증가합니다.
+20|나를 키워라|5|16|수중 어획 시 0.5% 확률로 반려 물고기가 등장합니다.
+21|수리수리 마수리!|5|17|세레니티 낚시 어선의 일일 수리 제한 횟수가 6회로 증가합니다.
+22|탐나는 탐사선|2|19|B등급 해양 탐사선이 20% 확률로 항구에 도착하기 시작합니다.
+23|다다익 “선”|3|19|해양 탐사선의 수가 1개로 증가합니다. 해금 이후부터 고대 주화가 등장합니다.
+24|수질 유지 기술|4|20|반려 물고기의 스탯 하락 주기가 11분으로 증가합니다.
+25|귀하게 자란 티|10|20|반려어의 방생 대금이 1% 증가합니다. 방생 진행 시 계산되어 보입니다.
+26|수중 밀집 구역|2|24|수족관 내에서 기를 수 있는 반려 물고기의 개수가 최대 6마리로 증가합니다.`],
+hunting:["사냥","🏹",`1|사냥학개론|7||세레니티에서 사냥 시 오르는 경험치가 1% 증가합니다.
+2|끝까지 간다!|5|1|세레니티에서 초식 동물 사냥 시 최대 5콤보까지 달성할 수 있습니다.
+3|값어치 증명|6|1|영혼의 판매가가 5% 증가합니다. 상점과 무역에서 계산되어 보입니다.
+4|야수의 심장|7|1|야생에서 몬스터 사냥 시 1% 확률로 심장 1개를 추가 드롭합니다.
+5|흐름 유지|10|2|콤보 유지 시간이 3.5초로 증가합니다.
+6|누구보다 빠르게|7|2|초식 동물 사냥 중 콤보 발동 시 신속 I과 힘 I을 1초간 부여합니다.
+7|남들과는 다르게|7|5,6|콤보 활성화 시 전리품 추가 드롭 확률이 3% 증가합니다.
+8|피 냄새가 나|3|7|초식 동물 사냥 시 3% 확률로 육식 동물 소환 알을 획득합니다.
+9|원혼 사냥꾼|10|8|원혼의 판매가가 1% 증가합니다. 상점에서 계산되어 보입니다.
+10|일격필살|3|9|세레니티에서 공룡 사냥 시 1% 확률로 공룡을 즉시 처형합니다.
+11|원터치 모래|1|10|솔을 든 채로 쉬프트 우클릭 시, 수상한 모래 조사가 즉시 완료됩니다.
+12|고속 영혼 가공기|5|3|영혼 가공 시설의 제작 시간이 10% 감소합니다.
+13|가공실 증설|5|12|영혼 가공 시설의 대기 슬롯이 5개로 증가합니다.
+14|상태 좋네!|6|13|수렵물의 판매가가 5% 증가합니다. 상점에서 계산되어 보이며, 즉시 판매 시에는 적용되지 않습니다.
+15|넌 내 거야!|6|13|육식 동물을 덫으로 포획 시 성공 확률이 12% 증가합니다.
+16|현상금 사냥꾼|5|14|초식 동물 사냥 시 혼이 깃든 가죽 드롭 확률이 4%로 증가합니다.
+17|장인의 품격|9|16|가죽 명품의 판매가가 1% 증가합니다. 판매가는 상점에서 계산되어 보입니다.
+18|섬세한 손질|5|15|세레니티에서 육식 동물 공격 시 20% 확률로 동물이 죽지 않습니다.
+19|추가 손질|7|4|초식 동물 사냥 시 1% 확률로 전리품 1개를 추가 드롭합니다.
+20|변종 개체|10|19|사냥 시 1% 확률로 동물에 맞는 영혼 1개를 추가로 드롭합니다.
+21|검증된 방식|4|20|수상한 각인석의 조사 성공 확률이 35%로 증가합니다.
+22|언제까지 기다려?|5|21|수렵꾼에게 수렵물을 납품한 후 대금 지급 시간이 10% 감소합니다.
+23|맹수 대량 입고|4|22|수렵꾼 판매의 대기 슬롯이 최대 2개로 증가합니다.
+24|널 위해 준비했어|2|23|하루에 수렵꾼에게 줄 수 있는 호감도 아이템의 개수를 4개로 증가합니다.`]};
+const L={mining:{1:"1%,1,5;2%,2,10;3%,5,25;5%,10,100;7%,25,400;9%,30,2000;15%,50,5000",2:"0.8%,1,5;1%,3,10;1.2%,7,50;2%,15,200;3%,35,700;4%,70,1000;5%,100,3000",3:"5%,1,5;7%,3,15;10%,5,200;20%,30,1000;30%,60,5000;50%,80,7000",4:"1%,1,5;1.5%,3,100;2%,7,300;2.5%,15,1000;3%,30,2000;4%,50,3000;5%,70,5000",5:"3% · 1개,1,5;7% · 1개,30,1000;10% · 2개,50,5000",6:"5%,1,5;7%,3,15;10%,5,200;20%,30,1000;30%,60,5000;50%,80,7000",7:"5%,1,5;7%,3,15;10%,5,200;15%,35,1500;20%,50,3000;30%,80,7500",8:"1%,1,5;2%,2,10;3%,8,100;5%,25,1000;10%,50,3000;20%,100,5500",9:"0.3%,1,10;0.5%,30,1000;0.7%,70,3000;1%,120,6000",10:"1% · 1개,1,10;2% · 2개,3,30;3% · 3개,7,50;4% · 4개,10,100;5% · 6개,20,300;6% · 8개,30,500;7% · 10개,40,700;8% · 12개,50,1500;10% · 16개,70,3000;15% · 20개,100,5000",11:"1%,1,10;2%,3,30;3%,7,50;4%,10,300;5%,20,700;6%,35,1000;7%,70,2000;8%,100,3000;9%,120,5000;15%,150,7000",12:"3초,1,5;5초,3,50;10초,7,100;12초,10,150;15초,20,300;17초,35,500;20초,70,1000;25초,100,2000;30초,130,3000;60초,0,0",13:"5개,10,10;6개,30,500;7개,50,1000;8개,70,3000;9개,100,5000",14:"5개,10,10;6개,30,500;7개,50,1000;8개,70,3000;9개,100,5000",15:"4%,1,5;5%,5,100;6%,10,500;7%,20,1000;8%,30,2000;9%,50,3500;10%,70,6000",16:"25%,1,10;30%,5,50;35%,10,700;40%,20,1000;45%,30,2000;50%,50,3500",17:"1%,1,10;2%,3,30;3%,7,50;4%,10,300;5%,20,500;6%,30,1000;10%,45,2000;15%,60,5000;30%,80,7000",18:"10%,10,5;30%,30,1000;40%,50,3000;60%,70,5000;80%,100,7000",19:"3초,1,5;7초,3,20;10초,10,500;20초,25,1000;30초,30,3500",20:"5%,10,10;7%,30,500;10%,50,1000;12%,70,3000;15%,100,5000",21:"3%,1,10;5%,15,1000;7%,50,5000;9%,100,15000;10%,150,30000"},
+cultivation:{1:"1%,1,5;2%,2,10;3%,5,25;5%,10,100;7%,25,400;9%,30,2000;15%,50,5000",2:"10% · 1개,1,5;30% · 1개,2,30;50% · 2개,5,300;70% · 2개,10,500",3:"1% · 1개,1,5;3% · 1개,5,300;5% · 1개,10,500;10% · 2개,20,1000;30% · 2개,30,3000",4:"10%,10,10;30%,30,1000;40%,50,3000;60%,70,5000;80%,100,7000",5:"1% · 1개,1,5;2% · 1개,3,10;3% · 1개,7,25;4% · 1개,15,75;5% · 2개,40,500;7% · 2개,100,5000;10% · 3개,150,7000",6:"1% · 1개,1,5;2% · 1개,2,10;3% · 1개,5,30;4% · 1개,8,50;5% · 2개,15,100;6% · 2개,25,250;7% · 3개,40,700;8% · 4개,50,1500;9% · 5개,60,3000;10% · 8개,100,7000",7:"10초,1,10;30초,3,100;50초,7,500;60초,15,2000;90초,30,5000",8:"1%,1,5;2%,20,1000;3%,30,2500;4%,50,5000",9:"1%,1,5;2%,15,150;3%,50,1000;4%,70,10000;7%,100,15000",10:"1%,1,10;2%,3,30;3%,7,50;4%,15,300;5%,30,1000;6%,50,2000;10%,60,3000;15%,70,5000;30%,80,10000;50%,100,15000",11:"0.5%,1,5;1%,5,50;3%,20,700;5%,50,5000",12:"1%,1,5;2%,2,15;3%,5,30;4%,8,50;5%,15,100;6%,25,250;7% (아일랜드),40,1000;10%,80,3000;20%,100,5000;30%,150,7000",13:"9회,1,5;8회,10,1000;7회,30,3000;6회,50,5000;5회,70,7000",14:"5개,10,10;6개,30,500;7개,50,1000;8개,70,3000;9개,100,5000",15:"1% · 1개,1,10;2% · 1개,3,30;3% · 2개,7,50;4% · 2개,10,300;5% · 2개,20,700;6% · 3개,35,1000;7% · 3개,70,2000;8% · 5개,100,3000;9% · 5개,120,5000;15% · 7개,150,7000",16:"5x3,50,5000;5x15,100,10000",17:"5개,10,10;6개,30,500;7개,50,1000;8개,70,3000;9개,100,5000",18:"1%,1,10;2%,3,30;3%,5,50;4%,7,300;5%,10,500;6%,15,1000;10%,20,2000;15%,30,3000;30%,50,5000;50%,90,9000",19:"5x3,50,5000;5x15,100,10000",20:"3일,50,5000;4일,70,10000;5일,100,30000",21:"5x3,10,1000;5x5,30,3000;5x10,50,5000;5x20,70,6000",22:"17일,30,3000;20일,50,5000;25일,100,10000;30일,125,12000",23:"4개,10,8;5개,25,800;6개,40,1600;7개,55,2400",24:"1%,1,10;2%,2,25;3%,5,50;4%,7,250;5%,10,500;6%,15,700;10%,25,1000;15%,30,2000;30%,40,5000;50%,50,7000",25:"2개,7,10;3개,15,300;4개,20,1000;5개,30,2000;6개,40,4000",26:"빈센트(에픽),56,3000;웬디(전설),96,5000;아이비(신화),136,10000",27:"5일,25,2500;7일,55,5000;10일,120,8000",28:"40%,10,1000;60%,15,2000;80%,30,4000",29:"40%,10,1000;60%,15,2000;80%,30,4000"},ocean:{1:"1%,1,5;2%,2,10;3%,5,25;5%,10,100;7%,25,400;9%,30,2000;15%,50,5000",2:"1%,1,5;3%,25,500;10%,50,1000",3:"5%,1,10;7%,10,500;10%,25,1000;15%,30,3000;20%,50,5000",4:"5%,1,5;7%,30,1000;10%,50,2000",5:"5% · 2초,1,5;10% · 1.8초,3,10;15% · 1.6초,5,20;20% · 1.4초,7,50;25% · 1.2초,10,100;30% · 1초,25,300;40% · 0.8초,40,500;50% · 0.6초,80,1000;60% · 0.4초,100,3000;70% · 0.2초,150,7000",6:"5%,1,5;7%,3,10;10%,5,100;15%,7,1000;20%,10,3000;30%,50,5000;40%,70,7000;50%,90,10000",7:"5%,1,5;7%,3,15;9%,5,200;12%,30,1000;15%,60,5000;20%,80,7000;25%,100,10000;30%,130,15000",8:"2%,1,5;5%,3,15;7%,10,50;10%,20,500;20%,30,1000",9:"3%,1,100;3.2%,5,500;3.5%,25,1000",10:"10%,10,5;20%,30,1000;30%,50,3000;50%,70,5000;70%,100,7000",11:"1%,10,5;3%,30,1000;5%,50,3000;7%,70,5000;10%,100,7000;15%,150,10000",12:"0.5%,1,5;1.0%,3,200;1.5%,10,300;2.0%,25,500;2.5%,40,1000;3.0%,70,3000;3.5%,100,5000;4.0%,150,7000",13:"1.0%,1,5;1.5%,7,15;2.0%,10,100;2.5%,30,700;3.0%,50,1000",14:"1%,1,10;2%,3,30;3%,7,50;4%,10,300;5%,20,700;6%,35,1000;7%,70,3000;8%,100,5000;9%,120,7000;10%,150,15000",15:"5개,10,10;6개,30,500;7개,50,1000;8개,70,3000;9개,100,5000",16:"12회,1,10;14회,30,1000;16회,50,2000;18회,70,3000;20회,100,5000",17:"2.5%,1,5;3.0%,3,200;3.5%,10,300;4.0%,25,500;4.5%,40,1000;5.0%,70,3000;5.5%,100,5000;6.0%,150,7000",18:"5개,10,10;6개,30,500;7개,50,1000;8개,70,3000;9개,100,5000",19:"5개,15,10;6개,35,700;7개,50,1500;8개,70,2000;9개,120,3000",20:"0.5%,1,5;1%,5,50;1.5%,10,1000;2%,25,2000;2.5%,30,3000",21:"6회,30,1000;7회,50,2000;8회,70,3000;9회,90,4000;10회,100,5000",22:"B등급 · 20%,96,5000;A등급 · 10%,136,10000",23:"1개,56,3000;2개,96,5000;3개,136,10000",24:"11분,1,10;14분,15,1500;17분,35,3500;20분,70,7000",25:"1%,1,10;2%,3,30;3%,5,50;4%,7,300;5%,10,500;6%,15,1000;10%,20,2000;15%,30,3000;30%,45,4500;50%,70,7000",26:"6마리,25,2500;7마리,50,4500"},
+hunting:{1:"1%,1,5;2%,2,10;3%,5,25;5%,10,100;7%,25,400;9%,30,2000;15%,50,5000",2:"5콤보,1,5;7콤보,15,150;10콤보,50,1000;15콤보,70,10000;20콤보,100,15000",3:"5%,1,5;7%,3,15;10%,5,200;20%,30,1000;30%,60,5000;50%,80,7000",4:"1% · 1개,1,5;2% · 1개,3,10;3% · 1개,7,25;4% · 1개,15,75;5% · 1개,40,500;7% · 2개,100,5000;10% · 2개,150,7000",5:"3.5초,1,10;4초,3,30;4.5초,7,50;5초,15,300;5.5초,30,1000;6초,50,2000;15초,60,3000;30초,70,5000;60초,80,10000;120초,100,15000",6:"I단계 · 1초,1,5;I단계 · 1.5초,3,10;I단계 · 2초,7,25;I단계 · 2.5초,50,250;I단계 · 3초,100,500;II단계 · 4초,150,7000;III단계 · 5초,200,12500",7:"3%,1,5;5%,3,10;7%,7,25;10%,50,250;15%,100,500;20%,150,7000;30%,200,12500",8:"3%,1,5;7%,30,1000;10%,50,5000",9:"1%,1,10;2%,2,25;3%,5,50;4%,7,250;5%,10,500;6%,15,700;10%,25,1000;15%,30,2000;30%,40,5000;50%,50,7000",10:"1%,10,1000;3%,15,2000;5%,30,4000",11:"즉시 조사,100,10000",12:"10%,10,5;30%,30,1000;40%,50,3000;60%,70,5000;80%,100,7000",13:"5개,10,10;6개,30,500;7개,50,1000;8개,70,3000;9개,100,5000",14:"5%,1,5;7%,3,15;10%,5,200;20%,50,3000;30%,80,7000;50%,100,10000",15:"12%,1,5;15%,5,300;20%,10,1000;25%,50,3000;30%,100,5000;40%,150,7000",16:"4%,5,5;5%,10,700;6%,20,1000;8%,30,2000;10%,50,3500",17:"1%,1,10;2%,3,30;3%,7,50;4%,10,300;5%,20,500;6%,30,1000;10%,45,2000;15%,60,5000;30%,80,7000",18:"20%,1,5;40%,5,100;60%,10,1000;80%,50,4000;100%,70,7000",19:"1% · 1개,1,5;2% · 1개,3,10;3% · 1개,7,25;4% · 1개,15,75;5% · 1개,40,500;7% · 2개,100,5000;10% · 2개,150,7000",20:"1%,1,10;2%,3,30;3%,7,50;4%,10,300;5%,20,700;6%,35,1000;7%,70,2000;8%,100,3000;9%,120,5000;15%,150,7000",21:"35%,30,1000;40%,50,5000;45%,100,10000;50%,250,15000",22:"10%,1,5;20%,5,300;30%,30,3000;50%,70,5000;70%,90,7000",23:"2개,10,10;3개,30,3000;4개,50,5000;5개,70,7000",24:"4개,25,2500;5개,50,4500"}};
+const SKILL_ICONS={"재배학개론":"assets/expert_skills/skill_001.png","난 아직 베고파":"assets/expert_skills/skill_002.png","오늘도 풍년이다!":"assets/expert_skills/skill_003.png","왕 크니까 왕 좋아":"assets/expert_skills/skill_004.png","수확은 한방에!":"assets/expert_skills/skill_005.png","인간 트랙터":"assets/expert_skills/skill_006.png","반짝임 유지 기술":"assets/expert_skills/skill_007.png","불 더 올려!":"assets/expert_skills/skill_008.png","한 솥 가득":"assets/expert_skills/skill_009.png","5성급 주방":"assets/expert_skills/skill_010.png","씨앗 장전 완료!":"assets/expert_skills/skill_011.png","후르츠 파티":"assets/expert_skills/skill_012.png","쓸어담는 맛":"assets/expert_skills/skill_013.png","씨앗은 덤이야":"assets/expert_skills/skill_014.png","가공의 신":"assets/expert_skills/skill_015.png","몽글몽글":"assets/expert_skills/skill_016.png","커피값이 밥값":"assets/expert_skills/skill_017.png","오늘 좀 한가하네?":"assets/expert_skills/skill_018.png","프로 바리스타":"assets/expert_skills/skill_019.png","풍미 유지 기술":"assets/expert_skills/skill_020.png","식은 커피 먹기지":"assets/expert_skills/skill_021.png","빠르고 따뜻하게":"assets/expert_skills/skill_022.png","자연이 주는 선물":"assets/expert_skills/skill_023.png","돈 좀 벌어볼까?":"assets/expert_skills/skill_024.png","불붙은 괭이":"assets/expert_skills/skill_025.png","신선함 유지 기술":"assets/expert_skills/skill_026.png","플로리스트 입문":"assets/expert_skills/skill_027.png","향기를 다루는 사람":"assets/expert_skills/skill_028.png","아름다움의 극치":"assets/expert_skills/skill_029.png","채광학개론":"assets/expert_skills/skill_030.png","춤추는 광석":"assets/expert_skills/skill_031.png","반짝임의 시작":"assets/expert_skills/skill_032.png","반짝반짝 눈이 부셔":"assets/expert_skills/skill_033.png","귀하신 몸값":"assets/expert_skills/skill_034.png","광물을 “드릴”게요":"assets/expert_skills/skill_035.png","세공의 신":"assets/expert_skills/skill_036.png","주괴 좀 사주괴":"assets/expert_skills/skill_037.png","럭키 히트":"assets/expert_skills/skill_038.png","불붙은 곡괭이":"assets/expert_skills/skill_039.png","곡괭이 나가신다!":"assets/expert_skills/skill_040.png","용광로 풀가동!":"assets/expert_skills/skill_041.png","장인의 손놀림":"assets/expert_skills/skill_042.png","아이원츄캔디!":"assets/expert_skills/skill_043.png","인력사무소":"assets/expert_skills/skill_044.png","내가그린형광그림":"assets/expert_skills/skill_045.png","코비 타임":"assets/expert_skills/skill_046.png","초고속 용광로":"assets/expert_skills/skill_047.png","쓸어담는 광질":"assets/expert_skills/skill_048.png","가벼운 항해선":"assets/expert_skills/skill_049.png","스피드 복귀 항로":"assets/expert_skills/skill_050.png","해양학개론":"assets/expert_skills/skill_051.png","일타쌍피":"assets/expert_skills/skill_052.png","달밤의 대어":"assets/expert_skills/skill_053.png","치솟는 생선값":"assets/expert_skills/skill_054.png","낚싯줄에 걸린 비밀":"assets/expert_skills/skill_055.png","오션오더 더 더!":"assets/expert_skills/skill_056.png","나를 키워라":"assets/expert_skills/skill_057.png","수질 유지 기술":"assets/expert_skills/skill_058.png","귀하게 자란 티":"assets/expert_skills/skill_059.png","수중 밀집 구역":"assets/expert_skills/skill_060.png","심해 채집꾼":"assets/expert_skills/skill_061.png","조개 좀 사조개":"assets/expert_skills/skill_062.png","물 흐르듯 술술":"assets/expert_skills/skill_063.png","조개 무한리필":"assets/expert_skills/skill_064.png","증류실 확장 공사":"assets/expert_skills/skill_065.png","프리미엄 한정가":"assets/expert_skills/skill_066.png","별별별!":"assets/expert_skills/skill_067.png","바다처럼 넓은":"assets/expert_skills/skill_068.png","연금은 계속된다":"assets/expert_skills/skill_069.png","탐나는 탐사선":"assets/expert_skills/skill_070.png","다다익 “선”":"assets/expert_skills/skill_071.png","사냥학개론":"assets/expert_skills/skill_072.png","끝까지 간다!":"assets/expert_skills/skill_073.png","흐름 유지":"assets/expert_skills/skill_074.png","누구보다 빠르게":"assets/expert_skills/skill_075.png","남들과는 다르게":"assets/expert_skills/skill_076.png","피 냄새가 나":"assets/expert_skills/skill_077.png","원혼 사냥꾼":"assets/expert_skills/skill_078.png","일격필살":"assets/expert_skills/skill_079.png","원터치 모래":"assets/expert_skills/skill_080.png","값어치 증명":"assets/expert_skills/skill_081.png","고속 영혼 가공기":"assets/expert_skills/skill_082.png","가공실 증설":"assets/expert_skills/skill_083.png","상태 좋네!":"assets/expert_skills/skill_084.png","넌 내 거야!":"assets/expert_skills/skill_085.png","현상금 사냥꾼":"assets/expert_skills/skill_086.png","섬세한 손질":"assets/expert_skills/skill_087.png","장인의 품격":"assets/expert_skills/skill_088.png","야수의 심장":"assets/expert_skills/skill_089.png","추가 손질":"assets/expert_skills/skill_090.png","변종 개체":"assets/expert_skills/skill_091.png","검증된 방식":"assets/expert_skills/skill_092.png","언제까지 기다려?":"assets/expert_skills/skill_093.png","맹수 대량 입고":"assets/expert_skills/skill_094.png","널 위해 준비했어":"assets/expert_skills/skill_095.png","떡밥을 뿌려라!":"assets/expert_skills/skill_096.png","열대어를 찾아서":"assets/expert_skills/skill_097.png","폭풍의 낚시꾼":"assets/expert_skills/skill_098.png","보물 사냥꾼":"assets/expert_skills/skill_099.png","수리수리 마수리!":"assets/expert_skills/skill_100.png"};
+const skillArt=(s)=>SKILL_ICONS[s.n]?`<img class="skill-img" src="${SKILL_ICONS[s.n]}?v=wiki10" alt="" loading="lazy">`:s.ic;
+const IC={
+mining:"✨ 🪨 🔩 💫 💎 💠 💍 🪛 🔮 🍀 🐦‍🔥 ⛏️ 🔥 ⚒️ 🍬 💪 🎨 ⚡ 🧲 ⚓ 🚢",
+cultivation:"✨ 🪓 🍇 🔥 🌾 ☘️ 🍉 💧 🥘 💰 👑 🌱 🌸 🍳 🐦‍🔥 🪴 🪽 💄 🫘 🧊 🚜 🌟 🥛 💸 😎 ☕ ❄️ 🫗 ♨️",
+ocean:"✨ ✌️ ⚓ 🌕 🍚 🐚 🧪 🐠 🪸 💧 ⭐ 🗝️ 🌊 🦪 🚣 🔔 🏴‍☠️ ⚗️ 🔬 🐡 🔧 🛳️ ⛵ 🐳 💰 💦",
+hunting:"✨ ⚔️ 🪙 💘 🥏 👟 🗡️ 🐯 👻 🦖 ⌛ ⚗️ 🔥 🦌 🐊 💰 💼 🩹 🐘 ☠️ 💎 ⌚ 🦁 🎁"};
+const G={};
+for(const k in D){const m={};const ic=IC[k].split(" ");D[k][2].split("\n").forEach(l=>{const[a,n,x,p,e]=l.split("|");m[a]={id:a,n,max:+x,p:p?p.split(","):[],e,ic:ic[a-1]||"✨"}});
+ const dep=id=>{const s=m[id];return s.d??(s.d=s.p.length?1+Math.max(...s.p.map(dep)):0)};Object.keys(m).forEach(dep);G[k]=m}
+/* 트리 배치: 깊이별 행, 부모 위치 평균에 맞춰 가로 배치 */
+const W=84,TS=58,H=98,SP=94,RH=150,PAD=22,LY={};
+for(const k in G){const rows=[];Object.values(G[k]).forEach(s=>(rows[s.d]=rows[s.d]||[]).push(s));
+ rows.forEach((r,d)=>{
+  if(d===0){r.forEach((s,i)=>s.x=i*SP)}
+  else{r.forEach(s=>s.dx=s.p.reduce((a,p)=>a+G[k][p].x,0)/s.p.length);
+   r.sort((a,b)=>a.dx-b.dx);let pv=-1e9;r.forEach(s=>{s.x=Math.max(s.dx,pv+SP);pv=s.x});
+   const sh=r.reduce((a,s)=>a+s.dx-s.x,0)/r.length;r.forEach(s=>s.x+=sh)}
+  r.forEach(s=>s.y=d*RH+PAD)});
+ let mn=1e9,mx=-1e9;Object.values(G[k]).forEach(s=>{mn=Math.min(mn,s.x);mx=Math.max(mx,s.x)});
+ Object.values(G[k]).forEach(s=>s.x=s.x-mn+W/2+PAD);
+ LY[k]={w:Math.round(mx-mn+W+PAD*2),h:(rows.length-1)*RH+H+PAD*2}}
+let st={};try{st=JSON.parse(localStorage.getItem("dding-wiki-expert-skill-v8")||"{}")}catch(e){}
+let cur="mining",sel={},flt="all",tg={};
+const lv=(k,i)=>+(st[k+i]||0);
+const save=()=>{try{localStorage.setItem("dding-wiki-expert-skill-v8",JSON.stringify(st))}catch(e){}};
+const $=id=>document.getElementById(id);
+const fm=n=>(+n).toLocaleString("ko-KR");
+const lvl=(k,id)=>{const t=L[k]&&L[k][id];return t?t.split(";").map(x=>x.split(",")):[]};
+const sumc=(k,id,a,b)=>{let g=0,p=0;lvl(k,id).slice(a,b).forEach(r=>{g+=r[2]*1000;p+=+r[1]});return[g,p]};
+const cb=(g,p,q)=>`<div class="costs"><div><i>🪙</i><span>골드</span><b>${q?"?":fm(g)}</b></div><div><i>💎</i><span>어빌리티 스톤</span><b>${q?"?":fm(p*2)}</b></div><div><i>🎖️</i><span>스킬 포인트</span><b>${q?"?":fm(p)}</b></div></div>`;
+const FL=[["all","전체"],["learned","배운 스킬"],["max","만렙"],["none","미습득"]];
+const pass=(f,l,s)=>f==="all"||(f==="learned"&&l>0)||(f==="max"&&l>=s.max)||(f==="none"&&l===0);
+const cs=()=>G[cur][sel[cur]||Object.keys(G[cur])[0]];
+function setLv(s,v){st[cur+s.id]=Math.max(0,Math.min(s.max,v));save();render()}
+function render(){
+  const m=G[cur],all=Object.values(m),done=all.filter(s=>lv(cur,s.id)>0).length,full=all.filter(s=>lv(cur,s.id)>=s.max).length;
+  const s=cs(),l=lv(cur,s.id),R=lvl(cur,s.id),mx=s.max;
+  $("tabs").innerHTML=Object.keys(D).map(k=>{const n=Object.values(G[k]).filter(q=>lv(k,q.id)>0).length;return `<button class="tab" data-k="${k}" aria-pressed="${k===cur}">${D[k][1]} ${D[k][0]} 전문가<i>${n}/${Object.keys(G[k]).length}</i></button>`}).join("");
+  $("tt").textContent=`${D[cur][0]} 전문가`;
+  $("flt").innerHTML=FL.map(([k,n])=>`<button class="f" data-f="${k}" aria-pressed="${k===flt}">${n}</button>`).join("");
+  $("mini").textContent=`배운 ${done}/${all.length} · 만렙 ${full}`;
+  /* 상단 요약 */
+  let sg=0,sp=0,rg=0,rp=0,u=0;
+  all.forEach(q=>{const v=lv(cur,q.id),a=sumc(cur,q.id,0,v),b=sumc(cur,q.id,v,q.max);sg+=a[0];sp+=a[1];rg+=b[0];rp+=b[1];lvl(cur,q.id).slice(v,q.max).forEach(r=>{if(!+r[1]&&!+r[2])u=1})});
+  const pl=u?"+":"";
+  $("sum").innerHTML=[["🪙",`${D[cur][0]} 스킬에 쓴 골드`,fm(sg)+"G"],["💎","쓴 어빌리티 스톤",fm(sp*2)+"개"],["🪙","전부 만렙까지 남은 골드",fm(rg)+"G"+pl],["💎","남은 어빌리티 스톤",fm(rp*2)+"개"+pl]].map(([i,a,b])=>`<div class="sc"><div class="si">${i}</div><div><span>${a}</span><b>${b}</b></div></div>`).join("");
+  /* 트리 보드 */
+  const ly=LY[cur];
+  let paths="";
+  all.forEach(c=>c.p.forEach(pid=>{const p=m[pid],x1=p.x,y1=p.y+H,x2=c.x,y2=c.y,my=y2-16;
+    paths+=`<path d="M${x1},${y1}V${my}H${x2}V${y2}" fill="none" stroke="${lv(cur,pid)?"var(--tonb)":"var(--lnk)"}" stroke-width="2" stroke-dasharray="6 5"/>`}));
+  $("tree").style.width=ly.w+"px";$("tree").style.height=ly.h+"px";
+  $("tree").innerHTML=`<svg width="${ly.w}" height="${ly.h}">${paths}</svg>`+all.map(q=>{const v=lv(cur,q.id);
+    return `<button class="n${v?" on":""}${v>=q.max?" max":""}${s.id===q.id?" sel":""}${pass(flt,v,q)?"":" dim"}" data-i="${q.id}" style="left:${q.x-W/2}px;top:${q.y}px" aria-label="${q.n} ${v}/${q.max}"><span class="nt"><span class="ni">${skillArt(q)}</span><span class="bd">${v}/${q.max}</span></span><span class="nl">${q.n}</span></button>`}).join("");
+  /* 상세 패널 */
+  const t=Math.min(mx,Math.max(l+1,+tg[cur+s.id]||mx)),[tgG,tgP]=sumc(cur,s.id,l,t);
+  const cur_=l?(R[l-1]?R[l-1][0]:"-"):"-",nxt=l<mx&&R[l]?R[l][0]:"-";
+  const nr=R[l];
+  $("det").innerHTML=`<div class="top2"><span class="tag">${D[cur][0]}</span><span class="tag g">최대 ${mx}레벨</span>${s.p.length?`<span class="tag g">선행: ${s.p.map(p=>m[p].n).join(", ")}</span>`:`<span class="tag g">시작 스킬</span>`}</div>
+  <div class="hd"><span class="nt"><span class="ni">${skillArt(s)}</span></span><h2>${s.n}</h2></div><div class="desc">${s.e}</div>
+  <div class="lab"><span>레벨</span><em>Lv.${l} / ${mx}</em></div>
+  <div class="segs">${Array.from({length:mx},(_,i)=>`<button class="seg${i<l?" on":""}" data-l="${i+1}" aria-label="Lv ${i+1}"></button>`).join("")}</div>
+  <div class="lab"><span>효과</span></div>
+  <div class="bon"><div><span>현재</span><b>${cur_}</b></div><u>→</u><div class="nx"><span>${l<mx?"다음 Lv."+(l+1):"만렙"}</span><b>${l<mx?nxt:"달성!"}</b></div></div>
+  <div class="lab"><span>다음 레벨 강화 비용</span></div>
+  ${l<mx&&nr?cb(nr[2]*1000,+nr[1],!+nr[1]&&!+nr[2]):`<p class="note" style="margin:0">${l>=mx?"이미 만렙이에요.":"비용 정보가 없어요."}</p>`}
+  ${l<mx?`<div class="lab"><span>Lv.${l} → 목표 레벨 총 비용</span><select class="sel2" id="tg">${Array.from({length:mx-l},(_,i)=>l+1+i).map(v=>`<option value="${v}"${v===t?" selected":""}>Lv.${v}${v===mx?" (Max)":""}</option>`).join("")}</select></div>${cb(tgG,tgP)}`:""}
+  <div class="acts"><button class="b" id="rs"${l?"":" disabled"}>초기화</button><button class="b" id="dec"${l?"":" disabled"}>−1 레벨</button><button class="b p" id="inc"${l<mx?"":" disabled"}>+1 레벨</button><button class="b m" id="mx"${l<mx?"":" disabled"}>Max</button></div>
+  ${R.length?`<div class="lvpanel"><div class="lvhead">레벨별 상세 보기</div><div class="tw"><table><thead><tr><th>Lv</th><th>효과</th><th>포인트</th><th>골드</th><th>스톤</th></tr></thead><tbody>${R.map((x,i)=>`<tr class="${i<l?"d":i===l?"nx":""}"><td>${i+1}</td><td>${x[0]}</td><td>${x[1]}</td><td>${+x[2]?fm(x[2]*1000):"?"}</td><td>${x[1]*2}</td></tr>`).join("")}</tbody></table></div></div>`:""}
+  <p class="note">출처: 띵타이쿤 위키 · 스톤은 요구 포인트의 2배예요 · ‘?’는 위키에 비용이 안 적힌 레벨이에요.</p>`}
+function informParentHeight(){
+ if(window.parent===window)return;
+ const wrap=document.querySelector('.wrap');
+ const h=Math.ceil(wrap.getBoundingClientRect().height + wrap.offsetTop + 8);
+ window.parent.postMessage({type:'dding-expert-size',height:h},'*');
+}
+if(window.ResizeObserver){new ResizeObserver(()=>requestAnimationFrame(informParentHeight)).observe(document.querySelector('.wrap'));}
+window.addEventListener('load',informParentHeight);
+window.addEventListener('resize',informParentHeight);
+document.addEventListener('toggle',informParentHeight,true);
+document.addEventListener("click",e=>{
+  const c=e.target.closest("[data-k]"),f=e.target.closest("[data-f]"),n=e.target.closest("[data-i]"),b=e.target.closest("[data-l]"),id=e.target.closest("button")?.id;
+  if(c){cur=c.dataset.k;render()}
+  else if(f){flt=f.dataset.f;render()}
+  else if(n){sel[cur]=n.dataset.i;render();
+    if(matchMedia("(max-width:1000px)").matches)$("det").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"})}
+  else if(b){const s=cs(),v=+b.dataset.l;setLv(s,lv(cur,s.id)===v?v-1:v)}
+  else if(id==="rs")setLv(cs(),0);
+  else if(id==="dec")setLv(cs(),lv(cur,cs().id)-1);
+  else if(id==="inc")setLv(cs(),lv(cur,cs().id)+1);
+  else if(id==="mx")setLv(cs(),cs().max);
+});
+document.addEventListener("change",e=>{if(e.target.id==="tg"){tg[cur+cs().id]=+e.target.value;render()}});
+render();
+</script></body></html>
