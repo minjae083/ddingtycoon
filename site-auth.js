@@ -154,7 +154,7 @@
   }
   root.addEventListener('submit', e=>{if(e.target.id==='authAccountForm')void submitForm(e);});
   root.addEventListener('click', e=>{
-    if (e.target===root) {close();return;}
+    if (e.target===root) {return;} // Close only via the X button; preserve form when clicking the backdrop.
     const tab=e.target.closest('[data-auth-tab]');
     if (tab && !busy) {activeTab=tab.dataset.authTab;draw();$('#authEmail')?.focus();return;}
     const action=e.target.closest('[data-auth-action]')?.dataset.authAction;
