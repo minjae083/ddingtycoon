@@ -27,3 +27,9 @@
 .site-auth-profile{display:flex;flex-direction:column;padding:14px;border-radius:11px;background:#f8f5ff;border:1px solid #e8dff7;gap:4px}
 .site-auth-profile span{font-size:12px;color:#7a6d91}.site-auth-profile strong{font-size:15px;overflow-wrap:anywhere}
 @media(max-width:480px){.site-auth-window{padding:24px 18px}.site-auth-tabs button{font-size:11px}}
+
+/* v16 비밀번호 확인 버튼 */
+.site-auth-password-field{position:relative;width:100%}
+.site-auth-password-field input{padding-right:78px}
+.site-auth-password-field [data-auth-reveal]{position:absolute;top:50%;right:7px;transform:translateY(-50%);padding:7px 12px;min-width:56px;border-radius:8px;border:1px solid #e0d4f4;background:#f7f2ff;color:#6d4aae;font-size:12px;font-weight:700;cursor:pointer}
+.site-auth-password-field [data-auth-reveal]:hover,.site-auth-password-field [data-auth-reveal]:focus-visible{background:#e9defb;border-color:#c6b1ed}

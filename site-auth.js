@@ -77,8 +77,8 @@
     const password = activeTab !== 'reset';
     area.innerHTML = `<form id="authAccountForm" class="site-auth-form">
         <label for="authEmail">이메일</label><input id="authEmail" type="email" name="email" placeholder="name@example.com" autocomplete="email" required maxlength="254">
-        ${password ? `<label for="authPassword">비밀번호</label><input id="authPassword" type="password" name="password" minlength="6" autocomplete="${activeTab==='register'?'new-password':'current-password'}" placeholder="6자 이상" required>` : ''}
-        ${activeTab==='register'?`<label for="authConfirm">비밀번호 확인</label><input id="authConfirm" type="password" name="confirmation" autocomplete="new-password" minlength="6" placeholder="비밀번호 다시 입력" required>`:''}
+        ${password ? `<label for="authPassword">비밀번호</label><div class="site-auth-password-field"><input id="authPassword" type="password" name="password" minlength="6" autocomplete="${activeTab==='register'?'new-password':'current-password'}" placeholder="6자 이상" required><button type="button" data-auth-reveal="authPassword" aria-label="비밀번호 표시" aria-pressed="false">보기</button></div>` : ''}
+        ${activeTab==='register'?`<label for="authConfirm">비밀번호 확인</label><div class="site-auth-password-field"><input id="authConfirm" type="password" name="confirmation" autocomplete="new-password" minlength="6" placeholder="비밀번호 다시 입력" required><button type="button" data-auth-reveal="authConfirm" aria-label="비밀번호 확인 표시" aria-pressed="false">보기</button></div>`:''}
         <button type="submit" class="site-auth-button">${activeTab==='login'?'로그인':activeTab==='register'?'회원가입':'재설정 메일 보내기'}</button>
       </form>`;
   }
@@ -155,6 +155,18 @@
   root.addEventListener('submit', e=>{if(e.target.id==='authAccountForm')void submitForm(e);});
   root.addEventListener('click', e=>{
     if (e.target===root) {return;} // Close only via the X button; preserve form when clicking the backdrop.
+    const reveal=e.target.closest('[data-auth-reveal]');
+    if(reveal){
+      const input=$('#'+reveal.dataset.authReveal);
+      if(!input)return;
+      const visible=input.type==='password';
+      input.type=visible?'text':'password';
+      reveal.textContent=visible?'숨기기':'보기';
+      reveal.setAttribute('aria-pressed',String(visible));
+      reveal.setAttribute('aria-label',visible?'비밀번호 숨기기':'비밀번호 표시');
+      input.focus({preventScroll:true});
+      return;
+    }
     const tab=e.target.closest('[data-auth-tab]');
     if (tab && !busy) {activeTab=tab.dataset.authTab;draw();$('#authEmail')?.focus();return;}
     const action=e.target.closest('[data-auth-action]')?.dataset.authAction;

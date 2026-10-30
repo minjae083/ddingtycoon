@@ -48,6 +48,7 @@
   let lastRoute = '';
   let lastTipName = '';
   let priceFilter = 'all';
+  let pendingPriceRecipe=null; // 요리 시세에서 선택한 제작법 카드
   const priceBadge = name => P?.badge(name) || '';
 
   // Items without a supplied image use an explicit text fallback; never issue broken image requests.
@@ -241,7 +242,7 @@
 
   function renderPrices(){
     document.title='요리 시세 | 띵타이쿤 WIKI';
-    app.innerHTML=crumb([['요리 시세',null]])+`<div class="page-head"><span class="eyebrow">MARKET PRICES</span><h1>요리 시세</h1><p>일반 요리와 황금 요리의 최신 판매가 및 이전 가격과의 차이를 확인할 수 있습니다.</p></div><section class="experts-frame-shell price-frame-shell"><iframe id="pricesFrame" title="요리 판매가 확인 및 관리자 수정" src="prices.html?v=wiki14" loading="eager" scrolling="no"></iframe></section>`;
+    app.innerHTML=crumb([['요리 시세',null]])+`<div class="page-head"><span class="eyebrow">MARKET PRICES</span><h1>요리 시세</h1><p>일반 요리와 황금 요리의 최신 판매가 및 이전 가격과의 차이를 확인할 수 있습니다.</p></div><section class="experts-frame-shell price-frame-shell"><iframe id="pricesFrame" title="요리 판매가 확인 및 관리자 수정" src="prices.html?v=wiki15" loading="eager" scrolling="no"></iframe></section>`;
   }
   function renderCompare(){
     app.innerHTML=crumb([['효율 비교',null]])+`<div class="page-head compare-page-head"><span class="eyebrow">1000 ST · PROFIT RANKING</span><h1>아이템 효율 비교</h1><p>요리 · 황금 요리 · 라이프스톤 · 주괴까지 같은 기준으로 확인해보세요. 1,000 ST 제작 가능 수량, 예상 순수익, 재료와 판매가 설정도 변경할 수 있어요.</p></div><div class="efficiency-embed"><iframe id="efficiencyFrame" title="띵타이쿤 전체 아이템 효율 순위 및 설정" src="efficiency.html?v=wiki13" loading="eager" scrolling="no"></iframe></div>`;
@@ -271,10 +272,40 @@
   function currentRoute(){
     let hash=location.hash.slice(1);
     if(!hash||hash==='/')return {view:'home'};
+    // 제작법 직접 링크: #/facility/cooking?recipe=토마토%20스파게티
+    const question=hash.indexOf('?');
+    const query=question>=0?hash.slice(question+1):'';
+    if(question>=0)hash=hash.slice(0,question);
     const parts=hash.split('/').filter(Boolean);
     const view=parts[0];let id=parts.slice(1).join('/');
     try{id=decodeURIComponent(id)}catch(e){}
-    return {view,id};
+    const recipe=new URLSearchParams(query).get('recipe');
+    return {view,id,recipe};
+  }
+  let mapScale=1;
+  function renderMap(){
+    document.title='세레니티 지도 | 띵타이쿤 WIKI';
+    app.innerHTML=crumb([['지도',null]])+`<div class="page-head"><span class="eyebrow">SERENITY · WORLD MAP</span><h1>세레니티 지도</h1><p>마을, 농장, 광산, 양식장 등의 위치를 확인하세요. 확대하면 원본 이미지의 좌표를 더 크게 볼 수 있습니다.</p></div>
+      <section class="serenity-map-card" aria-label="세레니티 지도"><div class="serenity-map-bar"><strong>세레니티 전체 지도</strong><div class="serenity-map-tools"><button type="button" data-map-zoom="out" aria-label="지도 축소">−</button><span id="mapZoomLabel">100%</span><button type="button" data-map-zoom="in" aria-label="지도 확대">＋</button><button type="button" data-map-zoom="reset">맞춤</button><a href="assets/maps/serenity-map.png" target="_blank" rel="noopener" title="원본 크기로 열기">원본 보기 ↗</a></div></div>
+      <div class="serenity-map-viewport" id="serenityMapViewport" tabindex="0" aria-label="스크롤하여 지도를 탐색"><img id="serenityMapImage" src="assets/maps/serenity-map.png" alt="띵타이쿤 세레니티 전체 지도. 농장, 광산, 마을, 양식장 위치와 좌표가 표시된 게임 지도." draggable="false"></div></section>`;
+    mapScale=1;
+  }
+  function changeMapZoom(action){
+    const viewport=document.getElementById('serenityMapViewport');
+    const img=document.getElementById('serenityMapImage');
+    const label=document.getElementById('mapZoomLabel');
+    if(!viewport||!img)return;
+    const next=action==='reset'?1:Math.min(3,Math.max(1,mapScale+(action==='in'?0.25:-0.25)));
+    const centerX=viewport.scrollLeft+viewport.clientWidth/2;
+    const centerY=viewport.scrollTop+viewport.clientHeight/2;
+    const ratio=next/mapScale;
+    mapScale=next;
+    img.style.width=(mapScale*100)+'%';
+    label.textContent=Math.round(mapScale*100)+'%';
+    requestAnimationFrame(()=>{
+      viewport.scrollLeft=centerX*ratio-viewport.clientWidth/2;
+      viewport.scrollTop=centerY*ratio-viewport.clientHeight/2;
+    });
   }
   function renderSkills(){
     document.title='전문가 스킬 | 띵타이쿤 WIKI';
@@ -295,6 +326,14 @@
   function render(){
     hideTooltip();closeSearch();
     const route=currentRoute();renderSidebar(route);
+    document.getElementById('headerMap')?.classList.toggle('active',route.view==='map');
+    if(route.view==='facility' && route.recipe && ['cooking','golden'].includes(route.id)){
+      const exists=D.facilities[route.id]?.groups.some(group=>group.recipes.some(r=>r.name===route.recipe));
+      if(exists){
+        if(route.id==='golden')goldenMode='bulk';
+        pendingPriceRecipe={facility:route.id,name:route.recipe};
+      }
+    }
     if(route.view==='home')renderHome();
     else if(route.view==='category')renderCategory(route.id);
     else if(route.view==='facility')renderFacility(route.id);
@@ -303,9 +342,23 @@
     else if(route.view==='skills')renderSkills();
     else if(route.view==='compare')renderCompare();
     else if(route.view==='prices')renderPrices();
+    else if(route.view==='map')renderMap();
     else renderNotFound();
     // local navigation should start at the top; in-facility anchor scrolling handled separately
     if(lastRoute!==location.hash){window.scrollTo({top:0,behavior:'instant'});lastRoute=location.hash;}
+    // The prices page is an iframe; scroll only after the target facility has rendered.
+    if(pendingPriceRecipe && route.view==='facility' && route.id===pendingPriceRecipe.facility){
+      const {name}=pendingPriceRecipe;
+      pendingPriceRecipe=null;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        const card=[...app.querySelectorAll('.recipe-card[data-item]')].find(el=>el.dataset.item===name);
+        if(!card)return;
+        card.setAttribute('tabindex','-1');
+        card.classList.add('price-target-highlight');
+        card.scrollIntoView({behavior:'auto',block:'center'});
+        card.focus({preventScroll:true});
+      }));
+    }
   }
   function hideTooltip(){tip.classList.remove('show');tip.setAttribute('aria-hidden','true');lastTipName='';}
   function tooltipContent(name,qty){
@@ -345,7 +398,8 @@
     if(Number.isFinite(h)&&h>200&&h<150000&&Math.abs(iframe.getBoundingClientRect().height-h)>3)iframe.style.height=Math.ceil(h)+'px';
   });
   window.addEventListener('message',(e)=>{
-    if(e.origin!==location.origin || !e.data)return;
+    if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
+    if(!e.data)return;
     const frame=document.getElementById('pricesFrame');
     if(e.data.type==='dding-price-admin-size' && frame && e.source===frame.contentWindow){
       const h=Number(e.data.height);
@@ -354,6 +408,16 @@
     if(e.data.type==='dding-price-login-request' && frame && e.source===frame.contentWindow){
       if(window.DDING_SITE_AUTH) window.DDING_SITE_AUTH.open('login');
       else { focusLoginOnLoad=true; location.hash='#/skills'; }
+    }
+    if(e.data.type==='dding-price-open-recipe' && frame && e.source===frame.contentWindow){
+      const name=e.data.name;
+      if(typeof name!=='string' || !P?.get(name))return;
+      const facility=P.get(name).category==='황금 요리'?'golden':'cooking';
+      if(!D.facilities[facility]?.groups.some(group=>group.recipes.some(recipe=>recipe.name===name)))return;
+      pendingPriceRecipe={facility,name};
+      const href=facilityUrl(facility);
+      if(location.hash===href)render();
+      else location.hash=href;
     }
   });
   window.addEventListener('dding-prices-updated',()=>{
@@ -372,6 +436,8 @@
   app.addEventListener('focusin',e=>{const b=e.target.closest('[data-ingredient]');if(b)showTooltipFor(b);});
   app.addEventListener('focusout',e=>{const b=e.target.closest('[data-ingredient]');if(b)hideTooltip();});
   app.addEventListener('click',e=>{
+    const mapButton=e.target.closest('[data-map-zoom]');
+    if(mapButton){changeMapZoom(mapButton.dataset.mapZoom);return;}
     const ing=e.target.closest('[data-ingredient]');
     if(ing){location.hash=itemUrl(ing.dataset.ingredient);return;}
     const upgrade=e.target.closest('[data-select-upgrade]');

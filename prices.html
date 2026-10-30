@@ -26,6 +26,11 @@ input[type="search"]{border:1px solid #dfd3f4;padding:10px 12px;border-radius:9p
 .entry:last-child{border-bottom:0}
 .name{display:flex;align-items:center;gap:10px;min-width:0;font-size:13px;font-weight:700;word-break:keep-all}
 .name img{width:40px;height:40px;object-fit:contain;image-rendering:pixelated;background:#f4eefb;border:1px solid #ded0f4;border-radius:10px;padding:3px;flex-shrink:0}
+.recipe-link{display:inline-flex;align-items:center;gap:10px;min-width:0;max-width:100%;padding:2px 3px;border:0;border-radius:11px;background:transparent;color:inherit;text-align:left;font:inherit;font-weight:inherit;cursor:pointer;transition:background .12s,color .12s}
+.recipe-link:hover,.recipe-link:focus-visible{color:#7145bd;background:#f4edff;outline-offset:2px}
+.recipe-link:hover .recipe-link-label,.recipe-link:focus-visible .recipe-link-label{text-decoration:underline;text-underline-offset:3px}
+.recipe-link-label{min-width:0;overflow-wrap:anywhere}
+.recipe-link{text-decoration:none}
 .price{display:flex;flex-direction:column;font-weight:850;font-variant-numeric:tabular-nums;font-size:15px;white-space:nowrap}
 .price small{color:#998db3;font-size:10px;font-weight:600}
 .price-change{display:inline-flex;align-items:center;white-space:nowrap;font-size:11px;font-weight:800;margin:3px 0 0;padding:3px 7px;border-radius:7px;width:max-content}
@@ -104,7 +109,7 @@ function listRender(){
      const x=P.get(name),delta=x.price-x.previous_price;
      const img='assets/dishes/'+encodeURIComponent(name.replaceAll(' ','_'))+'.png';
      const input=isAdmin?`<input class="edit" type="number" min="0" max="99999999" step="1" inputmode="numeric" data-item="${esc(name)}" value="${esc(getDraft(name))}" aria-label="${esc(name)} 새 판매가">`:`<span class="date">관리자만 수정 가능</span>`;
-     return `<div class="entry"><div class="name"><img loading="lazy" src="${img}" alt=""><span>${esc(name)}</span></div><div class="price">${fmt(x.price)} G ${P.badge(name)||'<small>변동 없음</small>'}</div><div class="date">이전 ${fmt(x.previous_price)} G <br>확인일 ${timeText(x.updated_at)}</div><div>${input}</div></div>`;
+     return `<div class="entry"><div class="name"><a class="recipe-link" href="index.html#/facility/${kind==='golden'?'golden':'cooking'}?recipe=${encodeURIComponent(name)}" target="_top" title="소담 주방에서 ${esc(name)} 제작법 보기" aria-label="${esc(name)} 제작법 보기"><img loading="lazy" src="${img}" alt=""><span class="recipe-link-label">${esc(name)}</span></a></div><div class="price">${fmt(x.price)} G ${P.badge(name)||'<small>변동 없음</small>'}</div><div class="date">이전 ${fmt(x.previous_price)} G <br>확인일 ${timeText(x.updated_at)}</div><div>${input}</div></div>`;
    }).join('');
    return `<section class="group"><div class="group-header">${label}<small>${names.length}종</small></div><div class="list">${body}</div></section>`;
  }).join('');
@@ -148,6 +153,7 @@ async function save(){
  }catch(e){tell('저장 실패: '+(e.message||e)+' · 기존 가격은 그대로 유지됩니다.','err');}
  finally{busy=false;listRender();}
 }
+// 제작법은 실제 링크로 이동합니다. iframe 메시지를 이용하지 않아 file://에서도 동작합니다.
 $('marketList').addEventListener('input',e=>{
  const item=e.target.dataset.item;if(!item||!isAdmin)return;
  draft[item]=e.target.value;updateControls();
