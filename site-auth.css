@@ -1,0 +1,29 @@
+/* 계정 로그인/회원가입 창: 기존 연보라 테마 유지 */
+.site-auth-backdrop[hidden]{display:none!important}
+.site-auth-backdrop{position:fixed;inset:0;z-index:10050;display:flex;align-items:center;justify-content:center;background:rgba(31,23,55,.48);padding:18px;overflow-y:auto}
+.site-auth-open{overflow:hidden}
+.site-auth-window{position:relative;background:#fff;border:1px solid #e6dcfa;box-shadow:0 18px 60px rgba(36,21,85,.17);border-radius:22px;padding:30px;width:min(100%,440px);max-height:calc(100vh - 36px);overflow-y:auto;color:#29243e;font:14px/1.5 'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}
+.site-auth-close{position:absolute;right:16px;top:12px;background:transparent;border:0;color:#7f7396;font-size:26px;line-height:1;padding:5px 9px;cursor:pointer}
+.site-auth-close:hover{color:#563298}
+.site-auth-logo{width:46px;height:46px;border:1px solid #ddcafe;background:#f1e9ff;border-radius:14px;color:#8b65d6;display:grid;place-items:center;font-size:23px;margin:0 0 16px}
+.site-auth-window h2{font-size:25px;letter-spacing:-.04em;margin:0 0 6px;color:#29233f}
+.site-auth-description{font-size:13px;color:#746887;margin:0 0 20px;line-height:1.6}
+.site-auth-tabs{display:flex;gap:5px;padding:5px;background:#f5f1fd;border:1px solid #eee6fa;border-radius:13px;margin:0 0 20px}
+.site-auth-tabs:empty{display:none}
+.site-auth-tabs button{border:0;border-radius:9px;flex:1;padding:10px 6px;background:transparent;color:#706284;font:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.site-auth-tabs button.active{background:white;color:#6f47bf;box-shadow:0 2px 9px rgba(77,46,140,.09)}
+.site-auth-form{display:flex;flex-direction:column;gap:8px}
+.site-auth-form label{margin-top:4px;font-size:12px;color:#514467;font-weight:700}
+.site-auth-form input{width:100%;border-radius:11px;background:#fff;border:1px solid #ded3ef;color:#302640;font:inherit;font-size:14px;padding:13px;outline:none}
+.site-auth-form input:focus{border-color:#9a78e5;box-shadow:0 0 0 3px #e9dfff}
+.site-auth-button{width:100%;border:1px solid #8258d1;background:#8258d1;border-radius:11px;color:white;cursor:pointer;font:inherit;font-weight:800;padding:13px;margin-top:14px}
+.site-auth-button:hover{background:#7046c1}
+.site-auth-button:disabled,.site-auth-tabs button:disabled{cursor:wait;opacity:.6}
+.site-auth-button-muted{background:#fff;color:#6b49b1;border-color:#e1d4f5}.site-auth-button-muted:hover{background:#f3edff}
+.site-auth-feedback[hidden]{display:none}
+.site-auth-feedback{font-size:12px;line-height:1.7;border:1px solid #e3d7f7;background:#f7f2ff;border-radius:11px;color:#5e4489;padding:12px 13px;margin:16px 0 0;overflow-wrap:anywhere}
+.site-auth-feedback[data-kind='error']{background:#fff0f3;border-color:#facfd6;color:#ae3047}
+.site-auth-feedback[data-kind='success']{background:#ecf8f0;border-color:#c1e8cf;color:#247543}
+.site-auth-profile{display:flex;flex-direction:column;padding:14px;border-radius:11px;background:#f8f5ff;border:1px solid #e8dff7;gap:4px}
+.site-auth-profile span{font-size:12px;color:#7a6d91}.site-auth-profile strong{font-size:15px;overflow-wrap:anywhere}
+@media(max-width:480px){.site-auth-window{padding:24px 18px}.site-auth-tabs button{font-size:11px}}

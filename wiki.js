@@ -15,11 +15,7 @@
     frame.scrollIntoView({behavior:'smooth',block:'start'});
     try{frame.contentWindow.postMessage({type:'dding-focus-login'},location.origin);}catch(_){}
   }
-  if(headerLogin){headerLogin.addEventListener('click',()=>{
-    focusLoginOnLoad=true;
-    if(currentRoute().view!=='skills'){location.hash='#/skills';}
-    else {focusLoginOnLoad=false;focusAccountLogin();}
-  });}
+  // 로그인 / 회원가입 버튼은 공용 계정 창(site-auth.js)이 처리합니다.
 
   const icons = {
     home:'<path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/>',
@@ -245,7 +241,7 @@
 
   function renderPrices(){
     document.title='요리 시세 | 띵타이쿤 WIKI';
-    app.innerHTML=crumb([['요리 시세',null]])+`<div class="page-head"><span class="eyebrow">MARKET PRICES</span><h1>요리 시세</h1><p>일반 요리와 황금 요리의 최신 판매가 및 이전 가격과의 차이를 확인할 수 있습니다.</p></div><section class="experts-frame-shell price-frame-shell"><iframe id="pricesFrame" title="요리 판매가 확인 및 관리자 수정" src="prices.html?v=wiki13" loading="eager" scrolling="no"></iframe></section>`;
+    app.innerHTML=crumb([['요리 시세',null]])+`<div class="page-head"><span class="eyebrow">MARKET PRICES</span><h1>요리 시세</h1><p>일반 요리와 황금 요리의 최신 판매가 및 이전 가격과의 차이를 확인할 수 있습니다.</p></div><section class="experts-frame-shell price-frame-shell"><iframe id="pricesFrame" title="요리 판매가 확인 및 관리자 수정" src="prices.html?v=wiki14" loading="eager" scrolling="no"></iframe></section>`;
   }
   function renderCompare(){
     app.innerHTML=crumb([['효율 비교',null]])+`<div class="page-head compare-page-head"><span class="eyebrow">1000 ST · PROFIT RANKING</span><h1>아이템 효율 비교</h1><p>요리 · 황금 요리 · 라이프스톤 · 주괴까지 같은 기준으로 확인해보세요. 1,000 ST 제작 가능 수량, 예상 순수익, 재료와 판매가 설정도 변경할 수 있어요.</p></div><div class="efficiency-embed"><iframe id="efficiencyFrame" title="띵타이쿤 전체 아이템 효율 순위 및 설정" src="efficiency.html?v=wiki13" loading="eager" scrolling="no"></iframe></div>`;
@@ -282,7 +278,7 @@
   }
   function renderSkills(){
     document.title='전문가 스킬 | 띵타이쿤 WIKI';
-    app.innerHTML=crumb([['전문가 스킬',null]])+`<div class="page-head expert-page-head"><span class="eyebrow">SERENITY · SKILL TREE</span><h1>전문가 스킬</h1><p>채광 · 재배 · 해양 · 사냥의 스킬 트리를 확인하고, 내 레벨과 앞으로 필요한 골드 및 어빌리티 스톤을 계산해 보세요.</p></div><section class="experts-frame-shell" aria-label="분야별 전문가 스킬 트리"><iframe id="expertsFrame" title="전문가 스킬 트리와 레벨 계산기" src="experts.html?v=wiki13" loading="eager" scrolling="no"></iframe></section>`;
+    app.innerHTML=crumb([['전문가 스킬',null]])+`<div class="page-head expert-page-head"><span class="eyebrow">SERENITY · SKILL TREE</span><h1>전문가 스킬</h1><p>채광 · 재배 · 해양 · 사냥의 스킬 트리를 확인하고, 내 레벨과 앞으로 필요한 골드 및 어빌리티 스톤을 계산해 보세요.</p></div><section class="experts-frame-shell" aria-label="분야별 전문가 스킬 트리"><iframe id="expertsFrame" title="전문가 스킬 트리와 레벨 계산기" src="experts.html?v=wiki14" loading="eager" scrolling="no"></iframe></section>`;
     const frame=document.getElementById('expertsFrame');
     if(frame){frame.addEventListener('load',()=>{if(focusLoginOnLoad){focusLoginOnLoad=false;focusAccountLogin();}});}
 
@@ -339,10 +335,7 @@
     const priceIframe=document.getElementById('pricesFrame');
     if(!e.data||e.data.type!=='dding-account-state'||![iframe?.contentWindow,priceIframe?.contentWindow].includes(e.source))return;
     if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
-    if(headerLogin){
-      headerLogin.textContent=e.data.signedIn?'내 계정':'로그인';
-      headerLogin.setAttribute('aria-label',e.data.signedIn?'내 계정 관리':'로그인');
-    }
+    // 하위 제작시설 프레임의 인증 알림은 별도이며, 헤더 표시는 공용 인증 모듈이 관리합니다.
   });
   window.addEventListener('message',(e)=>{
     const iframe=document.getElementById('expertsFrame');
@@ -359,7 +352,8 @@
       if(Number.isFinite(h)&&h>200&&h<120000)frame.style.height=Math.ceil(h)+'px';
     }
     if(e.data.type==='dding-price-login-request' && frame && e.source===frame.contentWindow){
-      focusLoginOnLoad=true;location.hash='#/skills';
+      if(window.DDING_SITE_AUTH) window.DDING_SITE_AUTH.open('login');
+      else { focusLoginOnLoad=true; location.hash='#/skills'; }
     }
   });
   window.addEventListener('dding-prices-updated',()=>{

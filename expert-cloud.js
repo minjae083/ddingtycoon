@@ -75,10 +75,7 @@
     messageBox.dataset.kind = kind;
   }
   function renderPanel() {
-    if (!hasConfig) {
-      chip('기기 저장만', 'warn');
-      content.innerHTML = '<p class="cloud-small">로그인 기능은 사이트 관리자가 Supabase 설정을 완료하면 활성화돼요. 현재 스킬 레벨은 이 기기에 안전하게 저장됩니다.</p>';
-    } else if (!db) {
+    if (hasConfig && !db) {
       chip('연결 실패', 'error');
       content.innerHTML = '<p class="cloud-small">로그인 프로그램을 불러오지 못했어요. 인터넷 연결을 확인하고 페이지를 새로고침해 주세요. 기기 저장은 계속 동작합니다.</p>';
     } else if (recovering) {
@@ -96,7 +93,7 @@
         <button class="cloud-btn primary" type="submit" ${busyAuth ? 'disabled' : ''}>로그인</button>
       </form>
       <div class="cloud-row" style="margin-top:7px"><button type="button" data-cloud-action="signup" class="cloud-link">처음이신가요? 회원가입</button><span style="color:#d9cdee">·</span><button type="button" data-cloud-action="reset-email" class="cloud-link">비밀번호 찾기</button></div>
-      <p class="cloud-small">로그인하지 않아도 스킬을 사용할 수 있어요. 가입 후 이메일 인증이 필요할 수 있습니다.</p>`;
+`;
     } else if (loading) {
       chip('동기화 확인 중');
       content.innerHTML = `<div class="cloud-row"><span class="cloud-account">${escapeHtml(user.email || '로그인됨')}</span><span class="cloud-small">서버 기록 확인 중…</span></div>`;
@@ -117,7 +114,24 @@
     }
     messageBox.textContent = banner;
     messageBox.dataset.kind = bannerKind;
+    try{if(window.parent!==window)window.parent.postMessage({type:'dding-account-state',signedIn:!!user},window.location.origin);}catch(_){}
   }
+
+  window.addEventListener('message', e => {
+    if (e.source !== window.parent || e.origin !== location.origin || e.data?.type !== 'dding-auth-updated') return;
+    if (!db) return;
+    void db.auth.getSession().then(({data,error}) => {
+      if (error) { notice(`로그인 상태 확인 실패: ${error.message}`, 'error'); renderPanel(); return; }
+      handleSession(data?.session || null);
+    }).catch(err => { notice(`로그인 상태 확인 실패: ${err.message}`, 'error'); renderPanel(); });
+  });
+  window.addEventListener('message',(e)=>{
+    if(e.source!==window.parent||e.origin!==location.origin||e.data?.type!=='dding-focus-login')return;
+    const panel=document.getElementById('skillCloudPanel');
+    panel?.scrollIntoView({behavior:'smooth',block:'start'});
+    const email=document.getElementById('cloudEmail');
+    if(email)email.focus({preventScroll:true});
+  });
 
   function queueSave() {
     if (!db || !user || !ready || serverLevels !== null || loading) return;
@@ -269,7 +283,8 @@
     return { email, password };
   }
   async function loginOrRegister(action) {
-    if (!db || busyAuth) return;
+    if (busyAuth) return;
+    if (!db) { notice('로그인 연결 정보를 확인해 주세요.', 'error'); return; }
     const {email, password} = credentials();
     if (!email || !email.includes('@')) {notice('올바른 이메일 주소를 입력해 주세요.', 'error');return;}
     if (password.length < 6) {notice('비밀번호는 6자 이상으로 입력해 주세요.', 'error');return;}
@@ -295,6 +310,7 @@
     }
   }
   async function resetEmail() {
+    if (!db) { notice('로그인 연결 정보를 확인해 주세요.', 'error'); return; }
     const email = document.getElementById('cloudEmail')?.value?.trim() || '';
     if (!email.includes('@')) {notice('비밀번호를 찾을 이메일 주소를 먼저 입력해 주세요.', 'error');return;}
     try {

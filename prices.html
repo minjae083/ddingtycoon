@@ -48,9 +48,9 @@ input[type="search"]{border:1px solid #dfd3f4;padding:10px 12px;border-radius:9p
  <div id="marketList"></div>
  <div class="bottom"><span id="changesCount">공용 가격표</span><div><button type="button" class="btn" id="resetEdit" hidden>입력 취소</button> <button type="button" class="btn primary" id="savePrices" hidden disabled>변경한 가격 서버에 저장</button></div></div>
 </div>
-<script src="supabase-config.js?v=wiki13"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-<script src="dish-prices.js?v=wiki13"></script>
+<script src="supabase-config.js?v=wiki14"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0"></script>
+<script src="dish-prices.js?v=wiki14"></script>
 <script>
 (() => {
 'use strict';
@@ -162,6 +162,10 @@ window.addEventListener('dding-prices-updated',()=>{
  uiState();listRender();if(!Object.keys(draft).length)showConnection();
 });
 setLoginButton();
+window.addEventListener('message', e => {
+ if (e.source!==window.parent || e.origin!==location.origin || e.data?.type!=='dding-auth-updated') return;
+ void checkAdmin();
+});
 if(hasConfig && window.supabase?.createClient){
  try{db=window.supabase.createClient(url,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
   db.auth.onAuthStateChange(()=>{setTimeout(()=>void checkAdmin(),0);});
