@@ -343,9 +343,15 @@ details,.quick-box{background:#fff!important;color:#304256!important;border-colo
  .card{padding:10px 6px!important}
 }
 @media(max-width:450px){.materials-wrap{grid-template-columns:1fr!important}.mat-chip{min-height:40px!important}}
+
+.price-change{display:inline-flex;align-items:center;white-space:nowrap;font-size:11px;font-weight:800;padding:3px 7px;border-radius:7px;margin-top:5px}
+.price-up{color:#147a42;background:#e3f7e8}.price-down{color:#c03649;background:#ffedf0}
+.market-notice{padding:14px 17px;background:#f5f0ff;border:1px solid #d8c7ff;border-radius:14px;color:#4e397b;font-weight:650;font-size:13px}
+.market-notice a{color:#7246ca;font-weight:800;text-decoration:underline}
 </style></head><body><input id="header-search" type="hidden" value=""><main class="content">
 
 
+<div class="market-notice">요리·황금 요리 판매가는 서버 공용 시세를 사용합니다. <a href="#" id="market-admin-link">가격 확인 및 관리자 수정 ↗</a></div>
 <section class="card" id="table">
 <div class="card-title"><h3>⚔ 효율 순위</h3><span class="subtext" id="row-count">0개 아이템</span></div>
 <div class="materials-mode"><span>재료 개수 표시</span><button class="mode-btn active" data-mode="unit" id="mode-unit" type="button">1개 제작 기준</button><button class="mode-btn" data-mode="thousand" id="mode-thousand" type="button">1,000 ST 기준</button><button aria-pressed="false" class="mode-btn" id="stack-toggle" title="재료를 64개 묶음으로 보기" type="button">+64 묶음 보기</button></div>
@@ -387,7 +393,7 @@ details,.quick-box{background:#fff!important;color:#304256!important;border-colo
 <select id="quick-item"></select>
 </div>
 <div>
-<label class="label" for="quick-price">판매가</label>
+<label class="label" for="quick-price">판매가 (요리는 서버 공용)</label>
 <input id="quick-price" min="0" step="1" type="number"/>
 </div>
 <div class="quick-view" id="quick-view" style="grid-column:1/-1">아이템을 선택하면 여기서 요약을 보여줍니다.</div>
@@ -414,11 +420,11 @@ details,.quick-box{background:#fff!important;color:#304256!important;border-colo
 <div class="settings-full"><table><tbody id="gold-setting-table"></tbody></table></div>
 </details>
 <details>
-<summary>요리 판매가 설정</summary>
+<summary>일반 요리 판매가 (서버 공용 · 보기 전용)</summary>
 <div class="settings-full"><table><thead><tr><th>아이템</th><th>기준가</th><th>설정 가격</th></tr></thead><tbody id="cooking-price-table"></tbody></table></div>
 </details>
 <details>
-<summary>황금 요리 판매가 설정</summary>
+<summary>황금 요리 판매가 (서버 공용 · 보기 전용)</summary>
 <div class="settings-full"><table><thead><tr><th>아이템</th><th>기준가</th><th>설정 가격</th></tr></thead><tbody id="golden-price-table"></tbody></table></div>
 </details>
 <details>
@@ -446,14 +452,21 @@ details,.quick-box{background:#fff!important;color:#304256!important;border-colo
 </details>
 <div class="bottom-actions"><button class="btn secondary" id="reset">설정 전체 초기화</button></div>
 </section>
-</main><script src="main.js?v=wiki2"></script><script>
+</main><script src="supabase-config.js?v=wiki13"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="dish-prices.js?v=wiki13"></script>
+<script src="main.js?v=wiki13"></script><script>
 (function(){
  let lastHeight=0;
  function update(){
    const h=Math.ceil(document.documentElement.scrollHeight+4);
    if(h>150 && h!==lastHeight){lastHeight=h;window.parent.postMessage({type:'dding-efficiency-size',height:h},'*');}
  }
- document.addEventListener('DOMContentLoaded',()=>{update();requestAnimationFrame(update);});
+ document.addEventListener('DOMContentLoaded',()=>{
+   update();requestAnimationFrame(update);
+   const link=document.getElementById('market-admin-link');
+   link?.addEventListener('click',e=>{e.preventDefault();window.parent.location.hash='#/prices';});
+ });
  window.addEventListener('load',update);
  window.addEventListener('resize',update);
  if(window.ResizeObserver){let ro=new ResizeObserver(update);ro.observe(document.body);}

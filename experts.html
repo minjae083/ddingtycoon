@@ -174,14 +174,14 @@ body::before{display:none}
 
 <div class="wrap">
   <nav class="tabs" id="tabs" aria-label="전문 분야 선택"></nav>
- <div class="title"><div class="eyebrow">EXPERT SKILL TREE</div><h1 id="tt"></h1><p>스킬을 선택해 레벨별 효과와 필요 골드·어빌리티 스톤을 확인하세요. 설정한 레벨은 기기에 저장되며, 로그인하면 서버에도 동기화됩니다.</p></div>
+ <div class="title"><div class="eyebrow">EXPERT SKILL TREE</div><h1 id="tt"></h1><p>스킬을 선택해 레벨별 효과와 강화 비용을 확인하세요.</p></div>
  
  <section class="cloud-panel" id="skillCloudPanel" aria-label="전문가 스킬 로그인과 동기화">
    <div class="cloud-head">
-     <div><div class="cloud-eyebrow">MY SKILL PROGRESS</div><strong>내 전문가 스킬 · 계정 저장</strong><p>로그인하면 선택한 스킬 레벨을 서버에 저장하고 다른 기기에서도 이어서 사용할 수 있어요.</p></div>
-     <span id="cloudState" class="cloud-state">기기 저장 중</span>
+     <div><strong>계정 로그인</strong></div>
+     <span id="cloudState" class="cloud-state">로그인 전</span>
    </div>
-   <div id="cloudContent" class="cloud-content">기기에 저장된 스킬 레벨을 불러왔어요.</div>
+   <div id="cloudContent" class="cloud-content"></div>
    <div class="cloud-message" id="cloudMessage" role="status" aria-live="polite"></div>
  </section>
  <div class="sum" id="sum"></div>
@@ -398,7 +398,7 @@ document.addEventListener("click",e=>{
 document.addEventListener("change",e=>{if(e.target.id==="tg"){tg[cur+cs().id]=+e.target.value;render()}});
 render();
 </script>
-<script src="supabase-config.js?v=wiki11"></script>
+<script src="supabase-config.js?v=wiki13"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
-<script src="expert-cloud.js?v=wiki11"></script>
+<script src="expert-cloud.js?v=wiki13"></script>
 </body></html>

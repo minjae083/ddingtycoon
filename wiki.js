@@ -1,11 +1,26 @@
 'use strict';
 (() => {
   const D = window.DDING_WIKI_DATA;
+  const P = window.DDING_DISH_PRICES;
   const app = document.getElementById('app');
   const nav = document.getElementById('sideNavigation');
   const search = document.getElementById('globalSearch');
   const searchResults = document.getElementById('searchResults');
   const tip = document.getElementById('hoverTooltip');
+  const headerLogin = document.getElementById('headerLogin');
+  let focusLoginOnLoad = false;
+  function focusAccountLogin(){
+    const frame=document.getElementById('expertsFrame');
+    if(!frame)return;
+    frame.scrollIntoView({behavior:'smooth',block:'start'});
+    try{frame.contentWindow.postMessage({type:'dding-focus-login'},location.origin);}catch(_){}
+  }
+  if(headerLogin){headerLogin.addEventListener('click',()=>{
+    focusLoginOnLoad=true;
+    if(currentRoute().view!=='skills'){location.hash='#/skills';}
+    else {focusLoginOnLoad=false;focusAccountLogin();}
+  });}
+
   const icons = {
     home:'<path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/>',
     diamond:'<path d="M6 4h12l4 6-10 11L2 10z"/><path d="M2 10h20M6 4l6 17L18 4"/>',
@@ -37,6 +52,7 @@
   let lastRoute = '';
   let lastTipName = '';
   let priceFilter = 'all';
+  const priceBadge = name => P?.badge(name) || '';
 
   // Items without a supplied image use an explicit text fallback; never issue broken image requests.
   function art(name,size='medium') {
@@ -60,7 +76,7 @@
     return `<button type="button" class="ingredient-chip" data-ingredient="${esc(name)}" data-quantity="${esc(qty)}" aria-label="${esc(name)}, ${qty}개. 제작 재료를 확인하려면 선택하세요">${art(name,'small')}<span class="chip-name">${esc(name)}</span>${hasRecipe?'<span class="has-recipe-dot" title="제작법 있음"></span>':''}<span class="chip-qty">×${fn(qty)}</span></button>`;
   }
   function recipeCard(item, fac='') {
-    const price=item.price!=null?`<span class="recipe-sub">판매가 ${fn(item.price)} G · 1개 기준</span>`:item.method?`<span class="recipe-sub">${item.method==='bulk'?'금 가루 · 대량 제작':'식용 금 가루 · 개별 제작'}</span>`:`<span class="recipe-sub">${item.note||'제작 재료'}</span>`;
+    const price=item.price!=null?`<span class="recipe-sub">판매가 ${fn(item.price)} G · 1개 기준 ${priceBadge(item.name)}</span>`:item.method?`<span class="recipe-sub">${item.method==='bulk'?'금 가루 · 대량 제작':'식용 금 가루 · 개별 제작'}</span>`:`<span class="recipe-sub">${item.note||'제작 재료'}</span>`;
     return `<article class="recipe-card" data-method="${esc(item.method||'')}" data-item="${esc(item.name)}">
       <div class="recipe-top">
         <a class="item-button" href="${itemUrl(item.name)}" aria-label="${esc(item.name)} 상세 페이지">${item.variantImage?`<span class="item-art large"><img loading="lazy" src="${esc(item.variantImage)}?v=wiki6" alt=""></span>`:art(item.name,'large')}</a>
@@ -145,7 +161,7 @@
     const standalone=variants.filter(v=>!v.facility);
     const mainVariants=directItems.length?directItems:standalone;
     app.innerHTML=crumb([[fac?.title||'아이템 사전',fac?facilityUrl(fac.id):null],[name,null]])+
-      `<section class="item-profile">${art(name,'large')}<div><span class="eyebrow">ITEM DETAIL</span><h1>${esc(name)}</h1><p>${data.rank?`${esc(data.rank)} · `:''}${data.price!=null?`기준 판매가 ${fn(data.price)} G`:variants.length?`${variants.length}개 제작 방식`:'제작 재료 정보'}</p></div>${fac?`<div class="item-actions"><a class="action-link" href="${facilityUrl(fac.id)}">${esc(fac.title)} →</a></div>`:''}</section>
+      `<section class="item-profile">${art(name,'large')}<div><span class="eyebrow">ITEM DETAIL</span><h1>${esc(name)}</h1><p>${data.rank?`${esc(data.rank)} · `:''}${data.price!=null?`판매가 ${fn(data.price)} G ${priceBadge(name)}`:variants.length?`${variants.length}개 제작 방식`:'제작 재료 정보'}</p></div>${fac?`<div class="item-actions"><a class="action-link" href="${facilityUrl(fac.id)}">${esc(fac.title)} →</a></div>`:''}</section>
       <div class="section-title"><h2>제작 레시피</h2><span class="count-pill">${mainVariants.length}개</span></div>
       ${mainVariants.length?`<div class="recipe-grid">${mainVariants.map(({recipe:r})=>recipeCard(r,fac?.id||'')).join('')}</div>`:`<div class="blank-state">이 아이템은 현재 등록된 직접 제작법이 없습니다. 재료 수집 또는 구매를 통해 획득할 수 있습니다.</div>`}
       ${uses.length?`<div class="section-title" style="margin-top:35px"><h2>사용되는 곳</h2><span class="count-pill">${uses.length}개</span></div><div class="facility-grid">${uses.map(({name:n,fac:fid})=>`<a class="facility-card" style="min-height:102px;padding:17px" href="${itemUrl(n)}"><div class="facility-card-top">${art(n,'medium')}<span class="facility-arrow">↗</span></div><div><h3 style="font-size:14px">${esc(n)}</h3><p>${esc(D.facilities[fid]?.title||'제작법')}</p></div></a>`).join('')}</div>`:''}`;
@@ -227,8 +243,12 @@
     document.title='도구 강화 확률 | 띵타이쿤 WIKI';
   }
 
+  function renderPrices(){
+    document.title='요리 시세 | 띵타이쿤 WIKI';
+    app.innerHTML=crumb([['요리 시세',null]])+`<div class="page-head"><span class="eyebrow">MARKET PRICES</span><h1>요리 시세</h1><p>일반 요리와 황금 요리의 최신 판매가 및 이전 가격과의 차이를 확인할 수 있습니다.</p></div><section class="experts-frame-shell price-frame-shell"><iframe id="pricesFrame" title="요리 판매가 확인 및 관리자 수정" src="prices.html?v=wiki13" loading="eager" scrolling="no"></iframe></section>`;
+  }
   function renderCompare(){
-    app.innerHTML=crumb([['효율 비교',null]])+`<div class="page-head compare-page-head"><span class="eyebrow">1000 ST · PROFIT RANKING</span><h1>아이템 효율 비교</h1><p>요리 · 황금 요리 · 라이프스톤 · 주괴까지 같은 기준으로 확인해보세요. 1,000 ST 제작 가능 수량, 예상 순수익, 재료와 판매가 설정도 변경할 수 있어요.</p></div><div class="efficiency-embed"><iframe id="efficiencyFrame" title="띵타이쿤 전체 아이템 효율 순위 및 설정" src="efficiency.html?v=2" loading="eager" scrolling="no"></iframe></div>`;
+    app.innerHTML=crumb([['효율 비교',null]])+`<div class="page-head compare-page-head"><span class="eyebrow">1000 ST · PROFIT RANKING</span><h1>아이템 효율 비교</h1><p>요리 · 황금 요리 · 라이프스톤 · 주괴까지 같은 기준으로 확인해보세요. 1,000 ST 제작 가능 수량, 예상 순수익, 재료와 판매가 설정도 변경할 수 있어요.</p></div><div class="efficiency-embed"><iframe id="efficiencyFrame" title="띵타이쿤 전체 아이템 효율 순위 및 설정" src="efficiency.html?v=wiki13" loading="eager" scrolling="no"></iframe></div>`;
     document.title='효율 비교 | 띵타이쿤 WIKI';
   }
   function compareRecipe(name){
@@ -248,7 +268,7 @@
   function drawPriceRows(){
     const t=document.getElementById('priceRows');if(!t)return;
     const items=compared.filter(([name])=>priceFilter==='all'||(priceFilter==='regular'?!!D.regular[name]:!!D.golden[name])).sort((a,b)=>b[1].price-a[1].price);
-    t.innerHTML=items.map(([name,info])=>`<tr><td><a href="${itemUrl(name)}">${esc(name)}</a></td><td>${D.golden[name]?'황금 요리':'일반 요리'} · ${esc(info.rank)}</td><td>${fn(info.price)} G</td></tr>`).join('');
+    t.innerHTML=items.map(([name,info])=>`<tr><td><a href="${itemUrl(name)}">${esc(name)}</a></td><td>${D.golden[name]?'황금 요리':'일반 요리'} · ${esc(info.rank)}</td><td>${fn(info.price)} G ${priceBadge(name)}</td></tr>`).join('');
     document.querySelectorAll('[data-price-filter]').forEach(el=>el.classList.toggle('active',el.dataset.priceFilter===priceFilter));
   }
   function renderNotFound(){app.innerHTML=`${crumb([['찾을 수 없음',null]])}<div class="blank-state">요청한 항목을 찾지 못했습니다. <a href="#/" style="color:#b2f5e6">위키 홈으로 돌아가기</a></div>`;}
@@ -262,12 +282,18 @@
   }
   function renderSkills(){
     document.title='전문가 스킬 | 띵타이쿤 WIKI';
-    app.innerHTML=crumb([['전문가 스킬',null]])+`<div class="page-head expert-page-head"><span class="eyebrow">SERENITY · SKILL TREE</span><h1>전문가 스킬</h1><p>채광 · 재배 · 해양 · 사냥의 스킬 트리를 확인하고, 내 레벨과 앞으로 필요한 골드 및 어빌리티 스톤을 계산해 보세요.</p></div><section class="experts-frame-shell" aria-label="분야별 전문가 스킬 트리"><iframe id="expertsFrame" title="전문가 스킬 트리와 레벨 계산기" src="experts.html?v=wiki11" loading="eager" scrolling="no"></iframe></section>`;
+    app.innerHTML=crumb([['전문가 스킬',null]])+`<div class="page-head expert-page-head"><span class="eyebrow">SERENITY · SKILL TREE</span><h1>전문가 스킬</h1><p>채광 · 재배 · 해양 · 사냥의 스킬 트리를 확인하고, 내 레벨과 앞으로 필요한 골드 및 어빌리티 스톤을 계산해 보세요.</p></div><section class="experts-frame-shell" aria-label="분야별 전문가 스킬 트리"><iframe id="expertsFrame" title="전문가 스킬 트리와 레벨 계산기" src="experts.html?v=wiki13" loading="eager" scrolling="no"></iframe></section>`;
+    const frame=document.getElementById('expertsFrame');
+    if(frame){frame.addEventListener('load',()=>{if(focusLoginOnLoad){focusLoginOnLoad=false;focusAccountLogin();}});}
+
   }
   function renderSidebar(route){
     const categoryLinks=D.categories.map(c=>`<a class="nav-button ${route.id===c.id || (route.view==='facility'&&D.facilities[route.id]?.category===c.id) || (route.view==='compare'&&c.id==='compare')?'active':''}" href="${c.id==='compare'?'#/compare':catUrl(c.id)}"><span class="nav-symbol">${iconSvg(c.icon)}</span>${esc(c.title)}</a>`);
     const compareIndex=D.categories.findIndex(c=>c.id==='compare');
     categoryLinks.splice(compareIndex<0?categoryLinks.length:compareIndex,0,`<a class="nav-button ${route.view==='upgrade'?'active':''}" href="#/upgrade"><span class="nav-symbol">${iconSvg('upgrade')}</span>도구 강화 확률</a>`, `<a class="nav-button ${route.view==='skills'?'active':''}" href="#/skills"><span class="nav-symbol">${iconSvg('skills')}</span>전문가 스킬</a>`);
+    const priceNav=`<a class="nav-button ${route.view==='prices'?'active':''}" href="#/prices"><span class="nav-symbol">${iconSvg('chart')}</span>요리 시세</a>`;
+    const pos=categoryLinks.findIndex(s=>s.includes('효율 비교'));
+    categoryLinks.splice(pos<0?categoryLinks.length:pos,0,priceNav);
     nav.innerHTML=`<a class="nav-button ${route.view==='home'?'active':''}" href="#/"><span class="nav-symbol">${iconSvg('home')}</span>위키 홈</a>`+categoryLinks.join('');
   }
   function render(){
@@ -280,6 +306,7 @@
     else if(route.view==='upgrade')renderUpgrade();
     else if(route.view==='skills')renderSkills();
     else if(route.view==='compare')renderCompare();
+    else if(route.view==='prices')renderPrices();
     else renderNotFound();
     // local navigation should start at the top; in-facility anchor scrolling handled separately
     if(lastRoute!==location.hash){window.scrollTo({top:0,behavior:'instant'});lastRoute=location.hash;}
@@ -309,10 +336,35 @@
   }
   window.addEventListener('message',(e)=>{
     const iframe=document.getElementById('expertsFrame');
+    const priceIframe=document.getElementById('pricesFrame');
+    if(!e.data||e.data.type!=='dding-account-state'||![iframe?.contentWindow,priceIframe?.contentWindow].includes(e.source))return;
+    if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
+    if(headerLogin){
+      headerLogin.textContent=e.data.signedIn?'내 계정':'로그인';
+      headerLogin.setAttribute('aria-label',e.data.signedIn?'내 계정 관리':'로그인');
+    }
+  });
+  window.addEventListener('message',(e)=>{
+    const iframe=document.getElementById('expertsFrame');
     if(!iframe||e.source!==iframe.contentWindow||!e.data||e.data.type!=='dding-expert-size')return;
     if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
     const h=Number(e.data.height);
     if(Number.isFinite(h)&&h>200&&h<150000&&Math.abs(iframe.getBoundingClientRect().height-h)>3)iframe.style.height=Math.ceil(h)+'px';
+  });
+  window.addEventListener('message',(e)=>{
+    if(e.origin!==location.origin || !e.data)return;
+    const frame=document.getElementById('pricesFrame');
+    if(e.data.type==='dding-price-admin-size' && frame && e.source===frame.contentWindow){
+      const h=Number(e.data.height);
+      if(Number.isFinite(h)&&h>200&&h<120000)frame.style.height=Math.ceil(h)+'px';
+    }
+    if(e.data.type==='dding-price-login-request' && frame && e.source===frame.contentWindow){
+      focusLoginOnLoad=true;location.hash='#/skills';
+    }
+  });
+  window.addEventListener('dding-prices-updated',()=>{
+    const route=currentRoute();
+    if(['facility','item','compare'].includes(route.view))render();
   });
   window.addEventListener('message',(e)=>{
     const iframe=document.getElementById('efficiencyFrame');

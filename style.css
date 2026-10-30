@@ -194,3 +194,16 @@ body{background:#faf9ff!important;color:var(--text)}
 .experts-frame-shell{border:1px solid #e7dcf8;border-radius:18px;background:transparent;min-width:0;padding:13px 14px 3px;overflow:hidden;box-shadow:0 5px 20px #63518c0a}
 .experts-frame-shell iframe{display:block;border:0;background:transparent;width:100%;height:1550px;overflow:hidden;max-width:100%}
 @media(max-width:780px){.experts-frame-shell{padding:7px 8px 1px;border-radius:13px}}
+
+/* v12: top navigation account control */
+.account-nav-btn{flex:none;white-space:nowrap;cursor:pointer;border:1px solid #d9c9f4;background:#f3edff;color:#6849af;border-radius:12px;padding:10px 17px;font:inherit;font-size:13px;font-weight:800;transition:background .15s,border .15s}
+.account-nav-btn:hover,.account-nav-btn:focus-visible{background:#e9ddff;border-color:#bfa7ed;outline-offset:2px}
+@media(max-width:800px){.account-nav-btn{margin-left:auto;padding:9px 13px}}
+
+/* v13 – sale price trend and public admin price panel */
+.price-change{display:inline-flex;align-items:center;white-space:nowrap;font-size:11px;font-weight:800;padding:3px 8px;border-radius:8px;margin-left:5px;vertical-align:middle}
+.price-up{background:#e5f8ed;color:#177d47}
+.price-down{background:#ffe9ee;color:#b82645}
+.price-frame-shell{margin-top:22px}
+.price-frame-shell iframe{width:100%;min-height:940px;display:block;border:0;border-radius:18px;background:#fff}
+@media(max-width:700px){.price-frame-shell iframe{min-height:1150px}}

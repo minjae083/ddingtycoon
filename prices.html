@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>요리 시세 · 띵타이쿤 WIKI</title>
+<style>
+:root{font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;color:#29243e;background:#fcfaff;line-height:1.55}
+*{box-sizing:border-box}body{margin:0;padding:4px 1px 25px;background:#fcfaff}
+.market{max-width:1280px;margin:auto}
+.market-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px}
+.market-top h2{font-size:23px;letter-spacing:-.035em;margin:1px 0 6px}.muted{font-size:12px;color:#7a7391;margin:0}
+.eyebrow{font-size:10px;font-weight:850;letter-spacing:.19em;color:#9162ce}
+.status{font-size:11px;background:#f4effe;border:1px solid #e2d6fc;border-radius:100px;padding:7px 12px;color:#7553ac;font-weight:750}
+.status.ok{color:#267347;background:#ecf9f1;border-color:#cdecd8}.status.warn{color:#925c23;background:#fff5e8;border-color:#f2d5a6}
+.hero{background:#f1ebff;border:1px solid #e1d1ff;border-radius:18px;padding:18px 20px;display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.hero h3{margin:0 0 4px;font-size:15px}.hero p{margin:0;color:#6c5b8e;font-size:12px}
+.btn{border:1px solid #d7c5f5;background:white;color:#623e9e;font:inherit;font-size:12px;font-weight:750;padding:10px 14px;border-radius:11px;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:#9c77df;background:#faf6ff}.btn.primary{background:#8059d4;color:white;border-color:#8059d4}.btn.primary:hover{background:#6740bd}.btn:disabled{opacity:.5;cursor:not-allowed}
+.tool{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:4px 0 14px}
+.filters{display:flex;gap:7px;flex-wrap:wrap}.filter{border:1px solid #e0d6f4;background:white;border-radius:9px;padding:8px 13px;cursor:pointer;font:inherit;font-weight:650;font-size:12px;color:#75658d}
+.filter[aria-pressed="true"]{background:#eee5ff;border-color:#ba9ef1;color:#6741b4}
+input[type="search"]{border:1px solid #dfd3f4;padding:10px 12px;border-radius:9px;min-width:200px;font:inherit;font-size:12px;background:white;color:#31264c}
+.group{background:white;border:1px solid #e4daf6;border-radius:17px;overflow:hidden;margin:12px 0 18px}
+.group-header{background:#f8f4ff;padding:13px 17px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.group-header small{font-size:11px;color:#8a73ab;font-weight:600}
+.list{padding:5px 14px 10px}
+.entry{display:grid;grid-template-columns:minmax(170px,1fr) 118px 135px minmax(125px,.75fr);gap:14px;padding:12px 5px;align-items:center;border-bottom:1px solid #f0eafb}
+.entry:last-child{border-bottom:0}
+.name{display:flex;align-items:center;gap:10px;min-width:0;font-size:13px;font-weight:700;word-break:keep-all}
+.name img{width:40px;height:40px;object-fit:contain;image-rendering:pixelated;background:#f4eefb;border:1px solid #ded0f4;border-radius:10px;padding:3px;flex-shrink:0}
+.price{display:flex;flex-direction:column;font-weight:850;font-variant-numeric:tabular-nums;font-size:15px;white-space:nowrap}
+.price small{color:#998db3;font-size:10px;font-weight:600}
+.price-change{display:inline-flex;align-items:center;white-space:nowrap;font-size:11px;font-weight:800;margin:3px 0 0;padding:3px 7px;border-radius:7px;width:max-content}
+.price-up{background:#e3f8ea;color:#178049}.price-down{background:#ffe9ed;color:#bb2844}
+.entry .date{font-size:11px;color:#81768f;line-height:1.6}
+.entry .edit{width:100%;min-width:0;background:#fbf9ff;border:1px solid #e0d2f8;color:#403056;font:inherit;font-size:14px;font-weight:750;padding:10px;border-radius:9px;text-align:right;outline-offset:2px}
+.entry .edit:focus{outline:2px solid #a88bea}.entry .edit[readonly]{background:#f7f6f9;color:#8d8898}
+.notice{padding:12px 15px;border-radius:12px;background:#f6f0ff;border:1px solid #e5d6ff;font-size:12px;color:#654795;margin-bottom:15px}
+.notice.err{background:#fff0f3;border-color:#f5c8d2;color:#aa3048}.notice.ok{background:#eaf9f0;border-color:#bce8cb;color:#227344}
+.bottom{position:sticky;bottom:4px;z-index:5;padding:12px;border-radius:14px;background:rgba(250,247,255,.96);backdrop-filter:blur(9px);border:1px solid #e2d2f7;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 8px 28px #321b5211}
+.bottom span{color:#695b80;font-size:12px}.empty{padding:26px;text-align:center;color:#9182a8}
+@media(max-width:760px){.entry{grid-template-columns:1fr auto;gap:9px}.entry .name{grid-column:1;grid-row:1}.entry .price{grid-column:2;grid-row:1}.entry .edit{grid-column:1;grid-row:2}.entry .date{grid-column:2;grid-row:2;text-align:right}.list{padding:5px 10px 10px}.group-header{padding:12px 14px}.price{font-size:13px}.name img{width:34px;height:34px}.bottom{position:static}}
+</style>
+</head><body>
+<div class="market" id="marketApp">
+ <div class="market-top"><div><div class="eyebrow">SERENITY · MARKET</div><h2>요리 판매가</h2><p class="muted">관리자가 입력한 가격이 모든 방문자에게 적용됩니다. 가격 변경은 수동으로 진행합니다.</p></div><span class="status" id="marketStatus">서버 연결 확인 중</span></div>
+ <div class="hero"><div><h3 id="adminTitle">요리 시세 확인</h3><p id="adminDetail">이전 가격과 현재 가격의 차이를 확인할 수 있습니다.</p></div><button type="button" class="btn" id="loginRequest" hidden>로그인 페이지 열기</button></div>
+ <div id="marketMessage" class="notice" role="status">데이터를 불러오고 있습니다.</div>
+ <div class="tool"><div class="filters"><button class="filter" data-kind="all" aria-pressed="true">전체 30종</button><button class="filter" data-kind="regular" aria-pressed="false">일반 요리 15종</button><button class="filter" data-kind="golden" aria-pressed="false">황금 요리 15종</button></div><input id="marketSearch" type="search" placeholder="요리 이름 검색" aria-label="요리 이름 검색"></div>
+ <div id="marketList"></div>
+ <div class="bottom"><span id="changesCount">공용 가격표</span><div><button type="button" class="btn" id="resetEdit" hidden>입력 취소</button> <button type="button" class="btn primary" id="savePrices" hidden disabled>변경한 가격 서버에 저장</button></div></div>
+</div>
+<script src="supabase-config.js?v=wiki13"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="dish-prices.js?v=wiki13"></script>
+<script>
+(() => {
+'use strict';
+const $=id=>document.getElementById(id);
+const P=window.DDING_DISH_PRICES;
+const cfg=window.DDING_SUPABASE_CONFIG||{};
+const url=String(cfg.url||'').trim().replace(/\/$/,'');
+const key=String(cfg.publishableKey||'').trim();
+const hasConfig=P.configured;
+const fmt=v=>Number(v).toLocaleString('ko-KR');
+const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let db=null, user=null, isAdmin=false, busy=false, filter='all',draft={},loadedOnce=false;
+const allNames=Object.keys(P.initial);
+function tell(msg,kind=''){$('marketMessage').className='notice '+kind;$('marketMessage').textContent=msg;}
+function size(){try{const content=document.getElementById('marketApp');const h=Math.ceil(content.getBoundingClientRect().height+content.offsetTop+36);window.parent.postMessage({type:'dding-price-admin-size',height:h},location.origin);}catch(_){}}
+function uiState(){
+  const status=$('marketStatus');status.textContent=!hasConfig?'서버 연결 전':!P.connected?'연결 확인 필요':isAdmin?'관리자 · 연결됨':'시세 연결됨';
+  status.className='status '+(P.connected?'ok':'warn');
+  $('loginRequest').hidden=!!user || isAdmin;
+  $('adminTitle').textContent=isAdmin?'관리자 · 요리 시세 수정':'요리 시세 확인';
+  $('adminDetail').textContent=isAdmin?'가격 30종을 직접 수정한 뒤 한 번에 서버에 저장하세요. 변경한 항목만 기록됩니다.':'가격을 볼 수 있습니다. 변경 권한은 등록된 관리자 계정에만 있습니다.';
+  $('resetEdit').hidden=!isAdmin;$('savePrices').hidden=!isAdmin;
+}
+function timeText(s){
+ if(!s)return '초기 가격';
+ const date=new Date(s);if(!Number.isFinite(date.getTime()))return '초기 가격';
+ return date.toLocaleDateString('ko-KR',{year:'numeric',month:'numeric',day:'numeric',timeZone:'Asia/Seoul'});
+}
+function getDraft(name){return draft[name]===undefined?String(P.get(name).price):draft[name];}
+function changes(){const changed={};
+ for(const [name,value] of Object.entries(draft)){
+   if(!/^\d{1,8}$/.test(value))continue;
+   const number=Number(value);
+   if(number!==P.get(name).price)changed[name]=number;
+ }
+ return changed;
+}
+function updateControls(){
+ const n=Object.keys(changes()).length;
+ $('changesCount').textContent=isAdmin?`저장할 변경 ${n}개 · 마지막 입력 후 서버 저장`: `가격표 ${allNames.length}종 · 이전 가격 대비 변동 표시`;
+ $('savePrices').disabled=!isAdmin||busy||!P.connected||n===0;
+ size();
+}
+function listRender(){
+ const kinds=[['regular','일반 요리'],['golden','황금 요리']];
+ const term=$('marketSearch').value.trim().toLowerCase();
+ const rows=kinds.filter(([kind])=>filter==='all'||filter===kind).map(([kind,label])=>{
+   const names=allNames.filter(n=>P.get(n).category===label && n.toLowerCase().includes(term));
+   if(!names.length)return '';
+   const body=names.map(name=>{
+     const x=P.get(name),delta=x.price-x.previous_price;
+     const img='assets/dishes/'+encodeURIComponent(name.replaceAll(' ','_'))+'.png';
+     const input=isAdmin?`<input class="edit" type="number" min="0" max="99999999" step="1" inputmode="numeric" data-item="${esc(name)}" value="${esc(getDraft(name))}" aria-label="${esc(name)} 새 판매가">`:`<span class="date">관리자만 수정 가능</span>`;
+     return `<div class="entry"><div class="name"><img loading="lazy" src="${img}" alt=""><span>${esc(name)}</span></div><div class="price">${fmt(x.price)} G ${P.badge(name)||'<small>변동 없음</small>'}</div><div class="date">이전 ${fmt(x.previous_price)} G <br>확인일 ${timeText(x.updated_at)}</div><div>${input}</div></div>`;
+   }).join('');
+   return `<section class="group"><div class="group-header">${label}<small>${names.length}종</small></div><div class="list">${body}</div></section>`;
+ }).join('');
+ $('marketList').innerHTML=rows||'<div class="empty">검색 결과가 없습니다.</div>';
+ updateControls();size();
+}
+function showConnection(){
+ if(!hasConfig){tell('Supabase URL과 Publishable Key를 설정하면 공용 시세가 연결됩니다. 현재 표시된 값은 파일에 포함된 기본 시세입니다.','err');}
+ else if(P.error){tell('서버 시세를 가져오지 못했습니다: '+P.error,'err');}
+ else if(P.connected){tell(isAdmin?'관리자 권한이 확인됐습니다. 수정한 가격은 모든 방문자에게 적용됩니다.':'현재 서버에 저장된 요리 판매가입니다.','ok');}
+ else {tell('서버 시세를 확인하고 있습니다.');}
+}
+function setLoginButton(){ $('loginRequest').addEventListener('click',()=>window.parent.postMessage({type:'dding-price-login-request'},location.origin)); }
+async function checkAdmin(){
+ if(!db){uiState();listRender();return;}
+ try{
+  const {data,error}=await db.auth.getUser();if(error)throw error;
+  user=data?.user||null;
+  if(user){const result=await db.from('wiki_admins').select('user_id').eq('user_id',user.id).maybeSingle();
+    if(result.error)throw result.error;isAdmin=!!result.data;
+  }else isAdmin=false;
+ }catch(e){user=null;isAdmin=false; tell('로그인 상태를 확인할 수 없습니다: '+(e.message||e),'err');}
+ uiState();listRender();showConnection();
+ try{window.parent.postMessage({type:'dding-account-state',signedIn:!!user},location.origin);}catch(_){}
+}
+async function save(){
+ if(!isAdmin||busy||!db||!P.connected)return;
+ const errors=[];
+ for(const [name,value] of Object.entries(draft))if(!/^\d{1,8}$/.test(value))errors.push(name);
+ if(errors.length){tell('0~99,999,999 사이 정수를 입력하세요: '+errors.join(', '),'err');return;}
+ const pending=changes();const count=Object.keys(pending).length;
+ if(!count)return;
+ if(!confirm(`${count}개 요리의 판매가를 모든 방문자에게 적용할까요?`))return;
+ busy=true;updateControls();
+ try{
+   const userCheck=await db.auth.getUser();if(userCheck.error||!userCheck.data?.user)throw Error('로그인이 필요합니다.');
+   const result=await db.rpc('update_dish_prices',{changes:pending});
+   if(result.error)throw result.error;
+   draft={};await P.reload();
+   tell(`${result.data??count}개 요리 가격을 서버에 저장했습니다. 방문자 화면에도 최신 시세가 반영됩니다.`,'ok');
+ }catch(e){tell('저장 실패: '+(e.message||e)+' · 기존 가격은 그대로 유지됩니다.','err');}
+ finally{busy=false;listRender();}
+}
+$('marketList').addEventListener('input',e=>{
+ const item=e.target.dataset.item;if(!item||!isAdmin)return;
+ draft[item]=e.target.value;updateControls();
+});
+$('marketSearch').addEventListener('input',listRender);
+document.querySelectorAll('[data-kind]').forEach(btn=>btn.addEventListener('click',()=>{
+ filter=btn.dataset.kind;document.querySelectorAll('[data-kind]').forEach(el=>el.setAttribute('aria-pressed',String(el===btn)));listRender();
+}));
+$('savePrices').addEventListener('click',save);
+$('resetEdit').addEventListener('click',()=>{draft={};listRender();tell('입력한 변경 사항을 취소했습니다.');});
+window.addEventListener('dding-prices-updated',()=>{
+ uiState();listRender();if(!Object.keys(draft).length)showConnection();
+});
+setLoginButton();
+if(hasConfig && window.supabase?.createClient){
+ try{db=window.supabase.createClient(url,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+  db.auth.onAuthStateChange(()=>{setTimeout(()=>void checkAdmin(),0);});
+ }catch(e){tell('로그인 초기화 실패: '+e.message,'err');}
+}
+uiState();listRender();showConnection();void checkAdmin();
+if(window.ResizeObserver)new ResizeObserver(()=>requestAnimationFrame(size)).observe(document.getElementById('marketApp'));
+window.addEventListener('load',size);
+})();
+</script>
+</body></html>

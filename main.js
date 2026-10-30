@@ -91,39 +91,39 @@ const BASE_RECIPES = {
 };
 
 const REGULAR_COOKING = {
-  '토마토 스파게티': { rank: '커먼', price: 307, recipe: { '토마토 베이스': 1, '호박 묶음': 1 } },
-  '어니언 링': { rank: '커먼', price: 334, recipe: { '양파 베이스': 1, '감자 묶음': 1 } },
-  '갈릭 케이크': { rank: '커먼', price: 237, recipe: { '마늘 베이스': 1, '당근 묶음': 1 } },
-  '삼겹살 토마토 찌개': { rank: '노멀', price: 405, recipe: { '토마토 베이스': 2, '비트 묶음': 1, '요리용 소금': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
-  '삼색 아이스크림': { rank: '노멀', price: 1308, recipe: { '양파 베이스': 2, '수박 묶음': 1, '코코넛': 1, '설탕 큐브': 1, '요리용 우유': 1 } },
-  '마늘 양갈비 핫도그': { rank: '노멀', price: 781, recipe: { '마늘 베이스': 1, '감자 묶음': 1, '오일': 1, '익힌 양고기': 1, '익힌 양 갈비살': 1 } },
-  '달콤 시리얼': { rank: '노멀', price: 1052, recipe: { '토마토 베이스': 2, '달콤한 열매 묶음': 1, '파인애플': 1, '밀가루 반죽': 1, '오일': 1 } },
-  '로스트 치킨 파이': { rank: '노멀', price: 1024, recipe: { '마늘 베이스': 2, '당근 묶음': 1, '버터 조각': 1, '익힌 닭고기': 1, '익힌 닭 다리살': 1 } },
-  '스윗 치킨 햄버거': { rank: '레어', price: 1738, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '비트 묶음': 1, '달콤한 열매 묶음': 1, '익힌 닭 가슴살': 1, '익힌 닭 다리살': 1 } },
-  '토마토 파인애플 피자': { rank: '레어', price: 814, recipe: { '토마토 베이스': 2, '마늘 베이스': 1, '파인애플': 1, '치즈 조각': 1, '스테이크': 1, '익힌 소 등심': 1 } },
-  '양파 수프': { rank: '레어', price: 1908, recipe: { '양파 베이스': 1, '마늘 베이스': 1, '감자 묶음': 1, '코코넛': 1, '버터 조각': 1, '익힌 돼지 앞다리살': 1 } },
-  '허브 삼겹살 찜': { rank: '레어', price: 1313, recipe: { '마늘 베이스': 2, '양파 베이스': 1, '호박 묶음': 1, '감자 묶음': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
-  '토마토 라자냐': { rank: '에픽', price: 2720, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '당근 묶음': 1, '호박 묶음': 1, '밀가루 반죽': 1, '익힌 양 다리살': 1 } },
-  '딥 크림 빠네': { rank: '에픽', price: 942, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '수박 묶음': 1, '감자 묶음': 1, '치즈 조각': 1, '요리용 우유': 1 } },
-  '트리플 소갈비 꼬치': { rank: '에픽', price: 1764, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '당근 묶음': 1, '비트 묶음': 1, '설탕 큐브': 1, '익힌 소 갈비살': 1 } },
+  '토마토 스파게티': { rank: '커먼', price: 507, recipe: { '토마토 베이스': 1, '호박 묶음': 1 } },
+  '어니언 링': { rank: '커먼', price: 587, recipe: { '양파 베이스': 1, '감자 묶음': 1 } },
+  '갈릭 케이크': { rank: '커먼', price: 364, recipe: { '마늘 베이스': 1, '당근 묶음': 1 } },
+  '삼겹살 토마토 찌개': { rank: '노멀', price: 1160, recipe: { '토마토 베이스': 2, '비트 묶음': 1, '요리용 소금': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
+  '삼색 아이스크림': { rank: '노멀', price: 1444, recipe: { '양파 베이스': 2, '수박 묶음': 1, '코코넛': 1, '설탕 큐브': 1, '요리용 우유': 1 } },
+  '마늘 양갈비 핫도그': { rank: '노멀', price: 870, recipe: { '마늘 베이스': 1, '감자 묶음': 1, '오일': 1, '익힌 양고기': 1, '익힌 양 갈비살': 1 } },
+  '달콤 시리얼': { rank: '노멀', price: 1540, recipe: { '토마토 베이스': 2, '달콤한 열매 묶음': 1, '파인애플': 1, '밀가루 반죽': 1, '오일': 1 } },
+  '로스트 치킨 파이': { rank: '노멀', price: 1148, recipe: { '마늘 베이스': 2, '당근 묶음': 1, '버터 조각': 1, '익힌 닭고기': 1, '익힌 닭 다리살': 1 } },
+  '스윗 치킨 햄버거': { rank: '레어', price: 1288, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '비트 묶음': 1, '달콤한 열매 묶음': 1, '익힌 닭 가슴살': 1, '익힌 닭 다리살': 1 } },
+  '토마토 파인애플 피자': { rank: '레어', price: 1042, recipe: { '토마토 베이스': 2, '마늘 베이스': 1, '파인애플': 1, '치즈 조각': 1, '스테이크': 1, '익힌 소 등심': 1 } },
+  '양파 수프': { rank: '레어', price: 1405, recipe: { '양파 베이스': 1, '마늘 베이스': 1, '감자 묶음': 1, '코코넛': 1, '버터 조각': 1, '익힌 돼지 앞다리살': 1 } },
+  '허브 삼겹살 찜': { rank: '레어', price: 760, recipe: { '마늘 베이스': 2, '양파 베이스': 1, '호박 묶음': 1, '감자 묶음': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
+  '토마토 라자냐': { rank: '에픽', price: 1188, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '당근 묶음': 1, '호박 묶음': 1, '밀가루 반죽': 1, '익힌 양 다리살': 1 } },
+  '딥 크림 빠네': { rank: '에픽', price: 1883, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '수박 묶음': 1, '감자 묶음': 1, '치즈 조각': 1, '요리용 우유': 1 } },
+  '트리플 소갈비 꼬치': { rank: '에픽', price: 2289, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '당근 묶음': 1, '비트 묶음': 1, '설탕 큐브': 1, '익힌 소 갈비살': 1 } },
 };
 
 const GOLDEN_COOKING = {
-  '황금 토마토 스파게티': { rank: '레어 황금', price: 518, base: '토마토 스파게티', powderPerItem: 1/20 },
-  '황금 어니언 링': { rank: '레어 황금', price: 562, base: '어니언 링', powderPerItem: 1/20 },
-  '황금 갈릭 케이크': { rank: '레어 황금', price: 399, base: '갈릭 케이크', powderPerItem: 1/20 },
-  '황금 삼겹살 토마토 찌개': { rank: '에픽 황금', price: 681, base: '삼겹살 토마토 찌개', powderPerItem: 1/13 },
-  '황금 삼색 아이스크림': { rank: '에픽 황금', price: 2196, base: '삼색 아이스크림', powderPerItem: 1/13 },
-  '황금 마늘 양갈비 핫도그': { rank: '에픽 황금', price: 1280, base: '마늘 양갈비 핫도그', powderPerItem: 1/13 },
-  '황금 달콤 시리얼': { rank: '에픽 황금', price: 1789, base: '달콤 시리얼', powderPerItem: 1/13 },
-  '황금 로스트 치킨 파이': { rank: '에픽 황금', price: 1722, base: '로스트 치킨 파이', powderPerItem: 1/13 },
-  '황금 스윗 치킨 햄버거': { rank: '전설 황금', price: 2923, base: '스윗 치킨 햄버거', powderPerItem: 1/10 },
-  '황금 토마토 파인애플 피자': { rank: '전설 황금', price: 1369, base: '토마토 파인애플 피자', powderPerItem: 1/10 },
-  '황금 양파 수프': { rank: '전설 황금', price: 3209, base: '양파 수프', powderPerItem: 1/10 },
-  '황금 허브 삼겹살 찜': { rank: '전설 황금', price: 2208, base: '허브 삼겹살 찜', powderPerItem: 1/10 },
-  '황금 토마토 라자냐': { rank: 'MYTHIC 황금', price: 4574, base: '토마토 라자냐', powderPerItem: 1/10 },
-  '황금 딥 크림 빠네': { rank: 'MYTHIC 황금', price: 1584, base: '딥 크림 빠네', powderPerItem: 1/10 },
-  '황금 트리플 소갈비 꼬치': { rank: 'MYTHIC 황금', price: 2967, base: '트리플 소갈비 꼬치', powderPerItem: 1/10 },
+  '황금 토마토 스파게티': { rank: '레어 황금', price: 853, base: '토마토 스파게티', powderPerItem: 1/20 },
+  '황금 어니언 링': { rank: '레어 황금', price: 987, base: '어니언 링', powderPerItem: 1/20 },
+  '황금 갈릭 케이크': { rank: '레어 황금', price: 612, base: '갈릭 케이크', powderPerItem: 1/20 },
+  '황금 삼겹살 토마토 찌개': { rank: '에픽 황금', price: 1951, base: '삼겹살 토마토 찌개', powderPerItem: 1/13 },
+  '황금 삼색 아이스크림': { rank: '에픽 황금', price: 2429, base: '삼색 아이스크림', powderPerItem: 1/13 },
+  '황금 마늘 양갈비 핫도그': { rank: '에픽 황금', price: 1463, base: '마늘 양갈비 핫도그', powderPerItem: 1/13 },
+  '황금 달콤 시리얼': { rank: '에픽 황금', price: 2590, base: '달콤 시리얼', powderPerItem: 1/13 },
+  '황금 로스트 치킨 파이': { rank: '에픽 황금', price: 1931, base: '로스트 치킨 파이', powderPerItem: 1/13 },
+  '황금 스윗 치킨 햄버거': { rank: '전설 황금', price: 2166, base: '스윗 치킨 햄버거', powderPerItem: 1/10 },
+  '황금 토마토 파인애플 피자': { rank: '전설 황금', price: 1752, base: '토마토 파인애플 피자', powderPerItem: 1/10 },
+  '황금 양파 수프': { rank: '전설 황금', price: 2363, base: '양파 수프', powderPerItem: 1/10 },
+  '황금 허브 삼겹살 찜': { rank: '전설 황금', price: 1278, base: '허브 삼겹살 찜', powderPerItem: 1/10 },
+  '황금 토마토 라자냐': { rank: 'MYTHIC 황금', price: 1998, base: '토마토 라자냐', powderPerItem: 1/10 },
+  '황금 딥 크림 빠네': { rank: 'MYTHIC 황금', price: 3167, base: '딥 크림 빠네', powderPerItem: 1/10 },
+  '황금 트리플 소갈비 꼬치': { rank: 'MYTHIC 황금', price: 3850, base: '트리플 소갈비 꼬치', powderPerItem: 1/10 },
 };
 
 const USER_SHOP = {
@@ -224,7 +224,10 @@ function getGoldenModeForItem(name){
 function goldenModeLabel(mode){
   return mode === 'single' ? '개별 제작' : '대량 제작';
 }
-function getSalePrice(name){ return state.prices[name] !== undefined && state.prices[name] !== '' ? Number(state.prices[name]) : SALE_ITEMS[name].price; }
+function getSalePrice(name){
+  if (DISH_NAMES.has(name)) return window.DDING_DISH_PRICES?.getPrice(name) ?? SALE_ITEMS[name].price;
+  return state.prices[name] !== undefined && state.prices[name] !== '' ? Number(state.prices[name]) : SALE_ITEMS[name].price;
+}
 function getReferencePrice(name){
   if (state.extraPrices[name] !== undefined && state.extraPrices[name] !== '') return Number(state.extraPrices[name]);
   if (REFERENCE_PRICES[name] !== undefined) return REFERENCE_PRICES[name];
@@ -271,7 +274,7 @@ function createSettingsTables(){
       <tr>
         <td><span class="item-mini-icon">${chipIcon(name)}</span><b>${esc(name)}</b></td>
         <td>${fmt(SALE_ITEMS[name].price)} G</td>
-        <td><input type="number" min="0" step="1" data-kind="prices" data-name="${esc(name)}" value="${getSalePrice(name)}"></td>
+        <td>${DISH_NAMES.has(name) ? `<strong>${fmt(getSalePrice(name))} G</strong><div class="mini-note">서버 공용 시세 · 관리자 페이지에서 변경</div>` : `<input type="number" min="0" step="1" data-kind="prices" data-name="${esc(name)}" value="${getSalePrice(name)}">`}</td>
       </tr>`).join('');
   };
 
@@ -493,7 +496,7 @@ function renderResults(){
           </div>
         </div>
       </td>
-      <td class="num"><span class="metric-value">${fmt(row.sale)} G</span></td>
+      <td class="num"><span class="metric-value">${fmt(row.sale)} G</span>${window.DDING_DISH_PRICES?.badge(row.name)||''}</td>
       <td class="num ${row.unitProfit >= 0 ? '' : 'minus'}"><span class="metric-value">${fmt(row.unitProfit,2)} G</span></td>
       <td class="num emphasis" title="판매가 × 제작 가능 정수 개수 − 확인된 재료비 × 제작 개수"><span class="metric-value">${Number.isFinite(row.efficiency) ? fmt(row.efficiency,2) + ' G' : '—'}<span class="cell-calc">판매 ${fmt(row.totalSales)}G − 비용 ${fmt(row.totalCosts,2)}G</span></span></td>
       <td class="num"><span class="metric-value">${row.craftable ?? '—'}개</span></td>
@@ -512,6 +515,8 @@ function renderQuick(){
   const row = computeRows().find(r => r.name === name);
   if (!row) return;
   $('quick-price').value = getSalePrice(name);
+  $('quick-price').readOnly = DISH_NAMES.has(name);
+  $('quick-price').title = DISH_NAMES.has(name) ? '요리 판매가는 관리자만 수정할 수 있습니다.' : '이 기기에서만 가격 조정';
   const mats = materialChips(row.displayMaterials);
   $('quick-view').innerHTML = `
     <div class="quick-grid">
@@ -530,7 +535,7 @@ function initQuick(){
   $('quick-item').addEventListener('change', renderQuick);
   $('quick-price').addEventListener('input', () => {
     const name = $('quick-item').value;
-    if (!name) return;
+    if (!name || DISH_NAMES.has(name)) return;
     state.prices[name] = Number($('quick-price').value || 0);
     remember();
     syncAllPriceInputs(name, state.prices[name]);
@@ -562,7 +567,7 @@ function bindEvents(){
     const kind = el.dataset.kind;
     const name = el.dataset.name;
     if (!kind) return;
-    if (kind === 'prices') { state.prices[name] = Number(el.value || 0); syncAllPriceInputs(name, state.prices[name]); }
+    if (kind === 'prices' && !DISH_NAMES.has(name)) { state.prices[name] = Number(el.value || 0); syncAllPriceInputs(name, state.prices[name]); }
     if (kind === 'stamina') state.stamina[name] = Number(el.value || 0);
     if (kind === 'drops') state.drops[name] = Number(el.value || 0);
     if (kind === 'special') {
@@ -605,6 +610,9 @@ function init(){
   $('planner-item').value = '토마토 라자냐';
   renderResults();
   renderPlanner();
+  window.addEventListener('dding-prices-updated', () => {
+    createSettingsTables();renderResults();renderQuick();renderPlanner();
+  });
 }
 
 function renderPlanner(){

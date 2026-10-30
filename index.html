@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f7f9fc">
   <meta name="description" content="띵타이쿤 세레니티 비공식 위키. 강화 연구소, 소담 주방, 채광 작업장, 농작물 상회 제작 레시피와 재료를 한눈에.">
   <title>띵타이쿤 WIKI | 세레니티 제작 도감</title>
-  <link rel="stylesheet" href="style.css?v=wiki11">
+  <link rel="stylesheet" href="style.css?v=wiki13">
 </head>
 <body>
   <header class="site-header">
@@ -21,6 +21,7 @@
         <kbd class="search-key">/</kbd>
         <div id="searchResults" class="search-results" hidden></div>
       </div>
+      <button type="button" id="headerLogin" class="account-nav-btn" aria-label="로그인">로그인</button>
       <a href="https://wiki.ddingtycoon.kr/" class="official-link" target="_blank" rel="noopener noreferrer">공식 위키 <span aria-hidden="true">↗</span></a>
     </div>
   </header>
@@ -30,7 +31,7 @@
       <div class="sidebar-inner">
         <div class="sidebar-caption">EXPLORE</div>
         <nav id="sideNavigation" class="sidebar-navigation"></nav>
-        <div class="sidebar-bottom"><span class="status-dot"></span> SERENITY ARCHIVE <span class="sidebar-version">v8.0</span></div>
+        <div class="sidebar-bottom"><span class="status-dot"></span> SERENITY ARCHIVE <span class="sidebar-version">v13.0</span></div>
       </div>
     </aside>
     <main id="app" class="main-content" tabindex="-1">
@@ -39,7 +40,10 @@
   </div>
   <footer class="site-footer">띵타이쿤 WIKI · 비공식 팬 제작 레시피 가이드 · 아이템 정보와 제작 재료는 게임 업데이트에 따라 달라질 수 있습니다.</footer>
   <div id="hoverTooltip" class="hover-tooltip" role="tooltip" aria-hidden="true"></div>
-  <script src="data.js?v=wiki11"></script>
-  <script src="wiki.js?v=wiki11" defer></script>
+  <script src="data.js?v=wiki13"></script>
+  <script src="supabase-config.js?v=wiki13"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+  <script src="dish-prices.js?v=wiki13"></script>
+  <script src="wiki.js?v=wiki13" defer></script>
 </body>
 </html>
