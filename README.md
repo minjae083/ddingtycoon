@@ -108,3 +108,9 @@ Light theme, previous 1,000 ST efficiency calculator restored under WIKI efficie
 - 이미지 및 전문가 iframe 캐시 버전을 `wiki10`으로 올려 구형 스크립트를 회피합니다.
 - 레벨별 상세 보기는 항상 펼쳐진 상태를 유지합니다.
 - 기존 문구, 강화/제작/효율 데이터는 변경하지 않았습니다.
+
+## v11 — 전문가 스킬 Supabase 클라우드 저장
+
+전문가 스킬 UI에 이메일 로그인과 서버 동기화 기능을 **선택적으로** 추가했습니다. 기존 로컬 레벨 저장 방식은 계속 동작합니다. 관리자 Supabase 프로젝트 연결 전에는 로그인은 비활성화되고 기기 저장만 사용됩니다.
+
+필요한 설정은 **`SUPABASE_SETUP_설치안내.md`** 를 확인하세요. 포함된 SQL로 사용자별 접근 제한(RLS)을 설정하고, `supabase-config.js`의 URL과 publishable key를 입력해야 실제 서버 저장이 시작됩니다. 위키 제작법과 원래 문구는 변경하지 않았습니다.

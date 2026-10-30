@@ -262,7 +262,7 @@
   }
   function renderSkills(){
     document.title='전문가 스킬 | 띵타이쿤 WIKI';
-    app.innerHTML=crumb([['전문가 스킬',null]])+`<div class="page-head expert-page-head"><span class="eyebrow">SERENITY · SKILL TREE</span><h1>전문가 스킬</h1><p>채광 · 재배 · 해양 · 사냥의 스킬 트리를 확인하고, 내 레벨과 앞으로 필요한 골드 및 어빌리티 스톤을 계산해 보세요.</p></div><section class="experts-frame-shell" aria-label="분야별 전문가 스킬 트리"><iframe id="expertsFrame" title="전문가 스킬 트리와 레벨 계산기" src="experts.html?v=wiki10" loading="eager" scrolling="no"></iframe></section>`;
+    app.innerHTML=crumb([['전문가 스킬',null]])+`<div class="page-head expert-page-head"><span class="eyebrow">SERENITY · SKILL TREE</span><h1>전문가 스킬</h1><p>채광 · 재배 · 해양 · 사냥의 스킬 트리를 확인하고, 내 레벨과 앞으로 필요한 골드 및 어빌리티 스톤을 계산해 보세요.</p></div><section class="experts-frame-shell" aria-label="분야별 전문가 스킬 트리"><iframe id="expertsFrame" title="전문가 스킬 트리와 레벨 계산기" src="experts.html?v=wiki11" loading="eager" scrolling="no"></iframe></section>`;
   }
   function renderSidebar(route){
     const categoryLinks=D.categories.map(c=>`<a class="nav-button ${route.id===c.id || (route.view==='facility'&&D.facilities[route.id]?.category===c.id) || (route.view==='compare'&&c.id==='compare')?'active':''}" href="${c.id==='compare'?'#/compare':catUrl(c.id)}"><span class="nav-symbol">${iconSvg(c.icon)}</span>${esc(c.title)}</a>`);

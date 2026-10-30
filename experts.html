@@ -136,12 +136,54 @@ body::before{display:none}
 @media(max-width:650px){.wrap{padding:1px 0 20px}.sum{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.sc{padding:10px 9px;min-height:66px}.sc b{font-size:12px}.tabs{gap:5px}.tab{font-size:12px;padding:9px 10px}.card{padding:11px}.tcard{padding:9px}.acts{gap:5px}.n.dim{opacity:.4}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 
+
+/* WIKI v11 · Supabase cloud progress. Does not alter the original skill tree. */
+.cloud-panel{border:1px solid #e4daf4;border-radius:17px;background:#fff;padding:15px 18px;margin:5px 0 17px;box-shadow:0 5px 18px #66528b0b}
+.cloud-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.cloud-head strong{font-size:15px;color:#3e3158}
+.cloud-head p{font-size:12px;color:#756b8e;line-height:1.5;margin:4px 0 0}
+.cloud-eyebrow{font-weight:700;font-size:10px;letter-spacing:.13em;color:#8864cb;margin-bottom:4px}
+.cloud-state{flex:none;border-radius:30px;background:#f4efff;color:#7654c3;font-weight:700;font-size:11px;border:1px solid #e2d5f7;padding:5px 9px;margin-top:3px}
+.cloud-state[data-kind="ok"]{background:#eef9f2;color:#28764e;border-color:#cbe8d2}
+.cloud-state[data-kind="warn"]{background:#fff7e7;color:#855b13;border-color:#f5dda9}
+.cloud-state[data-kind="error"]{background:#fff0f1;color:#af4054;border-color:#f0c6cd}
+.cloud-content{margin-top:12px}
+.cloud-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.cloud-form{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto;gap:8px;align-items:center}
+.cloud-input{min-width:0;width:100%;border:1px solid #daccf3;border-radius:10px;background:#fff;color:#302b45;padding:10px 11px;font:inherit;font-size:12px}
+.cloud-input:focus{outline:2px solid #a88ce9;outline-offset:1px}
+.cloud-btn{border:1px solid #d4c4ef;background:#f5f0ff;color:#6643ac;border-radius:10px;padding:9px 12px;min-height:37px;font:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.cloud-btn.primary{background:#805dce;border-color:#805dce;color:#fff}
+.cloud-btn:hover{filter:brightness(.97)}
+.cloud-btn:disabled{opacity:.5;cursor:wait}
+.cloud-link{border:0;padding:4px 2px;background:none;color:#7654c3;text-decoration:underline;cursor:pointer;font:inherit;font-size:12px}
+.cloud-small{font-size:12px;color:#6e6389;margin:7px 0 0;line-height:1.5}
+.cloud-account{font-size:13px;font-weight:700;color:#5f4692;word-break:break-all}
+.cloud-message{margin-top:8px;font-size:12px;line-height:1.5;color:#6b6383;min-height:0}
+.cloud-message:empty{display:none}
+.cloud-message[data-kind="error"]{color:#b34753}
+.cloud-message[data-kind="ok"]{color:#257d50}
+.cloud-conflict{border:1px solid #e5d5ae;border-radius:12px;background:#fffbf0;padding:12px;margin-top:8px}
+.cloud-conflict b{color:#765014;font-size:12px}
+.cloud-conflict p{font-size:12px;margin:5px 0 10px;color:#765c35}
+@media(max-width:780px){.cloud-form{grid-template-columns:1fr 1fr}.cloud-form .cloud-btn{grid-column:1/-1}.cloud-panel{padding:12px}.cloud-head{flex-wrap:wrap}}
+@media(max-width:420px){.cloud-form{grid-template-columns:1fr}.cloud-form .cloud-btn{grid-column:auto}}
+
 </style></head>
 <body>
 
 <div class="wrap">
   <nav class="tabs" id="tabs" aria-label="전문 분야 선택"></nav>
- <div class="title"><div class="eyebrow">EXPERT SKILL TREE</div><h1 id="tt"></h1><p>스킬을 선택해 레벨별 효과와 필요 골드·어빌리티 스톤을 확인하세요. 설정한 레벨은 이 브라우저에 저장됩니다.</p></div>
+ <div class="title"><div class="eyebrow">EXPERT SKILL TREE</div><h1 id="tt"></h1><p>스킬을 선택해 레벨별 효과와 필요 골드·어빌리티 스톤을 확인하세요. 설정한 레벨은 기기에 저장되며, 로그인하면 서버에도 동기화됩니다.</p></div>
+ 
+ <section class="cloud-panel" id="skillCloudPanel" aria-label="전문가 스킬 로그인과 동기화">
+   <div class="cloud-head">
+     <div><div class="cloud-eyebrow">MY SKILL PROGRESS</div><strong>내 전문가 스킬 · 계정 저장</strong><p>로그인하면 선택한 스킬 레벨을 서버에 저장하고 다른 기기에서도 이어서 사용할 수 있어요.</p></div>
+     <span id="cloudState" class="cloud-state">기기 저장 중</span>
+   </div>
+   <div id="cloudContent" class="cloud-content">기기에 저장된 스킬 레벨을 불러왔어요.</div>
+   <div class="cloud-message" id="cloudMessage" role="status" aria-live="polite"></div>
+ </section>
  <div class="sum" id="sum"></div>
  <div class="grid">
   <section class="card tcard"><div class="tool"><div class="flt" id="flt" role="group" aria-label="필터"></div><div class="mini" id="mini"></div></div><div class="board"><div class="tree" id="tree"></div></div></section>
@@ -288,7 +330,13 @@ const cb=(g,p,q)=>`<div class="costs"><div><i>🪙</i><span>골드</span><b>${q?
 const FL=[["all","전체"],["learned","배운 스킬"],["max","만렙"],["none","미습득"]];
 const pass=(f,l,s)=>f==="all"||(f==="learned"&&l>0)||(f==="max"&&l>=s.max)||(f==="none"&&l===0);
 const cs=()=>G[cur][sel[cur]||Object.keys(G[cur])[0]];
-function setLv(s,v){st[cur+s.id]=Math.max(0,Math.min(s.max,v));save();render()}
+/* Cloud adapter: preserve the existing localStorage save format and all 100 skill IDs. */
+window.DDING_SKILL_BRIDGE={
+  get:()=>({...st}),
+  replace:(incoming)=>{st={...incoming};save();render()},
+  maxLevels:()=>Object.fromEntries(Object.entries(G).flatMap(([k,group])=>Object.values(group).map(skill=>[k+skill.id,skill.max])))
+};
+function setLv(s,v){st[cur+s.id]=Math.max(0,Math.min(s.max,v));save();render();window.dispatchEvent(new Event('dding:skill-updated'))}
 function render(){
   const m=G[cur],all=Object.values(m),done=all.filter(s=>lv(cur,s.id)>0).length,full=all.filter(s=>lv(cur,s.id)>=s.max).length;
   const s=cs(),l=lv(cur,s.id),R=lvl(cur,s.id),mx=s.max;
@@ -349,4 +397,8 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("change",e=>{if(e.target.id==="tg"){tg[cur+cs().id]=+e.target.value;render()}});
 render();
-</script></body></html>
+</script>
+<script src="supabase-config.js?v=wiki11"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="expert-cloud.js?v=wiki11"></script>
+</body></html>
