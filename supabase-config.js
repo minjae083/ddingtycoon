@@ -3,6 +3,6 @@
 // 2. Project Settings → API Keys → publishable key (또는 legacy anon key)
 // 절대로 service_role, secret key 또는 데이터베이스 비밀번호를 입력하지 마세요.
 window.DDING_SUPABASE_CONFIG = {
-  url: "sb_publishable_D45rQoAgNL1BS13qQusE8A_esu0Ozkq",
-  publishableKey: ""
+  url: "https://qhukolaythwosttxndbm.supabase.co/rest/v1/",
+  publishableKey: "sb_publishable_D45rQoAgNL1BS13qQusE8A_esu0Ozkq"
 };
