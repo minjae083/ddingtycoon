@@ -312,7 +312,12 @@ for(const k in G){const rows=[];Object.values(G[k]).forEach(s=>(rows[s.d]=rows[s
  rows.forEach((r,d)=>{
   if(d===0){r.forEach((s,i)=>s.x=i*SP)}
   else{r.forEach(s=>s.dx=s.p.reduce((a,p)=>a+G[k][p].x,0)/s.p.length);
-   r.sort((a,b)=>a.dx-b.dx);let pv=-1e9;r.forEach(s=>{s.x=Math.max(s.dx,pv+SP);pv=s.x});
+   if(k==='cultivation' && d===2){
+     // 재배 3열: 쓸어담는 맛 / 4열: 자연이 주는 선물
+     const fixed={'4':0,'5':1,'7':2,'6':3,'8':4};
+     r.sort((a,b)=>(fixed[a.id]??99)-(fixed[b.id]??99));
+   } else r.sort((a,b)=>a.dx-b.dx);
+   let pv=-1e9;r.forEach(s=>{s.x=Math.max(s.dx,pv+SP);pv=s.x});
    const sh=r.reduce((a,s)=>a+s.dx-s.x,0)/r.length;r.forEach(s=>s.x+=sh)}
   r.forEach(s=>s.y=d*RH+PAD)});
  let mn=1e9,mx=-1e9;Object.values(G[k]).forEach(s=>{mn=Math.min(mn,s.x);mx=Math.max(mx,s.x)});

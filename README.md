@@ -114,3 +114,12 @@ Light theme, previous 1,000 ST efficiency calculator restored under WIKI efficie
 전문가 스킬 UI에 이메일 로그인과 서버 동기화 기능을 **선택적으로** 추가했습니다. 기존 로컬 레벨 저장 방식은 계속 동작합니다. 관리자 Supabase 프로젝트 연결 전에는 로그인은 비활성화되고 기기 저장만 사용됩니다.
 
 필요한 설정은 **`SUPABASE_SETUP_설치안내.md`** 를 확인하세요. 포함된 SQL로 사용자별 접근 제한(RLS)을 설정하고, `supabase-config.js`의 URL과 publishable key를 입력해야 실제 서버 저장이 시작됩니다. 위키 제작법과 원래 문구는 변경하지 않았습니다.
+
+## v13 — 요리 시세 (Supabase 관리자 수정)
+
+- 최신 일반·황금 요리 가격 총 30종 적용 및 비교 상승·하락 배지 추가.
+- 관리자만 가격을 바꿀 수 있는 Supabase SQL RPC 및 변경 이력 테이블 신규 추가.
+- EXPLORE → **요리 시세**에서 가격 조회, 관리자 로그인 후 3일마다 수동 갱신.
+- `V13_관리자_가격설정_안내.md`를 먼저 읽고 `supabase-prices.sql`을 Supabase SQL Editor에서 실행하세요.
+- **v12 상단 로그인 UI 패치 포함**. 이 버전을 설치한 뒤 예전 v12 패치를 덮어쓰지 마세요.
+- 기존 `supabase-config.js`의 프로젝트 URL과 Publishable Key를 보존하세요.

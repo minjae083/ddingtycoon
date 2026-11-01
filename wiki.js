@@ -286,8 +286,8 @@
   function renderMap(){
     document.title='세레니티 지도 | 띵타이쿤 WIKI';
     app.innerHTML=crumb([['지도',null]])+`<div class="page-head"><span class="eyebrow">SERENITY · WORLD MAP</span><h1>세레니티 지도</h1><p>마을, 농장, 광산, 양식장 등의 위치를 확인하세요. 확대하면 원본 이미지의 좌표를 더 크게 볼 수 있습니다.</p></div>
-      <section class="serenity-map-card" aria-label="세레니티 지도"><div class="serenity-map-bar"><strong>세레니티 전체 지도</strong><div class="serenity-map-tools"><button type="button" data-map-zoom="out" aria-label="지도 축소">−</button><span id="mapZoomLabel">100%</span><button type="button" data-map-zoom="in" aria-label="지도 확대">＋</button><button type="button" data-map-zoom="reset">맞춤</button><a href="assets/maps/serenity-map.png" target="_blank" rel="noopener" title="원본 크기로 열기">원본 보기 ↗</a></div></div>
-      <div class="serenity-map-viewport" id="serenityMapViewport" tabindex="0" aria-label="스크롤하여 지도를 탐색"><img id="serenityMapImage" src="assets/maps/serenity-map.png" alt="띵타이쿤 세레니티 전체 지도. 농장, 광산, 마을, 양식장 위치와 좌표가 표시된 게임 지도." draggable="false"></div></section>`;
+      <section class="serenity-map-card" aria-label="세레니티 지도"><div class="serenity-map-bar"><strong>세레니티 전체 지도</strong><div class="serenity-map-tools"><button type="button" data-map-zoom="out" aria-label="지도 축소">−</button><span id="mapZoomLabel">100%</span><button type="button" data-map-zoom="in" aria-label="지도 확대">＋</button><button type="button" data-map-zoom="reset">맞춤</button><a href="assets/maps/serenity-map.png?v=20261030-map-update" target="_blank" rel="noopener" title="원본 크기로 열기">원본 보기 ↗</a></div></div>
+      <div class="serenity-map-viewport" id="serenityMapViewport" tabindex="0" aria-label="스크롤하여 지도를 탐색"><img id="serenityMapImage" src="assets/maps/serenity-map.png?v=20261030-map-update" alt="띵타이쿤 세레니티 전체 지도. 농장, 광산, 마을, 양식장 위치와 좌표가 표시된 게임 지도." draggable="false"></div></section>`;
     mapScale=1;
   }
   function changeMapZoom(action){

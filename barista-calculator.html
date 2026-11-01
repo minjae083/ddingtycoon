@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FAF9FE">
+<title>띵타이쿤 바리스타 계산기</title>
+<script>if (window.parent!==window) document.documentElement.classList.add('wiki-embedded');</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+(function(){var t=null;try{t=localStorage.getItem('dd-barista-theme')}catch(e){}
+document.documentElement.classList.toggle('dark',t==='dark');})();
+</script>
+<style>
+:root{
+  --wall:#FAF9FE; --surface:#fff; --soft:#F5F1FF; --ink:#1E2340; --ink2:#6C7090;
+  --line:#E5DDF8; --line2:#B8A4EA; --accent:#7A4CC9; --accent-ink:#fff; --accent-bg:#EFE8FF;
+  --hero-a:#F1EBFF; --hero-b:#FBF9FF; --bar:#5B3BB0;
+  --shadow:0 1px 2px rgba(30,35,64,.04),0 10px 28px -20px rgba(60,40,120,.28);
+  --ease:cubic-bezier(.16,1,.3,1); color-scheme:light;
+}
+:root.dark{
+  --wall:#130F1F; --surface:#1C1730; --soft:#262040; --ink:#F1ECFF; --ink2:#A79FC4;
+  --line:#352C57; --line2:#6B58A8; --accent:#B79CF5; --accent-ink:#130F1F; --accent-bg:#2E2552;
+  --hero-a:#2A2247; --hero-b:#1C1730; --bar:#2E2552; --shadow:none; color-scheme:dark;
+}
+.g-base{--t:#2F9E6B} .g-rare{--t:#2B87C9} .g-epic{--t:#D6456A} .g-legend{--t:#C9951A} .g-mythic{--t:#8B5CD6}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--wall);-webkit-tap-highlight-color:transparent;accent-color:var(--accent)}
+body{min-height:100vh;background:var(--wall);color:var(--ink);font:14px/1.45 'SUIT Variable','SUIT',-apple-system,'Noto Sans KR',sans-serif;
+  word-break:keep-all;padding:24px 24px 56px;display:flex;flex-direction:column;align-items:center;gap:20px;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit} button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{width:100%;max-width:1480px}
+.eyebrow{display:block;font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+
+/* 아이콘 틀 (이미지는 ICON 객체에 넣으세요) */
+.slot{flex:none;width:40px;height:40px;display:grid;place-items:center;background:var(--soft);border:1.5px solid var(--line);border-radius:11px}
+.slot img{width:30px;height:30px;image-rendering:pixelated}
+.slot.sm{width:22px;height:22px;border-radius:7px;border-width:1px}.slot.sm img{width:16px;height:16px}
+.slot:empty::after{content:'';width:10px;height:10px;border-radius:3px;background:var(--line)}
+
+
+/* v22: keep existing layout, never display a blank image slot. */
+.barista-icon-stack{position:relative;display:inline-block;vertical-align:middle;flex:none;width:30px;height:30px;overflow:hidden}
+.barista-icon-stack .barista-local-icon{position:absolute;inset:0;width:100%!important;height:100%!important;image-rendering:pixelated}
+.barista-icon-stack .barista-official-strip{position:absolute;top:0;left:0;width:auto!important;height:auto!important;max-width:none;display:none;pointer-events:none;image-rendering:pixelated;mix-blend-mode:multiply}
+.barista-icon-stack.official-loaded .barista-official-strip{display:block}
+.slot.sm .barista-icon-stack{width:16px;height:16px}
+.brand .slot .barista-icon-stack{width:36px;height:36px}
+.oc-l .barista-icon-stack{width:18px;height:18px}
+.oc-l .barista-icon-stack span{overflow:visible;white-space:normal}
+.barista-generic{display:inline-grid;place-items:center;font-size:15px}
+
+/* 히어로 */
+.hero{display:flex;flex-wrap:wrap;gap:18px 28px;justify-content:space-between;align-items:flex-end;padding:26px 30px;
+  border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:var(--shadow)}
+.brand{display:flex;gap:16px;align-items:center}
+.brand .slot{width:52px;height:52px;border-radius:15px;background:var(--surface)}
+.brand .slot img{width:36px;height:36px}
+h1{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.15} h1 em{font-style:normal;color:var(--accent)}
+.sub{color:var(--ink2);margin-top:6px;font-size:13px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.chip{font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--accent)}
+.controls{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:flex-end}
+.ctl{display:flex;flex-direction:column;gap:6px}
+.ctl>label,.ctl>span{display:flex;gap:6px;align-items:center;font-size:12px;font-weight:700;color:var(--ink2)}
+.seg{display:flex;gap:2px;padding:3px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.seg label{display:flex}.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg b{display:flex;flex-direction:column;align-items:center;min-width:62px;padding:5px 10px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:800;color:var(--ink2);line-height:1.15;transition:.15s}
+.seg small{font-size:12px;font-weight:600}
+.seg input:checked+b{background:var(--accent);color:var(--accent-ink)}
+.seg input:focus-visible+b{outline:2px solid var(--accent);outline-offset:1px}
+select{height:42px;min-width:170px;padding:0 12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;font-weight:800;color:var(--accent)}
+.btn{height:42px;padding:0 14px;display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;font-weight:700;font-size:13px;color:var(--accent);white-space:nowrap;transition:.15s}
+.btn:hover{background:var(--soft);border-color:var(--accent)}
+.actions{display:flex;gap:8px}
+.tools{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;font-size:12px;color:var(--ink2)}
+.tools .btn{height:34px;font-size:12.5px}
+kbd{padding:0 5px;font:700 11px/1.5 inherit;color:var(--accent);background:var(--surface);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px}
+@media(hover:none),(pointer:coarse){.tools kbd,.kh{display:none}}
+
+/* 레이아웃 */
+.main{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start}
+.left{display:flex;flex-direction:column;gap:14px;min-width:0}
+.right{position:sticky;top:var(--stick,16px);display:flex;flex-direction:column;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.tier{padding:16px 14px 12px}
+.th{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 14px;padding:2px 8px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.tt{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.tt .slot.sm{border-color:color-mix(in srgb,var(--t) 40%,transparent)}
+.tc{font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;color:var(--t);background:color-mix(in srgb,var(--t) 12%,transparent);border:1px solid color-mix(in srgb,var(--t) 28%,transparent)}
+.lim{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;color:var(--ink2);font-variant-numeric:tabular-nums}
+.lim.free{font-weight:600}.lim.max{color:var(--t)}
+.pips{display:flex;gap:3px}.pip{width:9px;height:14px;border-radius:3px;background:var(--line);transition:.2s}.pip.on{background:var(--t)}
+.lock{display:none;align-items:center;flex-wrap:wrap;gap:8px 12px;font-size:13px;color:var(--ink2)}
+.lock button{padding:6px 12px;border:1px solid var(--line2);border-radius:10px;background:var(--surface);font-weight:800;font-size:12.5px;color:var(--accent)}
+.lock button:hover{background:var(--soft)}
+.tier.locked .lock{display:flex}.tier.locked .grid,.tier.locked .lim{display:none}
+.tier.locked .tt,.tier.locked .tc{color:var(--ink2)}.tier.locked .tc{background:var(--soft);border-color:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:2px 12px}
+.g-base .grid{grid-template-columns:minmax(0,520px)}
+.row{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:13px;transition:background .18s}
+.row:hover{background:var(--soft)}.row.has{background:color-mix(in srgb,var(--t) 7%,var(--surface))}
+.item{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.nm{display:block;font-size:14px;font-weight:700;letter-spacing:-.02em}
+.pr{font-size:12.5px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+.step{display:flex;align-items:center;gap:4px;margin-left:auto;flex:none}
+.step button{width:30px;height:30px;border:0;border-radius:9px;background:var(--soft);color:var(--ink2);font-weight:800;font-size:14px;transition:.15s}
+.step button.w{width:36px;font-size:12.5px}
+.row.has .step button{background:color-mix(in srgb,var(--t) 15%,var(--surface));color:var(--t)}
+.step button:hover:not(:disabled){background:var(--t);color:#fff}.step button:active:not(:disabled){transform:scale(.92)}
+.step button:disabled{opacity:.35;cursor:not-allowed}
+.step input{width:44px;height:30px;text-align:center;font-weight:800;font-variant-numeric:tabular-nums;background:var(--surface);border:1px solid var(--line2);border-radius:9px;appearance:textfield;-moz-appearance:textfield}
+.row:not(.has) .step input{color:var(--ink2);font-weight:700}
+.step input::-webkit-inner-spin-button{-webkit-appearance:none}
+.g-base .step input{width:60px}
+
+/* 재료 */
+.mats{padding:18px 20px 20px;display:flex;flex-direction:column;gap:14px}
+.mh{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.mh h2{font-size:17px;font-weight:800}.mh p{font-size:12px;color:var(--ink2)}
+.mg{font-size:12.5px;font-weight:800;color:var(--ink2);margin:10px 0 4px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0 28px}
+.mat{display:flex;align-items:center;gap:8px;padding:5px 0;min-width:0}
+.mn{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dots{flex:1;min-width:12px;margin-top:12px;border-bottom:2px dotted var(--line)}
+.mq{font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}.mq.hl{color:var(--accent)}
+.empty{padding:26px 12px;text-align:center;color:var(--ink2);background:var(--soft);border:1px dashed var(--line2);border-radius:14px;font-size:13px}
+
+/* 주문 카드 */
+.racts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rbtn{height:44px;border:1px solid var(--accent);border-radius:14px;font-weight:800;font-size:13.5px;background:var(--surface);color:var(--accent);transition:.15s}
+.rbtn.p{background:var(--accent);color:var(--accent-ink)}.rbtn:hover{filter:brightness(.95)}.rbtn:disabled{opacity:.7;cursor:progress}
+.stage{filter:drop-shadow(0 16px 22px rgba(91,59,176,.16))}
+#receipt-capture{border-radius:22px;overflow:hidden;background:#fff;color:#1E2340;font-family:'SUIT Variable','SUIT',-apple-system,'Noto Sans KR',sans-serif}
+.oc-top{padding:20px 22px 22px;background:linear-gradient(145deg,#5B3BB0,#8B5CD6);color:#fff}
+.oc-brand{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;font-weight:800;letter-spacing:.14em;opacity:.8}
+.oc-label{margin-top:20px;font-size:12px;font-weight:700;opacity:.8}
+.oc-total{font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-top:2px}
+.oc-total small{font-size:16px;font-weight:700;margin-left:4px;opacity:.85}
+.oc-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.oc-pill{padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.2);font-size:11.5px;font-weight:700}
+.oc-body{padding:18px 22px 4px}
+.oc-share{margin-bottom:18px}
+.oc-bar{display:flex;height:8px;border-radius:99px;overflow:hidden;background:#EEE9FA}.oc-bar i{display:block;height:100%}
+.oc-leg{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:9px;font-size:11px;font-weight:700;color:#6C7090}
+.oc-leg span{display:inline-flex;align-items:center;gap:5px}.oc-leg b{display:inline-block;width:7px;height:7px;border-radius:50%}
+.oc-g{margin-bottom:16px}
+.oc-gh{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:800;margin-bottom:4px}
+.oc-gh span{display:flex;align-items:center;gap:7px}.oc-gh i{display:block;width:4px;height:14px;border-radius:2px}
+.oc-gh em{font-style:normal;font-weight:700;color:#6C7090}
+.oc-r{display:grid;grid-template-columns:1fr 38px 96px;align-items:center;padding:7px 0;border-top:1px solid #F1EDFA;font-size:13px}
+.oc-l{display:flex;align-items:center;gap:6px;min-width:0;font-weight:600}.oc-l img{width:18px;height:18px;image-rendering:pixelated}
+.oc-l span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oc-q{text-align:center;color:#6C7090;font-weight:700}.oc-p{text-align:right;font-weight:800}
+.oc-e{padding:30px 0 26px;text-align:center;color:#6C7090;font-size:13px;line-height:1.7}
+.oc-foot{padding:12px 22px 18px;text-align:center;font-size:10.5px;font-weight:600;letter-spacing:.04em;color:#A3A5BC}
+.note{font-size:12px;color:var(--ink2);text-align:center;line-height:1.6}
+
+/* 토스트 · 붙여넣기 · 모바일 바 */
+.toast{position:fixed;left:50%;bottom:28px;z-index:50;display:flex;align-items:center;gap:14px;max-width:min(92vw,520px);padding:10px 18px;background:#2B2150;color:#fff;border-radius:14px;
+  font-weight:700;font-size:13.5px;opacity:0;pointer-events:none;transform:translate(-50%,16px);transition:.2s var(--ease)}
+.toast.show{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+.toast button{border:0;border-radius:9px;padding:7px 12px;background:rgba(255,255,255,.18);color:#fff;font-weight:800;white-space:nowrap}
+.toast button[hidden]{display:none}
+.panel{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(440px,calc(100vw - 32px));padding:14px;z-index:60;display:none;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:0 12px 40px rgba(60,30,120,.25)}
+.panel.show{display:block}.panel b{font-size:13px}
+.panel textarea{width:100%;min-height:120px;margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--wall);font:13px/1.5 ui-monospace,Menlo,monospace;resize:vertical}
+.panel .pa{display:flex;gap:8px;margin-top:10px}.panel .pa .btn{height:36px}.panel .pa i{flex:1}
+.mbar{display:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:1080px){.main{grid-template-columns:minmax(0,1fr) 340px;gap:18px}}
+@media(max-width:900px){
+  body{padding:16px 16px calc(104px + env(safe-area-inset-bottom))}
+  .main{grid-template-columns:1fr}.right{position:static;max-width:420px;width:100%;margin:0 auto}
+  .mbar{display:flex;justify-content:space-between;align-items:center;gap:12px;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:40;padding:10px 10px 10px 16px;background:var(--bar);color:#fff;border-radius:18px;box-shadow:0 12px 30px -10px rgba(60,30,120,.5)}
+  .mbar div{display:flex;flex-direction:column;line-height:1.2}.mbar small{font-size:12px}.mbar strong{font-size:17px}
+  .mbar a{padding:11px 14px;border-radius:12px;background:#fff;color:#5B3BB0;font-weight:800;font-size:13px;text-decoration:none}
+  .toast{bottom:calc(92px + env(safe-area-inset-bottom))}
+}
+@media(max-width:560px){
+  .hero{padding:20px 18px;border-radius:18px}h1{font-size:22px}
+  .controls,.ctl,.seg,select{width:100%}.seg label{flex:1}.seg b{min-width:0;flex:1}.actions{width:100%}.actions .btn{flex:1;justify-content:center}
+  .grid,.g-base .grid{grid-template-columns:1fr}.g-base .row{flex-wrap:wrap;row-gap:8px}.g-base .step{width:100%;justify-content:flex-end}
+  .step button{width:40px;height:40px}.step button.w{width:46px}.step input,.g-base .step input{width:54px;height:40px;font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* 띵타이쿤 WIKI 내부에서 표시할 때만 바깥 여백을 조정합니다. */
+html.wiki-embedded body{min-height:0;padding:5px 2px 24px;gap:16px;align-items:stretch}
+html.wiki-embedded .wrap{max-width:none}
+@media(max-width:900px){html.wiki-embedded body{padding:2px 0 90px}}
+
+/* v24: compact facility navigator and on-hover crafting cards */
+[hidden]{display:none!important}
+.facility-tabs{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:var(--surface);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}
+.facility-tabs button{border:1px solid var(--line);background:var(--soft);border-radius:10px;color:var(--ink2);font-weight:800;padding:10px 17px;cursor:pointer}
+.facility-tabs button.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.facility-hint{color:var(--ink2);font-size:11px;margin-left:auto}
+.recipe-trigger{cursor:help}
+.recipe-trigger:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.barista-recipe-tooltip{position:fixed;z-index:999999;width:min(310px,calc(100vw - 20px));max-height:min(380px,calc(100vh - 20px));overflow:auto;padding:13px 14px;border-radius:14px;background:var(--surface);color:var(--ink);border:1px solid var(--line2);box-shadow:0 12px 36px rgba(43,28,96,.25);pointer-events:none}
+.barista-recipe-tooltip .tip-header{display:flex;gap:10px;align-items:center;margin-bottom:8px;font-size:14px;font-weight:800}
+.barista-recipe-tooltip .tip-header img{height:37px;width:37px;object-fit:contain;image-rendering:pixelated;border:1px solid var(--line);border-radius:10px;background:var(--soft);padding:3px}
+.barista-recipe-tooltip .tip-tier{font-size:11px;font-weight:700;color:var(--accent);margin-top:2px}
+.barista-recipe-tooltip .tip-ingredient{display:flex;align-items:center;gap:7px;padding:5px 0;border-top:1px solid var(--line);font-size:12px}
+.barista-recipe-tooltip .tip-ingredient img{width:23px;height:23px;object-fit:contain;image-rendering:pixelated}
+.barista-recipe-tooltip .tip-ingredient strong{margin-left:auto;white-space:nowrap;color:var(--accent)}
+.barista-recipe-tooltip .tip-sub{margin-top:2px;font-size:10px;color:var(--ink2)}
+.mixer-panel{padding:22px}.mixer-head h2{font-size:19px;margin-bottom:4px}.mixer-head p{font-size:12px;color:var(--ink2)}
+.mixer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:15px}
+.mixer-entry{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--wall);padding:12px;border-radius:12px;min-width:0;text-align:left;cursor:pointer}
+.mixer-entry:hover,.mixer-entry:focus-visible{border-color:var(--accent);background:var(--soft)}
+.mixer-entry>.slot{width:46px;height:46px}
+.mixer-entry>.slot img{width:35px;height:35px}
+.mixer-entry-name{display:block;font-weight:800}.mixer-entry-sub{display:block;font-size:11px;color:var(--ink2);margin-top:3px}
+@media(max-width:720px){.facility-hint{width:100%;margin:0 2px}.mixer-panel{padding:15px}}
+
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <div>
+    <div class="brand">
+      <span class="slot" id="brand-ic"></span>
+      <div>
+        <span class="eyebrow">SERENITY · BARISTA GUIDE</span>
+        <h1>띵타이쿤 <em>바리스타 계산기</em></h1>
+      </div>
+    </div>
+    <p class="sub">만들 커피를 고르면 필요한 재료와 매출이 바로 계산돼요.</p>
+        <div class="tools">
+      <button type="button" class="btn" id="paste-btn">붙여넣기</button>
+      <span>커피 이름과 잔 수가 적힌 글이면 OK <span class="kh">· 수량 칸에서 <kbd>↑</kbd><kbd>↓</kbd> 1잔, <kbd>PgUp</kbd><kbd>PgDn</kbd> 5잔</span></span>
+    </div>
+  </div>
+  <div class="controls">
+    <div class="ctl">
+      <span><i class="slot sm" id="ic-barista"></i>프로 바리스타</span>
+      <div class="seg" role="radiogroup" aria-label="프로 바리스타 레벨">
+        <label><input type="radio" name="barista" value="0" checked><b>기본<small>샐리</small></b></label>
+        <label><input type="radio" name="barista" value="1"><b>1 LV<small>빈센트</small></b></label>
+        <label><input type="radio" name="barista" value="2"><b>2 LV<small>웬디</small></b></label>
+        <label><input type="radio" name="barista" value="3"><b>3 LV<small>아이비</small></b></label>
+      </div>
+    </div>
+    <div class="ctl">
+      <label for="buff"><i class="slot sm" id="ic-buff"></i>커피값이 밥값</label>
+      <select id="buff">
+        <option value="0">0 LV (+0%)</option><option value="0.01">1 LV (+1%)</option><option value="0.02">2 LV (+2%)</option>
+        <option value="0.03">3 LV (+3%)</option><option value="0.04">4 LV (+4%)</option><option value="0.05">5 LV (+5%)</option>
+        <option value="0.06">6 LV (+6%)</option><option value="0.10">7 LV (+10%)</option><option value="0.15">8 LV (+15%)</option>
+        <option value="0.30">9 LV (+30%)</option><option value="0.50">10 LV (+50% / MAX)</option>
+      </select>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn" id="theme-btn">다크 모드</button>
+      <button type="button" class="btn" id="reset-btn">전체 초기화</button>
+    </div>
+  </div>
+</header>
+
+<div class="main wrap">
+  <main class="left">
+    <nav class="facility-tabs" aria-label="바리스타 제작시설 선택">
+      <button type="button" id="tab-coffee" class="active" aria-pressed="true">커피머신</button>
+      <button type="button" id="tab-mixer" aria-pressed="false">믹서기</button>
+      <span class="facility-hint">아이콘에 마우스를 올리면 제작법을 볼 수 있어요.</span>
+    </nav>
+    <div id="coffee-panel"><div id="tiers" class="left"></div></div>
+    <section id="mixer-panel" class="card mixer-panel" hidden>
+      <div class="mixer-head"><span class="eyebrow">SERENITY · MIXER</span><h2>믹서기 제작법</h2><p>분말과 큐브 10종 · 이미지를 클릭하거나 올리면 상세 재료를 볼 수 있어요.</p></div>
+      <div id="mixer-grid" class="mixer-grid"></div>
+    </section>
+    <section class="card mats">
+      <div class="mh"><div><span class="eyebrow">SERENITY · MATERIALS</span><h2>필요한 재료</h2></div><p>64개 = 1세트, 54세트 = 1상자</p></div>
+      <div id="mats"></div>
+    </section>
+  </main>
+  <aside class="right" id="receipt">
+    <div class="racts">
+      <button type="button" class="rbtn p" id="save-btn">이미지 저장</button>
+      <button type="button" class="rbtn" id="copy-btn">이미지 복사</button>
+    </div>
+    <div class="stage"><div id="receipt-capture">
+      <div class="oc-top">
+        <div class="oc-brand"><span>DDINGTYCOON BARISTA</span><span id="rc-date"></span></div>
+        <div class="oc-label">총 판매 예상 금액</div>
+        <div class="oc-total" id="rc-total">0 <small>G</small></div>
+        <div class="oc-pills"><span class="oc-pill" id="rc-cups">0잔</span><span class="oc-pill">커피값이 밥값 <span id="rc-lv">Lv.0</span> · <span id="rc-rate">+0%</span></span></div>
+      </div>
+      <div class="oc-body"><div id="rc-share"></div><div id="rc-body"></div></div>
+      <div class="oc-foot">SERENITY MAIN STREET</div>
+    </div></div>
+    <p class="note">띵타이쿤 비공식 팬사이트예요.<br>문의는 공식 디스코드 게시글이나 인게임 셀린에게 남겨 주세요.</p>
+  </aside>
+</div>
+
+<div class="mbar"><div><small id="mb-c">0잔</small><strong id="mb-t">0 G</strong></div><a href="#receipt">주문 카드 보기</a></div>
+<div class="toast" id="toast" role="status"><span id="toast-msg"></span><button type="button" id="toast-act" hidden></button></div>
+<div class="panel" id="panel" role="dialog" aria-label="붙여넣기">
+  <b>복사한 주문 글</b>
+  <textarea id="paste-text" placeholder="여기에 붙여넣기 (길게 눌러 붙여넣기)"></textarea>
+  <div class="pa"><button type="button" class="btn" id="paste-sample">예시</button><i></i><button type="button" class="btn" id="paste-close">닫기</button><button type="button" class="btn" id="paste-go" style="background:var(--accent);color:var(--accent-ink)">채우기</button></div>
+</div>
+<p class="sr" id="sr" aria-live="polite"></p>
+<div id="barista-recipe-tooltip" class="barista-recipe-tooltip" role="tooltip" hidden></div>
+
+<script>
+/* ═════════ 아이콘: 여기에 이미지 주소(data URI 또는 경로)를 넣으세요. 비워 두면 빈 틀로 보여요 ═════════ */
+const ICON = {
+  "brand": "assets/tools/커피_머신_모듈.png",
+  "barista": "assets/expert_skills/skill_019.png",
+  "buff": "assets/expert_skills/skill_017.png",
+  "t_base": "assets/barista/t_base.png",
+  "t_rare": "assets/barista/t_rare.png",
+  "t_epic": "assets/barista/t_epic.png",
+  "t_legend": "assets/barista/t_legend.png",
+  "t_mythic": "assets/barista/t_mythic.png",
+  "base_1": "assets/barista/base_1.png",
+  "rare_1": "assets/barista/rare_1.png",
+  "rare_2": "assets/barista/rare_2.png",
+  "rare_3": "assets/barista/rare_3.png",
+  "rare_4": "assets/barista/rare_4.png",
+  "rare_5": "assets/barista/rare_5.png",
+  "rare_6": "assets/barista/rare_6.png",
+  "epic_1": "assets/barista/epic_1.png",
+  "epic_2": "assets/barista/epic_2.png",
+  "epic_3": "assets/barista/epic_3.png",
+  "epic_4": "assets/barista/epic_4.png",
+  "epic_5": "assets/barista/epic_5.png",
+  "epic_6": "assets/barista/epic_6.png",
+  "leg_1": "assets/barista/leg_1.png",
+  "leg_2": "assets/barista/leg_2.png",
+  "leg_3": "assets/barista/leg_3.png",
+  "leg_4": "assets/barista/leg_4.png",
+  "leg_5": "assets/barista/leg_5.png",
+  "leg_6": "assets/barista/leg_6.png",
+  "myth_1": "assets/barista/myth_1.png",
+  "myth_2": "assets/barista/myth_2.png",
+  "myth_3": "assets/barista/myth_3.png",
+  "myth_4": "assets/barista/myth_4.png",
+  "myth_5": "assets/barista/myth_5.png",
+  "myth_6": "assets/barista/myth_6.png",
+  "coffee": "assets/barista/coffee.png",
+  "milk": "assets/barista/milk.png",
+  "mug": "assets/tools/머그컵.png",
+  "glass": "assets/tools/유리컵.png",
+  "hot_cube": "assets/barista/hot_cube.png",
+  "cold_cube": "assets/barista/cold_cube.png",
+  "black": "assets/barista/black.png",
+  "choco": "assets/barista/choco.png",
+  "white": "assets/barista/white.png",
+  "snow": "assets/barista/snow.png",
+  "char": "assets/barista/char.png",
+  "mush": "assets/barista/mush.png",
+  "stone": "assets/barista/stone.png",
+  "green": "assets/barista/green.png",
+  "poppy": "assets/barista/poppy.png",
+  "rod": "assets/barista/rod.png",
+  "leaf": "assets/barista/leaf.png",
+  "deepslate": "assets/barista/deepslate.png",
+  "cookie": "assets/barista/cookie.png",
+  "obsidian": "assets/barista/obsidian.png",
+  "grass": "assets/barista/grass.png",
+  "cherry": "assets/barista/cherry.png",
+  "diorite": "assets/barista/diorite.png",
+  "door": "assets/barista/door.png",
+  "amethyst": "assets/barista/amethyst.png",
+  "carrot": "assets/barista/carrot.png",
+  "brown_mushroom": "assets/barista/brown_mushroom.png",
+  "bamboo": "assets/barista/bamboo.png",
+  "magma": "assets/barista/magma.png",
+  "ice": "assets/barista/ice.png",
+  "ink_sac": "assets/barista/ink_sac.png",
+  "cocoa_beans": "assets/barista/cocoa_beans.png",
+  "bone_meal": "assets/barista/bone_meal.png",
+  "sugar_cane": "assets/barista/sugar_cane.png",
+  "charcoal": "assets/barista/charcoal.png",
+  "stone_block": "assets/barista/stone_block.png"
+};
+/* ════════════════════════════════════════════════════════════════════════════ */
+
+const $ = s => document.querySelector(s);
+const nf = new Intl.NumberFormat('ko-KR');
+const gold = n => nf.format(n) + ' G';
+// v24: supplied local pixel sprites take precedence; no external image strips.
+const img = k => ICON[k] ? `<img src="${ICON[k]}?v=24" alt="" loading="lazy" decoding="async">` : '';
+const TIER_CAP = 6, BASE_MAX = 9999;
+const TIERS = ['base','rare','epic','legend','mythic'];
+const META = {
+  base:  {title:'기본 메뉴', npc:'기본',  chip:'',        lv:0},
+  rare:  {title:'샐리',     npc:'샐리',  chip:'C급 레어', lv:0},
+  epic:  {title:'빈센트',   npc:'빈센트', chip:'B급 에픽', lv:1},
+  legend:{title:'웬디',     npc:'웬디',  chip:'A급 전설', lv:2},
+  mythic:{title:'아이비',   npc:'아이비', chip:'S급 신화', lv:3}
+};
+const RECIPE = { rare:{coffee:3,cube:2,powder:3,milk:0}, epic:{coffee:8,cube:4,powder:8,milk:2},
+                 legend:{coffee:12,cube:6,powder:12,milk:4}, mythic:{coffee:16,cube:8,powder:16,milk:6} };
+/* [id, 이름, 기본가, 컵, 분말, 특수재료, 특수재료 수량] */
+const MENU = {
+  rare:[['rare_1','블랙 커피',40888,'mug','black'],['rare_2','카페 모카',30666,'mug','choco'],['rare_3','화이트 모카',25555,'mug','white'],
+        ['rare_4','드립 커피',35777,'glass','snow'],['rare_5','콜드 브루',51110,'glass','char'],['rare_6','아메리카노',45999,'glass','mush']],
+  epic:[['epic_1','플랫 마끼아또',73471,'mug','white'],['epic_2','머쉬룸 마끼아또',81457,'mug','mush'],['epic_3','코코아 마끼아또',49513,'mug','choco'],
+        ['epic_4','돌체 라떼',60694,'glass','stone'],['epic_5','그린티 라떼',39930,'glass','green'],['epic_6','우드 라떼',91040,'glass','char']],
+  legend:[['leg_1','플라워 카푸치노',59096,'mug','snow','poppy',2],['leg_2','썬더 카푸치노',113401,'mug','char','rod',1],['leg_3','가든 카푸치노',71874,'mug','green','leaf',4],
+          ['leg_4','스톤 블렌디드',102221,'glass','stone','deepslate',4],['leg_5','쿠키 블렌디드',84652,'glass','choco','cookie',1],['leg_6','다크 블렌디드',124582,'glass','black','obsidian',1]],
+  mythic:[['myth_1','그린 트리 프라페',89443,'glass','green','grass',4],['myth_2','체리 블로썸 프라페',71874,'glass','white','cherry',4],['myth_3','프로즌 스노우 프라페',145665,'glass','snow','diorite',4],
+          ['myth_4','실버문 아인슈페너',107012,'mug','stone','door',1],['myth_5','오로라 아인슈페너',160998,'mug','black','amethyst',2],['myth_6','골든 아인슈페너',130332,'mug','mush','carrot',4]]
+};
+const COFFEE = { base_1:{tier:'base',npc:'기본',name:'인스턴트 커피',price:20000,fixed:true,coffee:10,milk:0,cube:0,cup:null,powder:null,pq:0,sp:null,spq:0} };
+for (const t in MENU) MENU[t].forEach(([id,name,price,cup,powder,sp,spq]) => {
+  const r = RECIPE[t];
+  COFFEE[id] = {tier:t,npc:META[t].npc,name,price,fixed:false,coffee:r.coffee,milk:r.milk,cube:r.cube,cup,powder,pq:r.powder,sp:sp||null,spq:spq||0};
+});
+const MATS = [
+  {title:'베이스 & 컵', items:[['coffee','커피 가루',1],['milk','스팀 우유',1],['mug','머그컵'],['glass','유리잔'],['hot_cube','뜨거운 큐브'],['cold_cube','차가운 큐브']]},
+  {title:'분말', items:[['black','검정 분말'],['choco','초코 분말'],['white','순백 분말'],['snow','눈꽃 분말'],['char','숯 분말'],['mush','버섯 분말'],['stone','돌 분말'],['green','녹색 분말']]},
+  {title:'전설 특수 재료', items:[['poppy','양귀비',1],['rod','피뢰침',1],['leaf','짙은 참나무 잎',1],['deepslate','심층암',1],['cookie','쿠키',1],['obsidian','흑요석',1]]},
+  {title:'신화 특수 재료', items:[['grass','키 작은 잔디',1],['cherry','벚나무 원목',1],['diorite','섬록암',1],['door','철 문',1],['amethyst','자수정 블록',1],['carrot','황금 당근',1]]}
+];
+const IDS = Object.keys(COFFEE);
+const STORE = 'dd-barista-v2', THEME = 'dd-barista-theme';
+let ready = false, lastR = null, undoSnap = null, undoKind = null, tTimer = null, aTimer = null;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+// Crafting ingredients for the mixer. Inputs are per one finished unit.
+const MIXER = {
+  hot_cube: {name:'뜨거운 큐브', mats:[['magma',4]]},
+  cold_cube:{name:'차가운 큐브', mats:[['ice',4]]},
+  black:{name:'검정 분말', mats:[['ink_sac',4]]},
+  choco:{name:'초코 분말', mats:[['cocoa_beans',16]]},
+  white:{name:'순백 분말', mats:[['bone_meal',8]]},
+  snow:{name:'눈꽃 분말', mats:[['sugar_cane',8]]},
+  char:{name:'숯 분말', mats:[['charcoal',4]]},
+  mush:{name:'버섯 분말', mats:[['brown_mushroom',4]]},
+  stone:{name:'돌 분말', mats:[['stone_block',16]]},
+  green:{name:'녹색 분말', mats:[['bamboo',16]]}
+};
+const MAT_NAMES = Object.fromEntries(MATS.flatMap(g=>g.items.map(([id,name])=>[id,name])));
+Object.assign(MAT_NAMES,{magma:'마그마 블록',ice:'얼음',ink_sac:'먹물 주머니',cocoa_beans:'코코아 콩',bone_meal:'뼛가루',sugar_cane:'사탕수수',charcoal:'숯',brown_mushroom:'갈색 버섯',stone_block:'돌',bamboo:'대나무'});
+function coffeeRecipe(id){
+  const c=COFFEE[id]; if(!c)return null;
+  const mats=[];
+  if(c.cup)mats.push([c.cup,1]);
+  mats.push(['coffee',c.coffee]);
+  if(c.cube)mats.push([c.cup==='mug'?'hot_cube':'cold_cube',c.cube]);
+  if(c.milk)mats.push(['milk',c.milk]);
+  if(c.powder)mats.push([c.powder,c.pq]);
+  if(c.sp)mats.push([c.sp,c.spq]);
+  return {name:c.name,tier:c.fixed?'인스턴트 커피':META[c.tier].chip || META[c.tier].title,mats,bulk:c.fixed};
+}
+function craftRecipe(key){return MIXER[key]?{...MIXER[key],tier:'믹서기 제작법'}:coffeeRecipe(key);}
+function innerTip(key){
+  const r=craftRecipe(key);if(!r)return '';
+  const esc = s => String(s).replace(/[&<>\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]||ch));
+  const head = `<div class="tip-header">${img(key)}<div>${esc(r.name)}<div class="tip-tier">${esc(r.tier)}</div></div></div>`;
+  const lines=r.mats.map(([k,q])=>`<div class="tip-ingredient">${img(k)}<span>${esc(MAT_NAMES[k]||k)}${MIXER[k]?`<div class="tip-sub">${esc(MAT_NAMES[MIXER[k].mats[0][0]])} ×${MIXER[k].mats[0][1]} → 1개</div>`:''}</span><strong>×${q}</strong></div>`).join('');
+  return head+lines+(r.bulk?'<div class="tip-sub">5개 묶음: 커피 가루 ×50</div>':'');
+}
+const recipeTooltip = document.getElementById('barista-recipe-tooltip');
+let tipAnchor=null;
+function placeTip(anchor){
+  if(!anchor||recipeTooltip.hidden)return;
+  const box=anchor.getBoundingClientRect(),width=recipeTooltip.offsetWidth,height=recipeTooltip.offsetHeight;
+  const x=Math.max(8,Math.min(innerWidth-width-8,box.right+10));
+  const y=Math.max(8,Math.min(innerHeight-height-8,box.top));
+  recipeTooltip.style.left=x+'px';recipeTooltip.style.top=y+'px';
+}
+function showTip(el){
+  const key=el.dataset.recipe;if(!key)return;
+  const html=innerTip(key);if(!html)return;
+  tipAnchor=el;recipeTooltip.innerHTML=html;recipeTooltip.hidden=false;placeTip(el);
+}
+function hideTip(){tipAnchor=null;recipeTooltip.hidden=true;}
+document.addEventListener('pointerover',e=>{const el=e.target.closest('[data-recipe]');if(el&&el!==tipAnchor)showTip(el);});
+document.addEventListener('pointerout',e=>{if(tipAnchor&&(e.target===tipAnchor||tipAnchor.contains(e.target))){if(!e.relatedTarget||!tipAnchor.contains(e.relatedTarget))hideTip();}});
+document.addEventListener('focusin',e=>{const el=e.target.closest('[data-recipe]');if(el)showTip(el);});
+document.addEventListener('focusout',e=>{if(tipAnchor&&(!e.relatedTarget||!tipAnchor.contains(e.relatedTarget)))hideTip();});
+addEventListener('scroll',()=>placeTip(tipAnchor),true);
+addEventListener('resize',()=>placeTip(tipAnchor));
+const MIXER_KEYS=Object.keys(MIXER);
+function buildMixer(){
+  document.getElementById('mixer-grid').innerHTML=MIXER_KEYS.map(k=>{
+    const r=MIXER[k];return `<button type="button" class="mixer-entry recipe-trigger" data-recipe="${k}" aria-label="${r.name} 제작법"><span class="slot">${img(k)}</span><span><span class="mixer-entry-name">${r.name}</span><span class="mixer-entry-sub">${MAT_NAMES[r.mats[0][0]]} ×${r.mats[0][1]} → 1개</span></span></button>`;
+  }).join('');
+}
+function switchFacility(mixer){
+  document.getElementById('coffee-panel').hidden=mixer;
+  document.getElementById('mixer-panel').hidden=!mixer;
+  for(const [key,active] of [['coffee',!mixer],['mixer',mixer]]){
+    const b=document.getElementById('tab-'+key);b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));
+  }
+  hideTip();
+  try{window.parent?.postMessage({type:'dding-barista-measure'},'*')}catch(e){}
+}
+document.getElementById('tab-coffee').onclick=()=>switchFacility(false);
+document.getElementById('tab-mixer').onclick=()=>switchFacility(true);
+
+/* ── 화면 만들기 ───────────────────────── */
+function build() {
+  $('#brand-ic').innerHTML = img('brand'); $('#ic-barista').innerHTML = img('barista'); $('#ic-buff').innerHTML = img('buff');
+  $('#tiers').innerHTML = TIERS.map(t => {
+    const m = META[t], base = t === 'base';
+    const rows = IDS.filter(id => COFFEE[id].tier === t).map(id => {
+      const c = COFFEE[id];
+      const b = (d, l, w) => `<button type="button" tabindex="-1" data-id="${id}" data-d="${d}" class="${w ? 'w' : ''}" aria-label="${c.name} ${Math.abs(d)}잔 ${d < 0 ? '빼기' : '더하기'}">${l}</button>`;
+      return `<div class="row"><div class="item"><span class="slot recipe-trigger" tabindex="0" data-recipe="${id}" aria-label="${c.name} 제작법">${img(id)}</span><div><span class="nm">${c.name}</span><span class="pr" id="pr_${id}"></span></div></div>` +
+        `<div class="step">${base ? b(-5,'−5',1) : ''}${b(-1,'−')}<input type="number" id="${id}" class="qty" inputmode="numeric" autocomplete="off" min="0" max="${base ? BASE_MAX : TIER_CAP}" value="0" aria-label="${c.name} 수량">${b(1,'+')}${base ? b(5,'+5',1) : ''}</div></div>`;
+    }).join('');
+    return `<section class="card tier g-${t}" id="card-${t}"><div class="th"><h2 class="tt"><span class="slot sm">${img('t_' + t)}</span>${m.title}${m.chip ? `<span class="tc">${m.chip}</span>` : ''}</h2>` +
+      (base ? `<div class="lim free">잔 수 제한 없음, 판매가 고정</div>` : `<p class="lock">프로 바리스타 ${m.lv} LV부터 만들 수 있어요<button type="button" data-unlock="${m.lv}" data-card="${t}">${m.lv} LV로 바꾸기</button></p><div class="lim" id="lim-${t}"></div>`) +
+      `</div><div class="grid">${rows}</div></section>`;
+  }).join('');
+}
+
+/* ── 상태 ───────────────────────────────── */
+const qtyOf = id => Math.max(0, parseInt($('#' + id).value, 10) || 0);
+const tierSum = (t, except) => IDS.reduce((s, id) => s + (COFFEE[id].tier === t && id !== except ? qtyOf(id) : 0), 0);
+const maxFor = id => { const t = COFFEE[id].tier; return t === 'base' ? BASE_MAX : TIER_CAP - tierSum(t, id); };
+const lvl = () => parseInt($('input[name=barista]:checked').value, 10) || 0;
+const buff = () => parseFloat($('#buff').value) || 0;
+const unit = c => c.fixed ? c.price : Math.round(c.price * (1 + buff()));
+function readState() { const qty = {}; IDS.forEach(id => qty[id] = qtyOf(id)); return {qty, barista: String(lvl()), buff: $('#buff').value}; }
+function writeState(s) {
+  if (!s) return;
+  if (s.buff != null) { $('#buff').value = String(s.buff); if ($('#buff').selectedIndex < 0) $('#buff').value = '0'; }
+  IDS.forEach(id => { const v = parseInt((s.qty || {})[id], 10) || 0; $('#' + id).value = Math.min(Math.max(0, v), id === 'base_1' ? BASE_MAX : TIER_CAP); });
+  const r = document.querySelector(`input[name=barista][value="${s.barista}"]`); if (r) r.checked = true;
+}
+const save = () => { try { localStorage.setItem(STORE, JSON.stringify(readState())); } catch (e) {} };
+const load = () => { try { writeState(JSON.parse(localStorage.getItem(STORE))); } catch (e) {} };
+
+/* ── 토스트 / 되돌리기 ─────────────────── */
+function toast(msg, act) {
+  const el = $('#toast'), b = $('#toast-act');
+  $('#toast-msg').textContent = msg;
+  if (act) { b.textContent = '되돌리기'; b.hidden = false; b.onclick = () => { hideToast(); restore(act); }; } else { b.hidden = true; undoSnap = null; }
+  el.classList.add('show'); clearTimeout(tTimer); tTimer = setTimeout(hideToast, act ? 6000 : 2600);
+}
+function hideToast() { $('#toast').classList.remove('show'); undoSnap = null; }
+function offerUndo(msg, snap, kind) { toast(msg, snap); undoSnap = snap; undoKind = kind || null; }
+function restore(s) { writeState(s); render(); toast('되돌렸어요'); }
+
+/* ── 입력 처리 ──────────────────────────── */
+function capMsg(id, val, changed) {
+  const t = COFFEE[id].tier;
+  if (t === 'base') return toast(`인스턴트 커피는 ${nf.format(BASE_MAX)}잔까지 계산할 수 있어요.`);
+  toast(`${META[t].npc} 메뉴는 합쳐서 ${TIER_CAP}잔까지예요.` + (changed ? ` ${val}잔으로 맞췄어요.` : ''));
+  const l = $('#lim-' + t); if (l && l.animate && !reduced) l.animate([{transform:'none'},{transform:'translateX(-4px)'},{transform:'translateX(3px)'},{transform:'none'}], {duration:360});
+}
+function change(id, d) {
+  const cur = qtyOf(id); let next = Math.max(0, cur + d);
+  if (d > 0) next = Math.max(cur, Math.min(next, maxFor(id)));
+  if (next === cur) { if (d > 0) capMsg(id, cur, false); return; }
+  $('#' + id).value = next; if (d > 0 && next < cur + d) capMsg(id, next, true); render();
+}
+function setQty(input, blur) {
+  if (input.value === '' && !blur) return render();
+  let v = Math.max(0, parseInt(input.value, 10) || 0); const hi = Math.max(0, maxFor(input.id)), over = v > hi;
+  if (over) v = hi; if (String(v) !== input.value) input.value = v; if (over) capMsg(input.id, v, true); render();
+}
+function setBarista(lv) {
+  const before = undoSnap && undoKind === 'level' ? undoSnap : readState(), dropped = [];
+  TIERS.forEach(t => { const n = IDS.reduce((s, id) => s + (COFFEE[id].tier === t && META[t].lv > lv ? before.qty[id] || 0 : 0), 0); if (n) dropped.push(`${META[t].npc} ${n}잔`); });
+  document.querySelector(`input[name=barista][value="${lv}"]`).checked = true; render();
+  if (dropped.length) offerUndo(`레벨을 낮춰서 ${dropped.join(', ')}을 뺐어요`, before, 'level');
+}
+function reset() {
+  const before = readState();
+  if (!Object.values(before.qty).some(v => v > 0)) return toast('비울 커피가 없어요');
+  IDS.forEach(id => $('#' + id).value = 0); render(); offerUndo('전체 초기화했어요', before, 'reset');
+}
+
+/* ── 계산 & 렌더 ────────────────────────── */
+function formatQty(v) {
+  const box = Math.floor(v / 3456), set = Math.floor(v % 3456 / 64), rem = v % 64, p = [];
+  if (box) p.push(nf.format(box) + '상자'); if (set) p.push(set + '세트'); if (rem) p.push(rem + '개');
+  return p.join(' ') || '0개';
+}
+function render() {
+  const l = lvl();
+  TIERS.forEach(t => $('#card-' + t).classList.toggle('locked', l < META[t].lv));
+  IDS.forEach(id => { if (COFFEE[id].tier !== 'base' && META[COFFEE[id].tier].lv > l) $('#' + id).value = 0; $('#pr_' + id).textContent = gold(unit(COFFEE[id])); });
+  const T = {cups:0}, cnt = {base:0,rare:0,epic:0,legend:0,mythic:0}, lines = []; let sum = 0;
+  IDS.forEach(id => {
+    const c = COFFEE[id], q = qtyOf(id); cnt[c.tier] += q; if (!q) return;
+    const add = (k, n) => T[k] = (T[k] || 0) + n * q;
+    T.cups += q; add('coffee', c.coffee); add('milk', c.milk);
+    if (c.cup) { add(c.cup, 1); add(c.cup === 'mug' ? 'hot_cube' : 'cold_cube', c.cube); }
+    if (c.powder) add(c.powder, c.pq); if (c.sp) add(c.sp, c.spq);
+    const sub = unit(c) * q; sum += sub; lines.push({id, t: c.tier, name: c.name, q, sub});
+  });
+  TIERS.slice(1).forEach(t => {
+    const el = $('#lim-' + t); let p = ''; for (let i = 0; i < TIER_CAP; i++) p += `<i class="pip${i < cnt[t] ? ' on' : ''}"></i>`;
+    el.innerHTML = `<span class="pips" aria-hidden="true">${p}</span><span>${cnt[t]}/${TIER_CAP}잔</span>`; el.classList.toggle('max', cnt[t] >= TIER_CAP);
+  });
+  IDS.forEach(id => {
+    const v = qtyOf(id), full = maxFor(id) - v <= 0, row = $('#' + id).closest('.row');
+    row.querySelectorAll('button').forEach(b => b.disabled = +b.dataset.d > 0 ? full : v <= 0);
+    row.classList.toggle('has', v > 0);
+  });
+  $('#mats').innerHTML = !T.cups ? '<p class="empty">위에서 만들 커피를 고르면 필요한 재료가 여기에 모여요.</p>' : MATS.map(s => {
+    const a = s.items.filter(([k]) => T[k] > 0); if (!a.length) return '';
+    return `<h3 class="mg">${s.title}</h3><div class="mgrid">${a.map(([k, n, hl]) => `<div class="mat"><span class="slot sm recipe-trigger" tabindex="0" data-recipe="${k}" aria-label="${n} 제작법">${img(k)}</span><span class="mn">${n}</span><span class="dots"></span><span class="mq${hl ? ' hl' : ''}">${formatQty(T[k])}</span></div>`).join('')}</div>`;
+  }).join('');
+  receipt(lines, T.cups, sum);
+  if (ready) { clearTimeout(aTimer); aTimer = setTimeout(() => $('#sr').textContent = T.cups ? `총 ${nf.format(T.cups)}잔, ${gold(sum)}` : '고른 커피가 없어요', 800); }
+  save();
+}
+function stamp() {
+  const p = {}; new Intl.DateTimeFormat('ko-KR', {year:'2-digit',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date()).forEach(x => p[x.type] = x.value);
+  $('#rc-date').textContent = `${p.year}년 ${p.month}월 ${p.day}일 ${+p.hour}시 ${+p.minute}분`;
+}
+const TCOL = {base:'#2F9E6B', rare:'#2B87C9', epic:'#D6456A', legend:'#C9951A', mythic:'#8B5CD6'};
+function receipt(lines, cups, sum) {
+  stamp(); const o = $('#buff').options[$('#buff').selectedIndex].text, pm = o.match(/\+(\d+)%/);
+  $('#rc-rate').textContent = '+' + (pm ? pm[1] : 0) + '%'; $('#rc-lv').textContent = 'Lv.' + (parseInt(o, 10) || 0);
+  $('#rc-cups').textContent = nf.format(cups) + '잔';
+  const now = {}, sums = {}; lines.forEach(x => sums[x.t] = (sums[x.t] || 0) + x.sub);
+  const used = TIERS.filter(t => sums[t]);
+  $('#rc-share').innerHTML = !used.length ? '' : `<div class="oc-share"><div class="oc-bar">${used.map(t => `<i style="width:${sums[t] / sum * 100}%;background:${TCOL[t]}"></i>`).join('')}</div>` +
+    `<div class="oc-leg">${used.map(t => `<span><b style="background:${TCOL[t]}"></b>${META[t].npc} ${Math.round(sums[t] / sum * 100)}%</span>`).join('')}</div></div>`;
+  $('#rc-body').innerHTML = !lines.length ? '<p class="oc-e">아직 주문이 없어요.<br>커피를 고르면 여기에 담겨요.</p>' :
+    used.map(t => `<div class="oc-g"><div class="oc-gh"><span><i style="background:${TCOL[t]}"></i>${META[t].title}${META[t].chip ? ' · ' + META[t].chip : ''}</span><em>${gold(sums[t])}</em></div>` +
+      lines.filter(x => x.t === t).map(x => { now[x.id] = x.q;
+        return `<div class="oc-r"><div class="oc-l"><span class="recipe-trigger" data-recipe="${x.id}" tabindex="0" aria-label="${x.name} 제작법">${img(x.id)}</span><span>${x.name}</span></div><span class="oc-q">×${nf.format(x.q)}</span><span class="oc-p">${gold(x.sub)}</span></div>`; }).join('') + '</div>').join('');
+  $('#rc-total').innerHTML = `${nf.format(sum)}<small>G</small>`;
+  $('#mb-c').textContent = nf.format(cups) + '잔'; $('#mb-t').textContent = gold(sum); lastR = now;
+}
+
+/* ── 이미지 저장 / 복사 ─────────────────── */
+function exportErr(e) {
+  if (e && e.name === 'AbortError') return;
+  toast(e && e.message === 'nolib' ? '이미지 도구를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.' : e && e.name === 'NotAllowedError' ? '이 브라우저에서는 복사가 막혀 있어요. ‘이미지 저장’을 써 주세요.' : '이미지를 만들지 못했어요. 다시 눌러 주세요.');
+}
+function busy(btn, label, work) {
+  const idle = btn.textContent; btn.disabled = true; btn.textContent = label;
+  let j; try { j = work(); } catch (e) { j = Promise.reject(e); }
+  Promise.resolve(j).catch(exportErr).finally(() => { btn.disabled = false; btn.textContent = idle; });
+}
+async function blob() {
+  stamp(); if (document.fonts && document.fonts.ready) await document.fonts.ready;
+  const c = await html2canvas($('#receipt-capture'), {backgroundColor: null, scale: 2, ignoreElements: el => el.classList?.contains('barista-official-strip')});
+  return new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error('blob')), 'image/png'));
+}
+const noOrder = () => { if (lastR && Object.keys(lastR).length) return false; toast('커피를 고르면 주문 카드를 저장할 수 있어요.'); return true; };
+$('#save-btn').onclick = e => {
+  if (noOrder()) return; if (typeof html2canvas !== 'function') return exportErr(new Error('nolib'));
+  busy(e.currentTarget, '저장 중…', async () => {
+    const url = URL.createObjectURL(await blob()), a = document.createElement('a'), d = new Date(), p = n => String(n).padStart(2, '0');
+    a.href = url; a.download = `띵타이쿤-주문-${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}.png`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 10000); toast('주문 카드를 저장했어요');
+  });
+};
+$('#copy-btn').onclick = e => {
+  if (noOrder()) return; if (typeof html2canvas !== 'function') return exportErr(new Error('nolib'));
+  if (!navigator.clipboard || !navigator.clipboard.write || typeof ClipboardItem === 'undefined') return exportErr({name: 'NotAllowedError'});
+  busy(e.currentTarget, '복사 중…', () => navigator.clipboard.write([new ClipboardItem({'image/png': blob()})]).then(() => toast('주문 카드를 복사했어요')));
+};
+
+/* ── 붙여넣기 (형식 무관하게 이름·수량 찾기) ── */
+const NAMES = IDS.map(id => ({id, n: COFFEE[id].name})).sort((a, b) => b.n.replace(/\s/g, '').length - a.n.replace(/\s/g, '').length);
+const toNum = v => parseInt(String(v).replace(/,/g, ''), 10) || 0;
+const clean = s => s.split('|')[0].replace(/\/\s*(?:유통기한|기간\s*만료).*$/, '').replace(/\[[^\]]*\]/g, ' ');
+function hits(line) {
+  const out = [], taken = [];
+  NAMES.forEach(({id, n}) => { const re = new RegExp(n.replace(/\s+/g, '').split('').join('\\s*'), 'g'); let m;
+    while ((m = re.exec(line))) { const a = m.index, b = a + m[0].length; if (!taken.some(([x, y]) => a < y && b > x)) { out.push({id, a, b}); taken.push([a, b]); } } });
+  return out.sort((x, y) => x.a - y.a);
+}
+function pick(after, before) {
+  let m = after.match(/총\s*(\d[\d,]*)\s*개/); if (m) return toNum(m[1]);
+  m = after.match(/(\d[\d,]*)\s*세트(?:\s*(\d[\d,]*)\s*개)?/); if (m) return toNum(m[1]) * 64 + (m[2] ? toNum(m[2]) : 0);
+  m = after.match(/[x×*]\s*(\d[\d,]*)/i) || after.match(/(\d[\d,]*)\s*(?:잔|개)/) || after.match(/(\d[\d,]*)/) || before.match(/(\d[\d,]*)\s*(?:잔|개)?\s*[x×*]?\s*$/i);
+  return m ? toNum(m[1]) : 1;
+}
+function applyText(raw, quiet) {
+  const want = {}; let skipped = 0;
+  String(raw || '').split(/\r?\n/).forEach(r => {
+    const line = clean(r), h = hits(line);
+    if (!h.length) { if (/\d/.test(line)) skipped++; return; }
+    h.forEach((x, i) => want[x.id] = (want[x.id] || 0) + pick(line.slice(x.b, i + 1 < h.length ? h[i + 1].a : line.length), line.slice(i ? h[i - 1].b : 0, x.a)));
+  });
+  const ids = Object.keys(want);
+  if (!ids.length) { if (!quiet) toast('붙여 넣은 글에서 커피 이름을 찾지 못했어요'); return false; }
+  const before = readState(), cur = lvl(), need = Math.max(...ids.map(id => META[COFFEE[id].tier].lv));
+  if (need > cur) document.querySelector(`input[name=barista][value="${need}"]`).checked = true;
+  IDS.forEach(id => $('#' + id).value = 0); let capped = 0;
+  ids.forEach(id => { const v = Math.min(want[id], Math.max(0, maxFor(id))); if (v < want[id]) capped++; $('#' + id).value = v; });
+  render();
+  offerUndo(`주문 ${ids.length}종을 채웠어요` + (need > cur ? ` · 바리스타 ${need} LV로 맞춤` : '') + (capped ? ` · ${capped}종은 등급 한도에 맞춤` : '') + (skipped ? ` · ${skipped}줄은 건너뜀` : ''), before);
+  return true;
+}
+const panel = $('#panel');
+function openPanel() { $('#paste-text').value = ''; panel.classList.add('show'); if (!matchMedia('(pointer: coarse)').matches) $('#paste-text').focus(); }
+$('#paste-btn').onclick = () => { openPanel(); try { navigator.clipboard.readText().then(t => { if (t && applyText(t, true)) panel.classList.remove('show'); }).catch(() => {}); } catch (e) {} };
+$('#paste-close').onclick = () => panel.classList.remove('show');
+$('#paste-sample').onclick = () => { $('#paste-text').value = '화이트 모카 1\n블랙커피 x2\n플랫 마끼아또 3잔, 돌체 라떼 1잔\n인스턴트 커피: 1세트 6개 | 예상 판매가: 1,400,000 G'; };
+$('#paste-go').onclick = () => { if (applyText($('#paste-text').value)) panel.classList.remove('show'); };
+$('#paste-text').addEventListener('input', e => { if ((!e.inputType || /^insertFrom/.test(e.inputType)) && applyText(e.target.value, true)) panel.classList.remove('show'); });
+document.addEventListener('paste', e => {
+  if (e.target && /^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)) return;
+  if (applyText((e.clipboardData && e.clipboardData.getData('text')) || '', true)) e.preventDefault();
+});
+
+/* ── 이벤트 연결 ────────────────────────── */
+document.addEventListener('click', e => {
+  const b = e.target.closest('button[data-id]'); if (b) return change(b.dataset.id, +b.dataset.d);
+  const u = e.target.closest('button[data-unlock]'); if (u) { setBarista(u.dataset.unlock); const f = document.querySelector(`#card-${u.dataset.card} .qty`); if (f) f.focus(); }
+});
+document.addEventListener('input', e => { if (e.target.classList.contains('qty')) setQty(e.target); });
+document.addEventListener('focusout', e => { if (e.target.classList.contains('qty')) setQty(e.target, true); });
+document.querySelectorAll('input[name=barista]').forEach(r => r.onchange = () => setBarista(r.value));
+$('#buff').onchange = render; $('#reset-btn').onclick = reset;
+function applyTheme(dark) { document.documentElement.classList.toggle('dark', dark); $('#theme-btn').textContent = dark ? '라이트 모드' : '다크 모드'; document.querySelector('meta[name=theme-color]').content = dark ? '#130F1F' : '#FAF9FE'; }
+$('#theme-btn').onclick = () => { const d = !document.documentElement.classList.contains('dark'); applyTheme(d); try { localStorage.setItem(THEME, d ? 'dark' : 'light'); } catch (e) {} };
+document.addEventListener('keydown', e => {
+  const t = e.target;
+  if (t.classList && t.classList.contains('qty')) {
+    if (e.key === 'PageUp' || e.key === 'PageDown') { e.preventDefault(); change(t.id, e.key === 'PageUp' ? 5 : -5); }
+    else if (e.key === 'Home') { e.preventDefault(); change(t.id, -qtyOf(t.id)); }
+    else if (e.key === 'End' && COFFEE[t.id].tier !== 'base') { e.preventDefault(); change(t.id, Math.max(0, maxFor(t.id) - qtyOf(t.id))); }
+    return;
+  }
+  if (e.key === 'Escape') { hideToast(); panel.classList.remove('show'); return; }
+  if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && e.key.toLowerCase() === 'z' && undoSnap && !/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) { e.preventDefault(); const s = undoSnap; hideToast(); restore(s); }
+});
+const right = $('.right');
+const stick = () => right.style.setProperty('--stick', Math.min(16, innerHeight - right.offsetHeight - 16) + 'px');
+if ('ResizeObserver' in window) new ResizeObserver(stick).observe(right); addEventListener('resize', stick);
+
+/* ── 시작 ───────────────────────────────── */
+build(); buildMixer(); load(); applyTheme(document.documentElement.classList.contains('dark')); render(); ready = true; stick();
+</script>
+
+<script>
+/* Embedded mode: keep iframe height synced with calculator content. */
+(function(){
+  if(window.parent===window)return;
+  let raf=0;
+  function sendHeight(){
+    raf=0;
+    const body=document.body;
+    const height=Math.ceil(Math.max(body.scrollHeight,body.offsetHeight)+4);
+    window.parent.postMessage({type:'dding-barista-size',height},'*');
+  }
+  function schedule(){if(!raf)raf=requestAnimationFrame(sendHeight);}
+  if(window.ResizeObserver)new ResizeObserver(schedule).observe(document.body);
+  if(document.fonts && document.fonts.ready)document.fonts.ready.then(schedule).catch(()=>{});
+  window.addEventListener('load',schedule);
+  window.addEventListener('resize',schedule);
+  window.addEventListener('message',event=>{
+    if(event.source!==window.parent || !event.data || event.data.type!=='dding-barista-measure')return;
+    schedule();
+  });
+  document.addEventListener('click',()=>requestAnimationFrame(schedule));
+  schedule();
+})();
+</script>
+</body>
+</html>

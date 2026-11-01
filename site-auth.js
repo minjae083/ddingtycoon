@@ -79,7 +79,7 @@
         <label for="authEmail">이메일</label><input id="authEmail" type="email" name="email" placeholder="name@example.com" autocomplete="email" required maxlength="254">
         ${password ? `<label for="authPassword">비밀번호</label><div class="site-auth-password-field"><input id="authPassword" type="password" name="password" minlength="6" autocomplete="${activeTab==='register'?'new-password':'current-password'}" placeholder="6자 이상" required><button type="button" data-auth-reveal="authPassword" aria-label="비밀번호 표시" aria-pressed="false">보기</button></div>` : ''}
         ${activeTab==='register'?`<label for="authConfirm">비밀번호 확인</label><div class="site-auth-password-field"><input id="authConfirm" type="password" name="confirmation" autocomplete="new-password" minlength="6" placeholder="비밀번호 다시 입력" required><button type="button" data-auth-reveal="authConfirm" aria-label="비밀번호 확인 표시" aria-pressed="false">보기</button></div>`:''}
-        <button type="submit" class="site-auth-button">${activeTab==='login'?'로그인':activeTab==='register'?'회원가입':'재설정 메일 보내기'}</button>
+        <button type="button" class="site-auth-button" data-auth-submit="true">${activeTab==='login'?'로그인':activeTab==='register'?'회원가입':'재설정 메일 보내기'}</button>
       </form>`;
   }
   function draw() {
@@ -152,9 +152,31 @@
       announce(message,'error');
     } finally { setBusy(false); }
   }
+  // A single submission path for mouse, keyboard Enter and external MCEF.
+  // requestSubmit() respects HTML5 required/email/minlength validation.
+  function requestAccountSubmit() {
+    if (busy) return;
+    const form = $('#authAccountForm');
+    if (!form) return;
+    if (typeof form.requestSubmit === 'function') form.requestSubmit();
+    else if (form.reportValidity()) form.dispatchEvent(new Event('submit', {bubbles:true,cancelable:true}));
+  }
   root.addEventListener('submit', e=>{if(e.target.id==='authAccountForm')void submitForm(e);});
+  root.addEventListener('keydown', e=>{
+    if (e.key !== 'Enter' || e.isComposing || e.keyCode === 229 || e.repeat || busy) return;
+    if (e.target.matches('#authAccountForm input')) {
+      e.preventDefault();
+      requestAccountSubmit();
+    }
+  });
   root.addEventListener('click', e=>{
     if (e.target===root) {return;} // Close only via the X button; preserve form when clicking the backdrop.
+    const submitButton=e.target.closest('[data-auth-submit]');
+    if (submitButton) {
+      e.preventDefault();
+      requestAccountSubmit();
+      return;
+    }
     const reveal=e.target.closest('[data-auth-reveal]');
     if(reveal){
       const input=$('#'+reveal.dataset.authReveal);
@@ -203,13 +225,13 @@
     try {
       client=window.supabase.createClient(projectUrl,publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
       client.auth.onAuthStateChange((event,session)=>{
+        const previousUserId=currentUser?.id||null;
         currentUser=session?.user||null;
         updateHeader();notifyFrames();
-        if(isOpen && (event==='SIGNED_IN'||event==='SIGNED_OUT'||event==='INITIAL_SESSION')) {
-          const value=$('#authEmail')?.value||'';
-          draw();
-          if (!currentUser && $('#authEmail')) $('#authEmail').value=value;
-        }
+        // Do not rebuild the form on INITIAL_SESSION: it can arrive while
+        // someone is typing and would erase their password or interrupt clicks.
+        if (isOpen && previousUserId !== (currentUser?.id||null) &&
+            (event==='SIGNED_IN'||event==='SIGNED_OUT')) draw();
       });
       void client.auth.getSession().then(({data,error})=>{
         if(error) { if(isOpen)announce(error.message,'error');return; }
