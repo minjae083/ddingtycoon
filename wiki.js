@@ -326,7 +326,7 @@
   }
   function renderFlorist(){
     document.title='플로리스트 | 띵타이쿤 WIKI';
-    app.innerHTML=crumb([['플로리스트',null]])+`<div class="page-head"><h1>플로리스트</h1></div><section class="florist-frame-shell"><iframe id="floristFrame" title="꽃 판매와 플로리스트 향장품 제작법 및 재료 계산기" src="florist.html?v=wiki23-florist-receipt" loading="eager" scrolling="no"></iframe></section>`;
+    app.innerHTML=crumb([['플로리스트',null]])+`<div class="page-head"><h1>플로리스트</h1></div><section class="florist-frame-shell"><iframe id="floristFrame" title="꽃 판매와 플로리스트 향장품 제작법 및 재료 계산기" src="florist.html?v=wiki24-florist-assets-fix" loading="eager" scrolling="no"></iframe></section>`;
     const frame=document.getElementById('floristFrame');
     if(frame)frame.addEventListener('load',()=>{try{frame.contentWindow.postMessage({type:'dding-florist-measure'},'*');}catch(_){}});
   }

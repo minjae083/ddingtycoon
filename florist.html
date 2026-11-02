@@ -80,6 +80,40 @@ body{padding:14px 13px 50px;background:#faf9fe}
 @media(max-width:640px){.item-groups{grid-template-columns:1fr}.qty-buttons input{width:46px}.store-heading{align-items:flex-start}.receipt-column-head,.receipt-line{grid-template-columns:minmax(0,1fr) 48px 90px}}
 @media print{.florist-shop,.mobile-checkout,.copy-receipt,.receipt-details,.receipt-head button{display:none!important}.florist-layout{display:block}.receipt{box-shadow:none;border:0;position:static}}
 
+
+/* v24: repair cramped embedded layouts at intermediate widths.
+   The receipt is displayed beside the shop only when there is enough room. */
+@media (max-width:1120px){
+ .florist-layout{grid-template-columns:minmax(0,1fr);gap:16px}
+ .florist-shop{min-width:0}
+ .receipt{position:static;min-width:0;order:2}
+ .item-groups{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+}
+@media (max-width:780px){
+ .item-groups{grid-template-columns:minmax(0,1fr)}
+ .florist-layout{grid-template-columns:minmax(0,1fr)}
+ .florist-wrap,.florist-shop,.store-panel,.item-group{min-width:0}
+ .quantity-row{min-width:0}
+}
+@media (max-width:510px){
+ body{padding:9px 8px 78px}
+ .store-panel{padding:12px 10px}
+ .store-heading{flex-wrap:wrap}
+ .item-head{margin-bottom:5px}
+ .quantity-row{display:flex;flex-wrap:wrap;gap:4px;padding:7px 2px;align-items:center}
+ .quantity-row>img{width:32px;height:32px}
+ .row-info{min-width:0;flex:1 1 92px}
+ .qty-buttons{margin-left:auto;flex:0 0 auto;justify-content:flex-end}
+ .qty-buttons input{width:46px}
+ .recipe-mobile-open{margin-left:4px}
+ .receipt{padding:14px 11px}
+ .receipt-line,.receipt-column-head{grid-template-columns:minmax(0,1fr) 40px 86px}
+ .receipt-item{gap:5px}
+ .receipt-item img{width:25px;height:25px}
+ .receipt-name strong{font-size:10px}
+ .receipt-price{font-size:10px}
+ .mobile-checkout{gap:5px}
+}
 </style>
 </head>
 <body>
