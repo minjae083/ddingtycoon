@@ -1,0 +1,27 @@
+/* 플로리스트 페이지 iframe 너비 복구: 기존 style.css에 덮어쓰지 않는 보조 CSS */
+.florist-frame-shell {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: transparent;
+  border: 1px solid #e7dcf8;
+  border-radius: 20px;
+  padding: 10px;
+}
+.florist-frame-shell iframe {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-height: 1150px;
+  height: 2750px;
+  border: 0;
+  overflow: hidden;
+  background: #faf9fe;
+  border-radius: 13px;
+}
+@media (max-width: 800px) {
+  .florist-frame-shell { padding: 5px; border-radius: 14px; }
+}
