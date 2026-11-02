@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FAF9FE">
+<title>플로리스트 | 띵타이쿤 WIKI</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#292441;background:#faf9fe;--ink:#292441;--muted:#827994;--purple:#7653c2;--border:#e8e0f6;--soft:#f4efff;--mint:#249d8b;--rare:#227aab;--epic:#bd5588;--legend:#aa7b24}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#faf9fe;padding:17px 12px 65px;line-height:1.52}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #6e45b1;outline-offset:3px}button:disabled{cursor:default;opacity:.6}
+.florist-wrap{max-width:1320px;margin:auto}.hero{background:linear-gradient(116deg,#fff 0%,#f3eeff 55%,#f4f9fa 100%);border:1px solid #e7dcf8;border-radius:22px;padding:26px 30px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:20px;overflow:hidden;position:relative}.eyebrow{display:block;font-size:10px;letter-spacing:2.4px;font-weight:900;color:#805ac8;margin-bottom:9px}.hero h2{font-size:30px;letter-spacing:-1.2px;margin:0 0 10px}.hero h2 span{color:#805ac8}.hero p{font-size:13px;color:#766e8c;max-width:640px;margin:0;line-height:1.8}.hero-art{height:138px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}.hero-art img{width:58px;height:58px;image-rendering:pixelated;filter:drop-shadow(0 10px 12px #9c88cf33)}.summary{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}.summary span{border:1px solid #dfd3f6;background:#ffffffa8;color:#62517d;border-radius:10px;padding:7px 11px;font-size:12px;font-weight:750}
+.quick-nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 27px}.quick-nav a{display:flex;align-items:center;gap:7px;padding:10px 14px;background:white;border:1px solid #e3d8f4;border-radius:11px;font-size:12px;text-decoration:none;font-weight:800;color:#7150b3}.quick-nav a:hover{background:#f4efff}
+.section-top{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:30px 1px 14px}.section-top h3{font-size:22px;letter-spacing:-.8px;margin:0}.section-top p{color:var(--muted);font-size:12px;margin:4px 0 0}.section-kicker{display:block;color:#8864c5;font-weight:900;letter-spacing:1.9px;font-size:10px;margin-bottom:5px}.section-count{background:white;border:1px solid var(--border);padding:6px 11px;border-radius:18px;font-size:11px;color:#866cbb;font-weight:800}
+.tier-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.tier-block{border:1px solid var(--border);border-radius:17px;background:white;padding:17px}.tier-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.tier-header h4{font-size:15px;letter-spacing:-.4px;margin:0}.tier-header small{color:#958ca3;font-size:11px}.tier-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.tier-item{border:1px solid #e9e3f3;border-radius:13px;background:#fcfbfe;padding:12px 10px}.tier-item b{display:block;font-size:11px;color:var(--rare)}.tier-item.epic b{color:var(--epic)}.tier-item.legendary b{color:var(--legend)}.tier-stars{display:block;color:#a57ac1;font-weight:900;letter-spacing:1px;font-size:17px;margin:3px 0}.tier-item strong{font-size:17px;white-space:nowrap;letter-spacing:-.5px}.tier-item strong small{font-size:11px;font-weight:600}.tier-item p{font-size:11px;margin:5px 0 0;color:#8e829c}.notice{font-size:11px;line-height:1.7;color:#796e8b;margin:11px 4px 0}
+.section-panel{background:#fff;border:1px solid var(--border);border-radius:19px;padding:19px 20px;box-shadow:0 6px 24px #4b3e7907}.planner{display:flex;align-items:end;flex-wrap:wrap;gap:11px;margin-bottom:17px}.form-part{display:grid;gap:5px}.form-part label{font-size:11px;color:#726987;font-weight:800}.form-part select,.form-part input{height:39px;padding:0 10px;border:1px solid #dcd2ee;border-radius:10px;background:#fff;color:var(--ink);font-weight:700;max-width:200px}.form-part input[type=number]{width:135px}.planner-result{margin-left:auto;background:#f3edff;border:1px solid #e1d5f6;padding:9px 13px;border-radius:12px;color:#7053a6;display:grid;gap:2px;text-align:right}.planner-result span{font-size:10px;font-weight:700}.planner-result strong{font-size:17px;font-variant-numeric:tabular-nums}
+.flower-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.flower-card{min-width:0;border:1px solid #e5ddf2;background:#fcfbff;border-radius:15px;padding:14px 12px}.flower-card strong{display:block;font-size:14px;color:#39304f;letter-spacing:-.3px;margin-bottom:4px}.flower-main{display:flex;align-items:center;justify-content:center;height:84px;margin-bottom:8px}.flower-main img{width:64px;height:64px;image-rendering:pixelated}.variant-strip{display:flex;justify-content:center;gap:6px;margin-bottom:9px}.variant-mini{display:grid;place-items:center;background:#fff;border:1px solid #e8dff5;border-radius:9px;width:31px;height:31px}.variant-mini img{width:22px;height:22px;image-rendering:pixelated}.tag-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:7px}.mini-tag{display:inline-flex;align-items:center;gap:5px;background:#f5f0ff;border:1px solid #e4d8f6;color:#6f57a1;padding:5px 7px;border-radius:999px;font-size:10px;font-weight:800}.mini-tag img{width:18px;height:18px;image-rendering:pixelated}.dew-count{text-align:center;font-size:11px;color:#8c819c}.dew-count b{color:#645184;font-size:15px}.flower-card p{color:#9d91a9;font-size:10px;margin:3px 0 0;text-align:center}
+.resource-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.resource-card{border:1px solid #e7dff3;background:white;border-radius:14px;padding:12px 10px;text-align:center}.resource-card img{width:34px;height:34px;image-rendering:pixelated;margin-bottom:6px}.resource-card b{display:block;font-size:12px;color:#47395f}.resource-card span{display:block;font-size:10px;color:#9387a5;margin-top:2px}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) 315px;gap:15px;align-items:start}.catalog-wrap{min-width:0}.catalog-tools{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:13px}.filter-search{flex:1 1 180px;min-width:100px;height:39px;border:1px solid #e0d5f0;background:#fff;border-radius:10px;padding:0 13px;font-size:12px}.filters{display:flex;flex-wrap:wrap;gap:5px}.filter-btn{padding:8px 10px;background:#fff;border:1px solid #dfd6ef;border-radius:10px;font-size:11px;color:#82738f;font-weight:800}.filter-btn.active{background:#eee7ff;border-color:#ba9deb;color:#693fb1}.catalog-count{color:#887c99;font-size:11px;padding-left:3px;margin-bottom:10px}.recipe-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.recipe-card{border:1px solid #e6def1;border-radius:15px;background:#fff;min-width:0;padding:14px;display:flex;flex-direction:column;gap:10px}.recipe-card:hover{border-color:#c4b0e6}.recipe-card-head{display:flex;align-items:flex-start;gap:10px;min-width:0}.recipe-illustration{width:48px;height:48px;border-radius:12px;flex:none;display:grid;place-items:center;background:#f3eeff;border:1px solid #e9dcfa}.recipe-illustration img{width:36px;height:36px;image-rendering:pixelated}.recipe-heading{flex:1;min-width:0}.recipe-heading h4{font-size:13px;letter-spacing:-.35px;margin:3px 0 4px;overflow-wrap:anywhere}.recipe-heading small{font-size:11px;color:#8b8298}.grade{display:inline-flex;gap:5px;align-items:center;border-radius:7px;font-size:10px;font-weight:900;padding:3px 7px;background:#e9f5ff;color:#21709d}.grade.epic{background:#fff0f7;color:#b74983}.grade.legendary{background:#fff7dd;color:#9d7722}.grade .star{letter-spacing:1px}.recipe-sale{background:#fbf8ff;border:1px solid #eee8f7;border-radius:9px;font-weight:900;font-size:15px;color:#594179;padding:8px 10px}.recipe-sale small{font-size:10px;font-weight:700;color:#9989ad;margin-right:6px}.materials{display:grid;gap:5px;margin-top:1px;flex:1}.material-row{display:flex;justify-content:space-between;gap:7px;border-bottom:1px dashed #f1edf5;padding-bottom:4px;font-size:11px;color:#7f7591}.material-row:last-child{border:0}.material-name{display:flex;align-items:center;gap:6px;min-width:0}.material-name img{width:20px;height:20px;image-rendering:pixelated;flex:none}.material-row b{color:#544a6a;white-space:nowrap}.recipe-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid #f2ecf9;padding-top:10px}.recipe-bottom span{font-size:10px;color:#9a90a4}.add-recipe{white-space:nowrap;border:1px solid #c9b5e9;background:#f2edff;color:#7049b2;padding:7px 11px;border-radius:9px;font-size:11px;font-weight:900}.add-recipe:hover{background:#e8dbff}
+.cart{border:1px solid #ded1ef;border-radius:17px;background:#faf8ff;padding:17px;position:sticky;top:15px}.cart-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}.cart-heading h4{margin:0;font-size:16px}.clear-btn{font-size:11px;color:#8c75b3;background:#fff;border:1px solid #e6dcf4;border-radius:8px;padding:6px 9px}.cart-empty{text-align:center;padding:40px 11px;color:#9787ab;font-size:12px;border:1px dashed #dfd4ed;border-radius:12px;background:#fff}.cart-empty .empty-icon{display:flex;justify-content:center;margin-bottom:8px}.cart-empty .empty-icon img{width:44px;height:44px;image-rendering:pixelated;opacity:.85}.cart-items{display:grid;gap:7px;margin-bottom:13px}.cart-line{display:flex;justify-content:space-between;gap:5px;align-items:center;padding:9px 10px;background:white;border-radius:10px;border:1px solid #e9e1f4}.cart-line strong{display:block;font-size:11px;line-height:1.4}.cart-line small{color:#9487a4;font-size:10px}.qty-controls{display:flex;align-items:center;gap:6px;flex:none}.qty-controls button{width:26px;height:26px;border-radius:7px;border:1px solid #e4d9f3;background:#fff;color:#7455a6;font-size:15px;line-height:1}.qty-controls b{font-size:12px;min-width:16px;text-align:center}.cart-metrics{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}.cart-metrics div{padding:10px;border-radius:10px;background:white;border:1px solid #e7def2}.cart-metrics span{font-size:10px;color:#8b8298;display:block;margin-bottom:3px}.cart-metrics strong{font-size:14px;color:#6f4cac;font-variant-numeric:tabular-nums}.cart-metrics strong small{font-size:10px}.cart-subtitle{margin:13px 0 8px;font-size:12px;color:#615078}.total-material{display:flex;justify-content:space-between;gap:5px;padding:7px 0;border-bottom:1px solid #e9e1f2;font-size:11px;color:#776b87}.total-material-left{display:flex;align-items:center;gap:6px;min-width:0}.total-material img{width:18px;height:18px;image-rendering:pixelated;flex:none}.total-material b{font-size:12px;color:#554368}.copy-plan{margin-top:14px;width:100%;border:1px solid #7653c2;color:white;background:#7653c2;padding:11px;border-radius:10px;font-size:12px;font-weight:900}.copy-plan:hover{background:#6542ac}.footnote{font-size:11px;color:#8d829b;line-height:1.8;margin-top:15px}.empty-filter{grid-column:1/-1;background:#fff;border:1px dashed #d8c7ee;text-align:center;padding:30px;border-radius:13px;color:#8a7c9f;font-size:12px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1080px){.flower-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.resource-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.workspace{grid-template-columns:1fr}.cart{position:static}.recipe-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding:22px 20px}.tier-layout{grid-template-columns:1fr}.flower-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.resource-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.planner-result{margin-left:0;width:100%;text-align:left}.recipe-bottom{flex-direction:column;align-items:stretch}}
+@media(max-width:480px){body{padding-inline:9px}.flower-grid,.resource-grid{grid-template-columns:1fr 1fr}}
+
+/* v22 screenshot-matched quantity rows, cosmetic skill and recipe popovers */
+.list-heading{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:0 0 15px}.list-heading h4{font-size:17px;margin:0 0 3px}.list-heading p,.subtle-note{font-size:12px;color:var(--muted);margin:2px 0 0}.reset-small{font-weight:700;font-size:11px;color:#76658c;background:#faf8ff;border:1px solid #e4dbee;border-radius:9px;padding:8px 11px;white-space:nowrap}
+.item-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;row-gap:24px;align-items:start}.item-group{min-width:0;overflow:visible;position:relative}.item-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;font-weight:900;font-size:15px;letter-spacing:-.3px}.item-head img{width:30px;height:30px;image-rendering:pixelated;object-fit:contain}.item-head .product-subtitle{font-size:10px;font-weight:500;color:#978e9e;margin-left:auto}.item-group:nth-child(5n+1) .item-head{color:#1674a4}.item-group:nth-child(5n+2) .item-head{color:#8150bb}.item-group:nth-child(5n+3) .item-head{color:#967122}.item-group:nth-child(5n+4) .item-head{color:#bb3b72}.item-group:nth-child(5n+5) .item-head{color:#187f74}
+.quantity-row{position:relative;display:flex;align-items:center;gap:9px;padding:6px 4px;min-height:58px;border-radius:10px;overflow:visible;transition:background .13s}.quantity-row:hover,.quantity-row:focus-within{background:#f7f3ff}.item-image{width:39px;height:39px;object-fit:contain;image-rendering:pixelated;flex:none}.row-info{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:105px;flex:1 1 100px;gap:1px}.stars{font-size:17px;letter-spacing:1.1px;font-weight:900;white-space:nowrap;line-height:1.12}.stars.rare{color:#2b78a8}.stars.epic{color:#785cc2}.stars.legendary{color:#b68624}.price-text{font-size:15px;white-space:nowrap;color:#a75d0b;letter-spacing:-.3px;line-height:1.25;font-variant-numeric:tabular-nums}.base-price{font-size:10px;color:#94879d;white-space:nowrap}.qty-buttons{margin-left:auto;display:flex;align-items:center;gap:5px;flex:0 0 auto}.qty-buttons button{font-size:16px;font-weight:850;min-width:31px;height:32px;border:0;border-radius:10px;background:#f0f0ee;color:#666261}.qty-buttons button:hover:not(:disabled){background:#e6ddf4;color:#653ca9}.qty-buttons button:disabled{opacity:.27}.qty-buttons button.quick{font-size:13px;min-width:35px}.qty-buttons input{width:50px;height:37px;border-radius:10px;border:1px solid #9db29c;color:#4c5950;background:white;text-align:center;font-size:15px;outline:none;appearance:textfield;font-variant-numeric:tabular-nums}.qty-buttons input:focus{border-color:#7653c2;box-shadow:0 0 0 2px #e8e0f8}.qty-buttons input::-webkit-inner-spin-button,.qty-buttons input::-webkit-outer-spin-button{appearance:none;margin:0}
+.total-bar{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:10px;margin-top:22px;padding:15px 16px;border:1px solid #ded4f1;border-radius:12px;background:#faf8ff}.total-bar>div{display:grid;gap:4px;min-width:130px;text-align:right}.total-bar small{color:#8c7b9c;font-size:11px}.total-bar strong{font-size:17px;color:#6b4a9f;font-variant-numeric:tabular-nums}.dew-summary{font-size:12px;color:#76678c;line-height:1.8;margin-top:10px}.dew-chip{display:inline-flex;align-items:center;gap:5px;border:1px solid #e2d8f0;background:#fff;border-radius:8px;padding:4px 9px;margin:3px 6px 3px 0}.dew-chip img{width:20px;height:20px;image-rendering:pixelated}
+.skill-select-panel{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border:1px solid #ddcff2;background:#f7f1ff;padding:16px 20px;margin-bottom:16px;border-radius:14px}.skill-title{display:flex;align-items:center;gap:10px}.skill-title img{width:40px;height:40px;image-rendering:pixelated}.skill-title strong{display:block;font-size:15px;color:#5d3b92}.skill-title small{display:block;font-size:11px;color:#8f7e9f;margin-top:3px}.skill-control{display:grid;gap:4px}.skill-control label{font-size:11px;color:#736489;font-weight:800}.skill-control select{min-width:220px;padding:9px 13px;background:white;border:1px solid #a991cf;border-radius:11px;font-weight:750;color:#5e4190;font-size:14px}
+.recipe-tooltip{position:absolute;z-index:100;top:calc(100% - 2px);left:0;width:min(340px,92vw);pointer-events:none;opacity:0;visibility:hidden;transform:translateY(-5px);transition:opacity .12s,transform .12s;background:#fff;border:1px solid #bea9dc;border-radius:13px;box-shadow:0 13px 33px #35275129;padding:13px 14px;color:#332744}.quantity-row:hover>.recipe-tooltip,.quantity-row:focus-within>.recipe-tooltip,.quantity-row.show-recipe>.recipe-tooltip{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}.quantity-row:nth-last-child(-n+2) .recipe-tooltip{top:auto;bottom:calc(100% - 1px)}.recipe-tooltip b{display:block;font-size:12px;margin-bottom:8px;color:#654a97}.recipe-tooltip-line{display:flex;align-items:center;gap:7px;font-size:12px;padding:4px 0}.recipe-tooltip-line img{width:24px;height:24px;image-rendering:pixelated}.recipe-tooltip-line strong{margin-left:auto;font-size:12px}.recipe-hint{font-size:10px;color:#84759e;padding-top:7px;border-top:1px solid #f1eafa;margin-top:5px}.recipe-mobile-open{border:1px solid #d7c6ec;border-radius:8px;background:#fff;color:#7251a8;font-size:10px;font-weight:800;padding:6px 8px;cursor:pointer}.recipe-mobile-open[aria-expanded=true]{background:#eee5fc}.crafting-summary{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:12px 14px;margin:12px 0 16px;background:#f8f4ff;border-radius:10px;font-size:12px;color:#67527d}.crafting-summary strong{font-size:15px;color:#6d479f}.crafting-materials{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.crafting-mat{display:flex;align-items:center;gap:8px;border:1px solid #ebe4f3;border-radius:10px;padding:8px;background:#fff;font-size:12px}.crafting-mat img{width:27px;height:27px;image-rendering:pixelated}.crafting-mat span{min-width:0;flex:1}.crafting-mat b{white-space:nowrap}.crafting-empty{color:#9d90a8;border:1px dashed #dacded;background:#fdfaff;padding:25px;text-align:center;border-radius:12px;font-size:12px}.copy-plan{max-width:230px}
+@media(max-width:1120px){.item-groups{grid-template-columns:1fr;row-gap:18px}.crafting-materials{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:750px){.quantity-row{gap:6px}.item-image{width:32px;height:32px}.row-info{min-width:75px}.price-text{font-size:13px}.qty-buttons{gap:3px}.qty-buttons button{min-width:28px;height:31px}.qty-buttons button.quick{min-width:31px}.qty-buttons input{width:42px;height:33px}.crafting-materials{grid-template-columns:repeat(2,minmax(0,1fr))}.skill-control select{min-width:min(70vw,250px)}}
+@media(max-width:460px){.quantity-row{gap:3px;padding:5px 0}.item-image{width:29px;height:29px}.row-info{min-width:65px}.stars{font-size:15px}.price-text{font-size:12px}.qty-buttons button{min-width:25px;height:30px;font-size:13px}.qty-buttons button.quick{min-width:28px;font-size:11px}.qty-buttons input{width:37px;height:32px}.recipe-mobile-open{padding:5px 6px}}
+
+.quantity-row>img{width:39px;height:39px;object-fit:contain;image-rendering:pixelated;flex:none}
+@media(max-width:750px){.quantity-row>img{width:32px;height:32px}}
+
+.recipe-mobile-open{display:none}
+@media(hover:none){.recipe-mobile-open{display:inline-block}.recipe-tooltip{pointer-events:auto}}
+@media(max-width:530px){.recipe-mobile-open{display:inline-block}.quantity-row.recipe-row{flex-wrap:wrap}.quantity-row.recipe-row .qty-buttons{margin-left:auto}}
+
+/* v23: compact florist sales workspace and shared paper receipt */
+body{padding:14px 13px 50px;background:#faf9fe}
+.florist-wrap{max-width:1480px}
+.florist-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(315px,355px);align-items:start;gap:18px}
+.florist-shop{min-width:0;display:grid;gap:18px}
+.store-panel{padding:19px 19px 22px;min-width:0;border-radius:17px}
+.store-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
+.store-heading h2{margin:0;font-size:22px;letter-spacing:-.8px;color:#302448}
+.store-heading p{font-size:11px;color:#887d9d;margin:5px 0 0}
+.store-count{border:1px solid #e5dcf1;padding:6px 9px;border-radius:20px;color:#8067a7;font-size:10px;font-weight:800;white-space:nowrap}
+.grade-legend{display:flex;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid #efe8f7;padding:0 2px 13px;margin-bottom:16px;color:#8d829c;font-size:11px}
+.grade-legend b{color:#6d4d9d;margin-right:4px}
+.item-groups{column-gap:15px;row-gap:19px}
+.item-head{margin-bottom:4px}.item-head img{width:27px;height:27px}.item-head .product-subtitle{display:none}
+.quantity-row{min-height:51px;padding:4px 0;gap:5px}
+.quantity-row>img{width:32px;height:32px}
+.row-info{min-width:81px;flex:1 1 84px}
+.stars{font-size:15px}.price-text{font-size:13px}
+.qty-buttons{gap:3px}.qty-buttons button{min-width:27px;height:30px;font-size:13px;border-radius:8px}.qty-buttons button.quick{min-width:30px;font-size:12px}.qty-buttons input{width:44px;height:33px;border-radius:8px;font-size:13px}
+.skill-select-panel{padding:10px 12px;margin-bottom:12px;gap:10px}.skill-title img{width:30px;height:30px}.skill-title strong{font-size:13px}.skill-title small{font-size:10px}
+.skill-control select{min-width:162px;max-width:200px;padding:7px 9px;font-size:12px}
+.catalog-tools{gap:7px;margin-bottom:16px}.filter-search{height:35px}.filter-btn{padding:7px 10px}
+.compact-note{color:#9c8fa9;font-size:10px;margin:13px 0 0}
+.receipt{position:sticky;top:12px;min-width:0;padding:23px 17px 17px;background:#fffefa;border:1px solid #ddd5e4;border-radius:15px;box-shadow:0 10px 28px #49365514;color:#40334b}
+.receipt-head{display:flex;align-items:center;justify-content:space-between;gap:7px;padding-bottom:16px}
+.receipt-eyebrow{font-size:9px;letter-spacing:1.2px;font-weight:900;color:#8b76a4}.receipt-head h3{font-size:20px;margin:3px 0 0;letter-spacing:-.7px}.receipt-head button{font-size:10px}
+.receipt-column-head{display:grid;grid-template-columns:minmax(0,1fr) 45px 82px;align-items:center;border-top:1px dashed #bfb3c9;border-bottom:1px dashed #bfb3c9;padding:9px 0;color:#84758f;font-size:10px;font-weight:800}.receipt-column-head span:nth-child(2){text-align:center}.receipt-column-head span:last-child{text-align:right}
+.receipt-empty{display:grid;justify-items:center;padding:27px 8px 25px;color:#92879d;font-size:12px;text-align:center;gap:8px}.receipt-empty img{height:36px;width:36px;image-rendering:pixelated;opacity:.7}
+.receipt-group{padding:12px 0 2px}.receipt-group-title{font-size:10px;font-weight:900;letter-spacing:.4px;color:#82679a;margin-bottom:5px}.receipt-line{display:grid;grid-template-columns:minmax(0,1fr) 45px 82px;gap:0;align-items:center;padding:7px 0;border-bottom:1px solid #f0eaf4}.receipt-item{display:flex;align-items:center;gap:8px;min-width:0}.receipt-item img{width:29px;height:29px;image-rendering:pixelated;object-fit:contain;flex:none}.receipt-name{min-width:0}.receipt-name strong{display:block;font-size:11px;line-height:1.4;overflow-wrap:anywhere}.receipt-name small{font-size:10px;color:#9a8ba4;display:block}.receipt-quantity{text-align:center;font-size:11px;color:#655775;font-weight:850}.receipt-price{text-align:right;font-size:11px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap}.receipt-price small{display:block;color:#9a8ba4;font-size:10px;font-weight:500}.receipt-group-subtotal{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:9px 0 12px;color:#786687}.receipt-group-subtotal strong{font-size:12px;color:#513e65}
+.receipt-totals{border-top:2px dashed #b1a2ba;margin-top:6px;padding:13px 0 9px}.receipt-total-line{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:#8e8299}.receipt-grand{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:9px}.receipt-grand span{font-size:14px;font-weight:900}.receipt-grand strong{font-size:25px;color:#342646;white-space:nowrap;letter-spacing:-1px;font-variant-numeric:tabular-nums}.receipt-grand strong small{font-size:12px;color:#69577b;letter-spacing:0}
+.copy-receipt{width:100%;padding:11px 12px;margin:10px 0 14px;border:0;border-radius:9px;background:#7653c2;color:#fff;font-size:12px;font-weight:900}.copy-receipt:disabled{opacity:.44}
+.receipt-details{border-top:1px solid #eae2ed;padding:0 0 2px}.receipt-details summary{list-style:none;cursor:pointer;padding:12px 1px;color:#614c7c;font-size:11px;font-weight:850;display:flex;justify-content:space-between;gap:8px}.receipt-details summary::-webkit-details-marker{display:none}.receipt-details summary:after{content:'⌄';color:#987daa;font-size:15px;line-height:12px;margin-left:auto}.receipt-details[open] summary:after{content:'⌃'}.receipt-details summary span{margin-left:auto;color:#90829d;font-weight:600}.receipt-ingredient-list{display:grid;gap:3px;padding:0 0 13px}.receipt-ingredient-row{display:flex;align-items:center;gap:7px;font-size:11px;padding:3px 1px}.receipt-ingredient-row img{width:22px;height:22px;image-rendering:pixelated}.receipt-ingredient-row span{min-width:0;flex:1}.receipt-ingredient-row b{white-space:nowrap}.receipt-ingredient-empty{color:#9386a0;font-size:11px;padding:6px 0}.receipt-foot{font-size:10px;color:#a193aa;margin:14px 0 0;line-height:1.6}
+.mobile-checkout{display:none}
+@media(max-width:1340px){.item-groups{grid-template-columns:1fr}}
+@media(max-width:900px){.florist-layout{grid-template-columns:minmax(0,1fr) 300px;gap:10px}.store-panel{padding:14px}.receipt{padding:16px 12px}.quantity-row{gap:3px}.row-info{min-width:64px}}
+@media(max-width:730px){body{padding:10px 9px 90px}.florist-layout{grid-template-columns:1fr}.receipt{position:static;order:2}.florist-shop{order:1}.item-groups{grid-template-columns:repeat(2,minmax(0,1fr))}.mobile-checkout{display:flex;position:fixed;z-index:150;bottom:0;left:0;right:0;align-items:center;gap:10px;padding:10px 13px;background:#fff;box-shadow:0 -6px 23px #25153726;border-top:1px solid #e2d7ed;font-size:11px}.mobile-checkout span{display:grid;color:#806f96}.mobile-checkout strong{font-size:15px;margin-left:auto;white-space:nowrap}.mobile-checkout a{border-radius:8px;padding:8px 9px;color:white;background:#7653c2;text-decoration:none;white-space:nowrap;font-size:11px;font-weight:800}.store-heading h2{font-size:19px}}
+@media(max-width:640px){.item-groups{grid-template-columns:1fr}.qty-buttons input{width:46px}.store-heading{align-items:flex-start}.receipt-column-head,.receipt-line{grid-template-columns:minmax(0,1fr) 48px 90px}}
+@media print{.florist-shop,.mobile-checkout,.copy-receipt,.receipt-details,.receipt-head button{display:none!important}.florist-layout{display:block}.receipt{box-shadow:none;border:0;position:static}}
+
+</style>
+</head>
+<body>
+<div class="florist-wrap">
+  <div class="florist-layout">
+    <main class="florist-shop">
+      <section id="flower-market" class="section-panel store-panel">
+        <div class="store-heading"><div><span class="section-kicker">FLOWER SALES</span><h2>꽃 판매</h2><p>종류와 등급별 판매 수량을 입력하세요.</p></div><span class="store-count">5종 · 15개 등급</span></div>
+        <div class="grade-legend" aria-label="꽃 등급별 등장 확률"><span><b>★ Rare</b> 70%</span><span><b>★★ Epic</b> 27%</span><span><b>★★★ Legendary</b> 3%</span></div>
+        <div class="item-groups" id="flowerGrid"></div>
+      </section>
+
+      <section id="cosmetics" class="section-panel store-panel">
+        <div class="store-heading"><div><span class="section-kicker">COSMETICS SALES</span><h2>향장품 판매</h2><p>상품에 마우스를 올리면 제작 재료가 표시됩니다.</p></div><span class="store-count">5종 · 15개 등급</span></div>
+        <div class="skill-select-panel">
+          <div class="skill-title"><img src="assets/florist/lumilia_diffuser_3.png" alt="" /><div><strong>아름다움의 극치</strong><small>향장품 판매가에만 보너스 적용</small></div></div>
+          <div class="skill-control"><label for="beautyLevel">전문기술 레벨</label><select id="beautyLevel" aria-label="아름다움의 극치 레벨"></select></div>
+        </div>
+        <div class="catalog-tools"><input id="recipeSearch" class="filter-search" type="search" placeholder="향장품 · 재료 검색" aria-label="향장품 검색"><div class="filters"><button type="button" class="filter-btn active" data-grade="all" aria-pressed="true">전체</button><button type="button" class="filter-btn" data-grade="0" aria-pressed="false">★</button><button type="button" class="filter-btn" data-grade="1" aria-pressed="false">★★</button><button type="button" class="filter-btn" data-grade="2" aria-pressed="false">★★★</button></div></div>
+        <div class="catalog-count" id="recipeCount" aria-live="polite"></div>
+        <div class="item-groups" id="recipeGrid"></div>
+        <p class="compact-note">모바일에서는 상품 옆의 ‘재료’ 버튼으로 제작법을 볼 수 있습니다.</p>
+      </section>
+    </main>
+
+    <aside class="receipt" id="sales-receipt" aria-label="꽃과 향장품 통합 판매 명세서">
+      <div class="receipt-head"><div><span class="receipt-eyebrow">FLORIST · SALES RECEIPT</span><h3>판매 명세서</h3></div><button type="button" id="clearAll" class="reset-small">전체 초기화</button></div>
+      <div class="receipt-column-head"><span>Item</span><span>Qty</span><span>Price</span></div>
+      <div id="receiptContent" aria-live="polite"></div>
+      <div class="receipt-totals" id="receiptTotals" aria-live="polite"></div>
+      <button type="button" id="copyReceipt" class="copy-receipt" disabled>판매 내역 복사</button>
+      <details class="receipt-details" id="dewDetails"><summary>필요한 꽃 이슬 <span id="dewSummaryCount"></span></summary><div id="dewSummary" class="receipt-ingredient-list"></div></details>
+      <details class="receipt-details" id="crafting-plan"><summary>향장품 제작 재료 <span id="materialSummaryCount"></span></summary><div id="cartContent" class="receipt-ingredient-list"></div></details>
+      <p class="receipt-foot">판매 예상액이며, 재료비·수수료는 차감하지 않았습니다.</p>
+    </aside>
+  </div>
+  <div class="mobile-checkout" id="mobileCheckout" aria-live="polite"><span>꽃 · 향장품 합계 <b id="mobileCount">0개</b></span><strong id="mobileTotal">0 G</strong><a href="#sales-receipt">명세서 보기</a></div>
+</div>
+<script>
+'use strict';
+(() => {
+  const grades=[
+    {name:'Rare',stars:'★',flowerPrice:50000,cosmeticPrice:108000,chance:70,key:'rare'},
+    {name:'Epic',stars:'★★',flowerPrice:125000,cosmeticPrice:270000,chance:27,key:'epic'},
+    {name:'Legendary',stars:'★★★',flowerPrice:500000,cosmeticPrice:1080000,chance:3,key:'legendary'}
+  ];
+  const dewGuide=[
+    {name:'향기로운 이슬',image:'fragrant_dew.png',note:'관련 이슬 아이템'},
+    {name:'촉촉한 이슬',image:'moist_dew.png',note:'아쿠아네타 주입'},
+    {name:'신비로운 이슬',image:'mystic_dew.png',note:'루밀리아 주입'},
+    {name:'따스한 이슬',image:'warm_dew.png',note:'솔라리스티 주입'},
+    {name:'매혹적인 이슬',image:'alluring_dew.png',note:'벨라로제 주입'},
+    {name:'투명한 이슬',image:'transparent_dew.png',note:'크리스텔라 주입'}
+  ];
+  const seedGuide=[
+    {name:'촉촉한 씨앗',image:'moist_seed.png'},
+    {name:'신비로운 씨앗',image:'mystic_seed.png'},
+    {name:'따스한 씨앗',image:'warm_seed.png'},
+    {name:'매혹적인 씨앗',image:'alluring_seed.png'},
+    {name:'투명한 씨앗',image:'transparent_seed.png'}
+  ];
+  const materialsGuide=[
+    {name:'네더 사마귀 블록',image:'nether_wart_block.png'},
+    {name:'뒤틀린 균',image:'warped_fungus.png'},
+    {name:'진홍빛 균',image:'crimson_fungus.png'},
+    {name:'데이지',image:'daisy.png'},
+    {name:'수레국화',image:'cornflower.png'},
+    {name:'민들레',image:'dandelion.png'},
+    {name:'양귀비',image:'poppy.png'},
+    {name:'선애기별꽃',image:'stitchwort.png'},
+    {name:'유리병',image:'glass_bottle.png'},
+    {name:'막대기',image:'stick.png'},
+    {name:'초',image:'candle.png'},
+    {name:'자홍색 염료',image:'magenta_dye.png'}
+  ];
+  const materialIconMap=Object.fromEntries(materialsGuide.map(v=>[v.name,v.image]));
+  const flowers=[
+    {flower:'아쿠아네타',dew:'촉촉한 이슬',dewImage:'moist_dew.png',seed:'촉촉한 씨앗',seedImage:'moist_seed.png',product:'아쿠아네타 앰플',productBase:'aquaneta_ampoule',flowerBase:'aquaneta',fungus:'뒤틀린 균',bloom:'데이지',container:'유리병',containerQty:1,index:0},
+    {flower:'루밀리아',dew:'신비로운 이슬',dewImage:'mystic_dew.png',seed:'신비로운 씨앗',seedImage:'mystic_seed.png',product:'루밀리아 디퓨저',productBase:'lumilia_diffuser',flowerBase:'lumilia',fungus:'뒤틀린 균',bloom:'수레국화',container:'막대기',containerQty:2,index:1},
+    {flower:'솔라리스티',dew:'따스한 이슬',dewImage:'warm_dew.png',seed:'따스한 씨앗',seedImage:'warm_seed.png',product:'솔라리스티 캔들',productBase:'solaristi_candle',flowerBase:'solaristi',fungus:'진홍빛 균',bloom:'민들레',container:'초',containerQty:1,index:2},
+    {flower:'벨라로제',dew:'매혹적인 이슬',dewImage:'alluring_dew.png',seed:'매혹적인 씨앗',seedImage:'alluring_seed.png',product:'벨라로제 퍼퓸',productBase:'bellarose_perfume',flowerBase:'bellarose',fungus:'진홍빛 균',bloom:'양귀비',container:'자홍색 염료',containerQty:1,index:3},
+    {flower:'크리스텔라',dew:'투명한 이슬',dewImage:'transparent_dew.png',seed:'투명한 씨앗',seedImage:'transparent_seed.png',product:'크리스텔라 오일',productBase:'crystella_oil',flowerBase:'crystella',fungus:'뒤틀린 균',bloom:'선애기별꽃',container:'유리병',containerQty:1,index:4}
+  ];
+  const wart=[32,48,64],fungi=[8,16,24],petals=[6,8,12];
+  const recipes=flowers.flatMap(f=>grades.map((g,i)=>({
+    id:`${f.index}-${i}`,
+    flower:f.flower,
+    product:f.product,
+    grade:i,
+    price:g.cosmeticPrice,
+    image:`${f.productBase}_${i+1}.png`,
+    materials:[['네더 사마귀 블록',wart[i]],[f.fungus,fungi[i]],[f.bloom,petals[i]],[f.container,f.containerQty]]
+  })));
+
+  const $=id=>document.getElementById(id);
+  const fmt=n=>Number(n).toLocaleString('ko-KR');
+  const asset=file=>'assets/florist/'+file;
+  const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const img=(file,alt)=>`<img src="${asset(file)}" alt="${esc(alt)}">`;
+  const bonusRates=[0,1,2,3,4,5,6,10,15,30,50];
+  const flowersQty=new Map(),cosmeticsQty=new Map();
+  const recipeById=new Map(recipes.map(r=>[r.id,r]));
+  let bonusLevel=0,filterGrade='all',query='';
+  const qtyKey=(index,grade)=>`${index}-${grade}`;
+  const clamp=n=>Math.max(0,Math.min(100000,Math.floor(Number(n)||0)));
+  const priceAt=base=>Math.round(base*(100+bonusRates[bonusLevel])/100);
+  const totalUnits=map=>[...map.values()].reduce((a,b)=>a+b,0);
+
+  function topInfo(){
+    $('beautyLevel').innerHTML=bonusRates.map((b,i)=>`<option value="${i}">${i} LV (${b}%${i===10?' / MAX':''})</option>`).join('');
+  }
+  function control(mapType,key,name){
+    const map=mapType==='flower'?flowersQty:cosmeticsQty;
+    const val=map.get(key)||0;
+    const btn=(delta,label)=>`<button type="button" data-step="${delta}" data-kind="${mapType}" data-key="${key}" aria-label="${esc(name)} ${label}" ${delta<0&&val===0?'disabled':''} class="${Math.abs(delta)===5?'quick':''}">${delta===-5?'-5':delta===-1?'−':delta===1?'+':'+5'}</button>`;
+    return `<div class="qty-buttons">${btn(-5,'5개 빼기')}${btn(-1,'1개 빼기')}<input data-qty="${mapType}" data-key="${key}" type="number" min="0" max="100000" step="1" inputmode="numeric" value="${val}" aria-label="${esc(name)} 수량">${btn(1,'1개 추가')}${btn(5,'5개 추가')}</div>`;
+  }
+  function flowerRows(){
+    $('flowerGrid').innerHTML=flowers.map(f=>`<div class="item-group"><div class="item-head">${img(f.flowerBase+'_2.png',f.flower)}<span>${f.flower}</span></div>${grades.map((g,i)=>{
+      const key=qtyKey(f.index,i);
+      return `<div class="quantity-row flower-row" data-row="flower:${key}">${img(f.flowerBase+'_'+(i+1)+'.png',f.flower+g.stars)}<div class="row-info"><span class="stars ${g.key}">${g.stars}</span><span class="price-text">${fmt(g.flowerPrice)} G</span></div>${control('flower',key,f.flower+g.stars)}<button type="button" class="recipe-mobile-open" data-toggle-recipe aria-expanded="false" aria-label="${esc(f.flower)} 필요한 이슬 보기">이슬</button><div class="recipe-tooltip" role="tooltip"><b>${esc(f.flower)} ${g.stars} · 획득 재료</b><div class="recipe-tooltip-line">${img(f.dewImage,f.dew)}<span>${f.dew}</span><strong>× 10</strong></div></div></div>`;
+    }).join('')}</div>`).join('');
+    flowerSummary();
+    scheduleSize();
+  }
+  function flowerSummary(){
+    renderReceipt();
+  }
+  function matchingRecipe(r){return (filterGrade==='all'||Number(filterGrade)===r.grade)&&(!query||[r.product,r.flower,...r.materials.map(m=>m[0])].join(' ').toLowerCase().includes(query));}
+  function cosmeticRows(){
+    let n=0;
+    $('recipeGrid').innerHTML=flowers.map(f=>{
+      const selected=grades.map((g,i)=>recipeById.get(qtyKey(f.index,i))).filter(matchingRecipe);
+      if(!selected.length)return '';
+      n+=selected.length;
+      return `<div class="item-group"><div class="item-head">${img(f.productBase+'_2.png',f.product)}<span>${f.product}</span><span class="product-subtitle">재료에 마우스 올리기</span></div>${selected.map(r=>{
+        const g=grades[r.grade],price=priceAt(r.price),label=r.product+' '+g.stars;
+        return `<div class="quantity-row recipe-row" data-row="cosmetic:${r.id}">${img(r.image,label)}<div class="row-info"><span class="stars ${g.key}">${g.stars}</span><span class="price-text">${fmt(price)} G</span>${bonusLevel?`<span class="base-price">기본 ${fmt(r.price)} G</span>`:''}</div>${control('cosmetic',r.id,label)}<button type="button" class="recipe-mobile-open" data-toggle-recipe aria-expanded="false" aria-label="${esc(label)} 제작 재료 보기">재료</button><div class="recipe-tooltip" role="tooltip"><b>${esc(label)} · 제작 재료 (1개당)</b>${r.materials.map(([name,qty])=>`<div class="recipe-tooltip-line">${img(materialIconMap[name],name)}<span>${name}</span><strong>× ${qty}</strong></div>`).join('')}<div class="recipe-hint">재료 수량은 전문기술 레벨과 무관합니다.</div></div></div>`;
+      }).join('')}</div>`;
+    }).filter(Boolean).join('') || '<div class="empty-filter">조건에 맞는 향장품이 없습니다.</div>';
+    $('recipeCount').textContent=`${n}개 제작법 표시 · 전체 15개`;
+    document.querySelectorAll('.filter-btn').forEach(b=>{const isActive=b.dataset.grade===filterGrade;b.classList.toggle('active',isActive);b.setAttribute('aria-pressed',String(isActive))});
+    cosmeticSummary();
+    scheduleSize();
+  }
+  function cosmeticSummary(){
+    renderReceipt();
+    materialsSummary();
+  }
+  function materialsSummary(){
+    const selected=recipes.filter(r=>(cosmeticsQty.get(r.id)||0)>0);
+    const sums=new Map();
+    selected.forEach(r=>r.materials.forEach(([name,qty])=>sums.set(name,(sums.get(name)||0)+qty*cosmeticsQty.get(r.id))));
+    $('materialSummaryCount').textContent=selected.length?`${sums.size}종`:'0종';
+    $('cartContent').innerHTML=sums.size?[...sums].map(([name,q])=>`<div class="receipt-ingredient-row">${img(materialIconMap[name],name)}<span>${name}</span><b>× ${fmt(q)}</b></div>`).join(''):'<div class="receipt-ingredient-empty">향장품을 선택하면 필요한 재료가 합산됩니다.</div>';
+    scheduleSize();
+  }
+  function renderReceipt(){
+    const fs=[],cs=[],dew=new Map();let flowerTotal=0,cosmeticTotal=0,flowerCount=0,cosmeticCount=0;
+    for(const f of flowers){
+      for(let i=0;i<3;i++){
+        const n=flowersQty.get(qtyKey(f.index,i))||0;
+        if(!n)continue;
+        const g=grades[i],unit=g.flowerPrice,total=unit*n;
+        fs.push({name:f.flower,stars:g.stars,qty:n,unit,total,image:`${f.flowerBase}_${i+1}.png`});
+        flowerTotal+=total;flowerCount+=n;
+        dew.set(f.dew,(dew.get(f.dew)||0)+n*10);
+      }
+    }
+    for(const r of recipes){
+      const n=cosmeticsQty.get(r.id)||0;if(!n)continue;
+      const unit=priceAt(r.price),total=n*unit;
+      cs.push({name:r.product,stars:grades[r.grade].stars,qty:n,unit,total,image:r.image});
+      cosmeticTotal+=total;cosmeticCount+=n;
+    }
+    const line=v=>`<div class="receipt-line"><div class="receipt-item">${img(v.image,v.name+' '+v.stars)}<div class="receipt-name"><strong>${esc(v.name)} ${v.stars}</strong><small>${fmt(v.unit)} G / 개</small></div></div><span class="receipt-quantity">×${fmt(v.qty)}</span><span class="receipt-price">${fmt(v.total)}<small>G</small></span></div>`;
+    const section=(name,items,subtotal,count)=>items.length?`<div class="receipt-group"><div class="receipt-group-title">${name}</div>${items.map(line).join('')}<div class="receipt-group-subtotal"><span>${fmt(count)}개</span><strong>${fmt(subtotal)} G</strong></div></div>`:'';
+    $('receiptContent').innerHTML=fs.length||cs.length?section('꽃 판매',fs,flowerTotal,flowerCount)+section('향장품 판매',cs,cosmeticTotal,cosmeticCount):'<div class="receipt-empty">'+img('fragrant_dew.png','향기로운 이슬')+'판매 수량을 입력하면<br>이곳에 자동으로 합산됩니다.</div>';
+    const all=flowerTotal+cosmeticTotal,units=flowerCount+cosmeticCount;
+    $('receiptTotals').innerHTML=`<div class="receipt-total-line"><span>총 수량</span><strong>${fmt(units)}개</strong></div><div class="receipt-grand"><span>Total</span><strong>${fmt(all)} <small>G</small></strong></div>`;
+    $('mobileTotal').textContent=fmt(all)+' G';
+    $('mobileCount').textContent=fmt(units)+'개';
+    $('copyReceipt').disabled=!units;
+    $('dewSummaryCount').textContent=dew.size?`${dew.size}종`:'0종';
+    $('dewSummary').innerHTML=dew.size?[...dew].map(([name,q])=>{const f=flowers.find(f=>f.dew===name);return `<div class="receipt-ingredient-row">${img(f.dewImage,name)}<span>${name}</span><b>× ${fmt(q)}</b></div>`}).join(''):'<div class="receipt-ingredient-empty">꽃을 선택하면 이슬이 합산됩니다.</div>';
+    scheduleSize();
+  }
+  function copyReceipt(){
+    const lines=['[플로리스트 판매 명세서]'];
+    let flowerTotal=0,cosmeticTotal=0;
+    for(const f of flowers)for(let i=0;i<3;i++){
+      const n=flowersQty.get(qtyKey(f.index,i))||0;if(!n)continue;
+      const unit=grades[i].flowerPrice,total=unit*n;flowerTotal+=total;
+      lines.push(`[꽃] ${f.flower} ${grades[i].stars} ×${fmt(n)} | ${fmt(unit)} G/개 | ${fmt(total)} G`);
+    }
+    for(const r of recipes){const n=cosmeticsQty.get(r.id)||0;if(!n)continue;
+      const unit=priceAt(r.price),total=unit*n;cosmeticTotal+=total;
+      lines.push(`[향장품] ${r.product} ${grades[r.grade].stars} ×${fmt(n)} | ${fmt(unit)} G/개 | ${fmt(total)} G`);
+    }
+    lines.push(`아름다움의 극치: ${bonusLevel} LV (+${bonusRates[bonusLevel]}%, 향장품만 적용)`);
+    lines.push(`꽃 소계: ${fmt(flowerTotal)} G`);
+    lines.push(`향장품 소계: ${fmt(cosmeticTotal)} G`);
+    lines.push(`전체 합계: ${fmt(flowerTotal+cosmeticTotal)} G`);
+    const value=lines.join('\n'),btn=$('copyReceipt');
+    const done=()=>{btn.textContent='복사 완료';setTimeout(()=>btn.textContent='판매 내역 복사',1300)};
+    if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(value).then(done).catch(fallback);else fallback();
+    function fallback(){const el=document.createElement('textarea');el.value=value;el.style.position='fixed';el.style.opacity='0';document.body.appendChild(el);el.select();try{if(document.execCommand('copy'))done();else btn.textContent='복사 실패'}catch(_){btn.textContent='복사 실패'}el.remove()}
+  }
+  function setQuantity(kind,key,n,rebuild=true){const map=kind==='flower'?flowersQty:cosmeticsQty;const value=clamp(n);if(value)map.set(key,value);else map.delete(key);if(rebuild){kind==='flower'?flowerRows():cosmeticRows()}else{kind==='flower'?flowerSummary():cosmeticSummary()}}
+  function handleClick(e){
+    const b=e.target.closest('[data-step]');if(b){const kind=b.dataset.kind,key=b.dataset.key,map=kind==='flower'?flowersQty:cosmeticsQty;setQuantity(kind,key,(map.get(key)||0)+Number(b.dataset.step));return}
+  }
+  function handleInput(e){const el=e.target.closest('[data-qty]');if(!el)return;setQuantity(el.dataset.qty,el.dataset.key,el.value,false)}
+  function handleChange(e){const el=e.target.closest('[data-qty]');if(!el)return;setQuantity(el.dataset.qty,el.dataset.key,el.value)}
+  let resizeRaf=0;function scheduleSize(){if(window.parent===window||resizeRaf)return;resizeRaf=requestAnimationFrame(()=>{resizeRaf=0;window.parent.postMessage({type:'dding-florist-size',height:Math.ceil(document.body.scrollHeight+14)},'*')})}
+  topInfo();flowerRows();cosmeticRows();
+  function clickProduct(e){const info=e.target.closest('[data-toggle-recipe]');if(info){const row=info.closest('.quantity-row');const open=!row.classList.contains('show-recipe');document.querySelectorAll('.show-recipe').forEach(x=>{x.classList.remove('show-recipe');x.querySelector('[data-toggle-recipe]')?.setAttribute('aria-expanded','false')});row.classList.toggle('show-recipe',open);info.setAttribute('aria-expanded',String(open));scheduleSize();return;}handleClick(e)}
+  $('flowerGrid').addEventListener('click',clickProduct);$('flowerGrid').addEventListener('input',handleInput);$('flowerGrid').addEventListener('change',handleChange);
+  $('recipeGrid').addEventListener('click',clickProduct);
+  $('recipeGrid').addEventListener('input',handleInput);$('recipeGrid').addEventListener('change',handleChange);
+  $('beautyLevel').addEventListener('change',e=>{bonusLevel=Number(e.target.value)||0;cosmeticRows()});
+  $('recipeSearch').addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();cosmeticRows()});
+  document.querySelectorAll('[data-grade]').forEach(b=>b.addEventListener('click',()=>{filterGrade=b.dataset.grade;cosmeticRows()}));
+  $('clearAll').addEventListener('click',()=>{flowersQty.clear();cosmeticsQty.clear();flowerRows();cosmeticRows()});
+  $('copyReceipt').addEventListener('click',copyReceipt);
+  window.addEventListener('resize',scheduleSize);window.addEventListener('load',scheduleSize);
+  if(document.fonts?.ready)document.fonts.ready.then(scheduleSize);
+  if(window.ResizeObserver)new ResizeObserver(scheduleSize).observe(document.body);
+  window.addEventListener('message',e=>{if(e.source===window.parent&&e.data?.type==='dding-florist-measure')scheduleSize()});
+  const item=new URLSearchParams(location.search).get('item');if(item){$('recipeSearch').value=item;query=item.toLowerCase();cosmeticRows();document.getElementById('cosmetics')?.scrollIntoView({behavior:'auto'})}
+  scheduleSize();
+})();
+</script>
+</body>
+</html>

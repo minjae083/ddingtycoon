@@ -26,6 +26,7 @@
     skills:'<path d="M12 3l7 5v8l-7 5-7-5V8z"/><path d="M12 8v8m-4-4h8"/>',
     upgrade:'<path d="M12 22V7m-5 5 5-5 5 5"/><path d="M4 15V4h16v11"/><path d="M7 19h10"/>',
     chart:'<path d="M3 20h18M6 17v-5M11 17V7M16 17v-8"/>',
+    flower:'<path d="M12 21v-8m0 4c-2-3-5-3-7-2 1 3 4 5 7 5m0-6c1-3 4-4 7-3-.3 3-3 5-7 6"/><circle cx="12" cy="8" r="2"/><path d="M12 6C7 0 5 7 10 8c-4-5-9 1-4 3 0 5 6 5 6 1 2 5 9 1 6-3 5-2 1-8-4-3"/>',
     coffee:'<path d="M4 7h13v8a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V7z"/><path d="M17 9h2a3 3 0 0 1 0 6h-2M3 22h15"/>',
     flame:'<path d="M12 22c4.5 0 7.5-3.1 7.5-7.4 0-3.8-2.1-6.2-5.2-9.6.3 4.5-2.2 5.4-2.4 6.5C10.3 8.2 9 5.2 9.4 2 5.1 6.6 4 10.7 4 14.6 4 18.9 7.3 22 12 22Z"/><path d="M12 21c-1.9 0-3.2-1.4-3.2-3.2 0-1.6 1.1-2.9 2.8-4.5.1 2 1.1 2.8 2.3 3.6 1 2.1.1 4.1-1.9 4.1Z"/>',
     arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>',
@@ -323,14 +324,21 @@
       try{frame.contentWindow.postMessage({type:'dding-barista-measure'},'*');}catch(_){}
     });
   }
+  function renderFlorist(){
+    document.title='플로리스트 | 띵타이쿤 WIKI';
+    app.innerHTML=crumb([['플로리스트',null]])+`<div class="page-head"><h1>플로리스트</h1></div><section class="florist-frame-shell"><iframe id="floristFrame" title="꽃 판매와 플로리스트 향장품 제작법 및 재료 계산기" src="florist.html?v=wiki23-florist-receipt" loading="eager" scrolling="no"></iframe></section>`;
+    const frame=document.getElementById('floristFrame');
+    if(frame)frame.addEventListener('load',()=>{try{frame.contentWindow.postMessage({type:'dding-florist-measure'},'*');}catch(_){}});
+  }
   function renderSidebar(route){
     const categoryLinks=D.categories.map(c=>`<a class="nav-button ${route.id===c.id || (route.view==='facility'&&D.facilities[route.id]?.category===c.id) || (route.view==='compare'&&c.id==='compare')?'active':''}" href="${c.id==='compare'?'#/compare':catUrl(c.id)}"><span class="nav-symbol">${iconSvg(c.icon)}</span>${esc(c.title)}</a>`);
     const compareIndex=D.categories.findIndex(c=>c.id==='compare');
     categoryLinks.splice(compareIndex<0?categoryLinks.length:compareIndex,0,`<a class="nav-button ${route.view==='upgrade'?'active':''}" href="#/upgrade"><span class="nav-symbol">${iconSvg('upgrade')}</span>도구 강화 확률</a>`, `<a class="nav-button ${route.view==='skills'?'active':''}" href="#/skills"><span class="nav-symbol">${iconSvg('skills')}</span>전문가 스킬</a>`);
     const priceNav=`<a class="nav-button ${route.view==='prices'?'active':''}" href="#/prices"><span class="nav-symbol">${iconSvg('chart')}</span>요리 시세</a>`;
+    const floristNav=`<a class="nav-button ${route.view==='florist'?'active':''}" href="#/florist"><span class="nav-symbol">${iconSvg('flower')}</span>플로리스트</a>`;
     const baristaNav=`<a class="nav-button ${route.view==='barista'?'active':''}" href="#/barista"><span class="nav-symbol">${iconSvg('coffee')}</span>바리스타 계산기</a>`;
     const pos=categoryLinks.findIndex(s=>s.includes('효율 비교'));
-    categoryLinks.splice(pos<0?categoryLinks.length:pos,0,priceNav,baristaNav);
+    categoryLinks.splice(pos<0?categoryLinks.length:pos,0,priceNav,baristaNav,floristNav);
     nav.innerHTML=`<a class="nav-button ${route.view==='home'?'active':''}" href="#/"><span class="nav-symbol">${iconSvg('home')}</span>위키 홈</a>`+categoryLinks.join('');
   }
   function render(){
@@ -353,6 +361,7 @@
     else if(route.view==='compare')renderCompare();
     else if(route.view==='prices')renderPrices();
     else if(route.view==='barista')renderBarista();
+    else if(route.view==='florist')renderFlorist();
     else if(route.view==='map')renderMap();
     else renderNotFound();
     // local navigation should start at the top; in-facility anchor scrolling handled separately
@@ -437,6 +446,15 @@
     if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
     const h=Number(e.data.height);
     if(Number.isFinite(h) && h>200 && h<30000 && Math.abs(frame.getBoundingClientRect().height-h)>5){
+      frame.style.height=Math.ceil(h)+'px';
+    }
+  });
+  window.addEventListener('message',(e)=>{
+    const frame=document.getElementById('floristFrame');
+    if(!frame || e.source!==frame.contentWindow || !e.data || e.data.type!=='dding-florist-size')return;
+    if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
+    const h=Number(e.data.height);
+    if(Number.isFinite(h) && h>200 && h<40000 && Math.abs(frame.getBoundingClientRect().height-h)>5){
       frame.style.height=Math.ceil(h)+'px';
     }
   });
