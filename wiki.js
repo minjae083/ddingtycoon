@@ -330,15 +330,24 @@
     const frame=document.getElementById('floristFrame');
     if(frame)frame.addEventListener('load',()=>{try{frame.contentWindow.postMessage({type:'dding-florist-measure'},'*');}catch(_){}});
   }
+  function renderOcean(){
+    document.title='배 낚시 해역 해도 | 띵타이쿤 WIKI';
+    app.innerHTML=crumb([['배 낚시 해역',null]])+`<div class="page-head"><span class="eyebrow">SERENITY · OCEAN</span><h1>배 낚시 해역</h1><p>관리자가 설정한 오늘의 해역 3곳과 지역별 특징을 확인할 수 있어요.</p></div><section class="ocean-frame-shell"><iframe id="oceanFrame" title="배 낚시 해역 지도와 관리자 전용 개방 해역 설정" src="ocean-map.html?v=wiki25-ocean" loading="eager" scrolling="no"></iframe></section>`;
+    const frame=document.getElementById('oceanFrame');
+    if(frame)frame.addEventListener('load',()=>{
+      try{frame.contentWindow.postMessage({type:'dding-ocean-measure'},location.origin);}catch(_){}
+    });
+  }
   function renderSidebar(route){
     const categoryLinks=D.categories.map(c=>`<a class="nav-button ${route.id===c.id || (route.view==='facility'&&D.facilities[route.id]?.category===c.id) || (route.view==='compare'&&c.id==='compare')?'active':''}" href="${c.id==='compare'?'#/compare':catUrl(c.id)}"><span class="nav-symbol">${iconSvg(c.icon)}</span>${esc(c.title)}</a>`);
     const compareIndex=D.categories.findIndex(c=>c.id==='compare');
     categoryLinks.splice(compareIndex<0?categoryLinks.length:compareIndex,0,`<a class="nav-button ${route.view==='upgrade'?'active':''}" href="#/upgrade"><span class="nav-symbol">${iconSvg('upgrade')}</span>도구 강화 확률</a>`, `<a class="nav-button ${route.view==='skills'?'active':''}" href="#/skills"><span class="nav-symbol">${iconSvg('skills')}</span>전문가 스킬</a>`);
     const priceNav=`<a class="nav-button ${route.view==='prices'?'active':''}" href="#/prices"><span class="nav-symbol">${iconSvg('chart')}</span>요리 시세</a>`;
     const floristNav=`<a class="nav-button ${route.view==='florist'?'active':''}" href="#/florist"><span class="nav-symbol">${iconSvg('flower')}</span>플로리스트</a>`;
+    const oceanNav=`<a class="nav-button ${route.view==='ocean'?'active':''}" href="#/ocean"><span class="nav-symbol">🌊</span>배 낚시 해역</a>`;
     const baristaNav=`<a class="nav-button ${route.view==='barista'?'active':''}" href="#/barista"><span class="nav-symbol">${iconSvg('coffee')}</span>바리스타 계산기</a>`;
     const pos=categoryLinks.findIndex(s=>s.includes('효율 비교'));
-    categoryLinks.splice(pos<0?categoryLinks.length:pos,0,priceNav,baristaNav,floristNav);
+    categoryLinks.splice(pos<0?categoryLinks.length:pos,0,priceNav,baristaNav,floristNav,oceanNav);
     nav.innerHTML=`<a class="nav-button ${route.view==='home'?'active':''}" href="#/"><span class="nav-symbol">${iconSvg('home')}</span>위키 홈</a>`+categoryLinks.join('');
   }
   function render(){
@@ -362,6 +371,7 @@
     else if(route.view==='prices')renderPrices();
     else if(route.view==='barista')renderBarista();
     else if(route.view==='florist')renderFlorist();
+    else if(route.view==='ocean')renderOcean();
     else if(route.view==='map')renderMap();
     else renderNotFound();
     // local navigation should start at the top; in-facility anchor scrolling handled separately
@@ -457,6 +467,13 @@
     if(Number.isFinite(h) && h>200 && h<40000 && Math.abs(frame.getBoundingClientRect().height-h)>5){
       frame.style.height=Math.ceil(h)+'px';
     }
+  });
+  window.addEventListener('message',(e)=>{
+    const frame=document.getElementById('oceanFrame');
+    if(!frame || e.source!==frame.contentWindow || !e.data || e.data.type!=='dding-ocean-size')return;
+    if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
+    const h=Number(e.data.height);
+    if(Number.isFinite(h)&&h>200&&h<30000&&Math.abs(frame.getBoundingClientRect().height-h)>5)frame.style.height=Math.ceil(h)+'px';
   });
   window.addEventListener('dding-prices-updated',()=>{
     const route=currentRoute();

@@ -227,3 +227,14 @@ body{background:#faf9ff!important;color:var(--text)}
 .barista-frame-shell{width:100%;min-width:0;background:transparent;overflow:hidden;border:1px solid #e7dcf8;border-radius:20px;padding:10px;box-shadow:0 5px 20px #63518c0a}
 .barista-frame-shell iframe{display:block;width:100%;height:1780px;max-width:100%;overflow:hidden;border:0;background:#faf9fe;border-radius:13px}
 @media(max-width:800px){.barista-frame-shell{padding:5px;border-radius:14px}}
+
+
+/* v20 · 플로리스트 정보 및 재료 계산기: 기존 WIKI 메뉴/스타일 그대로 유지 */
+.florist-frame-shell{width:100%;min-width:0;overflow:hidden;background:transparent;border:1px solid #e7dcf8;border-radius:20px;padding:10px;box-shadow:0 5px 20px #63518c0a}
+.florist-frame-shell iframe{display:block;width:100%;min-height:1150px;height:2750px;border:0;overflow:hidden;background:#faf9fe;border-radius:13px}
+@media(max-width:800px){.florist-frame-shell{padding:5px;border-radius:14px}}
+
+/* v25: 배 낚시 해도 표시. 기존 WIKI 스타일과 독립적인 iframe. */
+.ocean-frame-shell{width:100%;min-width:0;overflow:hidden;background:transparent;border:1px solid #d6e8f0;border-radius:18px;padding:8px}
+.ocean-frame-shell iframe{display:block;box-sizing:border-box;width:100%;max-width:100%;height:1850px;min-height:800px;border:0;overflow:hidden;background:#f6fbff;border-radius:11px}
+@media(max-width:800px){.ocean-frame-shell{padding:4px;border-radius:12px}}

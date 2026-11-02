@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e7f4fa">
+<title>배 낚시 해역 해도 | 띵타이쿤 WIKI</title>
+<style>
+:root{font-family:system-ui,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;--bg:#f6fbff;--paper:#fff;--ink:#203a56;--muted:#687f93;--line:#cfe2f0;--blue:#087fb4;--ok:#087c62;--bad:#ad4e66;--warn:#a46b18}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,.area:focus-visible,input:focus-visible{outline:3px solid #147eaf;outline-offset:3px}.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 38px}.head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:17px}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:800;color:var(--blue)}h1{font-size:26px;letter-spacing:-.9px;margin:5px 0}.sub{margin:0;font-size:13px;color:var(--muted)}.clock{text-align:right;border:1px solid var(--line);border-radius:12px;padding:9px 13px;background:var(--paper);min-width:160px;color:var(--muted);font-size:11px}.clock b{display:block;color:var(--ink);font-size:22px;font-variant-numeric:tabular-nums}.bar{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:12px}.status{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.tag{border-radius:99px;padding:5px 11px;font-weight:800;font-size:12px;background:#edf5fc;color:#42708d}.tag.ok{background:#e3f7ee;color:var(--ok)}.tag.admin{background:#eae8fc;color:#6642a8}.tag.err{background:#fff0ee;color:#a44f48}.muted{color:var(--muted);font-size:12px}.controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.btn{background:white;border:1px solid #bed7e7;padding:8px 11px;border-radius:9px;color:#315a78;font-weight:750;font-size:12px}.btn.primary{background:#117fb0;color:white;border-color:#117fb0}.btn:hover:not(:disabled){border-color:#087fb4}.notice{padding:11px 13px;background:#fff6df;color:#805e1f;border-radius:10px;margin-bottom:12px;border:1px solid #f3dfb8}.notice[hidden],.auth-panel[hidden],.admin-panel[hidden]{display:none}.chart{position:relative;border:1px solid #b4d6e9;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px #19608216;background:#79cce6}.chart svg{display:block;width:100%;height:auto}.chart .backdrop{image-rendering:pixelated}.area{cursor:pointer;outline:none}.hit{fill:transparent;stroke:transparent;stroke-width:2;transition:stroke .15s,fill .15s}.area:hover .hit,.area:focus-visible .hit{stroke:#fff;stroke-width:3;fill:#ffffff1f;stroke-dasharray:6 6}.area[data-state=closed] .veil{fill:#253c4d;opacity:.34}.area[data-state=open] .ring{stroke:#38f8d1;stroke-width:3;stroke-dasharray:none;opacity:1}.area[data-state=draft] .ring{stroke:#fffbb0;stroke-width:4;opacity:1}.area[data-state=pending] .ring{stroke:#fff;opacity:.12}.ring{fill:none;stroke:transparent;opacity:0;stroke-width:2;stroke-dasharray:5 5;pointer-events:none}.symbol{fill:white;stroke:#12577b;stroke-width:4;paint-order:stroke;font-size:21px;font-weight:900;text-anchor:middle;pointer-events:none}.map-caption{position:absolute;bottom:8px;left:11px;background:#043a568a;color:white;border-radius:7px;padding:5px 9px;font-size:11px;pointer-events:none}.tip{position:absolute;z-index:5;width:270px;max-width:73%;pointer-events:none;background:white;color:#24405b;border:1px solid #c3dceb;box-shadow:0 10px 24px #193c6460;padding:12px;border-radius:11px;font-size:12px;display:none}.tip h3{font-size:15px;margin:0 0 6px}.tip .desc{margin:8px 0}.tip small{display:block;color:#648098;margin-top:5px}.tip .res{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}.tip .res span{background:#eef7ff;padding:3px 6px;border-radius:5px}.legend{display:flex;flex-wrap:wrap;gap:12px;padding:10px 0;color:var(--muted);font-size:12px}.legend b{color:#1889b0}.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:17px}.info-card{border:1px solid var(--line);background:white;border-radius:13px;padding:12px;min-width:0}.info-card h3{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px;font-size:14px}.info-card p{margin:5px 0 0;font-size:12px;color:var(--muted)}.info-card .pill{font-size:11px;padding:3px 7px;border-radius:6px;white-space:nowrap}.pill.open{background:#e1f7ee;color:#067d56}.pill.closed{background:#fff0f0;color:#b35262}.pill.pending{background:#eff3f8;color:#65748b}.info-card[aria-current=true]{border-color:#31b1a3}.section-title{margin:24px 0 10px;font-size:17px}.resources{display:flex;flex-wrap:wrap;gap:6px}.resource{padding:6px 10px;background:#eaf4fb;border:1px solid #cee6f2;border-radius:99px;font-size:12px}.admin-panel,.auth-panel{border:1px solid #cfe0f0;background:#fff;border-radius:13px;padding:14px;margin:12px 0}.admin-panel h2{margin:0 0 7px;font-size:15px}.admin-panel p{margin:6px 0 10px;color:var(--muted);font-size:12px}.admin-tools{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.email-form{display:flex;flex-wrap:wrap;gap:7px}.email-form input{width:clamp(180px,35vw,260px);padding:9px;border:1px solid #bed6e6;border-radius:8px}.foot{border-top:1px solid var(--line);margin-top:22px;padding-top:13px;color:var(--muted);font-size:12px}.error{color:#ad3c53}.mobile-help{display:none}
+@media(max-width:640px){.wrap{padding:12px 8px 24px}.head{flex-direction:column}.clock{text-align:left;min-width:0;width:100%}.clock b{font-size:19px}.map-caption{font-size:9px}.tip{max-width:80%;font-size:11px}.mobile-help{display:inline}.info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.info-card{padding:9px}.info-card h3{font-size:12px;display:block}.info-card .pill{display:inline-block;margin-top:5px}.chart{border-radius:10px}}
+@media(max-width:390px){.info-grid{grid-template-columns:1fr}}
+</style>
+<script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0"></script>
+</head>
+<body>
+<div class="wrap">
+ <header class="head">
+  <div><span class="eyebrow">SERENITY · FISHING CHART</span><h1>배 낚시 해역 해도</h1><p class="sub">오늘 개방된 해역 3곳을 확인하세요. 지도에 마우스를 올리거나 터치하면 상세 정보가 표시돼요.</p></div>
+  <div class="clock">다음 해역 초기화까지 <b id="cd">--:--:--</b>매일 오전 3시 · 한국 시간</div>
+ </header>
+ <div class="bar">
+  <div class="status"><span id="statusTag" class="tag">상태 확인 중</span><span id="statusMsg" class="muted">해역 정보를 불러오는 중입니다.</span></div>
+  <div class="controls"><span id="roleTag" class="tag">조회 전용</span><button id="loginBtn" class="btn" type="button" hidden>관리자 로그인</button><button id="logoutBtn" class="btn" type="button" hidden>로그아웃</button><button id="reloadBtn" class="btn" type="button">새로고침</button></div>
+ </div>
+ <div class="notice" id="notice" role="status" hidden></div>
+ <section class="admin-panel" id="adminPanel" hidden>
+  <h2>관리자 · 오늘 개방 해역 설정</h2>
+  <p>해역을 3곳 선택한 다음 <b>변경사항 저장</b>을 누르면 모든 이용자에게 동일하게 표시됩니다. 저장 전 선택은 다른 사람에게 보이지 않습니다.</p>
+  <div class="admin-tools"><span class="tag" id="draftCount">0 / 3 선택</span><button id="resetDraft" type="button" class="btn">선택 초기화</button><button id="saveBtn" type="button" class="btn primary" disabled>변경사항 저장</button><span class="muted" id="saveStatus"></span></div>
+ </section>
+ <section class="auth-panel" id="authPanel" hidden>
+  <form id="authForm" class="email-form"><input id="email" type="email" autocomplete="username" placeholder="관리자 계정 이메일" required><input id="password" type="password" autocomplete="current-password" placeholder="비밀번호" required minlength="6"><button type="submit" class="btn primary">로그인</button><button id="cancelAuth" type="button" class="btn">취소</button></form>
+  <p class="muted">기존 띵타이쿤 WIKI 계정으로 로그인합니다. 회원가입한 계정이 Supabase의 <code>wiki_admins</code>에 등록되어 있어야 수정 권한이 주어집니다.</p>
+ </section>
+ <div class="chart" id="chart">
+  <svg viewBox="0 0 751 478" role="group" aria-label="일곱 해역 그림 지도" id="svg">
+   <image class="backdrop" href="assets/ocean/ocean-map.png" x="0" y="0" width="751" height="478" preserveAspectRatio="none"/>
+   <g id="hotspots"></g>
+  </svg>
+  <div class="tip" id="tip" role="tooltip"></div>
+  <span class="map-caption" id="mapCaption">일곱 해역을 선택해 상세 정보를 확인하세요</span>
+ </div>
+ <div class="legend"><span><b>●</b> 민트 테두리: 개방</span><span>◯ 흐릿한 표시: 폐쇄</span><span>지도 선택으로 해역 상세 정보 확인 <span class="mobile-help">· 터치 지원</span></span></div>
+ <h2 class="section-title">오늘 개방 해역의 자원</h2><div id="resourceSummary" class="resources"></div>
+ <h2 class="section-title">해역별 정보</h2><div class="info-grid" id="cards"></div>
+ <p class="foot">비공식 팬 도구 · 게임 내 개방 해역을 관리자 계정이 직접 등록합니다. 공개 해역은 모든 방문자가 조회할 수 있으며, 서버에 저장되어 기기 간 공유됩니다. 매일 오전 3시(KST)에 새로운 날짜의 해역을 설정해야 합니다.</p>
+</div>
+<script>
+'use strict';
+(() => {
+ const RES={scrap:['🔩','심해의 고철'],aurora:['💎','심연의 오로라 파편'],titanium:['✨','영롱한 티타늄 광석'],fuel:['🛢️','해구의 화석 연료'],core:['🔥','해저 열수구 코어']};
+ const GEN=['낚시 불가 이벤트','현재 이 해역에서는 낚시를 진행할 수 없습니다.'];
+ const seas=[
+  {id:'basic',n:'평원 해역',x:120,y:102,r:70,t:10,k:2,res:['scrap','core'],d:'가장 기본적인 해역으로 다양한 물고기가 평화롭게 서식합니다. 해역 골드 배율은 등급과 상관없이 1.0배입니다.',b:['상어 떼 출몰','피비린내를 맡고 몰려온 상어 떼의 위협으로 인해 낚시가 불가능합니다.']},
+  {id:'trash',n:'쓰레기 해역',x:270,y:184,r:70,t:81,k:2,res:['titanium','fuel'],d:'쓰레기로 심하게 더럽혀져 물고기가 거의 없습니다. 이곳 물고기는 골드 배율이 0.7배로 크게 줄어듭니다.',b:GEN},
+  {id:'coral',n:'산호초 해역',x:122,y:302,r:73,t:3,k:6,note:'낮에만 낚시 가능',res:['aurora','fuel'],d:'낮 시간에만 물고기가 나타나는 아름다운 해역입니다. 골드 배율은 최소 1.1배에서 최대 1.3배입니다.',b:GEN},
+  {id:'crimson',n:'크림슨 해역',x:454,y:122,r:70,t:30,k:2,res:['core','titanium'],d:'붉게 변해 버린 해역으로 신화 등급 물고기가 서식합니다. 신화는 2.2배지만 전설 이하는 0.5배로 반토막 납니다.',b:['연속 낙뢰 발생','해역 주변에 지속적인 낙뢰가 발생하여 낚시가 불가능합니다.']},
+  {id:'ice',n:'빙하 해역',x:622,y:158,r:77,t:5,k:2,note:'심해 자원 추가 드롭 20%',res:['aurora','titanium'],d:'어선 내구도가 2배 빠르게 닳지만 심해 자원 추가 드롭이 20%입니다. 골드 배율은 1.5배에서 2.2배입니다.',b:['기상 악화','갑작스러운 돌풍과 기상 악화로 인해 낚시가 불가능합니다.']},
+  {id:'deep',n:'심해 해역',x:407,y:306,r:76,t:5,k:9,note:'밤에만 낚시 가능',res:['scrap','aurora'],d:'끝이 보이지 않을 정도로 깊고 어두운 해역입니다. 밤에만 물고기가 나타나며 골드 배율은 1.1배에서 1.2배입니다.',b:['짙은 안개 발생','바다에 짙은 안개가 발생하여 낚시가 불가능합니다.']},
+  {id:'poison',n:'오염 해역',x:642,y:312,r:75,t:60,k:2,note:'체류 중 체력 감소',res:['scrap','fuel'],d:'독성 물질로 가득 찬 해역으로 체류하는 동안 체력이 서서히 줄고 자동 회복이 안 됩니다. 신화 등급은 2.7배를 받습니다.',b:GEN}
+ ];
+ const ids=new Set(seas.map(x=>x.id)),lookup=Object.fromEntries(seas.map(x=>[x.id,x]));
+ const $=s=>document.querySelector(s), number=n=>String(n).padStart(2,'0');
+ const dateKey=()=>new Date(Date.now()+6*3600000).toISOString().slice(0,10); // KST 03:00 reset
+ const escapeHtml=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ let day=dateKey(),published=null,updatedAt=null,draft=[],dirty=false,admin=false,user=null,busy=false,db=null,lastError='',focused=null;
+ const cfg=window.DDING_SUPABASE_CONFIG||{};
+ function notify(msg,error=false){$('#notice').hidden=!msg;$('#notice').textContent=msg;$('#notice').style.color=error?'#a44f48':'#805e1f';}
+ const connected=()=>!!db;
+ function updateStatus(){
+  $('#roleTag').textContent=admin?'관리자 · 편집 가능':'조회 전용';$('#roleTag').className='tag '+(admin?'admin':'');
+  $('#loginBtn').hidden=!!user;$('#logoutBtn').hidden=!user;
+  $('#adminPanel').hidden=!admin;
+  const hasPublished=Array.isArray(published)&&published.length===3;
+  $('#statusTag').textContent=hasPublished?'개방 3곳 등록됨':'해역 등록 대기';$('#statusTag').className='tag '+(hasPublished?'ok':'');
+  $('#statusMsg').textContent=hasPublished?'관리자가 등록한 오늘의 개방 해역입니다.':(lastError?'서버 정보를 불러오지 못했습니다.':'관리자가 오늘 개방 해역을 등록하면 여기에 표시됩니다.');
+  if(lastError){$('#statusTag').textContent='연결 확인 필요';$('#statusTag').className='tag err';}
+  $('#draftCount').textContent=`${draft.length} / 3 선택`;
+  $('#saveBtn').disabled=!admin||busy||draft.length!==3||!dirty;
+  $('#mapCaption').textContent=admin?'관리자: 해역 3곳을 선택하고 저장하세요':'해역을 누르면 상세 정보를 확인할 수 있어요';
+ }
+ function state(id){if(admin&&dirty&&draft.includes(id))return 'draft';if(!published)return 'pending';return published.includes(id)?'open':'closed';}
+ function statusText(id){if(!published)return '미설정';return published.includes(id)?'개방':'폐쇄';}
+ function markup(o){const s=state(o.id),st=statusText(o.id),closed=st==='폐쇄';const text=closed?o.b[1]:o.d;return `<h3>${escapeHtml(o.n)}</h3><b>${st}${admin&&dirty&&draft.includes(o.id)?' · 편집 중':''}</b><div class="desc">${escapeHtml(text)}</div><small>쓰레기 확률 ${o.t}% · 열쇠 조각 확률 ${o.k}%${o.note?' · '+escapeHtml(o.note):''}</small><div class="res">${o.res.map(x=>`<span>${RES[x][0]} ${RES[x][1]}</span>`).join('')}</div>`;}
+ function render(){
+  updateStatus();
+  $('#hotspots').innerHTML=seas.map(o=>{
+    const st=state(o.id),closed=published&&!published.includes(o.id);
+    return `<g class="area" data-id="${o.id}" data-state="${st}" role="button" tabindex="0" aria-label="${o.n}, ${statusText(o.id)}${admin?', 편집하려면 선택':''}"><circle class="veil" cx="${o.x}" cy="${o.y}" r="${o.r-6}" fill="transparent" opacity="0"/><circle class="hit" cx="${o.x}" cy="${o.y}" r="${o.r}"/><circle class="ring" cx="${o.x}" cy="${o.y}" r="${o.r-3}"/><text class="symbol" x="${o.x+o.r*.59}" y="${o.y-o.r*.54}">${st==='open'?'✓':st==='closed'?'×':st==='draft'?'★':''}</text></g>`;
+  }).join('');
+  const shown=published||[];const counts=new Map();shown.forEach(id=>lookup[id]?.res.forEach(x=>counts.set(x,(counts.get(x)||0)+1)));
+  $('#resourceSummary').innerHTML=published?[...counts].map(([id,c])=>`<span class="resource">${RES[id][0]} ${RES[id][1]} ×${c}</span>`).join(''):'<span class="muted">아직 공개된 개방 해역이 없습니다.</span>';
+  $('#cards').innerHTML=seas.map(o=>`<article class="info-card" data-id="${o.id}" aria-current="${published?.includes(o.id)||false}"><h3>${escapeHtml(o.n)} <span class="pill ${published?(published.includes(o.id)?'open':'closed'):'pending'}">${statusText(o.id)}</span></h3><div class="muted">${o.res.map(x=>RES[x][0]+' '+RES[x][1]).join(' · ')}</div><p>쓰레기 ${o.t}% · 열쇠 ${o.k}% ${o.note?'· '+escapeHtml(o.note):''}</p>${admin&&dirty&&draft.includes(o.id)?'<p><b>관리자 선택 중</b></p>':''}</article>`).join('');
+ }
+ function showTip(id,e){const o=lookup[id];if(!o)return;focused=id;const chart=$('#chart'),r=chart.getBoundingClientRect();$('#tip').innerHTML=markup(o);const x=Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100)),y=Math.max(0,Math.min(100,(e.clientY-r.top)/r.height*100));const tip=$('#tip');tip.style.display='block';tip.style.left=x+'%';tip.style.top=y+'%';tip.style.transform=`translate(${x>55?'calc(-100% - 10px)':'10px'},${y>60?'calc(-100% - 10px)':'10px'})`;}
+ function choose(id){if(!admin)return;if(draft.includes(id))draft=draft.filter(x=>x!==id);else if(draft.length>=3){notify('선택할 수 있는 해역은 최대 세 곳입니다. 다른 해역을 해제한 후 선택해 주세요.');return;}else draft=[...draft,id];dirty=true;$('#saveStatus').textContent='저장 전 변경사항';render();}
+ function currentKeyCheck(){const k=dateKey();if(day!==k){day=k;published=null;draft=[];dirty=false;updatedAt=null;void load();}}
+ async function load(){if(!db){lastError='Supabase 설정이 필요합니다.';notify('서버 설정이 없어 조회 전용 미리보기로 실행됩니다. supabase-config.js와 해역 SQL 설치가 필요합니다.');render();return;}
+  const currentDay=day;
+  const {data,error}=await db.from('ocean_map_daily_open').select('open_ids,updated_at').eq('day_kst',currentDay).maybeSingle();
+  if(currentDay!==day)return;
+  if(error){lastError=error.message;notify('해역 정보 조회 실패: '+error.message,true);}else{lastError='';published=data?.open_ids?.length===3&&data.open_ids.every(id=>ids.has(id))?data.open_ids:null;updatedAt=data?.updated_at||null;if(!dirty){draft=published?[...published]:[];}notify('');}
+  render();
+ }
+ async function authCheck(){if(!db)return;const {data:{user:account},error}=await db.auth.getUser();user=error?null:account;
+  admin=false;
+  if(user){const result=await db.from('wiki_admins').select('user_id').eq('user_id',user.id).maybeSingle();admin=!result.error&&!!result.data;}
+  if(!dirty)draft=published?[...published]:[];
+  render();
+ }
+ async function save(){if(!db||!admin||draft.length!==3||busy)return;busy=true;updateStatus();$('#saveStatus').textContent='서버에 저장 중...';
+  const savingDay=day;
+  try{const {error}=await db.rpc('set_ocean_map_open_seas',{p_day:savingDay,p_open_ids:draft});if(error)throw error;if(savingDay!==day){notify('날짜가 바뀌었습니다. 새 날짜에 다시 설정해 주세요.');return;}dirty=false;$('#saveStatus').textContent='저장 완료';await load();}catch(e){notify('저장 실패: '+e.message,true);$('#saveStatus').textContent='저장 실패';}finally{busy=false;updateStatus();}
+ }
+ async function init(){
+  const url=String(cfg.url||'').trim(),key=String(cfg.publishableKey||'').trim();
+  if(url.startsWith('https://')&&key&&window.supabase?.createClient){
+   db=window.supabase.createClient(url,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+   db.auth.onAuthStateChange(()=>{setTimeout(()=>{void authCheck();},0)});
+   await Promise.all([load(),authCheck()]);
+   try{db.channel('ocean-map-'+day).on('postgres_changes',{event:'*',schema:'public',table:'ocean_map_daily_open'},()=>{void load();}).subscribe();}catch(_){/* periodic refresh remains */}
+  }else{await load();}
+ }
+ $('#hotspots').addEventListener('pointermove',e=>{const el=e.target.closest('.area');if(el)showTip(el.dataset.id,e);else if(e.pointerType!=='touch')$('#tip').style.display='none';});
+ $('#hotspots').addEventListener('pointerleave',()=>$('#tip').style.display='none');
+ $('#hotspots').addEventListener('click',e=>{const el=e.target.closest('.area');if(!el)return;if(admin)choose(el.dataset.id);else{const r=el.getBoundingClientRect();showTip(el.dataset.id,{clientX:r.left+r.width/2,clientY:r.top+r.height/2});}});
+ $('#hotspots').addEventListener('keydown',e=>{const el=e.target.closest('.area');if(!el||!['Enter',' '].includes(e.key))return;e.preventDefault();if(admin)choose(el.dataset.id);else{const r=el.getBoundingClientRect();showTip(el.dataset.id,{clientX:r.left+r.width/2,clientY:r.top+r.height/2});}});
+ $('#hotspots').addEventListener('focusin',e=>{const el=e.target.closest('.area');if(el){const r=el.getBoundingClientRect();showTip(el.dataset.id,{clientX:r.left+r.width/2,clientY:r.top+r.height/2});}});
+ $('#hotspots').addEventListener('focusout',()=>$('#tip').style.display='none');
+ $('#cards').addEventListener('click',e=>{const el=e.target.closest('[data-id]');if(el&&admin)choose(el.dataset.id);});
+ $('#resetDraft').addEventListener('click',()=>{if(!admin)return;draft=[];dirty=true;$('#saveStatus').textContent='선택 초기화 · 서버에 아직 미반영';render();});
+ $('#saveBtn').addEventListener('click',()=>void save());$('#reloadBtn').addEventListener('click',()=>void load());
+ $('#loginBtn').addEventListener('click',()=>{let parentOpened=false;try{if(window.parent!==window&&window.parent.DDING_SITE_AUTH?.open){window.parent.DDING_SITE_AUTH.open('login');parentOpened=true;}}catch(_){}if(!parentOpened)$('#authPanel').hidden=false;});
+ $('#cancelAuth').addEventListener('click',()=>$('#authPanel').hidden=true);
+ $('#authForm').addEventListener('submit',async e=>{e.preventDefault();if(!db){notify('Supabase 연결 후 로그인할 수 있습니다.',true);return;}const email=$('#email').value.trim(),password=$('#password').value;const {error}=await db.auth.signInWithPassword({email,password});if(error)notify('로그인 실패: '+error.message,true);else{$('#authPanel').hidden=true;$('#password').value='';await authCheck();}});
+ $('#logoutBtn').addEventListener('click',async()=>{if(!db)return;const {error}=await db.auth.signOut();if(error)notify(error.message,true);else{user=null;admin=false;draft=[];dirty=false;await authCheck();}});
+ const tick=()=>{currentKeyCheck();const ms=86400000-((Date.now()+21600000)%86400000);$('#cd').textContent=number(Math.floor(ms/3600000))+':'+number(Math.floor(ms/60000)%60)+':'+number(Math.floor(ms/1000)%60);};
+ tick();setInterval(tick,1000);setInterval(()=>{if(document.visibilityState==='visible')void load();},20000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')void load();});
+ const resize=()=>{if(window.parent===window)return;window.parent.postMessage({type:'dding-ocean-size',height:Math.ceil(document.documentElement.scrollHeight+16)},location.origin);};
+ if(window.ResizeObserver)new ResizeObserver(resize).observe(document.body);window.addEventListener('load',resize);render();void init();
+})();
+</script>
+</body>
+</html>
