@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>해양 제작 시설 · 띵타이쿤 WIKI</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;--bg:#f8fafd;--white:#fff;--ink:#233047;--muted:#7a859b;--line:#e2e8f0;--soft:#f1f7ff;--accent:#2871af;--mint:#147e74;--gold:#b77a1b;color:var(--ink);background:var(--bg)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;padding:12px 12px 30px;font-size:13px;line-height:1.55}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid #2575c0;outline-offset:2px}
+    .page{max-width:1360px;margin:0 auto}.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:5px 0 17px}.kicker{font-size:10px;font-weight:850;letter-spacing:2px;color:var(--accent)}.top h1{font-size:24px;margin:4px 0 3px;letter-spacing:-.8px}.top p{margin:0;color:var(--muted)}.count{border:1px solid #d5e4f2;background:#fff;padding:6px 11px;border-radius:99px;font-size:11px;color:#3273a9;font-weight:800}
+    .tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}.tabs a{border-radius:10px;border:1px solid #d7e2ef;background:white;color:#506681;padding:9px 12px;font-weight:750;font-size:12px;text-decoration:none}.tabs a.selected{color:white;background:#246b9f;border-color:#246b9f}.tabs a:hover:not(.selected){background:#f0f7fc}
+    .workspace{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:14px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:17px;min-width:0;box-shadow:0 6px 25px #15345706}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.search{flex:1 1 240px;min-width:150px;border:1px solid #cddae8;background:#fff;border-radius:10px;height:42px;padding:0 12px;color:var(--ink)}.filters{display:flex;gap:5px;flex-wrap:wrap}.filter{border:1px solid #d7e3ee;background:#fff;padding:9px 11px;border-radius:10px;font-size:11px;font-weight:750;color:#5f728a}.filter.selected{background:#eaf4fd;color:#186aa6;border-color:#9bc7e7}.count-note{color:var(--muted);font-size:11px;margin:0 0 14px}.group{margin:17px 0 23px}.group:first-of-type{margin-top:5px}.group-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;border-bottom:1px solid var(--line);padding:0 0 8px}.group-heading h2{font-size:15px;margin:0}.group-heading span{font-size:11px;color:#778aa2}
+    .recipes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.recipe{background:#fff;border:1px solid #dde6f0;border-radius:13px;padding:13px;min-width:0;display:flex;flex-direction:column;gap:11px}.recipe-head{display:flex;align-items:flex-start;gap:9px}.icon{display:grid;place-items:center;width:40px;height:40px;flex:none;background:#edf5fc;color:#3976a4;border:1px solid #dbe9f4;border-radius:10px;font-size:17px;font-weight:900;overflow:hidden}.icon.key{background:#fff8e9;color:#aa801f}.icon-img{width:100%;height:100%;display:block;image-rendering:pixelated}.mini-icon{width:20px;height:20px;display:block;flex:none;image-rendering:pixelated}.mini-fallback{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:6px;background:#eef5fb;color:#51769a;font-size:10px;flex:none}.recipe-intro{min-width:0;flex:1}.recipe-name{font-size:13px;font-weight:850;line-height:1.45;overflow-wrap:anywhere}.recipe-info{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:4px}.star{color:#a37316;letter-spacing:1px}.pill{font-size:10px;padding:2px 6px;border-radius:6px;border:1px solid #d7e6f4;background:#f2f8ff;color:#44759c;font-weight:750}.out{margin-left:auto;color:#237e73;font-size:11px;font-weight:800;white-space:nowrap}.material-title{display:flex;justify-content:space-between;align-items:center;color:#70839c;font-size:10px;font-weight:800}.materials{display:flex;flex-wrap:wrap;gap:5px}.material{display:inline-flex;align-items:center;gap:5px;border:1px solid #e2e8f1;border-radius:8px;padding:5px 7px;background:#f8fafc;color:#40536d;font-size:11px;text-align:left;line-height:1.4;max-width:100%}.material:hover{border-color:#93b8da;background:#f0f8ff}.material b{color:#236e9f}.material.has-recipe{border-style:dashed;border-color:#b9d7eb}.material .go{font-size:10px;color:#6489a7}.recipe-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px dashed #e7edf4;padding-top:10px;margin-top:auto}.note{color:#8391a4;font-size:10px}.add{padding:7px 10px;background:#eaf4fd;border:1px solid #b7d5eb;color:#256da2;border-radius:9px;font-size:11px;font-weight:850}.add:hover{background:#dceefa}
+    .cart{position:sticky;top:10px;border:1px solid #cbdfe9;background:#f6fbfd;border-radius:16px;padding:17px;min-width:0}.cart-top{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-bottom:10px}.cart h2{font-size:16px;margin:0}.clear{background:white;border:1px solid #d3e0eb;border-radius:7px;font-size:10px;padding:6px 9px;color:#58718b}.empty{background:#fff;border:1px dashed #d4e1eb;border-radius:11px;padding:24px 8px;text-align:center;color:#8b9aac;font-size:12px}.order-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px;border-bottom:1px solid #e0e8f0;padding:9px 0}.order-row strong{font-size:11px;overflow-wrap:anywhere}.order-row small{display:block;color:#8b98aa;font-size:10px}.qty{display:flex;align-items:center;gap:4px}.qty button{width:24px;height:25px;border:1px solid #cbddeb;border-radius:6px;background:white;padding:0;color:#2774a9;font-weight:800}.qty b{min-width:21px;text-align:center;font-size:11px}.summary{display:flex;justify-content:space-between;align-items:center;gap:5px;padding:11px 0;color:#526983}.summary b{font-size:17px;color:#23699b}.section-caption{border-top:1px dashed #cbd9e7;padding-top:11px;font-weight:850;font-size:12px}.total-mat{display:flex;justify-content:space-between;gap:7px;font-size:11px;padding:6px 0;border-bottom:1px solid #e9eff5}.total-mat b{white-space:nowrap;color:#35637f}.copy{margin-top:12px;width:100%;padding:10px;border:0;color:white;background:#2779b3;border-radius:10px;font-weight:850}.details{font-size:11px;color:#7f8fa2;margin-top:12px;line-height:1.7}.alert{margin:12px 0;border-radius:11px;background:#fff8e8;border:1px solid #eed6a8;color:#8d601e;padding:11px;font-size:11px}.cart-main,.mat-main,.shop-main{display:flex;align-items:center;gap:8px;min-width:0}.cart-main .text,.mat-main .text,.shop-main .text{min-width:0}.cart-main strong,.shop-main .shop-name{display:block}
+    .shop-head{margin-bottom:12px}.shop-head h2{font-size:16px;margin:0}.shop-head p{margin:4px 0;color:var(--muted);font-size:11px}.shop-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border-bottom:1px solid #e7edf4;padding:11px 0}.shop-name{font-weight:800;font-size:12px}.shop-price{color:#386d8b;font-weight:850;font-size:12px;display:block}.shop-price-label{color:#8793a6;font-size:10px;font-weight:600}.shop-row .qty{justify-content:flex-end}.shop-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}.shop-controls label{font-size:11px;color:#687d94}.shop-controls select{border:1px solid #c8d9e6;border-radius:8px;padding:7px 9px;background:#fff;color:#355b79}.no-results{padding:28px 12px;text-align:center;color:#8493a6}.tooltip{position:fixed;z-index:30;background:#16304c;color:#fff;padding:9px 12px;box-shadow:0 10px 30px #0d25363b;border-radius:9px;max-width:230px;font-size:11px;pointer-events:none;white-space:normal;display:none}.tooltip b{display:block;color:#bfe9ff;margin-bottom:4px}
+    @media(max-width:1090px){.workspace{grid-template-columns:minmax(0,1fr) 270px}.recipes{grid-template-columns:1fr}}@media(max-width:790px){.workspace{grid-template-columns:minmax(0,1fr)}.cart{position:static}.recipes{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:550px){body{padding:7px 5px 24px}.top h1{font-size:19px}.panel,.cart{padding:12px}.recipes{grid-template-columns:1fr}.tabs a{font-size:11px;padding:8px 9px}.recipe{padding:11px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+    /* v30: wide, compact recipe cards matching the supplied reference */
+    .recipes{grid-template-columns:minmax(0,1fr);gap:12px}
+    .recipe{background:#fff;border:1px solid #e5def7;border-radius:19px;padding:18px;gap:14px;box-shadow:0 3px 10px #2e24500a}
+    .recipe-head{position:relative;display:flex;align-items:center;gap:15px;padding-right:72px;min-height:78px}
+    .recipe-head>.icon{width:82px;height:82px;border:2px solid #c8a98b;border-radius:15px;background:#f4ebe5;box-shadow:0 1px 0 #fff inset}
+    .recipe-head>.icon.key{background:#fff3e6;border-color:#dfc39e}
+    .recipe-head .icon-img{width:68px;height:68px;object-fit:contain;image-rendering:pixelated}
+    .recipe-intro{display:flex;flex-direction:column;gap:4px}
+    .recipe-name{font-size:15px;line-height:1.5;color:#14213e;letter-spacing:-.25px}
+    .recipe-info{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+    .recipe-meta{font-size:11px;color:#8f9db0}
+    .recipe-info .pill{font-size:10px;background:#f7f5fd;border-color:#e5def5;color:#75618f;padding:2px 7px}
+    .result-badge{position:absolute;right:0;top:0;border-radius:99px;padding:6px 10px;border:1px solid #efd6a1;background:#fff9e8;color:#ad7618;font-size:11px;white-space:nowrap}
+    .recipe>.materials{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .recipe .material{display:flex;min-height:55px;width:100%;padding:6px 8px;border-radius:12px;border:1px solid #e5def9;background:#f9f7ff;gap:8px;line-height:1.4;overflow:hidden}
+    .recipe .material:hover,.recipe .material:focus-visible{border-color:#b69bdf;background:#f4efff}
+    .recipe .material.has-recipe{border-style:solid}
+    .material-picture{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:9px;border:1px solid #c9ae93;background:#f1e6dc}
+    .material-picture .mini-icon{width:30px;height:30px;object-fit:contain;image-rendering:pixelated}
+    .material-picture .mini-fallback{width:28px;height:28px;background:#e9e0d8;color:#89634d;font-size:13px;font-weight:800;border-radius:6px}
+    .recipe .material-name{font-size:12px;font-weight:750;color:#28354c;flex:1;text-align:left;min-width:0;overflow-wrap:anywhere}
+    .material-dot{width:5px;height:5px;background:#a77de0;border-radius:50%;flex:none;margin-left:auto}
+    .material-quantity{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;font-size:11px;font-weight:850;color:#4f65a2;border:1px solid #e2d4fa;background:white;padding:3px 6px;min-width:28px;border-radius:7px}
+    .recipe-footer{margin-top:0;border-top:1px solid #f0edf6;padding-top:11px}
+    .recipe-footer .add{border:1px solid #d8c8ee;border-radius:9px;background:#f3effc;color:#7250af}
+    .recipe-footer .add:hover{background:#e9e0f9}
+    @media(max-width:1090px){.recipes{grid-template-columns:minmax(0,1fr)}}
+    @media(max-width:790px){.recipes{grid-template-columns:minmax(0,1fr)}}
+    @media(max-width:550px){
+      .recipe{padding:12px;gap:12px;border-radius:15px}
+      .recipe-head{min-height:65px;gap:10px;padding-right:70px}
+      .recipe-head>.icon{width:64px;height:64px;border-radius:12px;flex:0 0 64px}
+      .recipe-head .icon-img{width:55px;height:55px}
+      .recipe-name{font-size:13px}
+      .recipe>.materials{grid-template-columns:minmax(0,1fr)}
+      .recipe .material{min-height:47px}
+      .result-badge{font-size:10px;padding:5px 7px}
+    }
+
+    /* v31: photo-style illustrated material recipe popup */
+    .tooltip.rich-item-tooltip{
+      position:fixed;z-index:5000;display:none;box-sizing:border-box;width:318px;max-width:calc(100vw - 20px);
+      padding:0;background:#fff;color:#243149;border:1px solid #d8c6f1;border-radius:16px;
+      box-shadow:0 18px 40px rgba(44,36,70,.17);pointer-events:none;
+      overflow-x:hidden;overflow-y:auto;max-height:calc(100vh - 24px);white-space:normal;
+    }
+    .tip-content{padding:14px 14px 0;text-align:left}
+    .tip-header{display:flex;align-items:center;gap:11px;min-height:54px}
+    .tip-picture{width:53px;height:53px;border-radius:12px;background:#f2e8df;border:1px solid #c19d7a;flex:0 0 53px;display:grid;place-items:center}
+    .tip-picture .mini-icon{width:45px;height:45px;object-fit:contain;image-rendering:pixelated}
+    .tip-picture .mini-fallback{width:40px;height:40px;font-size:18px;border-radius:9px;background:#e6e1db}
+    .tip-name{font-size:14px;font-weight:850;color:#182b45;line-height:1.35;overflow-wrap:anywhere}
+    .tip-needed{font-size:11px;color:#8d9bad;margin-top:4px}
+    .tip-section{margin-top:12px;padding-top:2px}
+    .tip-label{display:flex;align-items:center;justify-content:space-between;gap:6px;color:#895eb9;font-size:10px;font-weight:900;letter-spacing:-.1px;margin-bottom:7px}
+    .tip-output{font-size:10px;white-space:nowrap;color:#9b6512;background:#fff5dc;border:1px solid #efd6a1;border-radius:16px;padding:3px 7px}
+    .tip-line{display:flex;align-items:center;gap:9px;min-height:42px}
+    .tip-line+.tip-line{border-top:1px solid #f5f1f8}
+    .tip-line-icon{flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;background:#f4ebe4;border:1px solid #d0b297;border-radius:9px}
+    .tip-line-icon .mini-icon{width:28px;height:28px;image-rendering:pixelated}
+    .tip-line-icon .mini-fallback{width:27px;height:27px;background:#e9e1da;border-radius:6px}
+    .tip-line-name{font-weight:730;font-size:11px;line-height:1.4;color:#3b4b62;flex:1;min-width:0;overflow-wrap:anywhere}
+    .tip-line-qty{font-size:11px;font-weight:850;color:#9d6015;white-space:nowrap;margin-left:5px}
+    .tip-empty-info{font-size:11px;line-height:1.6;color:#71809a;background:#faf8fe;border:1px dashed #e3d8ef;border-radius:10px;padding:12px}
+    .tip-foot{border-top:1px solid #e5e7ef;margin-top:12px;padding:10px 1px 12px;color:#8190a6;font-size:10px;line-height:1.55}
+    .mat-info-button{border:0;background:transparent;padding:3px 4px;margin:0;cursor:pointer;text-align:left;color:inherit;font:inherit;max-width:100%;border-radius:6px}
+    .mat-info-button:hover,.mat-info-button:focus-visible{background:#e9e1f6}
+    .mat-info-button .text{min-width:0;font-size:11px;overflow-wrap:anywhere}
+    .item-dialog-overlay[hidden]{display:none!important}
+    .item-dialog-overlay{position:fixed;inset:0;background:rgba(17,25,42,.45);z-index:6000;display:flex;align-items:center;justify-content:center;padding:18px}
+    .item-dialog-panel{position:relative;background:#fff;border-radius:18px;border:1px solid #d9c5ef;width:min(420px,100%);max-height:min(82vh,730px);overflow-y:auto;overscroll-behavior:contain;box-shadow:0 24px 60px rgba(17,25,42,.3)}
+    .item-dialog-panel .tip-content{padding:20px 20px 0}
+    .item-dialog-panel .tip-header{padding-right:34px}
+    .item-dialog-close{position:absolute;right:12px;top:12px;z-index:2;display:grid;place-items:center;width:32px;height:32px;border-radius:9px;border:1px solid #e3d9f1;background:#fff;color:#6b5c7c;font-size:21px;line-height:1;cursor:pointer}
+    .tip-usage{border-top:1px solid #ebe5f3;padding:13px 20px 18px;margin-top:13px}
+    .tip-usage-title{font-size:12px;font-weight:900;color:#5f4c7b;margin:0 0 8px}
+    .tip-used-button{width:100%;display:flex;align-items:center;gap:8px;background:#faf9ff;border:1px solid #e7def5;padding:7px 9px;border-radius:9px;text-align:left;margin:5px 0;cursor:pointer;color:#37435c;font-size:11px}
+    .tip-used-button:hover{background:#f1eafe;border-color:#c8b4e7}
+    .tip-used-button .mini-icon,.tip-used-button .mini-fallback{width:22px;height:22px}
+    .tip-used-button span:last-child{margin-left:auto;color:#a59bb2;font-size:10px}
+    .tip-not-used{font-size:11px;color:#8793a3}
+    .tip-footnote{font-size:10px;color:#9287a5;line-height:1.5;margin:10px 0 0}
+    body.item-dialog-open{overflow:hidden}
+    @media(max-width:550px){.tooltip.rich-item-tooltip{width:min(310px,calc(100vw - 20px))}.item-dialog-overlay{padding:10px}.item-dialog-panel .tip-content{padding:16px 15px 0}.tip-usage{padding:12px 15px 16px}}
+
+    /* v32 compact, practical 2-column catalog */
+    .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+    .tabs{margin:0 0 12px}
+    .recipes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .recipe{padding:13px;gap:12px;scroll-margin-top:140px}
+    .recipe-head{gap:10px;min-height:66px;padding-right:61px}
+    .recipe-head>.icon{width:62px;height:62px;flex:0 0 62px;border-radius:12px}
+    .recipe-head .icon-img{width:53px;height:53px}
+    .recipe-name{font-size:13px}
+    .recipe>.materials{grid-template-columns:minmax(0,1fr);gap:6px}
+    .recipe .material{min-height:44px;padding:4px 7px;gap:6px}
+    .recipe .material-picture{width:30px;height:30px;flex-basis:30px}
+    .recipe .material-picture .mini-icon{width:26px;height:26px}
+    .recipe .material-name{font-size:11px}
+    .result-badge{padding:5px 7px;font-size:10px}
+    .recipe.is-recipe-target{background:#f9f4ff;border-color:#a97bdc;box-shadow:0 0 0 3px #d6bdf455}
+    .recipe .material.has-recipe{cursor:pointer}
+    .recipe .material.has-recipe:hover{border-color:#9561d0;background:#f0e7fd}
+    .tooltip.rich-item-tooltip{z-index:10000;box-shadow:0 14px 44px #2d214d3f}
+    @media(max-width:1030px){.recipes{grid-template-columns:minmax(0,1fr)}.recipe>.materials{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:550px){.recipes{grid-template-columns:minmax(0,1fr)}.recipe>.materials{grid-template-columns:minmax(0,1fr)}}
+  </style>
+</head>
+<body>
+<div class="page">
+  <h1 class="sr-only" id="viewTitle">해양 제작 시설</h1><p class="sr-only" id="viewDesc"></p><span class="sr-only" id="countBadge"></span>
+  <nav class="tabs" aria-label="해양 제작 및 상점" id="tabs"></nav>
+  <div class="workspace">
+    <main class="panel" id="mainPane"></main>
+    <aside class="cart" aria-label="제작 및 판매 계산기"><div class="cart-top"><h2 id="cartHeading">제작 재료 합계</h2><button class="clear" id="resetBtn" type="button">전체 초기화</button></div><div id="cartContent" aria-live="polite"></div></aside>
+  </div>
+  <div class="tooltip" id="tooltip" role="tooltip"></div>
+</div>
+<div id="itemDialog" class="item-dialog-overlay" hidden>
+  <div class="item-dialog-panel" role="dialog" aria-modal="true" aria-labelledby="itemDialogTitle" tabindex="-1">
+    <div id="itemDialogContent"></div>
+  </div>
+</div>
+<script src="ocean-recipes-data.js?v=wiki28-ocean-recipes"></script>
+<script>
+'use strict';
+(() => {
+  const D=window.DDING_OCEAN_RECIPES;
+  if(!D){document.getElementById('mainPane').textContent='해양 제작법 데이터 파일(ocean-recipes-data.js)을 찾을 수 없습니다.';return}
+  const $=id=>document.getElementById(id);
+  const fmt=n=>Number(n).toLocaleString('ko-KR');
+  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const params=new URLSearchParams(location.search);
+  const valid=[...Object.keys(D.facilities),...Object.keys(D.shops)];
+  const page=valid.includes(params.get('facility'))?params.get('facility'):'alchemy';
+  const isShop=!!D.shops[page];
+  const info=isShop?D.shops[page]:D.facilities[page];
+  const recipes=D.recipes.filter(r=>r.facility===page);
+  const allRecipes=new Map(D.recipes.map(r=>[r.name+(r.stars?' '+'★'.repeat(r.stars):''),r]));
+  const alias={'해구의 파동 코어 ★★':'해구 파동의 코어 ★★'};
+  const getRecipe=name=>allRecipes.get(name)||allRecipes.get(alias[name]||'');
+  const storageKey='dding-ocean-craft-plan-v28';
+  const priceStorageKey='dding-ocean-sales-plan-v28';
+  function readSaved(key){try{const v=JSON.parse(sessionStorage.getItem(key)||'{}');return v&&typeof v==='object'&&!Array.isArray(v)?v:{}}catch(_){return {}}}
+  const craftPlan=readSaved(storageKey),salesPlan=readSaved(priceStorageKey);
+  const ITEM_IMAGE_MAP={
+    "수호의 정수": "assets/ocean_recipes/수호의_정수.png",
+    "파동의 정수": "assets/ocean_recipes/파동의_정수.png",
+    "혼란의 정수": "assets/ocean_recipes/혼란의_정수.png",
+    "생명의 정수": "assets/ocean_recipes/생명의_정수.png",
+    "부식의 정수": "assets/ocean_recipes/부식의_정수.png",
+    "물결 수호의 핵": "assets/ocean_recipes/물결_수호의_핵.png",
+    "파동 오염의 핵": "assets/ocean_recipes/파동_오염의_핵.png",
+    "질서 파괴의 핵": "assets/ocean_recipes/질서_파괴의_핵.png",
+    "활력 붕괴의 핵": "assets/ocean_recipes/활력_붕괴의_핵.png",
+    "침식 방어의 핵": "assets/ocean_recipes/침식_방어의_핵.png",
+    "수호 에센스": "assets/ocean_recipes/수호_에센스.png",
+    "파동 에센스": "assets/ocean_recipes/파동_에센스.png",
+    "혼란 에센스": "assets/ocean_recipes/혼란_에센스.png",
+    "생명 에센스": "assets/ocean_recipes/생명_에센스.png",
+    "부식 에센스": "assets/ocean_recipes/부식_에센스.png",
+    "활기 보존의 결정": "assets/ocean_recipes/활기_보존의_결정.png",
+    "파도 침식의 결정": "assets/ocean_recipes/파도_침식의_결정.png",
+    "방어 오염의 결정": "assets/ocean_recipes/방어_오염의_결정.png",
+    "격류 재생의 결정": "assets/ocean_recipes/격류_재생의_결정.png",
+    "맹독 혼란의 결정": "assets/ocean_recipes/맹독_혼란의_결정.png",
+    "수호의 엘릭서": "assets/ocean_recipes/수호의_엘릭서.png",
+    "파동의 엘릭서": "assets/ocean_recipes/파동의_엘릭서.png",
+    "혼란의 엘릭서": "assets/ocean_recipes/혼란의_엘릭서.png",
+    "생명의 엘릭서": "assets/ocean_recipes/생명의_엘릭서.png",
+    "부식의 엘릭서": "assets/ocean_recipes/부식의_엘릭서.png",
+    "불멸 재생의 영약": "assets/ocean_recipes/불멸_재생의_영약.png",
+    "파동 장벽의 영약": "assets/ocean_recipes/파동_장벽의_영약.png",
+    "타락 침식의 영약": "assets/ocean_recipes/타락_침식의_영약.png",
+    "생명 광란의 영약": "assets/ocean_recipes/생명_광란의_영약.png",
+    "맹독 파동의 영약": "assets/ocean_recipes/맹독_파동의_영약.png",
+    "굴": "assets/ocean_recipes/굴.png",
+    "소라": "assets/ocean_recipes/소라.png",
+    "문어": "assets/ocean_recipes/문어.png",
+    "미역": "assets/ocean_recipes/미역.png",
+    "성게": "assets/ocean_recipes/성게.png",
+    "알쏭달쏭 조개": "assets/ocean_recipes/알쏭달쏭_조개.png",
+    "영생의 아쿠티스": "assets/ocean_recipes/영생의_아쿠티스.png",
+    "크라켄의 광란체": "assets/ocean_recipes/크라켄의_광란체.png",
+    "리바이던의 깃털": "assets/ocean_recipes/리바이던의_깃털.png",
+    "해구의 파동 코어": "assets/ocean_recipes/해구의_파동_코어.png",
+    "침묵의 심해 비약": "assets/ocean_recipes/침묵의_심해_비약.png",
+    "청해룡의 날개": "assets/ocean_recipes/청해룡의_날개.png",
+    "아쿠아 펄스 파편": "assets/ocean_recipes/아쿠아_펄스_파편.png",
+    "나우틸러스의 손": "assets/ocean_recipes/나우틸러스의_손.png",
+    "무저의 척추": "assets/ocean_recipes/무저의_척추.png",
+    "루키 열쇠": "assets/ocean_recipes/루키_열쇠.png",
+    "노멀 열쇠": "assets/ocean_recipes/노멀_열쇠.png",
+    "전설 열쇠": "assets/ocean_recipes/전설_열쇠.png",
+    "신화 열쇠": "assets/ocean_recipes/신화_열쇠.png",
+    "루키 열쇠 조각": "assets/ocean_recipes/루키_열쇠_조각.png",
+    "노멀 열쇠 조각": "assets/ocean_recipes/노멀_열쇠_조각.png",
+    "전설 열쇠 조각": "assets/ocean_recipes/전설_열쇠_조각.png",
+    "신화 열쇠 조각": "assets/ocean_recipes/신화_열쇠_조각.png",
+    "금속 재활용품": "assets/ocean_recipes/금속_재활용품.png",
+    "합금 재활용품": "assets/ocean_recipes/합금_재활용품.png",
+    "합성수지 재활용품": "assets/ocean_recipes/합성수지_재활용품.png",
+    "플라스틱 재활용품": "assets/ocean_recipes/플라스틱_재활용품.png",
+    "섬유 재활용품": "assets/ocean_recipes/섬유_재활용품.png",
+    "조개껍데기 브로치": "assets/ocean_recipes/조개껍데기_브로치.png",
+    "푸른 향수병": "assets/ocean_recipes/푸른_향수병.png",
+    "자개 손거울": "assets/ocean_recipes/자개_손거울.png",
+    "분홍 헤어핀": "assets/ocean_recipes/분홍_헤어핀.png",
+    "자개 부채": "assets/ocean_recipes/자개_부채.png",
+    "흑진주 시계": "assets/ocean_recipes/흑진주_시계.png",
+    "스태미나 드링크 II": "assets/ocean_recipes/스태미나_드링크_II.png",
+    "스태미나 드링크 III": "assets/ocean_recipes/스태미나_드링크_III.png",
+    "스태미나 드링크 IV": "assets/ocean_recipes/스태미나_드링크_IV.png",
+    "무거운 바다 상자": "assets/ocean_recipes/무거운_바다_상자.png",
+    "가벼운 바다 상자": "assets/ocean_recipes/가벼운_바다_상자.png",
+    "추출된 희석액": "assets/ocean_recipes/추출된_희석액.png"
+  };
+  Object.assign(ITEM_IMAGE_MAP,{"모래": "assets/tools/모래.png", "해초": "assets/tools/해초.png", "다이아몬드": "assets/tools/다이아몬드.png", "거미줄": "assets/tools/거미줄.png"});
+  Object.assign(ITEM_IMAGE_MAP,{"금 주괴": "assets/tools/금_주괴.png", "철 주괴": "assets/tools/철.png", "유리병": "assets/florist/glass_bottle.png", "막대기": "assets/florist/stick.png", "대나무": "assets/barista/bamboo.png", "마그마 블록": "assets/barista/magma.png", "흑요석": "assets/barista/obsidian.png", "자수정 조각": "assets/barista/amethyst.png", "발광 열매": "assets/tools/발광_열매.png", "레드스톤 블록": "assets/raw/레드스톤_블록.png", "청금석 블록": "assets/raw/청금석_블록.png"});
+  const ITEM_IMAGE_ALIAS={'해구 파동의 코어':'해구의 파동 코어'};
+  function baseName(name){return String(name||'').replace(/\s*★+/g,'').trim()}
+  function imageKey(name){const key=baseName(name);return ITEM_IMAGE_MAP[key]?key:(ITEM_IMAGE_ALIAS[key]||key)}
+  function imagePath(name){return ITEM_IMAGE_MAP[imageKey(name)]||''}
+  function itemVisual(name,kind='mini'){const label=baseName(name),src=imagePath(name);if(src){return kind==='card'?`<span class="icon ${/열쇠/.test(label)?'key':''}"><img class="icon-img" src="${src}" alt="${esc(label)}" loading="lazy"></span>`:`<img class="mini-icon" src="${src}" alt="" loading="lazy" aria-hidden="true">`}const symbol=kind==='card'?'✦':'◆';return kind==='card'?`<span class="icon ${/열쇠/.test(label)?'key':''}" aria-hidden="true">${symbol}</span>`:`<span class="mini-fallback" aria-hidden="true">${symbol}</span>`}
+  let search='',filter='all',priceChoice=1;
+  const stars=r=>'★'.repeat(r.stars);
+  const recipeName=r=>r.name+(r.stars?' '+stars(r):'');
+  const shopItems=isShop?info.items:[];
+  function store(){try{sessionStorage.setItem(storageKey,JSON.stringify(craftPlan));sessionStorage.setItem(priceStorageKey,JSON.stringify(salesPlan))}catch(_){}}
+  const qtyOf=(obj,id)=>Math.max(0,Math.min(10000,Math.floor(Number(obj[id])||0)));
+  function changeQty(obj,id,delta){const n=Math.max(0,Math.min(10000,qtyOf(obj,id)+delta));if(n)obj[id]=n;else delete obj[id];store();renderCart()}
+  function groupNames(){return D.facilities[page].groupInfo}
+  function filteredRecipes(){return recipes.filter(r=>(filter==='all'||r.group===filter)&&(!search||[r.name,r.group,...r.ingredients.map(i=>i.name)].join(' ').toLowerCase().includes(search)))}
+  function materialTooltip(name){const r=getRecipe(name);return r?`${name}: ${r.ingredients.map(x=>`${x.name} ×${x.quantity}`).join(' + ')} (제작 ×${r.output})`:`${name}: 제작 재료 정보 없음`}
+
+  function compactIngredients(ingredients){
+    const sums=new Map();
+    for(const ingredient of ingredients){
+      sums.set(ingredient.name,(sums.get(ingredient.name)||0)+ingredient.quantity);
+    }
+    return [...sums.entries()].map(([name,quantity])=>({name,quantity}));
+  }
+  function recipeCard(r){
+    return `<article class="recipe" data-recipe-id="${esc(r.id)}" tabindex="-1">
+      <div class="recipe-head">
+        ${itemVisual(r.name,'card')}
+        <div class="recipe-intro">
+          <div class="recipe-name">${esc(r.name)} <span class="star">${stars(r)}</span></div>
+          <div class="recipe-info"><span class="pill">${esc(r.group)}</span><span class="recipe-meta">제작 재료</span></div>
+        </div>
+        <span class="result-badge">완성 ×${fmt(r.output)}</span>
+      </div>
+      <div class="materials">
+        ${compactIngredients(r.ingredients).map(i=>`<button type="button" class="material ${getRecipe(i.name)?'has-recipe':''}" data-item-name="${esc(i.name)}" data-item-needed="${i.quantity}" aria-label="${esc(i.name)} ×${i.quantity} - ${getRecipe(i.name)?'제작법으로 이동':'아이템 정보 보기'}" ${getRecipe(i.name)?'':'aria-haspopup="dialog"'}>
+          <span class="material-picture">${itemVisual(i.name,'mini')}</span>
+          <span class="material-name">${esc(i.name)}</span>
+          <span class="material-dot" aria-hidden="true"></span>
+          <span class="material-quantity">×${fmt(i.quantity)}</span>
+        </button>`).join('')}
+      </div>
+      <div class="recipe-footer">
+        <span class="note">제작 계획 ${fmt(qtyOf(craftPlan,r.id))}회</span>
+        <button class="add" type="button" data-add="${r.id}">+ 제작 목록에 담기</button>
+      </div>
+    </article>`;
+  }
+  function renderRecipes(){const found=filteredRecipes();const groups=groupNames().filter(group=>found.some(x=>x.group===group));$('mainPane').innerHTML=`<div class="controls"><input class="search" id="recipeSearch" type="search" placeholder="제작품이나 재료 검색" value="${esc(search)}" aria-label="제작법 검색"><div class="filters">${['all',...groupNames()].map(g=>`<button type="button" class="filter ${g===filter?'selected':''}" data-filter="${esc(g)}" aria-pressed="${g===filter}">${g==='all'?'전체':esc(g)}</button>`).join('')}</div></div><p class="count-note">${found.length}개 제작법 표시 · 전체 ${recipes.length}개 · 각 제작품의 산출 수량과 투입 재료는 1회 제작 기준</p>${found.length?groups.map(g=>{const list=found.filter(r=>r.group===g);return `<section class="group"><div class="group-heading"><h2>${esc(g)}</h2><span>${list.length}개</span></div><div class="recipes">${list.map(recipeCard).join('')}</div></section>`}).join(''):'<div class="no-results">검색 조건에 맞는 레시피가 없습니다.</div>'}`;updateSize()}
+  function shopPrice(item){return info.type==='dual'?Number(item[priceChoice]):Number(item[1])}
+  function shopRow(item,i){const n=qtyOf(salesPlan,`${page}:${i}`);return `<article class="shop-row"><div class="shop-main">${itemVisual(item[0],'mini')}<div class="text"><div class="shop-name">${esc(item[0])}</div>${info.type==='dual'?`<span class="shop-price"><span class="shop-price-label">가격 1</span> ${fmt(item[1])} G · <span class="shop-price-label">가격 2</span> ${fmt(item[2])} G</span>`:`<span class="shop-price">${fmt(item[1])} G</span>`}${page==='pos'&&i===5?'<span class="shop-price-label">가격 1 원문: 0G G (확인 필요)</span>':''}</div></div><div class="qty"><button data-sale="${page}:${i}" data-delta="-1" aria-label="${esc(item[0])} 수량 1개 감소">−</button><b>${fmt(n)}</b><button data-sale="${page}:${i}" data-delta="1" aria-label="${esc(item[0])} 수량 1개 추가">+</button></div></article>`}
+  function renderShops(){const found=shopItems.map((x,i)=>({item:x,index:i})).filter(v=>v.item[0].toLowerCase().includes(search));$('mainPane').innerHTML=`<div class="sr-only">${esc(info.name)}</div>${info.type==='dual'?'<div class="alert">포스 공예품의 두 판매가가 각각 무엇을 뜻하는지 제공되지 않았으므로 정확한 구분은 추후 확인이 필요합니다. 아래 선택값은 합계 계산에만 사용됩니다.</div><div class="shop-controls"><label for="priceChoice">합계 계산 기준</label><select id="priceChoice"><option value="1">가격 1</option><option value="2">가격 2</option></select></div>':''}<div class="controls"><input class="search" id="recipeSearch" type="search" placeholder="상품 이름 검색" value="${esc(search)}" aria-label="상품 검색"></div><p class="count-note">${found.length}개 표시 · 전체 ${shopItems.length}개</p>${found.length?found.map(({item,index})=>shopRow(item,index)).join(''):'<div class="no-results">일치하는 상품이 없습니다.</div>'}`;if($('priceChoice'))$('priceChoice').value=String(priceChoice);updateSize()}
+  function renderCart(){
+    if(isShop){
+      const selected=shopItems.map((item,i)=>({item,i,qty:qtyOf(salesPlan,`${page}:${i}`)})).filter(x=>x.qty);
+      const total=selected.reduce((s,x)=>s+shopPrice(x.item)*x.qty,0);
+      const count=selected.reduce((s,x)=>s+x.qty,0);
+      $('cartHeading').textContent='판매 금액 합계';
+      $('cartContent').innerHTML=selected.length?`<div class="section-caption">선택한 상품</div>${selected.map(x=>`<div class="order-row"><div class="cart-main">${itemVisual(x.item[0],'mini')}<div class="text"><strong>${esc(x.item[0])}</strong><small>${fmt(shopPrice(x.item))} G × ${fmt(x.qty)}</small></div></div><div class="qty"><button data-sale="${page}:${x.i}" data-delta="-1">−</button><b>${fmt(x.qty)}</b><button data-sale="${page}:${x.i}" data-delta="1">+</button></div></div>`).join('')}<div class="summary"><span>총 수량 ${fmt(count)}개</span><b>${fmt(total)} G</b></div><button class="copy" type="button" id="copyPlan">판매 내역 복사</button>`:'<div class="empty">판매 수량을 선택하면<br>총 금액이 표시됩니다.</div>';
+    }else{
+      const selected=D.recipes.map(r=>({r,qty:qtyOf(craftPlan,r.id)})).filter(x=>x.qty);
+      const total=selected.reduce((n,x)=>n+x.r.output*x.qty,0);const sums=new Map();
+      for(const x of selected)for(const ing of x.r.ingredients)sums.set(ing.name,(sums.get(ing.name)||0)+ing.quantity*x.qty);
+      $('cartHeading').textContent='제작 재료 합계';
+      $('cartContent').innerHTML=selected.length?`<div class="section-caption">제작 목록 · 전체 시설 공통</div>${selected.map(x=>`<div class="order-row"><div class="cart-main">${itemVisual(recipeName(x.r),'mini')}<div class="text"><strong>${esc(recipeName(x.r))}</strong><small>제작 ${fmt(x.qty)}회 · 결과 ${fmt(x.r.output*x.qty)}개</small></div></div><div class="qty"><button data-craft="${x.r.id}" data-delta="-1">−</button><b>${fmt(x.qty)}</b><button data-craft="${x.r.id}" data-delta="1">+</button></div></div>`).join('')}<div class="summary"><span>완성품 합계</span><b>${fmt(total)}개</b></div><div class="section-caption">필요한 재료</div>${[...sums].sort((a,b)=>a[0].localeCompare(b[0],'ko')).map(([name,num])=>`<div class="total-mat"><button type="button" class="mat-main mat-info-button" data-item-name="${esc(name)}" data-item-needed="${num}" aria-label="${esc(name)} ×${fmt(num)} - 재료 정보 보기" aria-haspopup="dialog">${itemVisual(name,'mini')}<span class="text">${esc(name)}</span></button><b>×${fmt(num)}</b></div>`).join('')}<button class="copy" type="button" id="copyPlan">제작 내역 복사</button>`:'<div class="empty">제작 목록이 비어 있어요.<br>원하는 제작법의 ‘담기’를 눌러주세요.</div>';
+    }
+    updateSize();
+  }
+  function getCopy(){if(isShop){const lines=shopItems.map((item,i)=>({item,qty:qtyOf(salesPlan,`${page}:${i}`)})).filter(x=>x.qty);return [`[${info.name}]`,...lines.map(x=>`${x.item[0]} ×${x.qty} (${fmt(shopPrice(x.item)*x.qty)} G)`),`총 판매액: ${fmt(lines.reduce((n,x)=>n+shopPrice(x.item)*x.qty,0))} G`].join('\n')}const chosen=D.recipes.map(r=>({r,qty:qtyOf(craftPlan,r.id)})).filter(x=>x.qty),sums=new Map();for(const x of chosen)for(const it of x.r.ingredients)sums.set(it.name,(sums.get(it.name)||0)+it.quantity*x.qty);return ['[해양 제작 계획]',...chosen.map(x=>`${recipeName(x.r)} ×${x.qty}회 (완성 ${x.r.output*x.qty}개)`),'[재료 합계]',...[...sums].map(([k,v])=>`${k} ×${v}`)].join('\n')}
+  async function copyPlan(){const t=getCopy();let ok=false;try{await navigator.clipboard.writeText(t);ok=true}catch(_){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();try{ok=document.execCommand('copy')}catch(_){}ta.remove()}const b=$('copyPlan');if(b)b.textContent=ok?'복사 완료':'복사 실패';}
+  const tabNames={'alchemy':'연금 제작','precision-alchemy':'정밀 연금','marine':'해양 제작','sharky':'연금품 판매 · 샤키','pos':'공예품 상점 · 포스'};
+  $('tabs').innerHTML=valid.map(id=>`<a class="${id===page?'selected':''}" href="${location.protocol==='file:'?'index.html':''}#/ocean-crafting/${id}" data-facility="${id}">${esc(tabNames[id])}</a>`).join('');
+  // Standalone open: use the parent WIKI's route. Embedded iframe: send URL to same-origin parent.
+  $('tabs').addEventListener('click',e=>{const a=e.target.closest('[data-facility]');if(!a)return;e.preventDefault();const id=a.dataset.facility;if(window.parent!==window){window.parent.location.hash='#/ocean-crafting/'+id}else{location.search='?facility='+encodeURIComponent(id)}});
+  $('viewTitle').textContent=info.name;
+  $('viewDesc').textContent=isShop?info.note:info.description;
+  $('countBadge').textContent=isShop?info.items.length+'개 가격 정보':recipes.length+'개 제작법';
+  $('mainPane').addEventListener('input',e=>{if(e.target.id==='recipeSearch'){const pos=e.target.selectionStart;search=e.target.value.toLowerCase().trim();isShop?renderShops():renderRecipes();const input=$('recipeSearch');input?.focus();if(input)input.setSelectionRange(pos,pos)}});
+  $('mainPane').addEventListener('click',e=>{const filterBtn=e.target.closest('[data-filter]');if(filterBtn){filter=filterBtn.dataset.filter;renderRecipes();return}const add=e.target.closest('[data-add]');if(add){changeQty(craftPlan,add.dataset.add,1);renderRecipes();return}const change=e.target.closest('[data-sale]');if(change){changeQty(salesPlan,change.dataset.sale,Number(change.dataset.delta));renderShops()}});
+  $('mainPane').addEventListener('change',e=>{if(e.target.id==='priceChoice'){priceChoice=Number(e.target.value);renderCart()}});
+  $('cartContent').addEventListener('click',e=>{const craft=e.target.closest('[data-craft]'),sale=e.target.closest('[data-sale]');if(craft){changeQty(craftPlan,craft.dataset.craft,Number(craft.dataset.delta));if(!isShop)renderRecipes()}else if(sale){changeQty(salesPlan,sale.dataset.sale,Number(sale.dataset.delta));renderShops()}else if(e.target.closest('#copyPlan'))copyPlan()});
+  $('resetBtn').addEventListener('click',()=>{const obj=isShop?salesPlan:craftPlan;for(const k of Object.keys(obj)){if(!isShop||k.startsWith(page+':'))delete obj[k]}store();renderCart();isShop?renderShops():renderRecipes()});
+  let frameRequested=false;function updateSize(){if(window.parent===window||frameRequested)return;frameRequested=true;requestAnimationFrame(()=>{frameRequested=false;window.parent.postMessage({type:'dding-ocean-crafting-size',height:Math.ceil(document.documentElement.scrollHeight+10)},'*')})}
+  window.addEventListener('resize',updateSize);window.addEventListener('load',updateSize);if(window.ResizeObserver)new ResizeObserver(updateSize).observe(document.body);
+  // Rich popups share the exact registered recipes; ingredients repeated in the source are grouped for display only.
+  const tooltip=$('tooltip');
+  tooltip.classList.add('rich-item-tooltip');
+  const itemDialog=$('itemDialog');
+  const itemDialogContent=$('itemDialogContent');
+  let activeTooltipTarget=null;
+  let previouslyFocused=null;
+  const detailMatches=name=>D.recipes.filter(r=>r.ingredients.some(i=>i.name===name));
+  function focusRecipeCard(id){
+    const card=[...document.querySelectorAll('.recipe[data-recipe-id]')].find(el=>el.dataset.recipeId===id);
+    if(!card)return;
+    document.querySelectorAll('.recipe.is-recipe-target').forEach(el=>el.classList.remove('is-recipe-target'));
+    card.classList.add('is-recipe-target');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      const offset=Math.max(0,Math.round(card.getBoundingClientRect().top+window.scrollY));
+      if(window.parent!==window){window.parent.postMessage({type:'dding-ocean-crafting-focus',id,offset},'*')}
+      else card.scrollIntoView({behavior:'instant',block:'start'});
+      card.focus({preventScroll:true});
+    }));
+  }
+  function navigateToRecipe(recipe){
+    hideItemTooltip();
+    if(!itemDialog.hidden)closeItemDialog();
+    if(recipe.facility!==page){
+      const dest='#/ocean-crafting/'+encodeURIComponent(recipe.facility)+'?focus='+encodeURIComponent(recipe.id);
+      if(window.parent!==window){try{window.parent.location.hash=dest;return}catch(_){}}
+      location.href='ocean-crafting.html?facility='+encodeURIComponent(recipe.facility)+'&focus='+encodeURIComponent(recipe.id)+'&v=wiki32';
+      return;
+    }
+    search='';filter='all';
+    renderRecipes();
+    focusRecipeCard(recipe.id);
+  }
+  function itemCardHtml(name,needed){
+    const recipe=getRecipe(name);
+    const amount=Number(needed)||0;
+    const usageText=amount>0?`사용 수량 ${fmt(amount)}개`:'아이템 정보';
+    const intro=`<div class="tip-header"><div class="tip-picture">${itemVisual(name,'mini')}</div><div><div class="tip-name">${esc(name)}</div><div class="tip-needed">${usageText}</div></div></div>`;
+    const body=recipe?`<div class="tip-section"><div class="tip-label"><span>제작 재료 · 완성 ×${fmt(recipe.output)}</span><span class="tip-output">${esc(D.facilities[recipe.facility]?.name||'제작 시설')}</span></div>${compactIngredients(recipe.ingredients).map(i=>`<div class="tip-line"><div class="tip-line-icon">${itemVisual(i.name,'mini')}</div><span class="tip-line-name">${esc(i.name)}</span><span class="tip-line-qty">×${fmt(i.quantity)}</span></div>`).join('')}</div>`:
+      `<div class="tip-section"><div class="tip-label">기본 재료 · 제작식 미등록</div><div class="tip-empty-info">현재 해양 제작법 데이터에는 이 아이템의 조합식이 등록되어 있지 않습니다.</div></div>`;
+    return `<div class="tip-content">${intro}${body}<div class="tip-foot">${recipe?'클릭하면 해당 제작 카드로 이동합니다.':'클릭하면 아이템 정보를 볼 수 있습니다.'}</div></div>`;
+  }
+  function hideItemTooltip(){tooltip.style.display='none';activeTooltipTarget=null;}
+  function visibleYBounds(){
+    let low=10,high=window.innerHeight-10;
+    // The parent wiki expands its iframe to the whole page. Its visible portion, not the iframe's
+    // enormous internal viewport, determines where a reader can actually see the popup.
+    try{
+      if(window.parent!==window&&window.frameElement){
+        const frame=window.frameElement.getBoundingClientRect();
+        low=Math.max(10,-frame.top+12);
+        high=Math.min(window.innerHeight-10,window.parent.innerHeight-frame.top-12);
+      }
+    }catch(_){}
+    if(high-low<90){low=10;high=Math.max(110,window.innerHeight-10)}
+    return {low,high};
+  }
+  function positionItemTooltip(target){
+    if(!target||tooltip.style.display==='none')return;
+    const {low,high}=visibleYBounds();
+    tooltip.style.maxHeight=Math.max(100,high-low)+'px';
+    const r=target.getBoundingClientRect(),w=tooltip.offsetWidth,h=tooltip.offsetHeight,pad=10;
+    const left=Math.min(window.innerWidth-w-pad,Math.max(pad,r.left));
+    const above=r.top-h-10,below=r.bottom+10;
+    const top=above>=low?above:(below+h<=high?below:Math.max(low,Math.min(high-h,below)));
+    tooltip.style.left=Math.round(left)+'px';tooltip.style.top=Math.round(top)+'px';
+  }
+  function positionItemDialog(){
+    if(itemDialog.hidden)return;
+    const panel=itemDialog.querySelector('.item-dialog-panel');
+    if(!panel)return;
+    try{
+      if(window.parent!==window&&window.frameElement){
+        const {low,high}=visibleYBounds();
+        itemDialog.style.alignItems='flex-start';
+        panel.style.maxHeight=Math.max(190,high-low-14)+'px';
+        const margin=Math.max(0,low+(high-low-panel.offsetHeight)/2-18);
+        panel.style.marginTop=Math.round(margin)+'px';
+      }
+    }catch(_){}
+  }
+  function showItemTooltip(target){
+    if(!target||!itemDialog.hidden)return;
+    activeTooltipTarget=target;
+    tooltip.innerHTML=itemCardHtml(target.dataset.itemName,Number(target.dataset.itemNeeded)||0);
+    tooltip.style.display='block';
+    positionItemTooltip(target);
+  }
+  function openItemDialog(name,needed){
+    hideItemTooltip();
+    if(itemDialog.hidden)previouslyFocused=document.activeElement;
+    const used=detailMatches(name);
+    const uses=used.length?used.map(r=>`<button type="button" class="tip-used-button" data-drill-item="${esc(recipeName(r))}">${itemVisual(r.name,'mini')}<strong>${esc(recipeName(r))}</strong><span>완성 ×${fmt(r.output)}</span></button>`).join(''):'<div class="tip-not-used">현재 등록된 다른 제작법에서 사용처를 찾지 못했어요.</div>';
+    itemDialogContent.innerHTML=`<button type="button" class="item-dialog-close" data-close-item aria-label="상세 정보 닫기">×</button>${itemCardHtml(name,needed)}<section class="tip-usage"><h2 class="tip-usage-title" id="itemDialogTitle">${esc(name)} · 사용처 ${fmt(used.length)}종</h2>${uses}<p class="tip-footnote">사용처를 누르면 해당 제작품의 조합식도 확인할 수 있어요.</p></section>`;
+    itemDialog.hidden=false;document.body.classList.add('item-dialog-open');
+    positionItemDialog();
+    itemDialogContent.querySelector('[data-close-item]').focus();
+  }
+  function closeItemDialog(){
+    itemDialog.hidden=true;document.body.classList.remove('item-dialog-open');itemDialogContent.innerHTML='';
+    if(previouslyFocused&&previouslyFocused.isConnected)previouslyFocused.focus();
+    previouslyFocused=null;
+  }
+  for(const pane of [$('mainPane'),$('cartContent')]){
+    pane.addEventListener('pointerover',e=>{
+      if(e.pointerType==='touch')return;
+      const target=e.target.closest('[data-item-name]');
+      if(target && (target!==activeTooltipTarget || tooltip.style.display==='none'))showItemTooltip(target);
+    });
+    pane.addEventListener('pointermove',e=>{
+      if(e.pointerType==='touch')return;
+      const target=e.target.closest('[data-item-name]');
+      if(target && (target!==activeTooltipTarget || tooltip.style.display==='none'))showItemTooltip(target);
+    });
+    pane.addEventListener('pointerout',e=>{
+      const target=e.target.closest('[data-item-name]');
+      if(target&&!target.contains(e.relatedTarget))hideItemTooltip();
+    });
+    pane.addEventListener('focusin',e=>{const target=e.target.closest('[data-item-name]');if(target)showItemTooltip(target)});
+    pane.addEventListener('focusout',e=>{const target=e.target.closest('[data-item-name]');if(target&&!target.contains(e.relatedTarget))hideItemTooltip()});
+    pane.addEventListener('click',e=>{
+      const target=e.target.closest('[data-item-name]');
+      if(target){e.preventDefault();const found=getRecipe(target.dataset.itemName);if(found)navigateToRecipe(found);else openItemDialog(target.dataset.itemName,Number(target.dataset.itemNeeded)||0)}
+    });
+  }
+  itemDialog.addEventListener('click',e=>{
+    if(e.target===itemDialog||e.target.closest('[data-close-item]')){closeItemDialog();return;}
+    const btn=e.target.closest('[data-drill-item]');
+    if(btn){const found=getRecipe(btn.dataset.drillItem);if(found)navigateToRecipe(found);else openItemDialog(btn.dataset.drillItem,1);}
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){if(!itemDialog.hidden)closeItemDialog();else hideItemTooltip();return;}
+    if(e.key==='Tab'&&!itemDialog.hidden){
+      const focusables=[...itemDialog.querySelectorAll('button:not([disabled])')];
+      if(!focusables.length)return;
+      const first=focusables[0],last=focusables[focusables.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+    }
+  });
+  window.addEventListener('scroll',()=>{hideItemTooltip();positionItemDialog()},{passive:true});
+  window.addEventListener('resize',()=>{hideItemTooltip();positionItemDialog()},{passive:true});
+  try{
+    if(window.parent!==window){
+      window.parent.addEventListener('scroll',()=>{hideItemTooltip();positionItemDialog()},{passive:true});
+      window.parent.addEventListener('resize',()=>{hideItemTooltip();positionItemDialog()},{passive:true});
+    }
+  }catch(_){}
+  isShop?renderShops():renderRecipes();renderCart();updateSize();
+  const initialFocus=params.get('focus');
+  if(initialFocus && !isShop)focusRecipeCard(initialFocus);
+})();
+</script>
+</body>
+</html>
