@@ -467,7 +467,7 @@
     // 샤키는 기존 판매 수량 계산기를 유지합니다.
     if(!oceanIds.has(id)){
       app.innerHTML=crumb([['해양',null],[facility.name,null]])+
-        `<section class="ocean-crafting-frame-shell"><iframe id="oceanCraftingFrame" title="${esc(facility.name)} 판매 계산" src="ocean-crafting.html?facility=${encodeURIComponent(id)}&v=wiki33-shops" loading="eager" scrolling="no" allow="clipboard-write"></iframe></section>`;
+        `<section class="ocean-crafting-frame-shell"><iframe id="oceanCraftingFrame" title="${esc(facility.name)} 판매 계산" src="ocean-crafting.html?facility=${encodeURIComponent(id)}&v=wiki39-ocean-images" loading="eager" scrolling="no" allow="clipboard-write"></iframe></section>`;
       const frame=document.getElementById('oceanCraftingFrame');
       if(frame)frame.addEventListener('load',()=>{try{frame.contentWindow.postMessage({type:'dding-ocean-crafting-measure'},location.origin)}catch(_){}});
       return;
