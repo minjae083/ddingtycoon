@@ -323,6 +323,15 @@
     if(frame){frame.addEventListener('load',()=>{if(focusLoginOnLoad){focusLoginOnLoad=false;focusAccountLogin();}});}
 
   }
+  function renderSageSimulator(){
+    document.title='강화 시뮬레이터 | 띵타이쿤 WIKI';
+    app.innerHTML=crumb([['강화 시뮬레이터',null]])+
+      `<section aria-label="세이지 도구 강화 시뮬레이터" style="width:100%;max-width:840px;margin:0 auto;overflow:hidden;border:1px solid #e3e6eb;border-radius:16px;background:#f4f5f7">
+        <iframe id="sageSimulatorFrame" title="세이지 도구 강화 시뮬레이터" src="sage-upgrade-simulator.html?v=wiki35-sage" loading="eager" scrolling="no" style="display:block;width:100%;height:1000px;border:0;background:transparent" ></iframe>
+      </section>`;
+    const frame=document.getElementById('sageSimulatorFrame');
+    frame?.addEventListener('load',()=>{try{frame.contentWindow.postMessage({type:'dding-sage-simulator-measure'},'*')}catch(_){}});
+  }
   function renderBarista(){
     document.title='바리스타 계산기 | 띵타이쿤 WIKI';
     app.innerHTML=crumb([['바리스타 계산기',null]])+`<div class="page-head"><span class="eyebrow">SERENITY · BARISTA</span><h1>바리스타 계산기</h1><p>커피 종류와 잔 수, 프로 바리스타 및 커피값이 밥값 레벨을 설정하면 재료와 예상 판매 금액을 계산할 수 있어요.</p></div><section class="barista-frame-shell"><iframe id="baristaFrame" title="띵타이쿤 바리스타 커피 주문 계산기" src="barista-calculator.html?v=wiki19" loading="eager" scrolling="no" allow="clipboard-write"></iframe></section>`;
@@ -476,7 +485,7 @@
   const sidebarHasSavedState=(()=>{try{return localStorage.getItem(sidebarGroupsKey)!==null}catch(_){return false}})();
   function renderSidebar(route){
     const groupForCategory={kitchen:'gather',farm:'gather',lab:'mining',mining:'mining',soul:'hunting'};
-    const groupForView={prices:'gather',barista:'gather',florist:'gather',upgrade:'other',skills:'other',compare:'other',ocean:'other'};
+    const groupForView={prices:'gather',barista:'gather',florist:'gather',upgrade:'other','sage-simulator':'other',skills:'other',compare:'other',ocean:'other'};
     const currentGroup=route.view==='ocean-crafting'?'sea'
       :route.view==='category'?groupForCategory[route.id]
       :route.view==='facility'?groupForCategory[D.facilities[route.id]?.category]
@@ -522,7 +531,7 @@
     const knownCategories=new Set(['kitchen','farm','lab','mining','soul','sea']);
     // Preserve all other existing navigation links rather than losing them.
     const additionalCategories=D.categories.filter(c=>!knownCategories.has(c.id)).map(c=>categoryLink(c.id)).join('');
-    const miscellaneous=[pageLink('upgrade','도구 강화 확률','upgrade'),pageLink('skills','전문가 스킬','skills'),additionalCategories,pageLink('ocean','배 낚시 해역','ocean')].join('');
+    const miscellaneous=[pageLink('upgrade','도구 강화 확률','upgrade'),pageLink('sage-simulator','강화 시뮬레이터','upgrade'),pageLink('skills','전문가 스킬','skills'),additionalCategories,pageLink('ocean','배 낚시 해역','ocean')].join('');
     nav.innerHTML=`<a class="nav-button nav-home ${route.view==='home'?'active':''}" href="#/" ${route.view==='home'?'aria-current="page"':''}><span class="nav-symbol">${iconSvg('home')}</span>위키 홈</a>`+
       section('gather','채집','sprout',gathered)+
       section('mining','채광','pickaxe',mined)+
@@ -559,6 +568,7 @@
     else if(route.view==='facility')renderFacility(route.id);
     else if(route.view==='item')renderItem(route.id);
     else if(route.view==='upgrade')renderUpgrade();
+    else if(route.view==='sage-simulator')renderSageSimulator();
     else if(route.view==='skills')renderSkills();
     else if(route.view==='compare')renderCompare();
     else if(route.view==='prices')renderPrices();
@@ -655,6 +665,13 @@
       if(location.hash===href)render();
       else location.hash=href;
     }
+  });
+  window.addEventListener('message',(e)=>{
+    const frame=document.getElementById('sageSimulatorFrame');
+    if(!frame||e.source!==frame.contentWindow||!e.data||e.data.type!=='dding-sage-simulator-size')return;
+    if(e.origin!==location.origin && !(location.protocol==='file:'&&e.origin==='null'))return;
+    const h=Number(e.data.height);
+    if(Number.isFinite(h)&&h>250&&h<8000&&Math.abs(frame.getBoundingClientRect().height-h)>4){frame.style.height=Math.ceil(h)+'px';}
   });
   window.addEventListener('message',(e)=>{
     const frame=document.getElementById('baristaFrame');

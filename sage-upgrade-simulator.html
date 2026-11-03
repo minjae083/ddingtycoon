@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>세이지 도구 강화 시뮬레이터 | 띵타이쿤 WIKI</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f5f7;--card:#fff;--soft:#f0f2f5;--bd:#e3e6eb;--tx:#16181d;--mu:#737a88;--ac:#2f9e63;--acs:#e3f5ea;--gold:#b7791f;--ruby:#d6336c;--no:#d64545;--l1:#8d95a8;--l2:#c4803f;--l3:#d9a91c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0f13;--card:#171920;--soft:#1f222b;--bd:#2a2d38;--tx:#eceef3;--mu:#8a90a0;--ac:#4ec281;--acs:#183324;--gold:#ffc83d;--ruby:#ff6a85;--no:#ff7070;--l1:#a3abc0;--l2:#e09a58;--l3:#f2c43a}}
+:root[data-theme="dark"]{--bg:#0e0f13;--card:#171920;--soft:#1f222b;--bd:#2a2d38;--tx:#eceef3;--mu:#8a90a0;--ac:#4ec281;--acs:#183324;--gold:#ffc83d;--ruby:#ff6a85;--no:#ff7070;--l1:#a3abc0;--l2:#e09a58;--l3:#f2c43a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;-webkit-tap-highlight-color:transparent}
+main{max-width:560px;margin:0 auto;padding:16px 14px 40px}
+h1{font-size:18px;margin:6px 4px 14px;display:flex;align-items:center;gap:8px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px;margin-bottom:12px}
+.seg{display:flex;background:var(--soft);border-radius:12px;padding:4px;gap:2px;margin-bottom:12px}
+.seg button{flex:1;border:0;background:none;color:var(--mu);font:inherit;font-size:13px;font-weight:600;padding:9px 2px;border-radius:9px;cursor:pointer}
+.seg button.on{background:var(--card);color:var(--tx);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.hero{text-align:center}
+.ringbox{position:relative;width:176px;height:176px;margin:4px auto 8px}
+.ringbox svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ringbox .bg{stroke:var(--soft)}
+.ringbox .fg{stroke:var(--ac);transition:stroke-dashoffset .4s;stroke-linecap:round}
+.mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.mid .ic{font-size:44px;line-height:1}
+.mid .lv{font-size:28px;font-weight:800;margin-top:4px}
+.ringbox.ok .mid{animation:pop .5s}
+.ringbox.no .mid{animation:shk .4s}
+@keyframes pop{40%{transform:scale(1.18)}}
+@keyframes shk{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}
+.steps{display:flex;gap:3px;margin:0 6px 12px}
+.steps i{flex:1;height:5px;border-radius:3px;background:var(--soft)}
+.steps i.f{background:var(--ac)}
+.info{font-size:14px;color:var(--mu);min-height:22px}
+.info b{color:var(--tx)}
+.need{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:10px 0 14px;min-height:28px}
+.res{font-size:13px;font-weight:700;background:var(--soft);border-radius:8px;padding:4px 9px;white-space:nowrap}
+.res.g{color:var(--gold)}.res.r{color:var(--ruby)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:2px;transform:rotate(45deg);margin-right:6px;vertical-align:0}
+.main{width:100%;border:0;border-radius:14px;background:var(--ac);color:#fff;font:inherit;font-size:18px;font-weight:800;padding:15px;cursor:pointer}
+.main:disabled{background:var(--soft);color:var(--mu);cursor:default}
+.auto{display:flex;gap:8px;margin-top:10px}
+.auto label{flex:1;display:flex;align-items:center;gap:8px;background:var(--soft);border-radius:12px;padding:0 12px;font-size:13px;color:var(--mu)}
+.auto select{flex:1;border:0;background:none;color:var(--tx);font:inherit;font-weight:700;padding:12px 0;min-width:0}
+.auto button{border:1px solid var(--ac);background:var(--acs);color:var(--ac);font:inherit;font-weight:700;border-radius:12px;padding:0 18px;cursor:pointer}
+.auto button:disabled{opacity:.5;cursor:default}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--bd);font-size:13px}
+.sw{display:flex;align-items:center;gap:8px;color:var(--mu);cursor:pointer;border:0;background:none;font:inherit;padding:0}
+.sw i{width:38px;height:22px;border-radius:11px;background:var(--bd);position:relative;transition:.2s}
+.sw i:after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.2s}
+.sw.on i{background:var(--ac)}.sw.on i:after{left:19px}
+.rst{border:0;background:none;color:var(--no);font:inherit;font-weight:700;cursor:pointer}
+.tot{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;text-align:center}
+.tot div{background:var(--soft);border-radius:12px;padding:10px 2px;min-width:0}
+.tot small{display:block;font-size:11px;color:var(--mu);margin-bottom:3px}
+.tot b{font-size:13px;word-break:keep-all;overflow-wrap:anywhere}
+.hd{font-size:13px;color:var(--mu);margin:0 2px 8px;font-weight:600}
+.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.row:last-child{border:0}
+.row .a{font-weight:800;min-width:64px}
+.row .t{font-size:13px;color:var(--mu)}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto}
+.list{max-height:420px;overflow:auto}
+.empty{text-align:center;color:var(--mu);padding:26px 0;font-size:14px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12.5px;white-space:nowrap}
+th,td{padding:8px 8px;border-bottom:1px solid var(--bd);text-align:right}
+th:first-child,td:first-child{text-align:left;font-weight:700}
+th{color:var(--mu);font-weight:600}
+@media(max-width:410px){main{padding:12px 9px 28px}.card{padding:12px}.seg button{font-size:12px}.auto button{padding:0 10px}.tot small{font-size:10px}.tot b{font-size:11px}}
+</style>
+</head>
+<body>
+<main>
+  <h1>🌿 세이지 도구 강화 시뮬레이터</h1>
+  <div class="seg" id="tools"></div>
+  <section class="card hero">
+    <div class="ringbox" id="ring">
+      <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="44" fill="none" stroke-width="6"/><circle class="fg" id="arc" cx="50" cy="50" r="44" fill="none" stroke-width="6" stroke-dasharray="276.5" stroke-dashoffset="276.5"/></svg>
+      <div class="mid"><div class="ic" id="ic"></div><div class="lv" id="lv"></div></div>
+    </div>
+    <div class="steps" id="steps"></div>
+    <div class="info" id="info"></div>
+    <div class="need" id="need"></div>
+    <button class="main" id="go"></button>
+    <div class="auto">
+      <label>목표 <select id="tgsel"></select></label>
+      <button id="blast">즉시 돌파</button>
+    </div>
+    <div class="foot">
+      <button type="button" class="sw" id="skip" aria-pressed="false"><i aria-hidden="true"></i>연출 스킵</button>
+      <button class="rst" id="reset">초기화</button>
+    </div>
+  </section>
+  <section class="card"><div class="hd">누적 소모 재화</div><div class="tot" id="tot"></div></section>
+  <section class="card">
+    <div class="seg" id="vt"><button data-v="log" class="on">강화 기록</button><button data-v="exp">기댓값 표</button></div>
+    <div id="body"></div>
+  </section>
+</main>
+<script>
+// [하급, 중급, 상급, 골드, 루비, 확률%] 인덱스 = 목표 강화 단계 (사용자 제공 데이터)
+const D=[null,[1,0,0,5000,0,100],[2,0,0,25000,0,100],[2,0,0,50000,0,80],[3,1,0,100000,0,80],[3,1,0,130000,0,70],[4,2,1,150000,0,50],[4,2,1,170000,5,40],[6,3,2,300000,5,30],[6,3,2,350000,5,20],[8,4,3,500000,10,10],[8,4,3,700000,10,5],[8,4,3,1000000,10,3],[10,6,4,1300000,30,2],[10,6,4,1500000,30,1],[10,6,5,2000000,30,1]];
+const TOOLS=[["괭이","⛏️"],["곡괭이","⚒️"],["낚싯대","🎣"],["대검","🗡️"]];
+const $=id=>document.getElementById(id);
+const n=x=>x.toLocaleString("ko-KR");
+function gold(g){if(g<10000)return n(g);const e=Math.floor(g/1e8),m=Math.floor((g%1e8)/1e4),r=Math.round(g%1e4);return [e?e+"억":null,m?m+"만":null,r?n(r):null].filter(Boolean).join(" ");}
+const z=()=>({att:0,gold:0,ruby:0,lo:0,mid:0,hi:0});
+const mk=()=>({lv:0,tot:z(),cur:z(),rec:[]});
+const S=TOOLS.map(mk);
+let ti=0,view="log",skip=false,busy=false,tgt=15;
+function add(o,d){o.att++;o.gold+=d[3];o.ruby+=d[4];o.lo+=d[0];o.mid+=d[1];o.hi+=d[2];}
+function once(s){const d=D[s.lv+1];if(!d)return null;add(s.tot,d);add(s.cur,d);const ok=Math.random()*100<d[5];if(ok){s.rec.push({from:s.lv,to:s.lv+1,...s.cur});s.lv++;s.cur=z();}return ok;}
+function chips(o){let h=`<span class="res g">${gold(o.gold)} G</span>`;if(o.ruby)h+=`<span class="res r">루비 ${n(o.ruby)}</span>`;if(o.lo)h+=`<span class="res"><i class="dot" style="background:var(--l1)"></i>${n(o.lo)}</span>`;if(o.mid)h+=`<span class="res"><i class="dot" style="background:var(--l2)"></i>${n(o.mid)}</span>`;if(o.hi)h+=`<span class="res"><i class="dot" style="background:var(--l3)"></i>${n(o.hi)}</span>`;return h;}
+function need(d){return chips({gold:d[3],ruby:d[4],lo:d[0],mid:d[1],hi:d[2]});}
+function render(){
+  const s=S[ti],d=D[s.lv+1];
+  $("tools").innerHTML=TOOLS.map((t,i)=>`<button class="${i===ti?"on":""}" data-i="${i}" aria-pressed="${i===ti}">${t[0]}</button>`).join("");
+  $("ic").textContent=TOOLS[ti][1];$("lv").textContent="+"+s.lv;
+  $("steps").innerHTML=Array.from({length:15},(_,i)=>`<i class="${i<s.lv?"f":""}"></i>`).join("");
+  const p=d?d[5]:100;$("arc").style.strokeDashoffset=276.5*(1-(d?p/100:1));
+  $("info").innerHTML=d?`${s.lv+1}강 성공 확률 <b>${p}%</b>`:"<b>최대 강화 달성!</b>";
+  $("need").innerHTML=d?need(d):"";
+  $("go").textContent=d?`${s.lv} → ${s.lv+1} 강화하기`:"MAX";$("go").disabled=!d||busy;
+  $("blast").disabled=busy||s.lv>=tgt;
+  let o="";for(let i=1;i<=15;i++)o+=`<option value="${i}" ${i===tgt?"selected":""}>+${i}강</option>`;$("tgsel").innerHTML=o;
+  const t=s.tot;
+  $("tot").innerHTML=[["골드",gold(t.gold),"var(--gold)"],["루비",n(t.ruby),"var(--ruby)"],["하급",n(t.lo),"var(--l1)"],["중급",n(t.mid),"var(--l2)"],["상급",n(t.hi),"var(--l3)"]].map(x=>`<div><small>${x[0]}</small><b style="color:${x[2]}">${x[1]}</b></div>`).join("");
+  document.querySelectorAll("#vt button").forEach(b=>b.classList.toggle("on",b.dataset.v===view));
+  const b=$("body");
+  if(view==="log"){
+    let h="";const row=(f,to,r,tail)=>`<div class="row"><span class="a">${f} → ${to}</span><span class="t">${r.att}번 시도${tail||""}</span><div class="chips">${chips(r)}</div></div>`;
+    if(!s.rec.length&&!s.cur.att)h=`<div class="empty">아직 강화 기록이 없어요</div>`;
+    s.rec.forEach(r=>h+=row(r.from,r.to,r));
+    if(s.cur.att&&d)h+=row(s.lv,s.lv+1,s.cur," · 진행 중");
+    b.innerHTML=`<div class="list" id="ls">${h}</div>`;$("ls").scrollTop=$("ls").scrollHeight;
+  }else{
+    let h=`<div class="tw"><table><tr><th>구간</th><th>확률</th><th>시도</th><th>골드</th><th>루비</th><th>하/중/상</th></tr>`;
+    for(let i=1;i<=15;i++){const x=D[i],e=100/x[5];h+=`<tr><td>${i-1} → ${i}</td><td>${x[5]}%</td><td>${e.toFixed(1)}</td><td>${gold(Math.round(x[3]*e))}</td><td>${x[4]?n(Math.round(x[4]*e)):"-"}</td><td>${Math.round(x[0]*e)}/${Math.round(x[1]*e)}/${Math.round(x[2]*e)}</td></tr>`;}
+    b.innerHTML=h+`</table></div>`;
+  }
+  requestSize();
+}
+function anim(ok){const r=$("ring");r.classList.remove("ok","no");void r.offsetWidth;r.classList.add(ok?"ok":"no");}
+$("go").onclick=()=>{if(busy)return;const ok=once(S[ti]);if(ok===null)return;if(skip){render();return;}busy=true;anim(ok);render();setTimeout(()=>{busy=false;render();},450);};
+document.addEventListener("click",e=>{const t=e.target.closest("button");if(!t)return;if(t.dataset.i!==undefined){ti=+t.dataset.i;render();}else if(t.dataset.v){view=t.dataset.v;render();}else if(t.id==="blast"){
+  if(busy)return;const s=S[ti];let c=0;while(s.lv<tgt&&c<1e6){once(s);c++;}render();
+}});
+$("tgsel").onchange=e=>{tgt=+e.target.value;render();};
+$("skip").onclick=()=>{skip=!skip;$("skip").classList.toggle("on",skip);$("skip").setAttribute('aria-pressed',String(skip));};
+$("reset").onclick=()=>{if(busy)return;S[ti]=mk();render();};
+let sizeRequested=false;
+function requestSize(){
+  if(window.parent===window||sizeRequested)return;
+  sizeRequested=true;
+  requestAnimationFrame(()=>{sizeRequested=false;const main=document.querySelector('main');const h=Math.ceil(main.getBoundingClientRect().bottom+10);window.parent.postMessage({type:'dding-sage-simulator-size',height:h},'*');});
+}
+window.addEventListener('resize',requestSize);window.addEventListener('load',requestSize);
+if(window.ResizeObserver)new ResizeObserver(requestSize).observe(document.querySelector('main'));
+render();
+</script>
+</body>
+</html>
