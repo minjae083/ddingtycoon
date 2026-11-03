@@ -343,6 +343,17 @@
     const frame=document.getElementById('sageEquipmentFrame');
     frame?.addEventListener('load',()=>{try{frame.contentWindow.postMessage({type:'dding-sage-equipment-measure'},location.protocol==='file:'?'*':location.origin)}catch(_){}});
   }
+  // v38: Fishing mini-game, isolated in its own iframe for independent keyboard input.
+  function renderFishingGame(){
+    document.title='낚시 게임 | 띵타이쿤 WIKI';
+    app.innerHTML=crumb([['낚시 게임',null]])+
+      `<div class="page-head"><span class="eyebrow">FISHING · MINI GAME</span><h1>낚시 게임</h1><p>W · A · S · D 키를 표시된 순서대로 눌러 물고기를 낚아보세요. 모바일은 화면의 방향키를 누르면 됩니다.</p></div>
+      <section class="fishing-game-frame-shell" aria-label="낚시 미니게임">
+        <iframe id="fishingGameFrame" title="낚시 미니게임: 방향키 순서 맞히기" src="fishing-game.html?embed=1&v=wiki38" loading="eager" scrolling="no"></iframe>
+      </section>`;
+    const frame=document.getElementById('fishingGameFrame');
+    frame?.addEventListener('load',()=>{try{frame.contentWindow.postMessage({type:'dding-fishing-measure'},location.protocol==='file:'?'*':location.origin);}catch(_){}});
+  }
   function renderBarista(){
     document.title='바리스타 계산기 | 띵타이쿤 WIKI';
     app.innerHTML=crumb([['바리스타 계산기',null]])+`<div class="page-head"><span class="eyebrow">SERENITY · BARISTA</span><h1>바리스타 계산기</h1><p>커피 종류와 잔 수, 프로 바리스타 및 커피값이 밥값 레벨을 설정하면 재료와 예상 판매 금액을 계산할 수 있어요.</p></div><section class="barista-frame-shell"><iframe id="baristaFrame" title="띵타이쿤 바리스타 커피 주문 계산기" src="barista-calculator.html?v=wiki19" loading="eager" scrolling="no" allow="clipboard-write"></iframe></section>`;
@@ -496,7 +507,7 @@
   const sidebarHasSavedState=(()=>{try{return localStorage.getItem(sidebarGroupsKey)!==null}catch(_){return false}})();
   function renderSidebar(route){
     const groupForCategory={kitchen:'gather',farm:'gather',lab:'mining',mining:'mining',soul:'hunting'};
-    const groupForView={prices:'gather',barista:'gather',florist:'gather',upgrade:'other','sage-simulator':'other','sage-equipment':'other',skills:'other',compare:'other',ocean:'other'};
+    const groupForView={prices:'gather',barista:'gather',florist:'gather',upgrade:'other','sage-simulator':'other','sage-equipment':'other','fishing-game':'other',skills:'other',compare:'other',ocean:'other'};
     const currentGroup=route.view==='ocean-crafting'?'sea'
       :route.view==='category'?groupForCategory[route.id]
       :route.view==='facility'?groupForCategory[D.facilities[route.id]?.category]
@@ -542,7 +553,7 @@
     const knownCategories=new Set(['kitchen','farm','lab','mining','soul','sea']);
     // Preserve all other existing navigation links rather than losing them.
     const additionalCategories=D.categories.filter(c=>!knownCategories.has(c.id)).map(c=>categoryLink(c.id)).join('');
-    const miscellaneous=[pageLink('upgrade','도구 강화 확률','upgrade'),pageLink('sage-simulator','강화 시뮬레이터','upgrade'),pageLink('sage-equipment','세이지 장비 표','chart'),pageLink('skills','전문가 스킬','skills'),additionalCategories,pageLink('ocean','배 낚시 해역','ocean')].join('');
+    const miscellaneous=[pageLink('upgrade','도구 강화 확률','upgrade'),pageLink('sage-simulator','강화 시뮬레이터','upgrade'),pageLink('sage-equipment','세이지 장비 표','chart'),pageLink('fishing-game','낚시 게임','waves'),pageLink('skills','전문가 스킬','skills'),additionalCategories,pageLink('ocean','배 낚시 해역','ocean')].join('');
     nav.innerHTML=`<a class="nav-button nav-home ${route.view==='home'?'active':''}" href="#/" ${route.view==='home'?'aria-current="page"':''}><span class="nav-symbol">${iconSvg('home')}</span>위키 홈</a>`+
       section('gather','채집','sprout',gathered)+
       section('mining','채광','pickaxe',mined)+
@@ -581,6 +592,7 @@
     else if(route.view==='upgrade')renderUpgrade();
     else if(route.view==='sage-simulator')renderSageSimulator();
     else if(route.view==='sage-equipment')renderSageEquipmentTable();
+    else if(route.view==='fishing-game')renderFishingGame();
     else if(route.view==='skills')renderSkills();
     else if(route.view==='compare')renderCompare();
     else if(route.view==='prices')renderPrices();
@@ -692,6 +704,16 @@
     if(e.origin!==location.origin && !(location.protocol==='file:'&&e.origin==='null'))return;
     const h=Number(e.data.height);
     if(Number.isFinite(h)&&h>200&&h<12000&&Math.abs(frame.getBoundingClientRect().height-h)>4)frame.style.height=Math.ceil(h)+'px';
+  });
+  // The mini-game can grow when its on-screen controls wrap on mobile.
+  window.addEventListener('message',(e)=>{
+    const frame=document.getElementById('fishingGameFrame');
+    if(!frame||e.source!==frame.contentWindow||!e.data||e.data.type!=='dding-fishing-size')return;
+    if(e.origin!==location.origin && !(location.protocol==='file:'&&e.origin==='null'))return;
+    const h=Number(e.data.height);
+    if(Number.isFinite(h)&&h>300&&h<2500&&Math.abs(frame.getBoundingClientRect().height-h)>4){
+      frame.style.height=Math.ceil(h)+'px';
+    }
   });
   window.addEventListener('message',(e)=>{
     const frame=document.getElementById('baristaFrame');

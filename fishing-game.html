@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>낚시 미니게임</title>
+<style>
+:root{
+  --bg:#1c3a5e;--bg2:#0f2440;--text:#eaf4ff;--sub:#9fc2e6;
+  --key:#2f8cf0;--key-edge:#0d3f86;--done:#7a8794;--done-edge:#3d4650;--bad:#ff5a5a;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root{--bg:#1c3a5e;--bg2:#0f2440}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+html,body{min-height:100%;margin:0}
+body{background:linear-gradient(var(--bg),var(--bg2));color:var(--text);font-family:"Jua","Noto Sans KR",system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:22px 16px;user-select:none;min-height:100vh}
+h1{margin:0;font-size:22px;font-weight:700}
+.score{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.card{min-width:84px;padding:8px 14px;border-radius:14px;background:#0b1a2e;border:2px solid #3b5f8a;display:flex;flex-direction:column;align-items:center;gap:2px}
+.card small{font-size:13px;color:var(--sub)}
+.card b{font-size:30px;line-height:1.1}
+.card.good{border-color:#4fd18b}.card.good b{color:#8dffb0}
+.card.badc{border-color:#ff7a7a}.card.badc b{color:#ff8f8f}
+.pop{animation:pop .35s}
+@keyframes pop{40%{transform:scale(1.25)}}
+@media (prefers-reduced-motion:reduce){.pop{animation:none}}
+.stage{min-height:150px;display:flex;align-items:center;justify-content:center;max-width:100%}
+.keys{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:640px}
+.key{width:56px;display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform .08s}
+.arrow{font-size:20px;line-height:1;color:#fff}
+.cap{width:56px;height:56px;border-radius:14px;background:var(--key);border:3px solid #fff;box-shadow:0 5px 0 var(--key-edge);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;color:#fff;transition:background .08s,box-shadow .08s,transform .08s}
+.key.done .cap{background:var(--done);box-shadow:0 1px 0 var(--done-edge);transform:translateY(4px);color:#d3dae0;border-color:#c0c7ce}
+.key.done .arrow{color:var(--done)}
+.shake{animation:shake .25s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.bar{width:min(520px,90vw);height:12px;border-radius:6px;background:#0b1a2e;overflow:hidden}
+.bar>i{display:block;height:100%;width:100%;background:#ffd45a;transform-origin:left;transition:transform .1s linear}
+.msg{min-height:34px;font-size:26px;text-align:center}
+.ok{color:#8dffb0}.fail{color:var(--bad)}
+button.start{font:inherit;font-size:18px;padding:10px 28px;border-radius:12px;border:3px solid #fff;background:#f0a030;color:#fff;cursor:pointer;box-shadow:0 4px 0 #9a5d0a}
+button.start:focus-visible,.pad button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.pad{display:grid;grid-template-columns:repeat(3,56px);gap:6px}
+.pad button{height:48px;border-radius:10px;border:2px solid #fff;background:#2a5c96;color:#fff;font:inherit;font-size:20px;cursor:pointer;touch-action:manipulation}
+.pad .w{grid-column:2}
+.pad .a{grid-column:1;grid-row:2}
+.pad .s{grid-column:2;grid-row:2}
+.pad .d{grid-column:3;grid-row:2}
+.hint{color:var(--sub);font-size:13px;text-align:center}
+@media (min-width:701px) and (hover:hover) and (pointer:fine){.pad{display:none}}
+@media (max-width:480px){body{padding:18px 10px;gap:16px}.card{min-width:74px;padding:8px 10px}.card b{font-size:26px}.keys{gap:8px}.key,.cap{width:49px}.cap{height:49px;font-size:27px}}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}}
+/* Embedded in the WIKI; full-page mode retains the original centred layout. */
+html.embed-mode body{min-height:0;height:auto;justify-content:flex-start;padding:24px 12px 28px}
+</style>
+</head>
+<body>
+<script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('embed-mode');</script>
+<h1>낚시 미니게임</h1>
+<div class="score">
+  <div class="card good" id="cardWin"><small>성공</small><b id="win">0</b></div>
+  <div class="card badc" id="cardLose"><small>실패</small><b id="lose">0</b></div>
+  <div class="card"><small>성공률</small><b id="rate">-</b></div>
+  <div class="card"><small>이번 키 수</small><b id="cnt">-</b></div>
+</div>
+<div class="stage"><div class="keys" id="keys"></div></div>
+<div class="bar"><i id="bar"></i></div>
+<div class="msg" id="msg" aria-live="polite">시작을 눌러 낚시를 던지세요</div>
+<button type="button" class="start" id="start">낚시 시작</button>
+<div class="pad" aria-label="모바일 방향키 조작">
+  <button type="button" class="w" data-key="W" aria-label="위쪽 W">↑</button>
+  <button type="button" class="a" data-key="A" aria-label="왼쪽 A">←</button>
+  <button type="button" class="s" data-key="S" aria-label="아래쪽 S">↓</button>
+  <button type="button" class="d" data-key="D" aria-label="오른쪽 D">→</button>
+</div>
+<div class="hint">키보드 W A S D · 틀리면 처음부터 · 시작 키: Space</div>
+<script>
+(function(){
+  var ARROW={W:"↑",A:"←",S:"↓",D:"→"};
+  var LETTERS=["W","A","S","D"];
+  var keysEl=document.getElementById("keys"),msg=document.getElementById("msg"),
+      bar=document.getElementById("bar"),cnt=document.getElementById("cnt"),
+      winEl=document.getElementById("win"),loseEl=document.getElementById("lose");
+  var seq=[],idx=0,playing=false,timer=null,deadline=0,total=0,wins=0,loses=0;
+
+  function render(){
+    keysEl.innerHTML="";
+    seq.forEach(function(k,i){
+      var d=document.createElement("div");d.className="key"+(i<idx?" done":"");
+      d.innerHTML='<span class="arrow">'+ARROW[k]+'</span><div class="cap">'+k+'</div>';
+      keysEl.appendChild(d);
+    });
+  }
+  function start(){
+    var n=2+Math.floor(Math.random()*9); // 2~10
+    seq=[];for(var i=0;i<n;i++)seq.push(LETTERS[Math.floor(Math.random()*4)]);
+    idx=0;playing=true;cnt.textContent=n;
+    total=Math.max(6000,n*1400);deadline=Date.now()+total;
+    bar.style.transform="scaleX(1)";
+    msg.className="msg";msg.textContent="순서대로 누르세요!";
+    render();clearInterval(timer);
+    timer=setInterval(tick,50);
+  }
+  function tick(){
+    var left=deadline-Date.now();
+    bar.style.transform="scaleX("+Math.max(0,left/total)+")";
+    if(left<=0)end(false,"시간 초과!");
+  }
+  function end(ok,text){
+    playing=false;clearInterval(timer);
+    var card;
+    if(ok){wins++;winEl.textContent=wins;card=document.getElementById("cardWin")}else{loses++;loseEl.textContent=loses;card=document.getElementById("cardLose")}
+    document.getElementById("rate").textContent=Math.round(wins/(wins+loses)*100)+"%";
+    card.classList.remove("pop");void card.offsetWidth;card.classList.add("pop");
+    msg.className="msg "+(ok?"ok":"fail");msg.textContent=(ok?"✅ ":"❌ ")+text;
+  }
+  function press(k){
+    if(!playing)return;
+    if(k===seq[idx]){
+      idx++;render();
+      if(idx>=seq.length)end(true,"낚시 성공!");
+    }else{
+      idx=0;render();
+      keysEl.classList.remove("shake");void keysEl.offsetWidth;keysEl.classList.add("shake");
+      msg.className="msg fail";msg.textContent="틀렸어요! 처음부터";
+    }
+  }
+  document.addEventListener("keydown",function(e){
+    if(e.repeat)return;
+    var k=e.key.length===1?e.key.toUpperCase():"";
+    var kr={"ㅈ":"W","ㅁ":"A","ㄴ":"S","ㅇ":"D"};
+    var code={KeyW:"W",KeyA:"A",KeyS:"S",KeyD:"D"};
+    var mapped=LETTERS.indexOf(k)>-1?k:(kr[e.key]||code[e.code]);
+    if(mapped){e.preventDefault();press(mapped);return;}
+    if(e.code==="Space"&&!playing){e.preventDefault();start();}
+  });
+  document.getElementById("start").addEventListener("click",function(){this.blur();start()});
+  document.querySelectorAll(".pad button").forEach(function(button){
+    button.addEventListener("click",function(){press(button.dataset.key);});
+  });
+})();
+
+/* Report true content height to the WIKI parent on narrow screens. */
+(function(){
+  if(window.parent===window || new URLSearchParams(location.search).get('embed')!=='1')return;
+  var pending=false;
+  function reportHeight(){
+    pending=false;
+    var h=Math.max(document.body.scrollHeight,document.body.getBoundingClientRect().height);
+    if(Number.isFinite(h)&&h>100){
+      window.parent.postMessage({type:'dding-fishing-size',height:Math.ceil(h+3)},location.protocol==='file:'?'*':location.origin);
+    }
+  }
+  function schedule(){if(pending)return;pending=true;requestAnimationFrame(reportHeight);}
+  window.addEventListener('load',schedule);
+  window.addEventListener('resize',schedule);
+  window.addEventListener('message',function(e){
+    if(e.source===window.parent&&e.data&&e.data.type==='dding-fishing-measure')schedule();
+  });
+  if('ResizeObserver' in window)new ResizeObserver(schedule).observe(document.body);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(schedule);
+  schedule();
+})();
+</script>
+</body>
+</html>
