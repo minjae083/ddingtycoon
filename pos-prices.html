@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>공예품 상점 · 포스 | 띵타이쿤 WIKI</title>
+<style>
+:root{font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;color:#29243e;background:#fcfaff;line-height:1.55}
+*{box-sizing:border-box}body{margin:0;padding:4px 1px 25px;background:#fcfaff}
+.market{max-width:1280px;margin:auto}
+.market-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px}
+.market-top h2{font-size:23px;letter-spacing:-.035em;margin:1px 0 6px}.muted{font-size:12px;color:#7a7391;margin:0}
+.eyebrow{font-size:10px;font-weight:850;letter-spacing:.19em;color:#9162ce}
+.status{font-size:11px;background:#f4effe;border:1px solid #e2d6fc;border-radius:100px;padding:7px 12px;color:#7553ac;font-weight:750}
+.status.ok{color:#267347;background:#ecf9f1;border-color:#cdecd8}.status.warn{color:#925c23;background:#fff5e8;border-color:#f2d5a6}
+.hero{background:#f1ebff;border:1px solid #e1d1ff;border-radius:18px;padding:18px 20px;display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.hero h3{margin:0 0 4px;font-size:15px}.hero p{margin:0;color:#6c5b8e;font-size:12px}
+.btn{border:1px solid #d7c5f5;background:white;color:#623e9e;font:inherit;font-size:12px;font-weight:750;padding:10px 14px;border-radius:11px;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:#9c77df;background:#faf6ff}.btn.primary{background:#8059d4;color:white;border-color:#8059d4}.btn.primary:hover{background:#6740bd}.btn:disabled{opacity:.5;cursor:not-allowed}
+.tool{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:4px 0 14px}
+.filters{display:flex;gap:7px;flex-wrap:wrap}.filter{border:1px solid #e0d6f4;background:white;border-radius:9px;padding:8px 13px;cursor:pointer;font:inherit;font-weight:650;font-size:12px;color:#75658d}
+.filter[aria-pressed="true"]{background:#eee5ff;border-color:#ba9ef1;color:#6741b4}
+input[type="search"]{border:1px solid #dfd3f4;padding:10px 12px;border-radius:9px;min-width:200px;font:inherit;font-size:12px;background:white;color:#31264c}
+.group{background:white;border:1px solid #e4daf6;border-radius:17px;overflow:hidden;margin:12px 0 18px}
+.group-header{background:#f8f4ff;padding:13px 17px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.group-header small{font-size:11px;color:#8a73ab;font-weight:600}
+.list{padding:5px 14px 10px}
+.entry{display:grid;grid-template-columns:minmax(170px,1fr) 118px 135px minmax(125px,.75fr);gap:14px;padding:12px 5px;align-items:center;border-bottom:1px solid #f0eafb}
+.entry:last-child{border-bottom:0}
+.name{display:flex;align-items:center;gap:10px;min-width:0;font-size:13px;font-weight:700;word-break:keep-all}
+.name img{width:40px;height:40px;object-fit:contain;image-rendering:pixelated;background:#f4eefb;border:1px solid #ded0f4;border-radius:10px;padding:3px;flex-shrink:0}
+.recipe-link{display:inline-flex;align-items:center;gap:10px;min-width:0;max-width:100%;padding:2px 3px;border:0;border-radius:11px;background:transparent;color:inherit;text-align:left;font:inherit;font-weight:inherit;cursor:pointer;transition:background .12s,color .12s}
+.recipe-link:hover,.recipe-link:focus-visible{color:#7145bd;background:#f4edff;outline-offset:2px}
+.recipe-link:hover .recipe-link-label,.recipe-link:focus-visible .recipe-link-label{text-decoration:underline;text-underline-offset:3px}
+.recipe-link-label{min-width:0;overflow-wrap:anywhere}
+.recipe-link{text-decoration:none}
+.price{display:flex;flex-direction:column;font-weight:850;font-variant-numeric:tabular-nums;font-size:15px;white-space:nowrap}
+.price small{color:#998db3;font-size:10px;font-weight:600}
+.price-change{display:inline-flex;align-items:center;white-space:nowrap;font-size:11px;font-weight:800;margin:3px 0 0;padding:3px 7px;border-radius:7px;width:max-content}
+.price-up{background:#e3f8ea;color:#178049}.price-down{background:#ffe9ed;color:#bb2844}
+.entry .date{font-size:11px;color:#81768f;line-height:1.6}
+.entry .edit{width:100%;min-width:0;background:#fbf9ff;border:1px solid #e0d2f8;color:#403056;font:inherit;font-size:14px;font-weight:750;padding:10px;border-radius:9px;text-align:right;outline-offset:2px}
+.entry .edit:focus{outline:2px solid #a88bea}.entry .edit[readonly]{background:#f7f6f9;color:#8d8898}
+.notice{padding:12px 15px;border-radius:12px;background:#f6f0ff;border:1px solid #e5d6ff;font-size:12px;color:#654795;margin-bottom:15px}
+.notice.err{background:#fff0f3;border-color:#f5c8d2;color:#aa3048}.notice.ok{background:#eaf9f0;border-color:#bce8cb;color:#227344}
+.bottom{position:sticky;bottom:4px;z-index:5;padding:12px;border-radius:14px;background:rgba(250,247,255,.96);backdrop-filter:blur(9px);border:1px solid #e2d2f7;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 8px 28px #321b5211}
+.bottom span{color:#695b80;font-size:12px}.empty{padding:26px;text-align:center;color:#9182a8}
+@media(max-width:760px){.entry{grid-template-columns:1fr auto;gap:9px}.entry .name{grid-column:1;grid-row:1}.entry .price{grid-column:2;grid-row:1}.entry .edit{grid-column:1;grid-row:2}.entry .date{grid-column:2;grid-row:2;text-align:right}.list{padding:5px 10px 10px}.group-header{padding:12px 14px}.price{font-size:13px}.name img{width:34px;height:34px}.bottom{position:static}}
+</style>
+</head><body>
+<div class="market" id="marketApp">
+  <div class="market-top"><div><div class="eyebrow">SERENITY · MARKET</div><h2>공예품 판매가</h2><p class="muted">관리자가 입력한 가격이 모든 방문자에게 적용됩니다. 가격 변경은 수동으로 진행합니다.</p></div><span class="status" id="marketStatus">서버 연결 확인 중</span></div>
+  <div class="hero"><div><h3 id="adminTitle">공예품 시세 확인</h3><p id="adminDetail">이전 가격과 현재 가격의 차이를 확인할 수 있습니다.</p></div><button type="button" class="btn" id="loginRequest" hidden>로그인 페이지 열기</button></div>
+  <div id="marketMessage" class="notice" role="status" aria-live="polite">데이터를 불러오고 있습니다.</div>
+  <div class="tool"><div class="filters" id="marketFilters"></div><input id="marketSearch" type="search" placeholder="공예품 이름 검색" aria-label="공예품 이름 검색"></div>
+  <div id="marketList"></div>
+  <div class="bottom"><span id="changesCount">공용 가격표</span><div><button type="button" class="btn" id="resetEdit" hidden>입력 취소</button> <button type="button" class="btn primary" id="savePrices" hidden disabled>변경한 가격 서버에 저장</button></div></div>
+</div>
+<script src="supabase-config.js?v=wiki14"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0"></script>
+<script>(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const defaults=[{"name":"조개껍데기 브로치","category":"Normal","price":29447,"previous_price":23662},{"name":"푸른 향수병","category":"Rare","price":43112,"previous_price":65463},{"name":"자개 손거울","category":"Rare","price":131354,"previous_price":77458},{"name":"분홍 헤어핀","category":"Epic","price":147481,"previous_price":227787},{"name":"자개 부채","category":"Epic","price":248700,"previous_price":229774},{"name":"흑진주 시계","category":"Legendary","price":918190,"previous_price":927784}];
+const categories=['Normal','Rare','Epic','Legendary'];
+const names=defaults.map(x=>x.name);
+const data=Object.fromEntries(defaults.map(x=>[x.name,{...x,updated_at:null}]));
+const cfg=window.DDING_SUPABASE_CONFIG||{};
+const url=String(cfg.url||'').trim().replace(/\/$/,'');
+const key=String(cfg.publishableKey||'').trim();
+const hasConfig=/^https:\/\/[^\s/]+$/i.test(url)&&key.length>12;
+const fmt=v=>Number(v).toLocaleString('ko-KR');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let db=null,user=null,isAdmin=false,connected=false,busy=false,filter='all',draft={},fetchBusy=false,lastError='',lastLoad=0;
+function tell(msg,kind=''){$('marketMessage').className='notice '+kind;$('marketMessage').textContent=msg;}
+function size(){try{const e=$('marketApp');const h=Math.ceil(e.getBoundingClientRect().height+e.offsetTop+36);window.parent.postMessage({type:'dding-pos-market-size',height:h},location.origin);}catch(_){}}
+function badge(row){const delta=row.price-row.previous_price;if(!delta)return '<small>변동 없음</small>';const up=delta>0;
+ return `<span class="price-change ${up?'price-up':'price-down'}" aria-label="이전 가격 대비 ${up?'상승':'하락'} ${fmt(Math.abs(delta))} 골드">${up?'↑ +':'↓ −'}${fmt(Math.abs(delta))} G</span>`;}
+function dateText(t){if(!t)return '초기 제공 시세';const d=new Date(t);return Number.isFinite(d.getTime())?d.toLocaleDateString('ko-KR',{year:'numeric',month:'numeric',day:'numeric',timeZone:'Asia/Seoul'}):'초기 제공 시세';}
+function validPrice(raw){return /^(?:0|[1-9]\d{0,7})$/.test(String(raw));}
+function getDraft(name){return draft[name]===undefined?String(data[name].price):draft[name];}
+function changed(){const c={};for(const [n,v] of Object.entries(draft))if(validPrice(v)&&Number(v)!==data[n].price)c[n]=Number(v);return c;}
+function updateControls(){const n=Object.keys(changed()).length;
+ $('changesCount').textContent=isAdmin?`저장할 변경 ${n}개 · 마지막 입력 후 서버 저장`:`가격표 ${names.length}종 · 이전 가격 대비 변동 표시`;
+ $('savePrices').disabled=!isAdmin||busy||!connected||n===0;size();}
+function uiState(){const s=$('marketStatus');s.textContent=!hasConfig?'서버 연결 전':connected?(isAdmin?'관리자 · 연결됨':'시세 연결됨'):'연결 확인 필요';s.className='status '+(connected?'ok':'warn');
+ $('loginRequest').hidden=!!user;
+ $('adminTitle').textContent=isAdmin?'관리자 · 공예품 시세 수정':'공예품 시세 확인';
+ $('adminDetail').textContent=isAdmin?'공예품 가격 6종을 직접 수정한 뒤 한 번에 서버에 저장하세요. 변경한 항목만 기록됩니다.':'가격을 볼 수 있습니다. 변경 권한은 등록된 관리자 계정에만 있습니다.';
+ $('resetEdit').hidden=!isAdmin;$('savePrices').hidden=!isAdmin;}
+function renderFilters(){$('marketFilters').innerHTML=[['all','전체 6종'],...categories.map(c=>[c,`${c} ${names.filter(n=>data[n].category===c).length}종`])].map(([id,label])=>`<button type="button" class="filter" data-kind="${esc(id)}" aria-pressed="${id===filter?'true':'false'}">${esc(label)}</button>`).join('');}
+function listRender(){const term=$('marketSearch').value.trim().toLocaleLowerCase();
+ $('marketList').innerHTML=categories.filter(c=>filter==='all'||c===filter).map(c=>{
+  const entries=names.filter(n=>data[n].category===c&&n.toLocaleLowerCase().includes(term));if(!entries.length)return '';
+  const rows=entries.map(n=>{const x=data[n];const img='assets/ocean_recipes/'+encodeURIComponent(n.replaceAll(' ','_'))+'.png';
+   const input=isAdmin?`<input class="edit" type="number" min="0" max="99999999" step="1" inputmode="numeric" data-item="${esc(n)}" value="${esc(getDraft(n))}" aria-label="${esc(n)} 새 판매가">`:`<span class="date">관리자만 수정 가능</span>`;
+   return `<div class="entry"><div class="name"><img loading="lazy" src="${img}" alt=""><span>${esc(n)}<small style="display:block;color:#8a73ab;font-size:10px;font-weight:600">${esc(c)}</small></span></div><div class="price">${fmt(x.price)} G ${badge(x)}</div><div class="date">이전 ${fmt(x.previous_price)} G<br>확인일 ${dateText(x.updated_at)}</div><div>${input}</div></div>`;
+  }).join('');
+  return `<section class="group"><div class="group-header">${esc(c)}<small>${entries.length}종</small></div><div class="list">${rows}</div></section>`;
+ }).join('')||'<div class="empty">검색 결과가 없습니다.</div>';
+ updateControls();size();}
+function showConnection(){if(!hasConfig){tell('Supabase 설정이 없어 제공된 초기 가격만 표시합니다. 관리자 저장과 전체 사용자 가격 공유를 사용하려면 설정이 필요합니다.','err');}
+ else if(lastError){tell('공예품 가격을 서버에서 불러오지 못했습니다: '+lastError+' · 현재는 제공된 기본 시세 또는 마지막 조회값을 표시합니다.','err');}
+ else if(connected){tell(isAdmin?'관리자 권한이 확인됐습니다. 수정한 가격이 모든 방문자에게 적용됩니다.':'현재 서버에 저장된 공예품 판매가입니다.','ok');}
+ else tell('서버 시세를 확인하고 있습니다.');}
+async function reload(){if(!db||fetchBusy)return;fetchBusy=true;
+ try{const {data:rows,error}=await db.from('pos_craft_prices').select('name,category,price,previous_price,updated_at');if(error)throw error;
+ if(!Array.isArray(rows)||rows.length!==6||rows.some(r=>!names.includes(r.name))||new Set(rows.map(r=>r.name)).size!==6)throw Error('서버 가격표가 6종이 아닙니다. pos-market-setup.sql 적용 여부를 확인하세요.');
+ if(rows.some(r=>!Number.isSafeInteger(r.price)||r.price<0||!Number.isSafeInteger(r.previous_price)||r.previous_price<0||r.category!==defaults.find(d=>d.name===r.name)?.category))throw Error('서버 가격 데이터가 유효하지 않습니다.');
+ for(const r of rows)data[r.name]={...r};connected=true;lastLoad=Date.now();lastError='';
+ }catch(e){lastError=String(e?.message||e);connected=false;}
+ finally{fetchBusy=false;uiState();listRender();showConnection();}}
+async function checkAdmin(){if(!db){uiState();listRender();showConnection();return;}
+ try{const {data:auth,error}=await db.auth.getUser();if(error)throw error;user=auth?.user||null;isAdmin=false;
+  if(user){const r=await db.from('wiki_admins').select('user_id').eq('user_id',user.id).maybeSingle();if(r.error)throw r.error;isAdmin=!!r.data;}
+ }catch(e){user=null;isAdmin=false;lastError='로그인 권한 확인 실패: '+String(e?.message||e);}
+ uiState();listRender();showConnection();}
+async function save(){if(!db||!isAdmin||!connected||busy)return;
+ const invalid=Object.entries(draft).filter(([,v])=>!validPrice(v)).map(([n])=>n);
+ if(invalid.length){tell('0~99,999,999 사이의 정수를 입력하세요: '+invalid.join(', '),'err');return;}
+ const changes=changed(),count=Object.keys(changes).length;if(!count)return;
+ if(!confirm(`${count}개 공예품의 판매가를 모든 방문자에게 적용할까요?`))return;
+ busy=true;updateControls();
+ try{const {data:auth,error:authError}=await db.auth.getUser();if(authError||!auth?.user)throw Error('관리자 로그인이 필요합니다.');
+ const {data:updated,error}=await db.rpc('update_pos_craft_prices',{changes});if(error)throw error;
+ draft={};await reload();if(!connected)throw Error('저장 후 시세를 다시 확인하지 못했습니다. 새로고침하여 확인하세요.');
+ tell(`${updated??count}개 공예품의 가격을 서버에 저장했습니다. 다른 방문자에게도 최신 시세가 표시됩니다.`,'ok');
+ }catch(e){tell('저장 확인 실패: '+String(e?.message||e)+' · 서버에 적용됐는지 새로고침해 확인해 주세요.','err');}
+ finally{busy=false;listRender();}}
+$('marketList').addEventListener('input',e=>{const n=e.target.dataset?.item;if(!n||!isAdmin||!data[n])return;draft[n]=e.target.value;updateControls();});
+$('marketSearch').addEventListener('input',listRender);
+$('marketFilters').addEventListener('click',e=>{const b=e.target.closest('[data-kind]');if(!b)return;filter=b.dataset.kind;renderFilters();listRender();});
+$('savePrices').addEventListener('click',save);
+$('resetEdit').addEventListener('click',()=>{draft={};listRender();tell('입력한 변경 사항을 취소했습니다.');});
+$('loginRequest').addEventListener('click',()=>window.parent.postMessage({type:'dding-pos-login-request'},location.origin));
+window.addEventListener('message',e=>{if(e.source!==window.parent||e.origin!==location.origin||e.data?.type!=='dding-auth-updated')return;void checkAdmin();});
+if(hasConfig&&window.supabase?.createClient){try{db=window.supabase.createClient(url,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+ db.auth.onAuthStateChange(()=>setTimeout(()=>void checkAdmin(),0));
+}catch(e){lastError=String(e?.message||e);}}
+renderFilters();uiState();listRender();showConnection();if(db){void reload();void checkAdmin();
+ setInterval(()=>{if(!document.hidden)void reload();},20000);
+ window.addEventListener('focus',()=>void reload());document.addEventListener('visibilitychange',()=>{if(!document.hidden)void reload();});
+}
+if(window.ResizeObserver)new ResizeObserver(()=>requestAnimationFrame(size)).observe($('marketApp'));
+window.addEventListener('load',size);
+})();</script>
+</body></html>

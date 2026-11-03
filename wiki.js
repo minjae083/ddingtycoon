@@ -29,6 +29,7 @@
     flower:'<path d="M12 21v-8m0 4c-2-3-5-3-7-2 1 3 4 5 7 5m0-6c1-3 4-4 7-3-.3 3-3 5-7 6"/><circle cx="12" cy="8" r="2"/><path d="M12 6C7 0 5 7 10 8c-4-5-9 1-4 3 0 5 6 5 6 1 2 5 9 1 6-3 5-2 1-8-4-3"/>',
     coffee:'<path d="M4 7h13v8a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V7z"/><path d="M17 9h2a3 3 0 0 1 0 6h-2M3 22h15"/>',
     flame:'<path d="M12 22c4.5 0 7.5-3.1 7.5-7.4 0-3.8-2.1-6.2-5.2-9.6.3 4.5-2.2 5.4-2.4 6.5C10.3 8.2 9 5.2 9.4 2 5.1 6.6 4 10.7 4 14.6 4 18.9 7.3 22 12 22Z"/><path d="M12 21c-1.9 0-3.2-1.4-3.2-3.2 0-1.6 1.1-2.9 2.8-4.5.1 2 1.1 2.8 2.3 3.6 1 2.1.1 4.1-1.9 4.1Z"/>',
+    waves:'<path d="M2 7c2 0 2 2 5 2s3-2 5-2 3 2 5 2 3-2 5-2M2 13c2 0 2 2 5 2s3-2 5-2 3 2 5 2 3-2 5-2M2 19c2 0 2 2 5 2s3-2 5-2 3 2 5 2 3-2 5-2"/>',
     arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>',
     book:'<path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1zM12 6v14"/>',
     info:'<circle cx="12" cy="12" r="9"/><path d="M12 10v6m0-9v.5"/>',
@@ -70,13 +71,17 @@
   function crumb(list) {
     return `<nav class="breadcrumb" aria-label="탐색 경로"><a href="#/">홈</a>${list.map(([label,url])=>`<i>/</i>${url?`<a href="${esc(url)}">${esc(label)}</a>`:`<strong>${esc(label)}</strong>`}`).join('')}</nav>`;
   }
-  function field(name, qty) {
-    const hasRecipe=getRecipes(name).length>0;
-    return `<button type="button" class="ingredient-chip" data-ingredient="${esc(name)}" data-quantity="${esc(qty)}" aria-label="${esc(name)}, ${qty}개. 제작 재료를 확인하려면 선택하세요">${art(name,'small')}<span class="chip-name">${esc(name)}</span>${hasRecipe?'<span class="has-recipe-dot" title="제작법 있음"></span>':''}<span class="chip-qty">×${fn(qty)}</span></button>`;
+  function field(name, qty, oceanMode=false) {
+    const methods=getRecipes(name);
+    const hasRecipe=methods.length>0;
+    const oceanTarget=oceanMode?methods.find(x=>x.recipe?.oceanId&&x.recipe?.oceanFacility):null;
+    const destination=oceanTarget?` data-ocean-target="${esc(oceanTarget.recipe.oceanFacility)}" data-ocean-recipe="${esc(oceanTarget.recipe.oceanId)}"`:'';
+    return `<button type="button" class="ingredient-chip" data-ingredient="${esc(name)}" data-quantity="${esc(qty)}"${destination} aria-label="${esc(name)}, ${qty}개. 제작 재료를 확인하려면 선택하세요">${art(name,'small')}<span class="chip-name">${esc(name)}</span>${hasRecipe?'<span class="has-recipe-dot" title="제작법 있음"></span>':''}<span class="chip-qty">×${fn(qty)}</span></button>`;
   }
   function recipeCard(item, fac='') {
+    const oceanMode=['alchemy','precision-alchemy','marine'].includes(fac);
     const price=item.price!=null?`<span class="recipe-sub">판매가 ${fn(item.price)} G · 1개 기준 ${priceBadge(item.name)}</span>`:item.method?`<span class="recipe-sub">${item.method==='bulk'?'금 가루 · 대량 제작':'식용 금 가루 · 개별 제작'}</span>`:`<span class="recipe-sub">${item.note||'제작 재료'}</span>`;
-    return `<article class="recipe-card" data-method="${esc(item.method||'')}" data-item="${esc(item.name)}">
+    return `<article class="recipe-card ${oceanMode?'ocean-recipe-card':''}" data-method="${esc(item.method||'')}" data-item="${esc(item.name)}" ${item.oceanId?`data-ocean-id="${esc(item.oceanId)}"`:''}>
       <div class="recipe-top">
         <a class="item-button" href="${itemUrl(item.name)}" aria-label="${esc(item.name)} 상세 페이지">${item.variantImage?`<span class="item-art large"><img loading="lazy" src="${esc(item.variantImage)}?v=wiki6" alt=""></span>`:art(item.name,'large')}</a>
         <div class="recipe-intro">
@@ -85,7 +90,8 @@
           ${price}
         </div>
         <span class="yield">완성 ×${fn(item.output||1)}</span>
-      </div>${item.ingredients.length?`<div class="ingredients-grid">${item.ingredients.map(({name,qty})=>field(name,qty)).join('')}</div>`:`<div class="recipe-unregistered">제작법 정보가 아직 등록되지 않았습니다. 아이콘은 제공된 이미지로 표시합니다.</div>`}
+      </div>${item.ingredients.length?`<div class="ingredients-grid">${item.ingredients.map(({name,qty})=>field(name,qty,oceanMode)).join('')}</div>`:`<div class="recipe-unregistered">제작법 정보가 아직 등록되지 않았습니다. 아이콘은 제공된 이미지로 표시합니다.</div>`}
+      ${oceanMode?`<div class="ocean-recipe-actions"><span>제작 목록 ${fn(oceanQty(item.oceanId))}회</span><button type="button" data-ocean-add="${esc(item.oceanId)}">+ 제작 목록에 담기</button></div>`:''}
     </article>`;
   }
   function groupSection(group, facilityId){
@@ -282,7 +288,8 @@
     const view=parts[0];let id=parts.slice(1).join('/');
     try{id=decodeURIComponent(id)}catch(e){}
     const recipe=new URLSearchParams(query).get('recipe');
-    return {view,id,recipe};
+    const focus=new URLSearchParams(query).get('focus');
+    return {view,id,recipe,focus};
   }
   let mapScale=1;
   function renderMap(){
@@ -338,18 +345,204 @@
       try{frame.contentWindow.postMessage({type:'dding-ocean-measure'},location.origin);}catch(_){}
     });
   }
-  function renderSidebar(route){
-    const categoryLinks=D.categories.map(c=>`<a class="nav-button ${route.id===c.id || (route.view==='facility'&&D.facilities[route.id]?.category===c.id) || (route.view==='compare'&&c.id==='compare')?'active':''}" href="${c.id==='compare'?'#/compare':catUrl(c.id)}"><span class="nav-symbol">${iconSvg(c.icon)}</span>${esc(c.title)}</a>`);
-    const compareIndex=D.categories.findIndex(c=>c.id==='compare');
-    categoryLinks.splice(compareIndex<0?categoryLinks.length:compareIndex,0,`<a class="nav-button ${route.view==='upgrade'?'active':''}" href="#/upgrade"><span class="nav-symbol">${iconSvg('upgrade')}</span>도구 강화 확률</a>`, `<a class="nav-button ${route.view==='skills'?'active':''}" href="#/skills"><span class="nav-symbol">${iconSvg('skills')}</span>전문가 스킬</a>`);
-    const priceNav=`<a class="nav-button ${route.view==='prices'?'active':''}" href="#/prices"><span class="nav-symbol">${iconSvg('chart')}</span>요리 시세</a>`;
-    const floristNav=`<a class="nav-button ${route.view==='florist'?'active':''}" href="#/florist"><span class="nav-symbol">${iconSvg('flower')}</span>플로리스트</a>`;
-    const oceanNav=`<a class="nav-button ${route.view==='ocean'?'active':''}" href="#/ocean"><span class="nav-symbol">🌊</span>배 낚시 해역</a>`;
-    const baristaNav=`<a class="nav-button ${route.view==='barista'?'active':''}" href="#/barista"><span class="nav-symbol">${iconSvg('coffee')}</span>바리스타 계산기</a>`;
-    const pos=categoryLinks.findIndex(s=>s.includes('효율 비교'));
-    categoryLinks.splice(pos<0?categoryLinks.length:pos,0,priceNav,baristaNav,floristNav,oceanNav);
-    nav.innerHTML=`<a class="nav-button ${route.view==='home'?'active':''}" href="#/"><span class="nav-symbol">${iconSvg('home')}</span>위키 홈</a>`+categoryLinks.join('');
+  // v27: Ocean crafting section. Recipe data will be added only when provided.
+  // v28 · Ocean crafting and shop pages. Recipe and pricing data live in ocean-recipes-data.js.
+  const oceanCraftingFacilities=[
+    {id:'alchemy',name:'연금 제작 시설'},
+    {id:'precision-alchemy',name:'정밀 연금 제작 시설'},
+    {id:'marine',name:'해양 제작 시설'},
+    {id:'sharky',name:'연금품 판매 · 샤키'},
+    {id:'pos',name:'공예품 상점 · 포스'}
+  ];
+  // v33: Native ocean recipe screens reuse the exact same ingredient popup and card system
+  // as 강화 연구소 / 강화 제작 시설. Only shop pages retain the existing sales iframe.
+  const oceanIds=new Set(['alchemy','precision-alchemy','marine']);
+  const oceanData=window.DDING_OCEAN_RECIPES;
+  const oceanRecipeIndex=new Map((oceanData?.recipes||[]).map(r=>[r.id,r]));
+  const oceanPlanKey='dding-ocean-craft-plan-v28';
+  let oceanPlan=(()=>{try{const obj=JSON.parse(sessionStorage.getItem(oceanPlanKey)||'{}');return obj&&typeof obj==='object'&&!Array.isArray(obj)?obj:{}}catch(_){return {}}})();
+  let oceanSearch='',oceanGroup='all';
+  const oceanQty=id=>Math.min(10000,Math.max(0,Math.trunc(Number(oceanPlan[id])||0)));
+  function updateOceanQty(id,delta){
+    if(!oceanRecipeIndex.has(id))return;
+    const next=Math.max(0,Math.min(10000,oceanQty(id)+delta));
+    if(next)oceanPlan[id]=next;else delete oceanPlan[id];
+    try{sessionStorage.setItem(oceanPlanKey,JSON.stringify(oceanPlan))}catch(_){ }
+    drawOceanPlan();
+    app.querySelectorAll('[data-ocean-id]').forEach(el=>{
+      if(el.dataset.oceanId===id){const label=el.querySelector('.ocean-recipe-actions span');if(label)label.textContent=`제작 목록 ${fn(next)}회`;}
+    });
   }
+  function oceanTabs(id){
+    return `<nav class="ocean-native-tabs" aria-label="해양 시설 전환">${oceanCraftingFacilities.map(f=>
+      `<a href="#/ocean-crafting/${esc(f.id)}" ${f.id===id?'class="active" aria-current="page"':''}>${esc(f.name)}</a>`).join('')}</nav>`;
+  }
+  function oceanFilteredGroups(id){
+    const fac=D.facilities[id];
+    return fac.groups.map(g=>({...g,recipes:g.recipes.filter(r=>
+      (oceanGroup==='all'||g.title===oceanGroup)&&(!oceanSearch||[r.name,g.title,...r.ingredients.map(i=>i.name)].join(' ').toLowerCase().includes(oceanSearch))
+    )})).filter(g=>g.recipes.length);
+  }
+  function drawOceanCatalog(id){
+    const wrap=document.getElementById('oceanCatalog');if(!wrap)return;
+    const groups=oceanFilteredGroups(id);
+    wrap.innerHTML=groups.length?groups.map(g=>`<section class="ocean-catalog-group">
+      <div class="ocean-group-title"><h2>${esc(g.title)}</h2><small>${g.recipes.length}개 제작법</small></div>
+      <div class="recipe-grid">${g.recipes.map(r=>recipeCard(r,id)).join('')}</div>
+    </section>`).join(''):'<div class="blank-state">검색 조건에 맞는 제작법이 없습니다.</div>';
+    const c=document.getElementById('oceanResults');if(c)c.textContent=`${groups.reduce((n,g)=>n+g.recipes.length,0)}개 제작법 표시`;
+    app.querySelectorAll('[data-ocean-filter]').forEach(btn=>{const active=btn.dataset.oceanFilter===oceanGroup;btn.classList.toggle('selected',active);btn.setAttribute('aria-pressed',String(active))});
+  }
+  function oceanMaterials(){
+    const selected=(oceanData?.recipes||[]).map(r=>({r,n:oceanQty(r.id)})).filter(x=>x.n);
+    const total=selected.reduce((n,x)=>n+x.n*x.r.output,0);
+    const ingredients=new Map();
+    for(const {r,n} of selected)for(const i of r.ingredients)ingredients.set(i.name,(ingredients.get(i.name)||0)+i.quantity*n);
+    return {selected,total,ingredients};
+  }
+  function drawOceanPlan(){
+    const out=document.getElementById('oceanPlanContent');if(!out)return;
+    const {selected,total,ingredients}=oceanMaterials();
+    out.innerHTML=selected.length?`<div class="ocean-plan-items">${selected.map(({r,n})=>`<div class="ocean-plan-row">
+      ${art(r.name+(r.stars?' '+'★'.repeat(r.stars):''),'tiny')}<div><strong>${esc(r.name)} ${'★'.repeat(r.stars)}</strong><small>제작 ${fn(n)}회 · 결과 ${fn(r.output*n)}개</small></div>
+      <div class="ocean-plan-qty"><button type="button" data-ocean-qty="${esc(r.id)}" data-delta="-1" aria-label="${esc(r.name)} 1회 빼기">−</button><b>${fn(n)}</b><button type="button" data-ocean-qty="${esc(r.id)}" data-delta="1" aria-label="${esc(r.name)} 1회 추가">+</button></div>
+    </div>`).join('')}</div><div class="ocean-plan-total"><span>완성품 합계</span><strong>${fn(total)}개</strong></div><h3>필요한 재료 합계</h3>
+    ${[...ingredients].sort((a,b)=>a[0].localeCompare(b[0],'ko')).map(([name,n])=>`<div class="ocean-plan-material">${art(name,'tiny')}<span>${esc(name)}</span><strong>×${fn(n)}</strong></div>`).join('')}
+    <button type="button" class="ocean-copy" data-ocean-copy>제작 내역 복사</button>`:'<div class="ocean-plan-empty">제작 목록이 비어 있어요. 카드의 담기 버튼을 눌러보세요.</div>';
+  }
+  function oceanCopyText(){
+    const {selected,total,ingredients}=oceanMaterials();
+    return ['[해양 제작 계획]',...selected.map(({r,n})=>`${r.name} ${'★'.repeat(r.stars)} ×${n}회 (완성 ${r.output*n}개)`),`완성품 총 ${total}개`,'[필요한 재료]',...[...ingredients].map(([name,n])=>`${name} ×${n}`)].join('\n');
+  }
+  async function copyOceanPlan(){
+    const text=oceanCopyText();let copied=false;
+    try{await navigator.clipboard.writeText(text);copied=true}catch(_){
+      const box=document.createElement('textarea');box.value=text;box.style.position='fixed';box.style.left='-9999px';document.body.appendChild(box);box.select();try{copied=document.execCommand('copy')}catch(_){ }box.remove();
+    }
+    const btn=app.querySelector('[data-ocean-copy]');if(btn)btn.textContent=copied?'복사 완료':'복사 실패';
+  }
+  function renderOceanCrafting(id,focus){
+    const facility=oceanCraftingFacilities.find(item=>item.id===id);
+    if(!facility){renderNotFound();return;}
+    document.title=`${facility.name} | 띵타이쿤 WIKI`;
+    // 포스 공예품: 요리 시세와 동일한 공용 가격표 및 관리자 전용 저장 화면.
+    if(id==='pos'){
+      app.innerHTML=crumb([['해양',null],[facility.name,null]])+
+        `<div class="page-head"><span class="eyebrow">MARKET PRICES</span><h1>공예품 상점 · 포스</h1><p>공예품 6종의 현재 판매가, 이전 가격과의 차이 및 등급을 확인할 수 있습니다.</p></div>`+
+        oceanTabs(id)+
+        `<section class="experts-frame-shell price-frame-shell"><iframe id="posPricesFrame" title="포스 공예품 판매가 확인 및 관리자 수정" src="pos-prices.html?v=wiki34-pos" loading="eager" scrolling="no"></iframe></section>`;
+      return;
+    }
+    // 샤키는 기존 판매 수량 계산기를 유지합니다.
+    if(!oceanIds.has(id)){
+      app.innerHTML=crumb([['해양',null],[facility.name,null]])+
+        `<section class="ocean-crafting-frame-shell"><iframe id="oceanCraftingFrame" title="${esc(facility.name)} 판매 계산" src="ocean-crafting.html?facility=${encodeURIComponent(id)}&v=wiki33-shops" loading="eager" scrolling="no" allow="clipboard-write"></iframe></section>`;
+      const frame=document.getElementById('oceanCraftingFrame');
+      if(frame)frame.addEventListener('load',()=>{try{frame.contentWindow.postMessage({type:'dding-ocean-crafting-measure'},location.origin)}catch(_){}});
+      return;
+    }
+    // Visiting another facility resets filters, but the shared crafting list stays intact.
+    oceanSearch='';oceanGroup='all';
+    const fac=D.facilities[id];
+    app.innerHTML=crumb([['해양',null],[facility.name,null]])+`<div class="page-head ocean-native-title"><h1>${esc(fac.title)}</h1></div>`+
+      oceanTabs(id)+`<section class="ocean-native-layout"><main class="ocean-native-main">
+        <div class="ocean-tools"><input type="search" id="oceanSearch" placeholder="제작품이나 재료 이름 검색" aria-label="해양 제작품 검색" autocomplete="off">
+          <div class="ocean-filters">${['all',...fac.groups.map(g=>g.title)].map(g=>`<button type="button" data-ocean-filter="${esc(g)}" ${g==='all'?'class="selected"':''}>${g==='all'?'전체':esc(g)}</button>`).join('')}</div></div>
+        <div class="ocean-count" id="oceanResults" aria-live="polite"></div><div id="oceanCatalog"></div>
+      </main><aside class="ocean-native-plan"><div class="ocean-plan-head"><h2>제작 재료 합계</h2><button type="button" data-ocean-reset>전체 초기화</button></div><div id="oceanPlanContent" aria-live="polite"></div></aside></section>`;
+    drawOceanCatalog(id);drawOceanPlan();
+    if(focus){
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        const card=[...app.querySelectorAll('.ocean-recipe-card[data-ocean-id]')].find(x=>x.dataset.oceanId===focus);
+        if(!card)return;
+        card.classList.add('ocean-highlight');card.setAttribute('tabindex','-1');
+        card.scrollIntoView({behavior:'instant',block:'center'});card.focus({preventScroll:true});
+      }));
+    }
+  }
+  // v27: EXPLORE groups. Group state is saved per browser.
+
+  const sidebarGroupsKey='dding-wiki-sidebar-groups-v26';
+  const sidebarGroupsDefault={gather:true,mining:false,hunting:false,sea:false,other:false};
+  const sidebarGroupsState=(()=>{
+    try{
+      const saved=JSON.parse(localStorage.getItem(sidebarGroupsKey)||'null');
+      if(!saved || typeof saved!=='object')return {...sidebarGroupsDefault};
+      return Object.fromEntries(Object.keys(sidebarGroupsDefault).map(key=>[key,typeof saved[key]==='boolean'?saved[key]:sidebarGroupsDefault[key]]));
+    }catch(_){return {...sidebarGroupsDefault};}
+  })();
+  const sidebarStoreState=()=>{try{localStorage.setItem(sidebarGroupsKey,JSON.stringify(sidebarGroupsState))}catch(_){}};
+  let sidebarLastRoute=null;
+  const sidebarHasSavedState=(()=>{try{return localStorage.getItem(sidebarGroupsKey)!==null}catch(_){return false}})();
+  function renderSidebar(route){
+    const groupForCategory={kitchen:'gather',farm:'gather',lab:'mining',mining:'mining',soul:'hunting'};
+    const groupForView={prices:'gather',barista:'gather',florist:'gather',upgrade:'other',skills:'other',compare:'other',ocean:'other'};
+    const currentGroup=route.view==='ocean-crafting'?'sea'
+      :route.view==='category'?groupForCategory[route.id]
+      :route.view==='facility'?groupForCategory[D.facilities[route.id]?.category]
+      :groupForView[route.view];
+    const routeKey=`${route.view||''}:${route.id||''}`;
+    // When users navigate into a section from another page, reveal its selected link.
+    // Manually collapsing a section while viewing it remains possible.
+    if((sidebarLastRoute===null && !sidebarHasSavedState) || (sidebarLastRoute!==null && sidebarLastRoute!==routeKey)){
+      if(currentGroup && !sidebarGroupsState[currentGroup]){
+        sidebarGroupsState[currentGroup]=true;
+        sidebarStoreState();
+      }
+    }
+    sidebarLastRoute=routeKey;
+    const categoryLink=id=>{
+      const cat=D.categories.find(c=>c.id===id);
+      if(!cat)return '';
+      const active=(route.view==='category'&&route.id===id)
+        ||(route.view==='facility'&&D.facilities[route.id]?.category===id)
+        ||(route.view==='compare'&&id==='compare');
+      return `<a class="nav-button nav-subitem ${active?'active':''}" href="${id==='compare'?'#/compare':catUrl(id)}" ${active?'aria-current="page"':''}><span class="nav-symbol">${iconSvg(cat.icon)}</span>${esc(cat.title)}</a>`;
+    };
+    const pageLink=(view,name,icon)=>{
+      const active=route.view===view;
+      const symbol=icon==='ocean'?'🌊':iconSvg(icon);
+      return `<a class="nav-button nav-subitem ${active?'active':''}" href="#/${view}" ${active?'aria-current="page"':''}><span class="nav-symbol">${symbol}</span>${esc(name)}</a>`;
+    };
+    const oceanCraftingLink=facility=>{
+      const active=route.view==='ocean-crafting'&&route.id===facility.id;
+      return `<a class="nav-button nav-subitem ${active?'active':''}" href="#/ocean-crafting/${facility.id}" ${active?'aria-current="page"':''}><span class="nav-symbol">${iconSvg('book')}</span>${esc(facility.name)}</a>`;
+    };
+    const section=(key,title,icon,children)=>{
+      const open=!!sidebarGroupsState[key];
+      return `<section class="sidebar-group ${open?'is-open':''} ${currentGroup===key?'is-current':''}" data-nav-group="${key}">
+        <button type="button" class="sidebar-group-toggle" data-nav-toggle="${key}" aria-controls="nav-group-${key}" aria-expanded="${open}"><span class="nav-symbol">${iconSvg(icon)}</span><span class="sidebar-group-title">${title}</span><span class="sidebar-group-chevron" aria-hidden="true">⌄</span></button>
+        <div class="sidebar-group-items" id="nav-group-${key}" ${open?'':'hidden'}>${children}</div>
+      </section>`;
+    };
+    const gathered=[categoryLink('kitchen'),pageLink('prices','요리 시세','chart'),categoryLink('farm'),pageLink('barista','바리스타 계산기','coffee'),pageLink('florist','플로리스트','flower')].join('');
+    const mined=[categoryLink('lab'),categoryLink('mining')].join('');
+    const hunted=categoryLink('soul');
+    const seaItems=oceanCraftingFacilities.map(oceanCraftingLink).join('');
+    const knownCategories=new Set(['kitchen','farm','lab','mining','soul','sea']);
+    // Preserve all other existing navigation links rather than losing them.
+    const additionalCategories=D.categories.filter(c=>!knownCategories.has(c.id)).map(c=>categoryLink(c.id)).join('');
+    const miscellaneous=[pageLink('upgrade','도구 강화 확률','upgrade'),pageLink('skills','전문가 스킬','skills'),additionalCategories,pageLink('ocean','배 낚시 해역','ocean')].join('');
+    nav.innerHTML=`<a class="nav-button nav-home ${route.view==='home'?'active':''}" href="#/" ${route.view==='home'?'aria-current="page"':''}><span class="nav-symbol">${iconSvg('home')}</span>위키 홈</a>`+
+      section('gather','채집','sprout',gathered)+
+      section('mining','채광','pickaxe',mined)+
+      section('hunting','사냥','flame',hunted)+
+      section('sea','해양','waves',seaItems)+
+      section('other','기타','book',miscellaneous);
+  }
+  nav.addEventListener('click',event=>{
+    const toggle=event.target.closest('[data-nav-toggle]');
+    if(!toggle||!nav.contains(toggle))return;
+    const key=toggle.dataset.navToggle;
+    if(!Object.hasOwn(sidebarGroupsState,key))return;
+    sidebarGroupsState[key]=!sidebarGroupsState[key];
+    sidebarStoreState();
+    toggle.setAttribute('aria-expanded',String(sidebarGroupsState[key]));
+    const group=toggle.closest('.sidebar-group');
+    group?.classList.toggle('is-open',sidebarGroupsState[key]);
+    const panel=document.getElementById(`nav-group-${key}`);
+    if(panel)panel.hidden=!sidebarGroupsState[key];
+  });
   function render(){
     hideTooltip();closeSearch();
     const route=currentRoute();renderSidebar(route);
@@ -372,6 +565,7 @@
     else if(route.view==='barista')renderBarista();
     else if(route.view==='florist')renderFlorist();
     else if(route.view==='ocean')renderOcean();
+    else if(route.view==='ocean-crafting')renderOceanCrafting(route.id,route.focus);
     else if(route.view==='map')renderMap();
     else renderNotFound();
     // local navigation should start at the top; in-facility anchor scrolling handled separately
@@ -419,6 +613,18 @@
     if(!e.data||e.data.type!=='dding-account-state'||![iframe?.contentWindow,priceIframe?.contentWindow].includes(e.source))return;
     if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
     // 하위 제작시설 프레임의 인증 알림은 별도이며, 헤더 표시는 공용 인증 모듈이 관리합니다.
+  });
+  window.addEventListener('message',(e)=>{
+    const frame=document.getElementById('posPricesFrame');
+    if(!frame||e.source!==frame.contentWindow||!e.data)return;
+    if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
+    if(e.data.type==='dding-pos-market-size'){
+      const h=Number(e.data.height);
+      if(Number.isFinite(h)&&h>200&&h<120000)frame.style.height=Math.ceil(h)+'px';
+    }else if(e.data.type==='dding-pos-login-request'){
+      if(window.DDING_SITE_AUTH)window.DDING_SITE_AUTH.open('login');
+      else {focusLoginOnLoad=true;location.hash='#/skills';}
+    }
   });
   window.addEventListener('message',(e)=>{
     const iframe=document.getElementById('expertsFrame');
@@ -475,6 +681,21 @@
     const h=Number(e.data.height);
     if(Number.isFinite(h)&&h>200&&h<30000&&Math.abs(frame.getBoundingClientRect().height-h)>5)frame.style.height=Math.ceil(h)+'px';
   });
+  window.addEventListener('message',(e)=>{
+    const frame=document.getElementById('oceanCraftingFrame');
+    if(!frame || e.source!==frame.contentWindow || !e.data || e.data.type!=='dding-ocean-crafting-size')return;
+    if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
+    const h=Number(e.data.height);
+    if(Number.isFinite(h) && h>180 && h<90000 && Math.abs(frame.getBoundingClientRect().height-h)>5)frame.style.height=Math.ceil(h)+'px';
+  });
+  window.addEventListener('message',(e)=>{
+    const frame=document.getElementById('oceanCraftingFrame');
+    if(!frame || e.source!==frame.contentWindow || e.data?.type!=='dding-ocean-crafting-focus')return;
+    if(e.origin!==location.origin && !(location.protocol==='file:' && e.origin==='null'))return;
+    const offset=Number(e.data.offset);
+    if(!Number.isFinite(offset)||offset<0||offset>90000)return;
+    window.scrollTo({top:Math.max(0,window.scrollY+frame.getBoundingClientRect().top+offset-150),behavior:'instant'});
+  });
   window.addEventListener('dding-prices-updated',()=>{
     const route=currentRoute();
     if(['facility','item','compare'].includes(route.view))render();
@@ -490,11 +711,29 @@
   app.addEventListener('mouseout',e=>{const b=e.target.closest('[data-ingredient]');if(b && !b.contains(e.relatedTarget))hideTooltip();});
   app.addEventListener('focusin',e=>{const b=e.target.closest('[data-ingredient]');if(b)showTooltipFor(b);});
   app.addEventListener('focusout',e=>{const b=e.target.closest('[data-ingredient]');if(b)hideTooltip();});
+  app.addEventListener('input',e=>{if(e.target.id==='oceanSearch'){oceanSearch=e.target.value.toLowerCase().trim();drawOceanCatalog(currentRoute().id);}});
   app.addEventListener('click',e=>{
     const mapButton=e.target.closest('[data-map-zoom]');
     if(mapButton){changeMapZoom(mapButton.dataset.mapZoom);return;}
+    const oceanAdd=e.target.closest('[data-ocean-add]');
+    if(oceanAdd){updateOceanQty(oceanAdd.dataset.oceanAdd,1);return;}
+    const oceanAdjust=e.target.closest('[data-ocean-qty]');
+    if(oceanAdjust){updateOceanQty(oceanAdjust.dataset.oceanQty,Number(oceanAdjust.dataset.delta));return;}
+    if(e.target.closest('[data-ocean-reset]')){
+      oceanPlan={};try{sessionStorage.removeItem(oceanPlanKey)}catch(_){ }drawOceanPlan();
+      app.querySelectorAll('.ocean-recipe-actions span').forEach(el=>el.textContent='제작 목록 0회');return;
+    }
+    if(e.target.closest('[data-ocean-copy]')){copyOceanPlan();return;}
+    const oceanFilterButton=e.target.closest('[data-ocean-filter]');
+    if(oceanFilterButton){oceanGroup=oceanFilterButton.dataset.oceanFilter;drawOceanCatalog(currentRoute().id);return;}
     const ing=e.target.closest('[data-ingredient]');
-    if(ing){location.hash=itemUrl(ing.dataset.ingredient);return;}
+    if(ing){
+      if(ing.dataset.oceanTarget){
+        const destination=`#/ocean-crafting/${encodeURIComponent(ing.dataset.oceanTarget)}?focus=${encodeURIComponent(ing.dataset.oceanRecipe)}`;
+        if(location.hash===destination)render();else location.hash=destination;
+      }else location.hash=itemUrl(ing.dataset.ingredient);
+      return;
+    }
     const upgrade=e.target.closest('[data-select-upgrade]');
     if(upgrade){selectUpgradeStage(Number(upgrade.dataset.selectUpgrade));if(upgrade.classList.contains('upgrade-table-stage'))document.getElementById('upgradeStageDetail')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
     const golden=e.target.closest('[data-set-golden]');
