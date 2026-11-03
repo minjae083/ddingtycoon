@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>세이지 장비 표 | 띵타이쿤 WIKI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --fg: #25203a;
+    --sub: #6f6a86;
+    --muted: #a9a5bd;
+    --line: #ebe4fb;
+    --line-strong: #d6caf5;
+    --accent: #9a7df0;
+    --accent-ink: #7656d6;
+    --accent-soft: #ece4ff;
+    --accent-mid: #d8cbfa;
+    --bar: #d3c3fa;
+    --row-hover: #f7f3ff;
+    --font-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+    box-sizing: border-box;
+    color-scheme: light;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  @media not all {
+    :root:not([data-theme="light"]) {
+      --bg: #15121f; --surface: #1c1829; --fg: #ebe7f7; --sub: #a49fba; --muted: #6d6885;
+      --line: #292439; --line-strong: #3a3354; --accent: #a58bf0; --accent-ink: #c2b1f7;
+      --accent-soft: #261f3d; --accent-mid: #372c5c; --bar: #2d2450; --row-hover: #221d33;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="disabled-dark"] {
+    --bg: #15121f; --surface: #1c1829; --fg: #ebe7f7; --sub: #a49fba; --muted: #6d6885;
+    --line: #292439; --line-strong: #3a3354; --accent: #a58bf0; --accent-ink: #c2b1f7;
+    --accent-soft: #261f3d; --accent-mid: #372c5c; --bar: #2d2450; --row-hover: #221d33;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    padding-block: 32px 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+
+  /* Keep standalone view intact; the WIKI parent already provides a heading. */
+  html.embed-mode body { padding-block: 18px 20px; padding-inline: max(10px, env(safe-area-inset-left, 0px)); }
+  html.embed-mode .wrap > header { display: none; }
+  html.embed-mode .wrap { gap: 14px; }
+  /* Keep mobile headers readable: scroll the table horizontally instead of crushing columns. */
+  html.embed-mode table { min-width: max-content; }
+  html.embed-mode thead th { white-space: nowrap; min-width: 82px; }
+  html.embed-mode thead th:first-child { min-width: 64px; }
+  html.embed-mode .scroller { max-width: 100%; -webkit-overflow-scrolling: touch; }
+
+  header h1 { margin: 0; font-size: 32px; font-weight: 700; color: var(--accent-ink); letter-spacing: -0.02em; text-wrap: balance; }
+  header p { margin: 6px 0 0; color: var(--sub); font-size: 14px; }
+
+  .tabs {
+    display: inline-flex; gap: 4px; padding: 4px; align-self: flex-start; max-width: 100%;
+    background: var(--accent-mid); border-radius: 12px; overflow-x: auto;
+  }
+  .tab {
+    font: inherit; font-weight: 700; font-size: 16px; white-space: nowrap;
+    background: none; color: var(--sub); border: 0; border-radius: 9px;
+    padding: 8px 18px; cursor: pointer; transition: background .15s, color .15s;
+  }
+  .tab:hover { color: var(--accent-ink); }
+  .tab[aria-selected="true"] { background: var(--accent); color: #fff; box-shadow: none; }
+  .tab:focus-visible, .toggle input:focus-visible, tbody tr:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .summary { display: none; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .stat { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+  .stat .k { font-size: 13px; font-weight: 600; color: var(--sub); }
+  .stat .v { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 4px; }
+  .stat .v .arrow { color: var(--muted); font-weight: 400; margin: 0 6px; }
+  .stat .v .end { color: var(--accent-ink); }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; justify-content: space-between; font-size: 13px; color: var(--sub); }
+  .toggle { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; color: var(--fg); }
+  .toggle input { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
+
+  .scroller { overflow-x: auto; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; }
+  table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 0; font-variant-numeric: tabular-nums; }
+  th, td { padding: 14px 12px; font-size: 16px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+  thead th {
+    font-size: 13px; font-weight: 700; color: #fff; background: var(--accent);
+    border-bottom: 1px solid var(--line-strong); vertical-align: bottom; line-height: 1.35; white-space: normal;
+  }
+  thead th .sub { display: block; font-weight: 500; font-size: 11px; color: #fff; opacity: .85; }
+  th:first-child, td:first-child {
+    text-align: left; position: sticky; left: 0; z-index: 1; font-weight: 700;
+    background: var(--surface); border-right: 1px solid var(--line);
+  }
+  thead th:first-child { background: var(--accent); }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover td { background: var(--row-hover); }
+  tbody tr.tier-end td { border-bottom: 2px solid var(--accent); }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr.picked td { background: var(--accent-soft); }
+  tbody tr.picked td:first-child { color: var(--accent-ink); box-shadow: inset 3px 0 0 var(--accent); }
+
+  td { color: var(--sub); font-weight: 400; }
+  td.chg { color: var(--accent-ink); font-weight: 700; }
+  .nochg td:not(:first-child) { color: var(--fg); font-weight: 400; }
+  td.none { color: var(--line-strong); }
+  
+  
+
+  .note { color: var(--sub); font-size: 12px; margin: 0; }
+
+  @media (max-width: 480px) {
+    th, td { padding: 10px 12px; }
+    header h1 { font-size: 22px; }
+    .tab { padding: 8px 14px; }
+  }
+</style>
+</head>
+<body>
+<script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('embed-mode');</script>
+<div class="wrap">
+  <header>
+    <h1>세이지 도구 강화표</h1>
+    <p>곡괭이 · 괭이 · 낚싯대 · 대검 / 1강~15강</p>
+  </header>
+
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="summary" id="summary"></div>
+
+  <div class="controls">
+    <label class="toggle" for="chg"><input type="checkbox" id="chg" checked> 이전 단계에서 바뀐 값 강조</label>
+    <span>행을 누르면 해당 강화 단계가 표시됩니다</span>
+  </div>
+
+  <div class="scroller"><table id="tbl"></table></div>
+  <p class="note">굵은 글씨는 직전 강화 단계보다 값이 달라진 칸입니다. 속도 수치(초)는 낮을수록 빠릅니다. 5강, 10강 아래 선은 원본 표의 구분입니다.</p>
+</div>
+
+<script>
+(function () {
+  var TOOLS = {
+    pickaxe: {
+      name: "곡괭이",
+      cols: [
+        ["채광력", "", "n"], ["채광 속도", "", "s"], ["광물 드롭 수", "", "n"],
+        ["유물 획득 확률", "%", "p"], ["코비 소환 확률", "%", "p"],
+        ["광채 원석 채광 속도", "%", "p"], ["광채 원석 채광 확률", "%", "p"], ["채광 시 경험치", "", "n"]
+      ],
+      rows: [
+        [20,1.5,2,0,0,null,null,3],[25,1.5,3,1,1,null,null,3],[30,1.5,3,1,1,null,null,10],
+        [40,1.5,3,1,2,null,null,16],[50,1.5,4,2,2,null,null,33],[60,1.5,4,2,3,null,null,34],
+        [100,1.5,4,2,3,0,0,36],[110,1.5,5,3,4,10,0,50],[120,1.5,5,3,5,20,5,50],
+        [130,1.0,5,3,6,30,8,51],[140,1.0,6,5,7,40,11,51],[150,1.0,6,5,8,50,14,51],
+        [160,1.0,7,5,10,60,17,68],[170,1.0,7,5,13,70,20,81],[180,0.5,12,10,15,90,23,102]
+      ],
+      highlights: [0, 2, 7]
+    },
+    hoe: {
+      name: "괭이",
+      cols: [
+        ["채집력", "", "n"], ["채집 속도", "", "s"], ["씨앗 드롭 수", "", "n"],
+        ["두더지 등장 확률", "%", "p"], ["금 가루 획득 확률", "%", "p"], ["채집 시 경험치", "", "n"]
+      ],
+      rows: [
+        [22,0.7,1,0,1,1],[24,0.7,2,0,1,1],[30,0.7,2,0,2,2],[33,0.7,3,0,2,4],[35,0.7,3,0,3,8],
+        [50,0.7,4,0,3,9],[53,0.7,4,1,4,9],[57,0.7,5,1,5,13],[60,0.7,5,3,6,13],[70,0.5,6,3,7,13],
+        [73,0.5,7,4,8,13],[77,0.5,8,4,9,13],[80,0.5,9,8,10,17],[85,0.5,10,8,12,20],[100,0.3,14,10,15,34]
+      ],
+      highlights: [0, 2, 5]
+    },
+    rod: {
+      name: "낚싯대",
+      cols: [
+        ["입질 시간 감소율", "%", "p"], ["물고기 드롭 수", "", "n"], ["수중 어획력", "", "n"],
+        ["수중 어획 속도", "", "s"], ["조개 등장 확률", "%", "p"], ["미니게임 스킵 확률", "%", "p"],
+        ["어패류 드롭 수", "", "n"], ["낚시 시 경험치", "", "n"], ["수중 어획 시 경험치", "", "n"]
+      ],
+      rows: [
+        [6,1,17,1,1,10,2,5,2],[10,1,20,1,1,20,2,5,2],[14,1,22,1,2,20,3,5,6],[18,1,25,1,2,30,3,5,10],
+        [23,1,30,1,2,30,3,5,21],[27,1,35,1,3,40,4,5,22],[31,1,45,1,3,40,4,5,22],[35,1,50,1,3,50,4,5,32],
+        [39,1,57,1,5,50,5,5,32],[44,1,65,0.7,5,60,5,5,32],[49,1,78,0.7,7,60,5,5,32],[53,1,90,0.7,7,70,6,5,32],
+        [56,1,100,0.7,9,70,6,5,43],[58,1,110,0.7,9,80,7,5,51],[60,1,150,0.5,15,100,10,5,68]
+      ],
+      highlights: [0, 2, 5]
+    },
+    sword: {
+      name: "대검",
+      cols: [
+        ["공격력", "", "n"], ["공격 속도", "", "s"], ["전리품 드롭 수", "", "n"],
+        ["각인석 조각 획득 확률", "%", "p"], ["모래 획득 확률", "%", "p"], ["사냥 시 경험치", "", "n"]
+      ],
+      rows: [
+        [45,0.7,1,2,null,3],[50,0.7,2,5,null,3],[55,0.7,2,5,null,8],[60,0.7,2,7,null,13],[65,0.7,3,7,null,27],
+        [70,0.7,3,9,null,28],[75,0.7,3,9,null,29],[80,0.7,4,12,null,41],[85,0.7,4,12,3,41],[100,0.5,6,17,3,42],
+        [120,0.5,6,17,3,42],[150,0.5,7,22,4,42],[180,0.5,7,22,4,56],[220,0.5,8,27,5,66],[250,0.3,10,32,5,85]
+      ],
+      highlights: [0, 2, 3]
+    }
+  };
+  var ORDER = ["pickaxe", "hoe", "rod", "sword"];
+
+  var tabsEl = document.getElementById("tabs");
+  var sumEl = document.getElementById("summary");
+  var tbl = document.getElementById("tbl");
+  var chg = document.getElementById("chg");
+  var current = "pickaxe";
+  var picked = null;
+
+  function fmt(v, c) {
+    if (v === null) return "-";
+    var s = String(v);
+    if (c[2] === "s") s = Number(v).toFixed(1);
+    return s + (c[1] || "");
+  }
+
+  function buildTabs() {
+    tabsEl.innerHTML = "";
+    ORDER.forEach(function (key) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "tab";
+      b.id = "tab-" + key;
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-selected", key === current ? "true" : "false");
+      b.textContent = "세이지 " + TOOLS[key].name;
+      b.addEventListener("click", function () { select(key, true); });
+      tabsEl.appendChild(b);
+    });
+  }
+
+  function buildSummary(t) {
+    sumEl.innerHTML = "";
+    t.highlights.forEach(function (ci) {
+      var c = t.cols[ci];
+      var first = null, last = t.rows[t.rows.length - 1][ci];
+      for (var i = 0; i < t.rows.length; i++) { if (t.rows[i][ci] !== null) { first = t.rows[i][ci]; break; } }
+      var d = document.createElement("div");
+      d.className = "stat";
+      d.innerHTML = '<div class="k"></div><div class="v"><span class="s"></span><span class="arrow">→</span><span class="end"></span></div>';
+      d.querySelector(".k").textContent = c[0] + " (1강 → 15강)";
+      d.querySelector(".s").textContent = fmt(first, c);
+      d.querySelector(".end").textContent = fmt(last, c);
+      sumEl.appendChild(d);
+    });
+  }
+
+  function buildTable(t) {
+    var maxMain = 0;
+    t.rows.forEach(function (r) { if (r[0] > maxMain) maxMain = r[0]; });
+    var h = '<thead><tr><th scope="col">강화</th>';
+    t.cols.forEach(function (c) {
+      h += '<th scope="col">' + c[0] + (c[2] === "s" ? '<span class="sub">낮을수록 빠름</span>' : "") + "</th>";
+    });
+    h += "</tr></thead><tbody>";
+    t.rows.forEach(function (r, i) {
+      var lv = i + 1;
+      var cls = [];
+      if (lv === 5 || lv === 10) cls.push("tier-end");
+      if (picked === lv) cls.push("picked");
+      h += '<tr tabindex="0" data-lv="' + lv + '" class="' + cls.join(" ") + '"><td>' + lv + "강</td>";
+      r.forEach(function (v, ci) {
+        var c = [];
+        var changed = i === 0 || v !== t.rows[i - 1][ci];
+        if (changed) c.push("chg");
+        if (v === null) c.push("none");
+        var style = "";
+        if (ci === 0) { c.push("main"); style = ' style="--w:' + Math.round(v / maxMain * 100) + '%"'; }
+        h += '<td class="' + c.join(" ") + '"' + style + ">" + fmt(v, t.cols[ci]) + "</td>";
+      });
+      h += "</tr>";
+    });
+    h += "</tbody>";
+    tbl.innerHTML = h;
+    tbl.className = chg.checked ? "" : "nochg";
+  }
+
+  function render() {
+    var t = TOOLS[current];
+    Array.prototype.forEach.call(tabsEl.children, function (b) {
+      b.setAttribute("aria-selected", b.id === "tab-" + current ? "true" : "false");
+    });
+    buildSummary(t);
+    buildTable(t);
+  }
+
+  function select(key, writeHash) {
+    if (!TOOLS[key]) key = "pickaxe";
+    current = key;
+    picked = null;
+    render();
+    if (writeHash) { try { location.hash = key; } catch (e) {} }
+  }
+
+  function togglePick(tr) {
+    var lv = Number(tr.getAttribute("data-lv"));
+    picked = picked === lv ? null : lv;
+    Array.prototype.forEach.call(tbl.tBodies[0].rows, function (row) {
+      row.classList.toggle("picked", Number(row.getAttribute("data-lv")) === picked);
+    });
+  }
+
+  tbl.addEventListener("click", function (e) {
+    var tr = e.target.closest("tbody tr");
+    if (tr) togglePick(tr);
+  });
+  tbl.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    var tr = e.target.closest("tbody tr");
+    if (tr) { e.preventDefault(); togglePick(tr); }
+  });
+  chg.addEventListener("change", function () { tbl.className = chg.checked ? "" : "nochg"; });
+  window.addEventListener("hashchange", function () {
+    var k = location.hash.replace("#", "");
+    if (TOOLS[k] && k !== current) select(k, false);
+  });
+
+  var start = location.hash.replace("#", "");
+  if (TOOLS[start]) current = start;
+  buildTabs();
+  render();
+})();
+
+/* WIKI embed sizing. Standalone HTML still works without a parent. */
+(function(){
+  if(window.parent===window || new URLSearchParams(location.search).get('embed')!=='1')return;
+  var pending=false;
+  function reportHeight(){
+    pending=false;
+    var h=Math.max(document.body.scrollHeight,document.body.getBoundingClientRect().height);
+    if(Number.isFinite(h)&&h>100){
+      window.parent.postMessage({type:'dding-sage-equipment-size',height:Math.ceil(h+2)},location.protocol==='file:'?'*':location.origin);
+    }
+  }
+  function schedule(){if(pending)return;pending=true;requestAnimationFrame(reportHeight);}
+  window.addEventListener('load',schedule);
+  window.addEventListener('resize',schedule);
+  window.addEventListener('message',function(e){
+    if(e.source===window.parent&&e.data&&e.data.type==='dding-sage-equipment-measure')schedule();
+  });
+  if('ResizeObserver' in window)new ResizeObserver(schedule).observe(document.body);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(schedule);
+  schedule();
+})();
+</script>
+</body>
+</html>

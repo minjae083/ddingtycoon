@@ -308,3 +308,8 @@ body{background:#faf9ff!important;color:var(--text)}
 @media(max-width:1240px){.ocean-catalog-group>.recipe-grid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:980px){.ocean-native-layout{grid-template-columns:minmax(0,1fr)}.ocean-native-plan{position:static;max-height:none}.ocean-catalog-group>.recipe-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.ocean-catalog-group>.recipe-grid{grid-template-columns:minmax(0,1fr)}.ocean-recipe-card .ingredients-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ocean-native-title h1{font-size:24px}}
+
+/* v37: Other > Sage equipment table (iframe content isolated from existing wiki pages). */
+.sage-equipment-frame-shell{width:100%;min-width:0;overflow:hidden;background:#fff;border:1px solid #e5daf6;border-radius:17px;box-shadow:0 8px 28px rgba(86,64,135,.06)}
+.sage-equipment-frame-shell iframe{display:block;box-sizing:border-box;width:100%;height:1400px;min-height:540px;max-width:100%;border:0;background:#fff;overflow:hidden}
+@media(max-width:700px){.sage-equipment-frame-shell{border-radius:12px}}
