@@ -160,7 +160,8 @@ function render(){
  $('result').innerHTML=data.map((row,index)=>{
  const img='assets/dishes/'+encodeURIComponent(row.name.replaceAll(' ','_'))+'.png';
  const showSale=row.viewSale,showCost=row.viewCost,showProfit=row.viewProfit;
- return `<tr><td>${index+1}</td><td><div class="item"><img loading="lazy" alt="" src="${img}" onerror="this.style.display='none'"><div>${esc(row.name)}<div><small class="tag">${esc(row.rank)}</small></div></div></div></td><td>${row.count}개</td><td class="value">${fmt(showSale)} G</td><td>${fmt(showCost)} G</td><td class="value ${showProfit>=0?'net':'negative'}">${fmt(showProfit)} G</td></tr>`;
+ const dest='index.html#/facility/'+(kind==='regular'?'cooking':'golden')+'?recipe='+encodeURIComponent(row.name);
+ return `<tr><td>${index+1}</td><td><a class="recipe-deeplink" href="${esc(dest)}" target="_top" title="소담 주방의 ${esc(row.name)} 제작법으로 이동"><div class="item"><img loading="lazy" alt="" src="${img}" onerror="this.style.display='none'"><div>${esc(row.name)}<div><small class="tag">${esc(row.rank)}</small></div></div><span class="recipe-go" aria-hidden="true">↗</span></div></a></td><td>${row.count}개</td><td class="value">${fmt(showSale)} G</td><td>${fmt(showCost)} G</td><td class="value ${showProfit>=0?'net':'negative'}">${fmt(showProfit)} G</td></tr>`;
  }).join('')||'<tr><td colspan="6" class="empty">검색 결과가 없습니다.</td></tr>';
  // Notify the existing iframe wrapper when the content height changes.
  notifyHeight();
