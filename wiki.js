@@ -250,10 +250,30 @@
 
   function renderPrices(){
     document.title='요리 시세 | 띵타이쿤 WIKI';
-    app.innerHTML=crumb([['요리 시세',null]])+`<div class="page-head"><span class="eyebrow">MARKET PRICES</span><h1>요리 시세</h1><p>일반 요리와 황금 요리의 최신 판매가 및 이전 가격과의 차이를 확인할 수 있습니다.</p></div><section class="experts-frame-shell price-frame-shell"><iframe id="pricesFrame" title="요리 판매가 확인 및 관리자 수정" src="prices.html?v=wiki15" loading="eager" scrolling="no"></iframe></section>`;
+    app.innerHTML=crumb([['요리 시세',null]])+`<div class="page-head"><span class="eyebrow">MARKET PRICES</span><h1>요리 시세</h1><p>일반 요리와 황금 요리의 최신 판매가 및 이전 가격과의 차이를 확인할 수 있습니다.</p></div><section class="experts-frame-shell price-frame-shell"><iframe id="pricesFrame" title="요리 판매가 확인 및 관리자 수정" src="prices.html?v=wiki40-expert-skill" loading="eager" scrolling="no"></iframe></section>`;
   }
   function renderCompare(){
-    app.innerHTML=crumb([['효율 비교',null]])+`<div class="page-head compare-page-head"><span class="eyebrow">1000 ST · PROFIT RANKING</span><h1>아이템 효율 비교</h1><p>요리 · 황금 요리 · 라이프스톤 · 주괴까지 같은 기준으로 확인해보세요. 1,000 ST 제작 가능 수량, 예상 순수익, 재료와 판매가 설정도 변경할 수 있어요.</p></div><div class="efficiency-embed"><iframe id="efficiencyFrame" title="띵타이쿤 전체 아이템 효율 순위 및 설정" src="efficiency.html?v=wiki13" loading="eager" scrolling="no"></iframe></div>`;
+    app.innerHTML=crumb([['효율 비교',null]])+`<div class="page-head compare-page-head"><span class="eyebrow">COOKING · PROFIT COMPARISON</span><h1>요리 효율 비교</h1><p>일반 요리와 황금요리의 판매가·기본 재료비 차감 순수익을 1개 / 50개 / 90개 기준으로 비교해 보세요.</p></div><div class="efficiency-embed"><iframe id="efficiencyFrame" title="띵타이쿤 전체 아이템 효율 순위 및 설정" src="efficiency.html?v=wiki41-iframe-size" loading="eager" scrolling="auto"></iframe></div>`;
+    // v41: same-origin fallback if the child postMessage arrives before the parent listener.
+    const ef=document.getElementById('efficiencyFrame');
+    if(ef){
+      const fit=()=>{
+        try{
+          const content=ef.contentDocument?.querySelector('main');
+          if(!content)return;
+          const height=Math.ceil(content.getBoundingClientRect().bottom+ef.contentWindow.scrollY+28);
+          if(Number.isFinite(height)&&height>320&&height<100000&&Math.abs(ef.getBoundingClientRect().height-height)>4)ef.style.height=height+'px';
+        }catch(_){}
+      };
+      ef.addEventListener('load',()=>{
+        fit();
+        try{
+          const inner=ef.contentDocument?.querySelector('main');
+          if(inner&&window.ResizeObserver)new ResizeObserver(fit).observe(inner);
+        }catch(_){}
+        requestAnimationFrame(fit);
+      });
+    }
     document.title='효율 비교 | 띵타이쿤 WIKI';
   }
   function compareRecipe(name){
@@ -467,7 +487,7 @@
     // 샤키는 기존 판매 수량 계산기를 유지합니다.
     if(!oceanIds.has(id)){
       app.innerHTML=crumb([['해양',null],[facility.name,null]])+
-        `<section class="ocean-crafting-frame-shell"><iframe id="oceanCraftingFrame" title="${esc(facility.name)} 판매 계산" src="ocean-crafting.html?facility=${encodeURIComponent(id)}&v=wiki39-ocean-images" loading="eager" scrolling="no" allow="clipboard-write"></iframe></section>`;
+        `<section class="ocean-crafting-frame-shell"><iframe id="oceanCraftingFrame" title="${esc(facility.name)} 판매 계산" src="ocean-crafting.html?facility=${encodeURIComponent(id)}&v=wiki41-sales-readable" loading="eager" scrolling="no" allow="clipboard-write"></iframe></section>`;
       const frame=document.getElementById('oceanCraftingFrame');
       if(frame)frame.addEventListener('load',()=>{try{frame.contentWindow.postMessage({type:'dding-ocean-crafting-measure'},location.origin)}catch(_){}});
       return;
