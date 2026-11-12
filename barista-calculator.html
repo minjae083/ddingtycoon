@@ -350,6 +350,10 @@ const ICON = {
   "milk": "assets/barista/milk.png",
   "mug": "assets/tools/머그컵.png",
   "glass": "assets/tools/유리컵.png",
+  "nether_quartz": "assets/tools/네더_석영.png",
+  "campfire": "assets/tools/모닥불.png",
+  "sand": "assets/tools/모래.png",
+  "milk_bucket": "assets/barista/milk.png",
   "hot_cube": "assets/barista/hot_cube.png",
   "cold_cube": "assets/barista/cold_cube.png",
   "black": "assets/barista/black.png",
@@ -389,7 +393,7 @@ const $ = s => document.querySelector(s);
 const nf = new Intl.NumberFormat('ko-KR');
 const gold = n => nf.format(n) + ' G';
 // v24: supplied local pixel sprites take precedence; no external image strips.
-const img = k => ICON[k] ? `<img src="${ICON[k]}?v=24" alt="" loading="lazy" decoding="async">` : '';
+const img = k => ICON[k] ? `<img src="${ICON[k]}?v=25" alt="" loading="lazy" decoding="async">` : '';
 const TIER_CAP = 6, BASE_MAX = 9999;
 const TIERS = ['base','rare','epic','legend','mythic'];
 const META = {
@@ -418,7 +422,7 @@ for (const t in MENU) MENU[t].forEach(([id,name,price,cup,powder,sp,spq]) => {
   COFFEE[id] = {tier:t,npc:META[t].npc,name,price,fixed:false,coffee:r.coffee,milk:r.milk,cube:r.cube,cup,powder,pq:r.powder,sp:sp||null,spq:spq||0};
 });
 const MATS = [
-  {title:'베이스 & 컵', items:[['coffee','커피 가루',1],['milk','스팀 우유',1],['mug','머그컵'],['glass','유리잔'],['hot_cube','뜨거운 큐브'],['cold_cube','차가운 큐브']]},
+  {title:'베이스 & 컵', items:[['coffee','커피 가루',1],['milk','스팀 우유',1],['mug','머그컵'],['glass','유리컵'],['hot_cube','뜨거운 큐브'],['cold_cube','차가운 큐브']]},
   {title:'분말', items:[['black','검정 분말'],['choco','초코 분말'],['white','순백 분말'],['snow','눈꽃 분말'],['char','숯 분말'],['mush','버섯 분말'],['stone','돌 분말'],['green','녹색 분말']]},
   {title:'전설 특수 재료', items:[['poppy','양귀비',1],['rod','피뢰침',1],['leaf','짙은 참나무 잎',1],['deepslate','심층암',1],['cookie','쿠키',1],['obsidian','흑요석',1]]},
   {title:'신화 특수 재료', items:[['grass','키 작은 잔디',1],['cherry','벚나무 원목',1],['diorite','섬록암',1],['door','철 문',1],['amethyst','자수정 블록',1],['carrot','황금 당근',1]]}
@@ -442,8 +446,20 @@ const MIXER = {
   stone:{name:'돌 분말', mats:[['stone_block',16]]},
   green:{name:'녹색 분말', mats:[['bamboo',16]]}
 };
+// Cups and steamed milk are not mixer recipes. Official crafting facility:
+// mug x3 = nether quartz 16 + campfire 1; glass x3 = sand 16 + campfire 1.
+const CRAFT = {
+  mug:  {name:'머그컵',   tier:'도구 제작 시설', mats:[['nether_quartz',16],['campfire',1]], output:3},
+  glass:{name:'유리컵',   tier:'도구 제작 시설', mats:[['sand',16],['campfire',1]], output:3},
+  milk: {name:'스팀 우유', tier:'우유 스티머 모듈', mats:[['milk_bucket',1]], output:1}
+};
 const MAT_NAMES = Object.fromEntries(MATS.flatMap(g=>g.items.map(([id,name])=>[id,name])));
-Object.assign(MAT_NAMES,{magma:'마그마 블록',ice:'얼음',ink_sac:'먹물 주머니',cocoa_beans:'코코아 콩',bone_meal:'뼛가루',sugar_cane:'사탕수수',charcoal:'숯',brown_mushroom:'갈색 버섯',stone_block:'돌',bamboo:'대나무'});
+Object.assign(MAT_NAMES,{
+  magma:'마그마 블록',ice:'얼음',ink_sac:'먹물 주머니',cocoa_beans:'코코아 콩',
+  bone_meal:'뼛가루',sugar_cane:'사탕수수',charcoal:'숯',brown_mushroom:'갈색 버섯',
+  stone_block:'돌',bamboo:'대나무',nether_quartz:'네더 석영',campfire:'모닥불',
+  sand:'모래',milk_bucket:'우유 양동이'
+});
 function coffeeRecipe(id){
   const c=COFFEE[id]; if(!c)return null;
   const mats=[];
@@ -455,12 +471,22 @@ function coffeeRecipe(id){
   if(c.sp)mats.push([c.sp,c.spq]);
   return {name:c.name,tier:c.fixed?'인스턴트 커피':META[c.tier].chip || META[c.tier].title,mats,bulk:c.fixed};
 }
-function craftRecipe(key){return MIXER[key]?{...MIXER[key],tier:'믹서기 제작법'}:coffeeRecipe(key);}
+function subRecipe(key){
+  if(MIXER[key]) return {...MIXER[key], tier:'믹서기 제작법', output:1};
+  if(CRAFT[key]) return CRAFT[key];
+  return null;
+}
+function craftRecipe(key){return subRecipe(key)||coffeeRecipe(key);}
+function subNote(key){
+  const r=subRecipe(key); if(!r) return '';
+  const parts=r.mats.map(([id,q])=>`${MAT_NAMES[id]||id} ×${q}`).join(', ');
+  return `<div class="tip-sub">${escHtml(parts)} → ${r.output||1}개</div>`;
+}
+function escHtml(s){return String(s).replace(/[&<>\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]||ch));}
 function innerTip(key){
   const r=craftRecipe(key);if(!r)return '';
-  const esc = s => String(s).replace(/[&<>\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]||ch));
-  const head = `<div class="tip-header">${img(key)}<div>${esc(r.name)}<div class="tip-tier">${esc(r.tier)}</div></div></div>`;
-  const lines=r.mats.map(([k,q])=>`<div class="tip-ingredient">${img(k)}<span>${esc(MAT_NAMES[k]||k)}${MIXER[k]?`<div class="tip-sub">${esc(MAT_NAMES[MIXER[k].mats[0][0]])} ×${MIXER[k].mats[0][1]} → 1개</div>`:''}</span><strong>×${q}</strong></div>`).join('');
+  const head = `<div class="tip-header">${img(key)}<div>${escHtml(r.name)}<div class="tip-tier">${escHtml(r.tier)}${r.output&&r.output!==1?` · ${r.output}개`:''}</div></div></div>`;
+  const lines=r.mats.map(([k,q])=>`<div class="tip-ingredient">${img(k)}<span>${escHtml(MAT_NAMES[k]||k)}${subNote(k)}</span><strong>×${q}</strong></div>`).join('');
   return head+lines+(r.bulk?'<div class="tip-sub">5개 묶음: 커피 가루 ×50</div>':'');
 }
 const recipeTooltip = document.getElementById('barista-recipe-tooltip');

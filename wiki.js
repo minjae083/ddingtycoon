@@ -376,7 +376,7 @@
   }
   function renderBarista(){
     document.title='바리스타 계산기 | 띵타이쿤 WIKI';
-    app.innerHTML=crumb([['바리스타 계산기',null]])+`<div class="page-head"><span class="eyebrow">SERENITY · BARISTA</span><h1>바리스타 계산기</h1><p>커피 종류와 잔 수, 프로 바리스타 및 커피값이 밥값 레벨을 설정하면 재료와 예상 판매 금액을 계산할 수 있어요.</p></div><section class="barista-frame-shell"><iframe id="baristaFrame" title="띵타이쿤 바리스타 커피 주문 계산기" src="barista-calculator.html?v=wiki19" loading="eager" scrolling="no" allow="clipboard-write"></iframe></section>`;
+    app.innerHTML=crumb([['바리스타 계산기',null]])+`<div class="page-head"><span class="eyebrow">SERENITY · BARISTA</span><h1>바리스타 계산기</h1><p>커피 종류와 잔 수, 프로 바리스타 및 커피값이 밥값 레벨을 설정하면 재료와 예상 판매 금액을 계산할 수 있어요.</p></div><section class="barista-frame-shell"><iframe id="baristaFrame" title="띵타이쿤 바리스타 커피 주문 계산기" src="barista-calculator.html?v=wiki20" loading="eager" scrolling="no" allow="clipboard-write"></iframe></section>`;
     const frame=document.getElementById('baristaFrame');
     if(frame)frame.addEventListener('load',()=>{
       try{frame.contentWindow.postMessage({type:'dding-barista-measure'},'*');}catch(_){}
