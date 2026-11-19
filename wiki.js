@@ -42,6 +42,11 @@
   const catUrl = cat => '#/category/' + encodeURIComponent(cat);
   const facilityUrl = fac => '#/facility/' + encodeURIComponent(fac);
   const imageOf = name => D.items[name]?.image || null;
+  const imageSrc = path => {
+    if (!path) return '';
+    const [file, query] = String(path).split('?');
+    return encodeURI(file) + (query ? '?' + query : '') + (String(path).includes('?') ? '' : '?v=wiki43');
+  };
   const getCategory = id => D.categories.find(c => c.id === id);
   const getRecipes = name => D.recipesByItem[name] || [];
   const compared = Object.entries(D.regular).concat(Object.entries(D.golden)).sort((a,b)=>a[0].localeCompare(b[0],'ko'));
@@ -57,7 +62,7 @@
   // Items without a supplied image use an explicit text fallback; never issue broken image requests.
   function art(name,size='medium') {
     const image=imageOf(name);
-    if (image) return `<span class="item-art ${size}" aria-hidden="true"><img loading="lazy" src="${esc(image)}?v=wiki6" alt=""></span>`;
+    if (image) return `<span class="item-art ${size}" aria-hidden="true"><img loading="lazy" src="${esc(imageSrc(image))}" alt=""></span>`;
     return `<span class="item-art placeholder ${size}" aria-hidden="true">${esc(name.slice(0,Math.min(3,name.length)))}</span>`;
   }
   function rankClass(rank='') {
@@ -83,7 +88,7 @@
     const price=item.price!=null?`<span class="recipe-sub">판매가 ${fn(item.price)} G · 1개 기준 ${priceBadge(item.name)}</span>`:item.method?`<span class="recipe-sub">${item.method==='bulk'?'금 가루 · 대량 제작':'식용 금 가루 · 개별 제작'}</span>`:`<span class="recipe-sub">${item.note||'제작 재료'}</span>`;
     return `<article class="recipe-card ${oceanMode?'ocean-recipe-card':''}" data-method="${esc(item.method||'')}" data-item="${esc(item.name)}" ${item.oceanId?`data-ocean-id="${esc(item.oceanId)}"`:''}>
       <div class="recipe-top">
-        <a class="item-button" href="${itemUrl(item.name)}" aria-label="${esc(item.name)} 상세 페이지">${item.variantImage?`<span class="item-art large"><img loading="lazy" src="${esc(item.variantImage)}?v=wiki6" alt=""></span>`:art(item.name,'large')}</a>
+        <a class="item-button" href="${itemUrl(item.name)}" aria-label="${esc(item.name)} 상세 페이지">${item.variantImage?`<span class="item-art large"><img loading="lazy" src="${esc(imageSrc(item.variantImage))}" alt=""></span>`:art(item.name,'large')}</a>
         <div class="recipe-intro">
           ${item.rank?`<span class="rank-tag ${rankClass(item.rank)}">${esc(item.rank)}</span>`:item.kind?`<span class="rank-tag">${esc(item.kind)}</span>`:''}
           <h3><a class="recipe-title-link" href="${itemUrl(item.name)}">${esc(item.name)}</a></h3>
@@ -253,7 +258,7 @@
     app.innerHTML=crumb([['요리 시세',null]])+`<div class="page-head"><span class="eyebrow">MARKET PRICES</span><h1>요리 시세</h1><p>일반 요리와 황금 요리의 최신 판매가 및 이전 가격과의 차이를 확인할 수 있습니다.</p></div><section class="experts-frame-shell price-frame-shell"><iframe id="pricesFrame" title="요리 판매가 확인 및 관리자 수정" src="prices.html?v=wiki40-expert-skill" loading="eager" scrolling="no"></iframe></section>`;
   }
   function renderCompare(){
-    app.innerHTML=crumb([['효율 비교',null]])+`<div class="page-head compare-page-head"><span class="eyebrow">COOKING · PROFIT COMPARISON</span><h1>요리 효율 비교</h1><p>일반 요리와 황금요리의 판매가·기본 재료비 차감 순수익을 1개 / 50개 / 90개 기준으로 비교해 보세요.</p></div><div class="efficiency-embed"><iframe id="efficiencyFrame" title="띵타이쿤 전체 아이템 효율 순위 및 설정" src="efficiency.html?v=wiki42-recipe-link" loading="eager" scrolling="auto"></iframe></div>`;
+    app.innerHTML=crumb([['효율 비교',null]])+`<div class="page-head compare-page-head"><span class="eyebrow">COOKING · PROFIT COMPARISON</span><h1>요리 효율 비교</h1><p>일반 요리와 황금요리의 판매가·기본 재료비 차감 순수익을 1개 / 50개 / 90개 기준으로 비교해 보세요.</p></div><div class="efficiency-embed"><iframe id="efficiencyFrame" title="띵타이쿤 전체 아이템 효율 순위 및 설정" src="efficiency.html?v=wiki43-onion-soup" loading="eager" scrolling="auto"></iframe></div>`;
     // v41: same-origin fallback if the child postMessage arrives before the parent listener.
     const ef=document.getElementById('efficiencyFrame');
     if(ef){

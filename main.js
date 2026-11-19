@@ -101,7 +101,7 @@ const REGULAR_COOKING = {
   '로스트 치킨 파이': { rank: '노멀', price: 1148, recipe: { '마늘 베이스': 2, '당근 묶음': 1, '버터 조각': 1, '익힌 닭고기': 1, '익힌 닭 다리살': 1 } },
   '스윗 치킨 햄버거': { rank: '레어', price: 1288, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '비트 묶음': 1, '달콤한 열매 묶음': 1, '익힌 닭 가슴살': 1, '익힌 닭 다리살': 1 } },
   '토마토 파인애플 피자': { rank: '레어', price: 1042, recipe: { '토마토 베이스': 2, '마늘 베이스': 1, '파인애플': 1, '치즈 조각': 1, '스테이크': 1, '익힌 소 등심': 1 } },
-  '양파 수프': { rank: '레어', price: 1405, recipe: { '양파 베이스': 1, '마늘 베이스': 1, '감자 묶음': 1, '코코넛': 1, '버터 조각': 1, '익힌 돼지 앞다리살': 1 } },
+  '양파 수프': { rank: '레어', price: 1405, recipe: { '양파 베이스': 2, '마늘 베이스': 1, '감자 묶음': 1, '코코넛': 1, '버터 조각': 1, '익힌 돼지 앞다리살': 1 } },
   '허브 삼겹살 찜': { rank: '레어', price: 760, recipe: { '마늘 베이스': 2, '양파 베이스': 1, '호박 묶음': 1, '감자 묶음': 1, '익힌 돼지고기': 1, '익힌 돼지 삼겹살': 1 } },
   '토마토 라자냐': { rank: '에픽', price: 1188, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '당근 묶음': 1, '호박 묶음': 1, '밀가루 반죽': 1, '익힌 양 다리살': 1 } },
   '딥 크림 빠네': { rank: '에픽', price: 1883, recipe: { '토마토 베이스': 1, '양파 베이스': 1, '마늘 베이스': 1, '수박 묶음': 1, '감자 묶음': 1, '치즈 조각': 1, '요리용 우유': 1 } },
@@ -239,10 +239,10 @@ const INGREDIENT_ICON_NAMES = new Set(['당근 묶음','감자 묶음','비트 �
 const ENHANCE_ICON_NAMES = new Set(['코룸 주괴','리프톤 주괴','세렌트 주괴','조약돌 뭉치','심층암 조약돌 뭉치','어빌리티 스톤','하급 라이프스톤','중급 라이프스톤','상급 라이프스톤']);
 function imagePathForName(name){
   const file = encodeURIComponent(name.replaceAll(' ','_'));
-  if (DISH_NAMES.has(name)) return `assets/dishes/${file}.png?v=wiki2`;
-  if (INGREDIENT_ICON_NAMES.has(name)) return `assets/ingredients/${file}.png?v=wiki2`;
-  if (ENHANCE_ICON_NAMES.has(name)) return `assets/enhance/${file}.png?v=wiki2`;
-  return `assets/raw/${file}.png?v=wiki2`;
+  if (DISH_NAMES.has(name)) return `assets/dishes/${file}.png?v=wiki43`;
+  if (INGREDIENT_ICON_NAMES.has(name)) return `assets/ingredients/${file}.png?v=wiki43`;
+  if (ENHANCE_ICON_NAMES.has(name)) return `assets/enhance/${file}.png?v=wiki43`;
+  return `assets/raw/${file}.png?v=wiki43`;
 }
 function chipIcon(name){
   const path = imagePathForName(name);
